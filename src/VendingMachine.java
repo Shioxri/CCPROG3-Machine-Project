@@ -9,4 +9,10 @@ public class VendingMachine {
         slotArrayList = new ArrayList<>(8);
     }
 
+    public ArrayList<Slot> getSlotArrayList() {
+        return slotArrayList;
+    }
+
+
+
 }
