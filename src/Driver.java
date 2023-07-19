@@ -122,7 +122,7 @@ public class Driver {
             System.out.println("╔═══════════════════════╗");
             System.out.println("║    GREETINGS! USER    ║");
             System.out.println("╚═══════════════════════╝");
-            //vendingMachine.displayAllItems();
+            vendingMachine.displayAllItems();
             System.out.println("========User Menu========");
             System.out.println("[1] Display Specific Item Information");
             System.out.println("[2] Buy Item");

@@ -4,15 +4,21 @@ public class VendingMachine {
 
     private ArrayList<Slot> slotArrayList;
     private VendingMachineInitializer initializer;
+    private DisplayManager displayer;
 
 
     public VendingMachine() {
         slotArrayList = new ArrayList<>(8);
         initializer = new VendingMachineInitializer();
+        displayer = new DisplayManager();
     }
 
     public void initializeSlotsAndItems() {
         initializer.initializeItems(this);
+    }
+
+    public void displayAllItems() {
+        displayer.displayAllItems(this);
     }
 
     public ArrayList<Slot> getSlotArrayList() {
