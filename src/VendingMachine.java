@@ -33,6 +33,10 @@ public class VendingMachine {
         displayer.displaySpecificItem(this, index);
     }
 
+    public void displayAvailableItems() {
+        displayer.displayAvailableItems(this);
+    }
+
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
     }
@@ -48,7 +52,6 @@ public class VendingMachine {
     public MoneyManager getMoneyManager() {
         return moneyManager;
     }
-
     public void setMoneyManager(MoneyManager moneyManager) {
         this.moneyManager = moneyManager;
     }

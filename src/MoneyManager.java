@@ -43,6 +43,37 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
         }
     }
 
+    public int getTotalTempUserMoney() {
+        int totalUserMoney = 0;
+
+        for (int denomination : tempMoneyFromUser) {
+            totalUserMoney += denomination;
+        }
+
+        return totalUserMoney;
+    }
+
+    public int getTotalStoredMoney() {
+        int totalStoredMoney = 0;
+
+        for (int denomination : storedMoney) {
+            totalStoredMoney += denomination;
+        }
+
+        return totalStoredMoney;
+    }
+
+    public int getTotalAdminMoney() {
+        int totalAdminMoney = 0;
+
+        for (int denomination : adminMoney) {
+            totalAdminMoney += denomination;
+        }
+
+        return totalAdminMoney;
+    }
+
+
     /**
      * Adds the admin money to the admin money list.
      * @param denomination The denomination of the admin money.

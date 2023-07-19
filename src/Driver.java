@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
@@ -142,6 +140,7 @@ public class Driver {
                 }
 
                 case 2: {
+                    insertMoney(scanner, vendingMachine);
                     break;
                 }
 
@@ -152,21 +151,103 @@ public class Driver {
                     System.out.println("Invalid choice. Please try again.");
             }
         } while (userMenuChoice != 3);
+
+
+    }
+
+    /**
+     * method for choosing what type of denomination to insert
+     * @param scanner for scanning user input
+     * @param vendingMachine the vending machine object to be used/tested
+     */
+    private static void insertMoney(Scanner scanner, VendingMachine vendingMachine) {
+        int quantity;
+        boolean isDone = false;
+
+        do {
+            System.out.println("[Insert Cash - Denomination]");
+            System.out.println("[1] 100");
+            System.out.println("[2] 50");
+            System.out.println("[3] 20");
+            System.out.println("[4] 10");
+            System.out.println("[5] 5");
+            System.out.println("[6] 1");
+            System.out.print("Enter your choice: ");
+            int cashDenomination = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character after reading the integer input
+
+            switch (cashDenomination) {
+                case 1:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(100, quantity);
+                    break;
+                case 2:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(50, quantity);
+                    break;
+                case 3:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(20, quantity);
+                    break;
+                case 4:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(10, quantity);
+                    break;
+                case 5:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(5, quantity);
+                    break;
+                case 6:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.getMoneyManager().addTempPaidMoney(1, quantity);
+                    break;
+                default:
+                    System.out.println("INVALID INPUT!");
+                    break;
+            }
+
+            boolean isValidInput = false;
+            do {
+                System.out.print("Do you want to continue inserting money? [Y]es or [N]o: ");
+                String choice = scanner.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    isValidInput = true;
+                } else if (choice.equalsIgnoreCase("N")) {
+                    System.out.println("Going to the buy item menu...");
+                    isValidInput = true;
+                    isDone = true;
+                    buyItemMenu(scanner, vendingMachine);
+                } else {
+                    System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                }
+            } while (!isValidInput);
+        } while (!isDone);
     }
 
 
 
+    public static void buyItemMenu(Scanner s, VendingMachine vendingMachine)
+    {
+        boolean isDone = false;
+        do {
 
+            vendingMachine.displayAvailableItems();
 
-
-
-
-
-
-
-
-
-
+        }while(!isDone);
+    }
 
 
 
