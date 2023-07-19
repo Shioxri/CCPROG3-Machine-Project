@@ -38,5 +38,14 @@ public class VendingMachineInitializer {
                 vendingMachine.getSlotArrayList().add(slot);
             }
         }
+        public void initializeMoney(MoneyManager m){
+            m.addStoredMoney(100, 5);
+            m.addStoredMoney(50, 10);
+            m.addStoredMoney(20, 20);
+            m.addStoredMoney(10, 50);
+            m.addStoredMoney(5, 70);
+            m.addStoredMoney(1, 100);
+
+        }
     }
 
