@@ -21,6 +21,10 @@ public class VendingMachine {
         displayer.displayAllItems(this);
     }
 
+    public void displaySpecificItem(int index) {
+        displayer.displaySpecificItem(this, index);
+    }
+
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
     }

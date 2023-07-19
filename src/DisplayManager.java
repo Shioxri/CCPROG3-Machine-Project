@@ -15,7 +15,7 @@ public class DisplayManager {
         }
 
         System.out.println("-----------------------------------------");
-        System.out.println("|   Item  |  Index | Stock |");
+        System.out.println("|  Index  |   Item  | Stock |");
         System.out.println("-----------------------------------------");
 
         for (int i = 0; i < slots.size(); i++) {
@@ -24,9 +24,37 @@ public class DisplayManager {
             int stock = slot.getItemStock();
 
             String itemName = slotType + " ".repeat(maxItemNameLength - slotType.length());
-            System.out.printf("| %-7s| %-6d| %-6d|\n", itemName, i + 1, stock);
+            String stockDisplay = stock > 0 ? String.valueOf(stock) : "[ X ]";
+
+            System.out.printf("| %-8d| %-8s| %-6s|\n", i + 1, itemName, stockDisplay);
         }
 
         System.out.println("-----------------------------------------");
     }
-}
+
+    public void displaySpecificItem(VendingMachine vendingMachine, int slotIndex) {
+        ArrayList<Slot> slots = vendingMachine.getSlotArrayList();
+
+        if (slotIndex >= 0 && slotIndex < slots.size()) {
+            Slot slot = slots.get(slotIndex);
+            String slotType = slot.getAssignedItemType();
+            ArrayList<Item> items = slot.getItemArrayList();
+
+            System.out.println("----------------------------------");
+            System.out.println("|  Index  |   Item  | Price | Calories | Stock |");
+            System.out.println("----------------------------------");
+
+            Item item = items.get(0); // Assuming there is only one item per slot
+            String itemName = item.getType();
+            int price = item.getPrice();
+            int calories = item.getCalorie();
+            int stock = slot.getItemStock();
+
+            String stockDisplay = stock > 0 ? String.valueOf(stock) : "[ X ]";
+            System.out.printf("| %-8d| %-8s| %-6d| %-8d| %-6s|\n", slotIndex + 1, itemName, price, calories, stockDisplay);
+            System.out.println("----------------------------------");
+        } else {
+            System.out.println("Invalid slot index.");
+        }
+    }
+    }

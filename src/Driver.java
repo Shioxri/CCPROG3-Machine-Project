@@ -137,7 +137,7 @@ public class Driver {
                     System.out.print("Input Slot Index of chosen item: ");
                     int chosenSlotIndex = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
-                    //vendingMachine.displaySpecificItem(chosenSlotIndex - 1);
+                    vendingMachine.displaySpecificItem(chosenSlotIndex - 1);
                     break;
                 }
 
