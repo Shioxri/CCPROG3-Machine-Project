@@ -51,6 +51,7 @@ public class Driver {
             switch (vendingMachineChoice) {
                 case 1:
                     VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
+                    vendingMachine.initializeSlotsAndItems();
                     isDone = createRegularVendMachineMenu(scanner, vendingMachine);
                     break;
                 case 2:

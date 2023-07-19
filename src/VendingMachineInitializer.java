@@ -28,7 +28,7 @@ public class VendingMachineInitializer {
 
             // Create slots and add items
             for (int i = 0; i < numSlots; i++) {
-                Slot slot = new Slot(itemTypes[i].getType());
+                Slot slot = new Slot(itemTypes[i].getType(), 10);
                 ArrayList<Item> itemArrayList = slot.getItemArrayList();
 
                 for (int j = 0; j < numItems; j++) {
