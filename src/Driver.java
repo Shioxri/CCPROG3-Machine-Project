@@ -130,6 +130,7 @@ public class Driver {
             userMenuChoice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
+
             switch (userMenuChoice) {
                 case 1: {
                     System.out.print("Input Slot Index of chosen item: ");
