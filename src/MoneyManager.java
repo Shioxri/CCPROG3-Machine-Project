@@ -144,7 +144,7 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
      * @param amount The amount for which change needs to be returned.
      * @return True if there is enough change, false otherwise.
      */
-    public boolean returnChange(int amount) {
+    public boolean canReturnChange(int amount) {
         ArrayList<Integer> change = new ArrayList<>();      // List to hold the denominations for change
         ArrayList<Integer> returnedMoney = new ArrayList<>();  // List to hold the denominations to be returned
 

@@ -66,11 +66,11 @@ public class DisplayManager {
         int itemPrice;
         for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
             itemPrice = vendingMachine.getSelectedItem(i).getPrice();
-            if (vendingMachine.getSlotArrayList().get(i).getItemStock() <= 0) {
-                System.out.println("[X] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " [ OUT OF STOCK ]");
+            if (vendingMachine.getSelectedSlot(i).getItemStock() <= 0) {
+                System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ OUT OF STOCK ]");
             } else {
                 if (itemPrice > totalTempUserMoney) {
-                    System.out.println("[X] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
+                    System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
                 }
                 else {
                     System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " ₱" + itemPrice);
