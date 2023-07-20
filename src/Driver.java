@@ -50,7 +50,8 @@ public class Driver {
             switch (vendingMachineChoice) {
                 case 1:
                     VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
-                    isDone = createRegularVendMachineMenu(scanner, vendingMachine);
+                    Maintenance maintenance = new Maintenance();
+                    isDone = createRegularVendMachineMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
                     System.out.println("Work in progress...");
@@ -71,7 +72,7 @@ public class Driver {
      * @param vendingMachine the vending machine object to be used/tested
      * @return boolean
      */
-    public static boolean createRegularVendMachineMenu(Scanner scanner, VendingMachine vendingMachine) {
+    public static boolean createRegularVendMachineMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int regularVMChoice;
         do {
             System.out.println("╔═══════════════════╗");
@@ -90,7 +91,7 @@ public class Driver {
                     break;
                 case 2:
                     if (checkPassword(scanner)) {
-                        createMaintenanceMenu(scanner, vendingMachine);
+                        createMaintenanceMenu(scanner, vendingMachine, maintenance);
                     } else {
                         continue;
                     }
@@ -275,7 +276,7 @@ public class Driver {
      * @param scanner        for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void createMaintenanceMenu(Scanner scanner, VendingMachine vendingMachine) {
+    public static void createMaintenanceMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
 
         int maintenanceMenuChoice;
 
@@ -358,6 +359,41 @@ public class Driver {
         } while (!isCorrect); // while password isn't correct
 
         return true; // return true if the password is correct or the user chooses to try again
+    }
+
+
+    private static void restockItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+        int indexChoice;
+        boolean isDone = false;
+        boolean isCorrect = false;
+        do {
+            for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedItem(i).getType()
+                        +" -- -- Stock: "+vendingMachine.getSelectedSlot(i).getItemStock());
+            }
+            System.out.print("Enter the index of the item to be restocked: ");
+            indexChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            maintenance.restockItem(vendingMachine, indexChoice-1);
+
+            do {
+                System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
+                String choice = scanner.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    isCorrect = true;
+                    continue;
+                } else if (choice.equalsIgnoreCase("N")) {
+                    System.out.println("Going back to maintenance menu...");
+                    isCorrect = true;
+                    isDone = true;
+                } else {
+                    System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                }
+            }while(!isCorrect);
+
+        } while (!isDone);
     }
 
 }
