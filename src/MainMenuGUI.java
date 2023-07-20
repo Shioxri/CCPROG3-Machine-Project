@@ -9,9 +9,23 @@ public class MainMenuGUI {
         JLabel titleLabel = new JLabel(); // declaration for the Title
         JPanel titlePanel = new JPanel(); // Declaration for the title Panel
         JPanel selectionPanel = new JPanel(); // declaration for the selection panel
+        JButton regularVMbutton = new JButton(); // declaration for regularVM button
+        JButton specialVMbutton = new JButton(); // declaration for specialVM button
+        JButton exitButton = new JButton(); // declaration for exit button
+
 
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png"); // image
         ImageIcon titleIcon = new ImageIcon("resized.jpg"); // title icon must be <= 400x100
+
+        regularVMbutton.setBounds(100,75,300,50);
+        regularVMbutton.setHorizontalAlignment(JButton.CENTER);
+
+        specialVMbutton.setBounds(100,175,300,50);
+        specialVMbutton.setHorizontalAlignment(JButton.CENTER);
+
+        exitButton.setBounds(100,275,300,50);
+        exitButton.setHorizontalAlignment(JButton.CENTER);
+
 
         titleLabel.setText("Vending Machine Main Menu");// adds label of text
         titleLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -38,7 +52,11 @@ public class MainMenuGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// makes pressing x stop the program
         frame.getContentPane().setBackground(new Color(36,37,38));// sets the background color
         frame.setLayout(null); // sets the frame layout to null
+
         titlePanel.add(titleLabel); // adds title label to title panel
+        selectionPanel.add(regularVMbutton);
+        selectionPanel.add(specialVMbutton);
+        selectionPanel.add(exitButton);
         frame.add(titlePanel); // adds title panel to main frame
         frame.add(selectionPanel);
     }
