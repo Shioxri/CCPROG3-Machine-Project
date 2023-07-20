@@ -50,7 +50,6 @@ public class Driver {
             switch (vendingMachineChoice) {
                 case 1:
                     VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
-                    vendingMachine.initializeSlotsAndItems();
                     isDone = createRegularVendMachineMenu(scanner, vendingMachine);
                     break;
                 case 2:
@@ -137,6 +136,7 @@ public class Driver {
                     int chosenSlotIndex = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
                     vendingMachine.displaySpecificItem(chosenSlotIndex - 1);
+
                     break;
                 }
 
@@ -182,37 +182,37 @@ public class Driver {
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(100, quantity);
+                    vendingMachine.addTempPaidMoney(100, quantity);
                     break;
                 case 2:
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(50, quantity);
+                    vendingMachine.addTempPaidMoney(50, quantity);
                     break;
                 case 3:
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(20, quantity);
+                    vendingMachine.addTempPaidMoney(20, quantity);
                     break;
                 case 4:
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(10, quantity);
+                    vendingMachine.addTempPaidMoney(10, quantity);
                     break;
                 case 5:
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(5, quantity);
+                    vendingMachine.addTempPaidMoney(5, quantity);
                     break;
                 case 6:
                     System.out.print("Enter quantity: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character after reading the integer input
-                    vendingMachine.getMoneyManager().addTempPaidMoney(1, quantity);
+                    vendingMachine.addTempPaidMoney(1, quantity);
                     break;
                 default:
                     System.out.println("INVALID INPUT!");
@@ -245,9 +245,8 @@ public class Driver {
         int choice;
         boolean isDone = false;
         do {
-
             vendingMachine.displayAvailableItems();
-            try{
+                System.out.print("Input Choice: ");
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character after reading the integer input
                 if(vendingMachine.checkInputValidity(choice))
@@ -265,11 +264,6 @@ public class Driver {
                     } while (choice != 0);
                     isDone=true;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine(); // Clear the input buffer
-            }
-
         }while(!isDone);
     }
 

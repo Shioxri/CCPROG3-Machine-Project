@@ -3,6 +3,11 @@ public class TransactionManager {
         int itemPrice;
         int totalUserMoney;
 
+        if (!isValidInteger(itemChoice)) {
+            System.out.println("Invalid input. Please enter a valid integer.");
+            return false;
+        }
+
         if (itemChoice == 0) { // If user cancels the transaction
             // Return user's money and clear user paid money
             vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
@@ -48,13 +53,29 @@ public class TransactionManager {
     public void confirmTransaction(VendingMachine vendingMachine, int itemChoice)
     {
         int totalUserMoney = vendingMachine.getUserBalance();
+
         System.out.println("[Transaction Successful]");
         System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice).getAssignedItemType());
         System.out.println("CHANGE: ₱" + (totalUserMoney - vendingMachine.getSelectedItem(itemChoice).getPrice()));
         vendingMachine.getMoneyManager().clearUserPaidMoney();
         //TODO: THIS
-        //vendingMachine.addItemToRecord(vendingMachine.dispenseSelectedItem(itemChoice - 1));
 
+        //vendingMachine.addItemToRecord(vendingMachine.dispenseSelectedItem(itemChoice - 1));
+        Item newItem = vendingMachine.dispenseSelectedItem(itemChoice);
+        System.out.println(newItem.getType()+" <- Dispensed");
+        int newSize = vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().size();
+        vendingMachine.getSelectedSlot(itemChoice).setItemStock(newSize);
+
+
+    }
+
+    private boolean isValidInteger(int input) {
+        try {
+            Integer.parseInt(String.valueOf(input));
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
