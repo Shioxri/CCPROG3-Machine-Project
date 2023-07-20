@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
@@ -239,12 +240,35 @@ public class Driver {
 
 
 
-    public static void buyItemMenu(Scanner s, VendingMachine vendingMachine)
+    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine)
     {
+        int choice;
         boolean isDone = false;
         do {
 
             vendingMachine.displayAvailableItems();
+            try{
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character after reading the integer input
+                if(vendingMachine.checkInputValidity(choice))
+                {
+                    vendingMachine.confirmTransaction(choice-1);
+                    do {
+                        try { // check if user input is valid
+                            System.out.print("Press [0] to go back: ");
+                            choice = scanner.nextInt();
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter a valid integer.");
+                            scanner.nextLine(); // Clear the input buffer
+                        }
+                    } while (choice != 0);
+                    isDone=true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine(); // Clear the input buffer
+            }
 
         }while(!isDone);
     }

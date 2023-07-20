@@ -59,21 +59,21 @@ public class DisplayManager {
     }
     public void displayAvailableItems(VendingMachine vendingMachine)
     {
-        int totalTempUserMoney = vendingMachine.getMoneyManager().getTotalTempUserMoney();
+        int totalTempUserMoney = vendingMachine.getUserBalance();
         System.out.println("[Select your Item]");
         System.out.println("Current Balance: " + totalTempUserMoney);
         System.out.println("Available Items (with respect to current balance): "); //Printing of available items
         int itemPrice;
         for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
-            itemPrice = vendingMachine.getSlotArrayList().get(i).getItemArrayList().get(0).getPrice();
-            if (vendingMachine.getSlotArrayList().get(i).getItemStock() <= 0) {
-                System.out.println("[X] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " [ OUT OF STOCK ]");
+            itemPrice = vendingMachine.getSelectedItem(i).getPrice();
+            if (vendingMachine.getSelectedSlot(i).getItemStock() <= 0) {
+                System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ OUT OF STOCK ]");
             } else {
                 if (itemPrice > totalTempUserMoney) {
-                    System.out.println("[X] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
+                    System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
                 }
                 else {
-                    System.out.println("[" + (i + 1) + "] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " ₱" + itemPrice);
+                    System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " ₱" + itemPrice);
                 }
             }
         }
