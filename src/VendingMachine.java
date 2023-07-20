@@ -6,6 +6,7 @@ public class VendingMachine {
     private VendingMachineInitializer initializer;
     private DisplayManager displayer;
     private MoneyManager moneyManager;
+    private TransactionManager transactionManager;
 
 
     public VendingMachine() {
@@ -16,24 +17,30 @@ public class VendingMachine {
     }
 
     public void initializeSlotsAndItems() {
-        initializer.initializeItems(this);
+        this.initializer.initializeItems(this);
     }
     public void initializeMoney() {
-        initializer.initializeMoney(this.moneyManager);
+        this.initializer.initializeMoney(this.moneyManager);
     }
 
     public void displayAllItems() {
-        displayer.displayAllItems(this);
+        this.displayer.displayAllItems(this);
     }
 
     public void displaySpecificItem(int index) {
-        displayer.displaySpecificItem(this, index);
+        this.displayer.displaySpecificItem(this, index);
     }
 
     public void displayAvailableItems() {
-        displayer.displayAvailableItems(this);
+        this.displayer.displayAvailableItems(this);
     }
 
+    public boolean checkInputValidity(int indexChoice) { return this.transactionManager.checkInputValidity(this, indexChoice);}
+
+    public void confirmTransaction(int indexChoice)
+    {
+        this.transactionManager.confirmTransaction(this, indexChoice);
+    }
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
     }
@@ -51,8 +58,12 @@ public class VendingMachine {
     {
         return this.getSlotArrayList().get(indexChoice);
     }
+
+
     public Item getSelectedItem(int indexChoice)
     {
         return this.getSelectedSlot(indexChoice).getItemArrayList().get(0);
     }
+
+
 }
