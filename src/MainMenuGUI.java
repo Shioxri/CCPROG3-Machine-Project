@@ -16,15 +16,23 @@ public class MainMenuGUI {
 
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png"); // image
         ImageIcon titleIcon = new ImageIcon("resized.jpg"); // title icon must be <= 400x100
+        ImageIcon sampleIcon = new ImageIcon("pngtree-pixel-art-cherry-icon-design-vector-png-image_6122197.png");
 
         regularVMbutton.setBounds(100,75,300,50);
         regularVMbutton.setHorizontalAlignment(JButton.CENTER);
+        regularVMbutton.setText("Create Regular Vending Machine");
+        regularVMbutton.addActionListener(e -> System.out.println("show regular VM"));
 
         specialVMbutton.setBounds(100,175,300,50);
         specialVMbutton.setHorizontalAlignment(JButton.CENTER);
+        specialVMbutton.setText("Create Special Vending Machine");
+        specialVMbutton.setIcon(sampleIcon);
+        specialVMbutton.addActionListener(e -> System.out.println("show special VM"));
 
         exitButton.setBounds(100,275,300,50);
         exitButton.setHorizontalAlignment(JButton.CENTER);
+        exitButton.setText("Exit");
+        exitButton.addActionListener(e -> System.exit(0));
 
 
         titleLabel.setText("Vending Machine Main Menu");// adds label of text
