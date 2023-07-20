@@ -7,20 +7,24 @@ public class VendingMachine {
     private DisplayManager displayer;
     private MoneyManager moneyManager;
     private TransactionManager transactionManager;
-
+    private StockManager stockManager;
 
     public VendingMachine() {
         slotArrayList = new ArrayList<>(8);
         initializer = new VendingMachineInitializer();
         displayer = new DisplayManager();
         moneyManager = new MoneyManager();
+        transactionManager = new TransactionManager();
+        stockManager = new StockManager();
+        this.initializeSlotsAndItems();
+        this.initializeMoney();
     }
 
     public void initializeSlotsAndItems() {
         this.initializer.initializeItems(this);
     }
     public void initializeMoney() {
-        this.initializer.initializeMoney(this.moneyManager);
+        this.initializer.initializeMoney(this);
     }
 
     public void displayAllItems() {
@@ -40,6 +44,11 @@ public class VendingMachine {
     public void confirmTransaction(int indexChoice)
     {
         this.transactionManager.confirmTransaction(this, indexChoice);
+    }
+
+    public Item dispenseSelectedItem(int indexChoice)
+    {
+        return this.stockManager.dispenseSelectedItem(this,indexChoice);
     }
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
@@ -63,6 +72,33 @@ public class VendingMachine {
     public Item getSelectedItem(int indexChoice)
     {
         return this.getSelectedSlot(indexChoice).getItemArrayList().get(0);
+    }
+
+    /**
+     * Adds the paid money to the user paid money list.
+     * @param denomination The denomination of the paid money.
+     * @param quantity     The quantity of the paid money.
+     */
+    public void addTempPaidMoney(int denomination, int quantity) {
+        this.moneyManager.addTempPaidMoney(denomination, quantity);
+    }
+
+    /**
+     * Adds the stored money to the stored money list.
+     * @param denomination The denomination of the stored money.
+     * @param quantity     The quantity of the stored money.
+     */
+    public void addStoredMoney(int denomination, int quantity) {
+        this.moneyManager.addStoredMoney(denomination, quantity);
+    }
+
+    /**
+     * Adds the admin money to the admin money list.
+     * @param denomination The denomination of the admin money.
+     * @param quantity     The quantity of the admin money.
+     */
+    public void addAdminMoney(int denomination, int quantity) {
+        this.moneyManager.addAdminMoney(denomination, quantity);
     }
 
 

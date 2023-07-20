@@ -43,6 +43,18 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
         }
     }
 
+    /**
+     * Adds the admin money to the admin money list.
+     * @param denomination The denomination of the admin money.
+     * @param quantity     The quantity of the admin money.
+     */
+    public void addAdminMoney(int denomination, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            this.adminMoney.add(denomination);
+        }
+    }
+
+
     public int getTotalTempUserMoney() {
         int totalUserMoney = 0;
 
@@ -74,16 +86,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
     }
 
 
-    /**
-     * Adds the admin money to the admin money list.
-     * @param denomination The denomination of the admin money.
-     * @param quantity     The quantity of the admin money.
-     */
-    public void addAdminMoney(int denomination, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            this.adminMoney.add(denomination);
-        }
-    }
 
     /**
      * Deposits the user paid money to the stored money list and clears the user paid money list.
