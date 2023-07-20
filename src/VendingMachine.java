@@ -5,8 +5,6 @@ public class VendingMachine {
     private ArrayList<Slot> slotArrayList;
     private VendingMachineInitializer initializer;
     private DisplayManager displayer;
-    private ArrayList<Integer> storedMoneyList;
-
     private MoneyManager moneyManager;
 
 
@@ -14,7 +12,6 @@ public class VendingMachine {
         slotArrayList = new ArrayList<>(8);
         initializer = new VendingMachineInitializer();
         displayer = new DisplayManager();
-        storedMoneyList = new ArrayList<>();
         moneyManager = new MoneyManager();
     }
 
@@ -41,18 +38,21 @@ public class VendingMachine {
         return slotArrayList;
     }
 
-    public ArrayList<Integer> getStoredMoneyList() {
-        return storedMoneyList;
-    }
-
-    public void setStoredMoneyList(ArrayList<Integer> storedMoneyList) {
-        this.storedMoneyList = storedMoneyList;
-    }
-
     public MoneyManager getMoneyManager() {
         return moneyManager;
     }
-    public void setMoneyManager(MoneyManager moneyManager) {
-        this.moneyManager = moneyManager;
+
+    public int getUserBalance()
+    {
+        return this.getMoneyManager().getTotalTempUserMoney();
+    }
+
+    public Slot getSelectedSlot(int indexChoice)
+    {
+        return this.getSlotArrayList().get(indexChoice);
+    }
+    public Item getSelectedItem(int indexChoice)
+    {
+        return this.getSelectedSlot(indexChoice).getItemArrayList().get(0);
     }
 }

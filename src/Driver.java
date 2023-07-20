@@ -239,12 +239,18 @@ public class Driver {
 
 
 
-    public static void buyItemMenu(Scanner s, VendingMachine vendingMachine)
+    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine)
     {
+        int choice;
         boolean isDone = false;
         do {
 
             vendingMachine.displayAvailableItems();
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character after reading the integer input
+
+
+
 
         }while(!isDone);
     }
