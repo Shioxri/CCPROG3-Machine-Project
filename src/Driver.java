@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -299,8 +301,10 @@ public class Driver {
 
             switch (maintenanceMenuChoice) {
                 case 1:
+                    restockItems(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
+                    stockNewItems(scanner, vendingMachine, maintenance);
                     break;
                 case 3:
                     break;
@@ -343,7 +347,7 @@ public class Driver {
                 System.out.println("Wrong Password!");
 
                 do {
-                    System.out.println("Do you want to try again? [Y]es or [N]o");
+                    System.out.print("Do you want to try again? [Y]es or [N]o: ");
                     toTryAgain = scanner.nextLine();
 
                     if (toTryAgain.equalsIgnoreCase("Y")) {
@@ -362,7 +366,7 @@ public class Driver {
     }
 
 
-    private static void restockItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void restockItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int indexChoice;
         boolean isDone = false;
         boolean isCorrect = false;
@@ -374,11 +378,70 @@ public class Driver {
             System.out.print("Enter the index of the item to be restocked: ");
             indexChoice = scanner.nextInt();
             scanner.nextLine();
-
             maintenance.restockItem(vendingMachine, indexChoice-1);
 
             do {
                 System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
+                String choice = scanner.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    isCorrect = true;
+                } else if (choice.equalsIgnoreCase("N")) {
+                    System.out.println("Going back to maintenance menu...");
+                    isCorrect = true;
+                    isDone = true;
+                } else {
+                    System.out.println("Invalid input. Please only enter 'Y' or 'N'.");
+                }
+            }while(!isCorrect);
+
+        } while (!isDone);
+    }
+
+    public static void stockNewItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+        boolean isDone = false;
+        boolean isCorrect = false;
+        do {
+            System.out.println("What type of item would you like to add to the vending machine?");
+            String newItem = scanner.nextLine();
+
+            if (!maintenance.isSameItemType(vendingMachine, newItem)) {
+                int newPrice;
+                while (true) {
+                    System.out.println("Please enter its price:"); // Set Price of the inputted item
+                    try {
+                        newPrice = scanner.nextInt();
+                        scanner.nextLine();
+                        break; // Break out of the loop if valid input is received
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input for price. Please enter a valid integer.");
+                        scanner.nextLine();
+                    }
+                }
+
+                int newCals;
+                while (true) {
+                    System.out.println("Please enter its calorie count:"); // Set the calories of the inputted item
+                    try {
+                        newCals = scanner.nextInt();
+                        scanner.nextLine();
+                        break; // Break out of the loop if valid input is received
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input for calorie count. Please enter a valid integer.");
+                        scanner.nextLine();
+                    }
+                }
+
+                maintenance.stockNewItems(vendingMachine, newItem, newPrice, newCals);
+                System.out.println("Successfully stocked up on new item: " + newItem);
+            }
+            else {
+                System.out.println("An item of the same type already exists. Please enter a different item.");
+                return;
+            }
+
+            do {
+                System.out.print("Do you want to continue adding items? [Y]es or [N]o: ");
                 String choice = scanner.nextLine();
 
                 if (choice.equalsIgnoreCase("Y")) {

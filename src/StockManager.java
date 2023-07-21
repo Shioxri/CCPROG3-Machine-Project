@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+
 public class StockManager {
     public Item dispenseSelectedItem(VendingMachine vendingMachine, int itemChoice) {
         // Retrieve the chosen item
@@ -12,7 +14,7 @@ public class StockManager {
         return chosenItem;
     }
 
-    public void restockItems(VendingMachine vendingMachine, int indexChoice){ // -1 the indexChoice
+    public void restockItems(VendingMachine vendingMachine, int indexChoice) { // -1 the indexChoice
 
         int maxItemsPerSlot = 10; // Actual maximum capacity of the slots
         int currentItemsCount = vendingMachine.getSelectedSlot(indexChoice).getItemArrayList().size();
@@ -38,6 +40,33 @@ public class StockManager {
             System.out.println("This slot is already fully stocked.");
         }
     }
+
+    public boolean isSameItemType(VendingMachine vendingMachine, String inputString) {
+        // Check the input if an item of the same type already exists
+        int slotSize = vendingMachine.getSlotArrayList().size();
+        for (int i = 0; i < slotSize; i++) {
+            if (vendingMachine.getSelectedSlot(i).getAssignedItemType().equalsIgnoreCase(inputString)) {
+                System.out.println("An item of the same type already exists. Please enter a different item.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void stockNewItems(VendingMachine vendingMachine, String newItem, int newPrice, int newCals) {
+        vendingMachine.getSlotArrayList().add(new Slot(newItem, 10));
+        int lastIndex = vendingMachine.getSlotArrayList().size() - 1;
+        for (int i = 0; i < 10; i++) {
+            vendingMachine.getSelectedSlot(lastIndex).getItemArrayList().add(new Item(newItem, newPrice, newCals));
+        }
+    }
+
+
+
+
+
+
 
 
 }
