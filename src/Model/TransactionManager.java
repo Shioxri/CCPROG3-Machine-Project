@@ -1,3 +1,9 @@
+package Model;
+
+import Model.Item;
+import Model.Slot;
+import Model.VendingMachine;
+
 public class TransactionManager {
     public boolean checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
         int itemPrice;

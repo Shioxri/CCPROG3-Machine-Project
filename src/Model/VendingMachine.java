@@ -1,3 +1,8 @@
+package Model;
+
+import Model.Item;
+import Model.Slot;
+
 import java.util.ArrayList;
 
 public class VendingMachine {

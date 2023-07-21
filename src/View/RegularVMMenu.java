@@ -30,7 +30,7 @@ public class RegularVMMenu {
 
         specialVMbutton.setBounds(100,175,300,50);
         specialVMbutton.setHorizontalAlignment(JButton.CENTER);
-        specialVMbutton.setText("Open Maintenance Mode");
+        specialVMbutton.setText("Open Model.Maintenance Mode");
         specialVMbutton.setHorizontalTextPosition(JButton.CENTER);
         specialVMbutton.setIcon(sampleIcon);
         specialVMbutton.addActionListener(e -> System.out.println("show special VM"));
