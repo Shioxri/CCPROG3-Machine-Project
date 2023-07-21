@@ -82,7 +82,7 @@ public class Driver {
             System.out.println("║  VENDING MACHINE  ║");
             System.out.println("╚═══════════════════╝");
             System.out.println("[1] User Menu");
-            System.out.println("[2] Model.Maintenance Menu");
+            System.out.println("[2] Maintenance Menu");
             System.out.println("[3] Exit");
             System.out.println("(Exiting will discard the current vending machine)");
             System.out.print("Enter your choice: ");
@@ -98,7 +98,6 @@ public class Driver {
                     } else {
                         continue;
                     }
-
                     break;
                 case 3:
                     System.out.println("Going back to the main menu...");
@@ -126,8 +125,8 @@ public class Driver {
             System.out.println("╚═══════════════════════╝");
             vendingMachine.displayAllItems();
             System.out.println("========User Menu========");
-            System.out.println("[1] Display Specific Model.Item Information");
-            System.out.println("[2] Buy Model.Item");
+            System.out.println("[1] Display Specific Item Information");
+            System.out.println("[2] Buy Item");
             System.out.println("[3] Go back");
             System.out.print("Enter your choice: ");
             userMenuChoice = scanner.nextInt();
@@ -136,7 +135,7 @@ public class Driver {
 
             switch (userMenuChoice) {
                 case 1: {
-                    System.out.print("Input Model.Slot Index of chosen item: ");
+                    System.out.print("Input Slot Index of chosen item: ");
                     int chosenSlotIndex = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
                     vendingMachine.displaySpecificItem(chosenSlotIndex - 1);
@@ -274,7 +273,7 @@ public class Driver {
 
 
     /**
-     * Menu for Model.Maintenance/Admin
+     * Menu for Maintenance/Admin
      *
      * @param scanner        for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
@@ -288,7 +287,7 @@ public class Driver {
             System.out.println("╔════════════════════════╗");
             System.out.println("║    GREETINGS! ADMIN    ║");
             System.out.println("╚════════════════════════╝");
-            System.out.println("========Model.Maintenance Menu========");
+            System.out.println("========Maintenance Menu========");
             System.out.println("[1] Restock Items");
             System.out.println("[2] Stock New Items");
             System.out.println("[3] Set Item Prices");
@@ -308,6 +307,7 @@ public class Driver {
                     stockNewItems(scanner, vendingMachine, maintenance);
                     break;
                 case 3:
+                    setPriceForSelectedItemType(scanner, vendingMachine, maintenance);
 
                     break;
                 case 4:
@@ -317,7 +317,7 @@ public class Driver {
                 case 6:
                     break;
                 case 0:
-                    System.out.println("Exiting Model.Maintenance Menu.");
+                    System.out.println("Exiting Maintenance Menu.");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -407,7 +407,11 @@ public class Driver {
             System.out.println("What type of item would you like to add to the vending machine?");
             String newItem = scanner.nextLine();
 
-            if (!maintenance.isSameItemType(vendingMachine, newItem)) {
+            if (maintenance.isSameItemType(vendingMachine, newItem)) {
+                System.out.println("An item of the same type already exists. Please enter a different item.");
+                return;
+            }
+            else {
                 int newPrice;
                 while (true) {
                     System.out.println("Please enter its price:"); // Set Price of the inputted item
@@ -437,10 +441,6 @@ public class Driver {
                 maintenance.stockNewItems(vendingMachine, newItem, newPrice, newCals);
                 System.out.println("Successfully stocked up on new item: " + newItem);
             }
-            else {
-                System.out.println("An item of the same type already exists. Please enter a different item.");
-                return;
-            }
 
             do {
                 System.out.print("Do you want to continue adding items? [Y]es or [N]o: ");
@@ -448,7 +448,6 @@ public class Driver {
 
                 if (choice.equalsIgnoreCase("Y")) {
                     isCorrect = true;
-                    continue;
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
                     isCorrect = true;
@@ -466,9 +465,10 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    private static void setPriceForSelectedItemType(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void setPriceForSelectedItemType(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
-        boolean isValid = false;
+        boolean isValidIndex = false;
+        boolean isValidPrice;
         boolean isCorrect = false;
         int stockChoice;
         do {
@@ -480,17 +480,32 @@ public class Driver {
                 if (stockChoice < 1 || stockChoice > vendingMachine.getSlotArrayList().size()) { // checking if input fits the range
                     System.out.print("Invalid Input, please try again");
                 }
-                else isValid = true;
-            }while(!isValid);
+                else
+                    isValidIndex = true;
+            }while(!isValidIndex);
 
             System.out.println("Item Selected: " + vendingMachine.getSelectedItem(stockChoice-1).getType()); // -1 since the display shows a +1 of the indices
 
-            //provide input checking
-            System.out.print("Please provide the new price of the item: ");
-            int newPrice = scanner.nextInt();
-            scanner.nextLine();
+            int newPrice=0;
+            do {
+                System.out.print("Please provide the new price of the item: ");
+                try {
+                    newPrice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (newPrice < 0) {
+                        System.out.println("Invalid input. Price cannot be negative.");
+                        isValidPrice = false;
+                    } else {
+                        isValidPrice = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input for price. Please enter a valid integer.");
+                    isValidPrice = false;
+                }
+            } while (!isValidPrice);
 
-            maintenance.updateItemPrices(vendingMachine,stockChoice-1,newPrice);
+
+            maintenance.updateItemPrices(vendingMachine,stockChoice-1, newPrice);
 
             do {
                 System.out.print("Do you want to continue setting prices for items? [Y]es or [N]o: ");
@@ -498,7 +513,7 @@ public class Driver {
 
                 if (choice.equalsIgnoreCase("Y")) {
                     isCorrect = true;
-                    continue;
+
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
                     isCorrect = true;
@@ -511,9 +526,5 @@ public class Driver {
         } while (!isDone);
 
     }
-
-
-
-
 
 }
