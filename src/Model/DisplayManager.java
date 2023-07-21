@@ -1,3 +1,9 @@
+package Model;
+
+import Model.Item;
+import Model.Slot;
+import Model.VendingMachine;
+
 import java.util.ArrayList;
 
 public class DisplayManager {
@@ -15,7 +21,7 @@ public class DisplayManager {
         }
 
         System.out.println("-----------------------------------------");
-        System.out.println("|  Index  |   Item  | Stock |");
+        System.out.println("|  Index  |   Model.Item  | Stock |");
         System.out.println("-----------------------------------------");
 
         for (int i = 0; i < slots.size(); i++) {
@@ -41,7 +47,7 @@ public class DisplayManager {
             ArrayList<Item> items = slot.getItemArrayList();
 
             System.out.println("----------------------------------");
-            System.out.println("|  Index  |   Item  | Price | Calories | Stock |");
+            System.out.println("|  Index  |   Model.Item  | Price | Calories | Stock |");
             System.out.println("----------------------------------");
 
             Item item = items.get(0); // Assuming there is only one item per slot
@@ -60,7 +66,7 @@ public class DisplayManager {
     public void displayAvailableItems(VendingMachine vendingMachine)
     {
         int totalTempUserMoney = vendingMachine.getUserBalance();
-        System.out.println("[Select your Item]");
+        System.out.println("[Select your Model.Item]");
         System.out.println("Current Balance: " + totalTempUserMoney);
         System.out.println("Available Items (with respect to current balance): "); //Printing of available items
         int itemPrice;

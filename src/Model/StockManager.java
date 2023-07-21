@@ -1,4 +1,10 @@
-import java.util.InputMismatchException;
+package Model;
+
+import Model.Item;
+import Model.Slot;
+import Model.VendingMachine;
+
+import java.util.ArrayList;
 
 public class StockManager {
     public Item dispenseSelectedItem(VendingMachine vendingMachine, int itemChoice) {
@@ -63,7 +69,13 @@ public class StockManager {
     }
 
 
-
+    public void updateItemPrice(VendingMachine vendingMachine, int slotIndex, int newPrice) {
+        ArrayList<Item> itemArrayList = vendingMachine.getSelectedSlot(slotIndex).getItemArrayList();
+        for (Item item : itemArrayList) {
+            item.setPrice(newPrice);
+        }
+        System.out.println("Successfully updated the price of all items in slot " + (slotIndex + 1) + " to " + newPrice);
+    }
 
 
 

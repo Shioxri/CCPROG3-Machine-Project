@@ -1,4 +1,5 @@
-import com.sun.tools.javac.Main;
+import Model.Maintenance;
+import Model.VendingMachine;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -97,7 +98,6 @@ public class Driver {
                     } else {
                         continue;
                     }
-
                     break;
                 case 3:
                     System.out.println("Going back to the main menu...");
@@ -164,7 +164,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    private static void insertMoney(Scanner scanner, VendingMachine vendingMachine) {
+    public static void insertMoney(Scanner scanner, VendingMachine vendingMachine) {
         int quantity;
         boolean isDone = false;
 
@@ -307,6 +307,8 @@ public class Driver {
                     stockNewItems(scanner, vendingMachine, maintenance);
                     break;
                 case 3:
+                    setPriceForSelectedItemType(scanner, vendingMachine, maintenance);
+
                     break;
                 case 4:
                     break;
@@ -405,7 +407,11 @@ public class Driver {
             System.out.println("What type of item would you like to add to the vending machine?");
             String newItem = scanner.nextLine();
 
-            if (!maintenance.isSameItemType(vendingMachine, newItem)) {
+            if (maintenance.isSameItemType(vendingMachine, newItem)) {
+                System.out.println("An item of the same type already exists. Please enter a different item.");
+                return;
+            }
+            else {
                 int newPrice;
                 while (true) {
                     System.out.println("Please enter its price:"); // Set Price of the inputted item
@@ -435,10 +441,6 @@ public class Driver {
                 maintenance.stockNewItems(vendingMachine, newItem, newPrice, newCals);
                 System.out.println("Successfully stocked up on new item: " + newItem);
             }
-            else {
-                System.out.println("An item of the same type already exists. Please enter a different item.");
-                return;
-            }
 
             do {
                 System.out.print("Do you want to continue adding items? [Y]es or [N]o: ");
@@ -446,7 +448,6 @@ public class Driver {
 
                 if (choice.equalsIgnoreCase("Y")) {
                     isCorrect = true;
-                    continue;
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
                     isCorrect = true;
@@ -457,6 +458,73 @@ public class Driver {
             }while(!isCorrect);
 
         } while (!isDone);
+    }
+
+    /**
+     * Method for manually setting the price of each item (by choosing which one)
+     * @param scanner for scanning user input
+     * @param vendingMachine the vending machine object to be used/tested
+     */
+    public static void setPriceForSelectedItemType(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+        boolean isDone = false;
+        boolean isValidIndex = false;
+        boolean isValidPrice;
+        boolean isCorrect = false;
+        int stockChoice;
+        do {
+            vendingMachine.displayAllItems();
+            do{
+                System.out.print("Please provide the index of the item for which you would like to set the price: ");
+                stockChoice = scanner.nextInt();
+                scanner.nextLine();
+                if (stockChoice < 1 || stockChoice > vendingMachine.getSlotArrayList().size()) { // checking if input fits the range
+                    System.out.print("Invalid Input, please try again");
+                }
+                else
+                    isValidIndex = true;
+            }while(!isValidIndex);
+
+            System.out.println("Item Selected: " + vendingMachine.getSelectedItem(stockChoice-1).getType()); // -1 since the display shows a +1 of the indices
+
+            int newPrice=0;
+            do {
+                System.out.print("Please provide the new price of the item: ");
+                try {
+                    newPrice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (newPrice < 0) {
+                        System.out.println("Invalid input. Price cannot be negative.");
+                        isValidPrice = false;
+                    } else {
+                        isValidPrice = true;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input for price. Please enter a valid integer.");
+                    isValidPrice = false;
+                }
+            } while (!isValidPrice);
+
+
+            maintenance.updateItemPrices(vendingMachine,stockChoice-1, newPrice);
+
+            do {
+                System.out.print("Do you want to continue setting prices for items? [Y]es or [N]o: ");
+                String choice = scanner.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    isCorrect = true;
+
+                } else if (choice.equalsIgnoreCase("N")) {
+                    System.out.println("Going back to maintenance menu...");
+                    isCorrect = true;
+                    isDone = true;
+                } else {
+                    System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                }
+            }while(!isCorrect);
+
+        } while (!isDone);
+
     }
 
 }

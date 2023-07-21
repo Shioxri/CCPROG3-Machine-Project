@@ -1,3 +1,5 @@
+package Model;
+
 public class TransactionManager {
     public boolean checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
         int itemPrice;
@@ -54,10 +56,13 @@ public class TransactionManager {
     {
         int totalUserMoney = vendingMachine.getUserBalance();
 
+        int itemPrice = vendingMachine.getSelectedItem(itemChoice).getPrice();
+
         System.out.println("[Transaction Successful]");
         System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice).getAssignedItemType());
         System.out.println("CHANGE: ₱" + (totalUserMoney - vendingMachine.getSelectedItem(itemChoice).getPrice()));
-        vendingMachine.getMoneyManager().clearUserPaidMoney();
+        vendingMachine.getMoneyManager().depositMoney();
+        vendingMachine.getMoneyManager().returnChange(itemPrice, vendingMachine.getMoneyManager().getTempMoneyFromUser());
         //TODO: THIS
 
         //vendingMachine.addItemToRecord(vendingMachine.dispenseSelectedItem(itemChoice - 1));
