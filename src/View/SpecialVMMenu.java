@@ -7,7 +7,7 @@ import javax.sound.sampled.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-public class RegularVMMenu {
+public class SpecialVMMenu {
     public static void main(String[] args) {
         // Declarations
         JFrame frame = new JFrame();
@@ -23,7 +23,7 @@ public class RegularVMMenu {
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("trueregvm.png");
+        ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
         ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
         ImageIcon cola = new ImageIcon("cola.png");
