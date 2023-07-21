@@ -89,12 +89,26 @@ public class RegularBuy {
         selectionPanel.add(backButton);
         selectionPanel.setBorder(borderLine);
 
+        lowerPanel.setBackground(new Color(25, 25, 112, 123));
+        lowerPanel.setBounds(0,630,550,130);
+        lowerPanel.setLayout(null);
+        lowerPanel.setOpaque(true);
+        lowerPanel.setBorder(borderLine);
+
+        rightPanel.setBackground(new Color(25, 25, 112, 123));
+        rightPanel.setBounds(550,0,200,751);
+        rightPanel.setLayout(null);
+        rightPanel.setOpaque(true);
+        rightPanel.setBorder(borderLine);
+
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(750, 750));
         layeredPane.add(bgpanel, Integer.valueOf(0));
         layeredPane.add(titlePanel, Integer.valueOf(1));
         layeredPane.add(selectionPanel, Integer.valueOf(1));
+        layeredPane.add(lowerPanel, Integer.valueOf(1));
+        layeredPane.add(rightPanel, Integer.valueOf(1));
 
         // Frame
         frame.setTitle("Vending Machine");
