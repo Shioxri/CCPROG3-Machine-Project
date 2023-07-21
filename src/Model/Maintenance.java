@@ -20,4 +20,14 @@ public class Maintenance {
     {
         vendingMachine.getStockManager().updateItemPrice(vendingMachine, userChoice, newPrice);
     }
+
+    public void collectMoney(VendingMachine vendingMachine)
+    {
+        vendingMachine.getMoneyManager().collectMoney();
+    }
+
+    public void replenishMoney(VendingMachine vendingMachine, int denomination, int quantity)
+    {
+        vendingMachine.getMoneyManager().addStoredMoney(denomination, quantity);
+    }
 }

@@ -246,6 +246,8 @@ public class Driver {
     public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine)
     {
         int choice;
+        String stringChoice;
+        boolean isValidInput = false;
         boolean isDone = false;
         do {
             vendingMachine.displayAvailableItems();
@@ -256,16 +258,40 @@ public class Driver {
                 {
                     vendingMachine.confirmTransaction(choice-1);
                     do {
-                        try { // check if user input is valid
-                            System.out.print("Press [0] to go back: ");
-                            choice = scanner.nextInt();
-                            scanner.nextLine();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input. Please enter a valid integer.");
-                            scanner.nextLine(); // Clear the input buffer
+                        if (vendingMachine.getUserBalance() < 10) {
+                            try {
+                                System.out.print("Press [0] to go back: ");
+                                choice = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (choice == 0) {
+                                    vendingMachine.getMoneyManager().clearUserPaidMoney(); // Clear the user's paid money
+                                } else {
+                                    System.out.println("Invalid input. Please enter a valid integer.");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Invalid input. Please enter a valid integer.");
+                                scanner.nextLine(); // Clear the input buffer
+                            }
                         }
-                    } while (choice != 0);
-                    isDone=true;
+                        else
+                        {
+                            System.out.print("Do you want to continue buying with your remaining balance ₱"+vendingMachine.getUserBalance()+"? [Y]es or [N]o: ");
+                            stringChoice = scanner.nextLine();
+
+                            if (stringChoice.equalsIgnoreCase("Y")) {
+                                isValidInput = true;
+                            } else if (stringChoice.equalsIgnoreCase("N")) {
+                                System.out.println("Exiting...");
+                                isValidInput = true;
+                                isDone = true;
+                                vendingMachine.getMoneyManager().clearUserPaidMoney();
+                            } else {
+                                System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                            }
+                        }
+
+                    } while (!isValidInput);
                 }
         }while(!isDone);
     }
@@ -308,11 +334,12 @@ public class Driver {
                     break;
                 case 3:
                     setPriceForSelectedItemType(scanner, vendingMachine, maintenance);
-
                     break;
                 case 4:
+                    collectMachineMoney(scanner, vendingMachine, maintenance);
                     break;
                 case 5:
+                    replenishMachineMoney(scanner, vendingMachine, maintenance);
                     break;
                 case 6:
                     break;
@@ -525,6 +552,71 @@ public class Driver {
 
         } while (!isDone);
 
+    }
+
+    public static void collectMachineMoney(Scanner scanner,VendingMachine vendingMachine, Maintenance maintenance)
+    {
+        boolean isDone = false;
+        int totalMoneyGenerated = vendingMachine.getMoneyManager().getTotalStoredMoney();
+        maintenance.collectMoney(vendingMachine); // empties the denomination array list of the machine and sends it to the admins
+        System.out.println("Successfully collected ₱"+totalMoneyGenerated+" from the vending machine!");
+        do {
+            System.out.println("Enter [0] to go back: ");
+            String input = scanner.nextLine();
+            if (input.equals("0")) {
+                System.out.println("Exiting...");
+                isDone = true;
+            }
+        } while (!isDone);
+    }
+
+    public static void replenishMachineMoney(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+        boolean isDone = false;
+        int denomination, quantity;
+
+        while (true) {
+            try {
+                System.out.print("Enter your denomination: ");
+                denomination = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+                if (denomination <= 0) {
+                    System.out.println("Invalid input. Please enter a positive integer.");
+                    continue;
+                }
+                break; // Break out of the loop if valid input is received
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine(); // Clear the input buffer
+            }
+        }
+
+        while (true) {
+            try {
+                System.out.print("Enter quantity: ");
+                quantity = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+                if (quantity <= 0) {
+                    System.out.println("Invalid input. Please enter a positive integer.");
+                    continue;
+                }
+                break; // Break out of the loop if valid input is received
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.nextLine(); // Clear the input buffer
+            }
+        }
+
+        maintenance.replenishMoney(vendingMachine, denomination, quantity); // adds the denomination x (quantity) amount of times
+        System.out.println("Successfully replenished ₱" + (denomination * quantity) + " in denominations of ₱" + denomination + ".");
+
+        do {
+            System.out.println("Enter [0] to go back: ");
+            String input = scanner.nextLine();
+            if (input.equals("0")) {
+                System.out.println("Exiting...");
+                isDone = true;
+            }
+        } while (!isDone);
     }
 
 }
