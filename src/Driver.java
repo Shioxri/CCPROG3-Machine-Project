@@ -266,6 +266,10 @@ public class Driver {
 
                                 if (choice == 0) {
                                     vendingMachine.getMoneyManager().clearUserPaidMoney(); // Clear the user's paid money
+                                    System.out.println("Exiting...");
+                                    isValidInput = true;
+                                    isDone = true;
+
                                 } else {
                                     System.out.println("Invalid input. Please enter a valid integer.");
                                 }
