@@ -1,6 +1,8 @@
 package Model;
 
 
+import java.util.ArrayList;
+
 public class Maintenance {
     public void restockItem(VendingMachine vendingMachine, int indexChoice)
     {
@@ -35,10 +37,26 @@ public class Maintenance {
         vendingMachine.getRecorder().addSoldItems(itemType);
     }
 
-    public void genereateSalesReport(VendingMachine vendingMachine)
+    public void generateSalesReport(VendingMachine vendingMachine)
     {
         vendingMachine.getRecorder().generateSalesReport(vendingMachine);
     }
+
+    public void addAllToStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+        vendingMachine.getRecorder().getStartingInventory().clear();
+        vendingMachine.getRecorder().getStartingInventory().addAll(slotList);
+    }
+    public void addAllToPrevStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+        vendingMachine.getRecorder().getPrevStartingInventory().clear();
+        vendingMachine.getRecorder().getPrevStartingInventory().addAll(slotList);
+    }
+
+    public void addAllToEndingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+        vendingMachine.getRecorder().getEndingInventory().clear();
+        vendingMachine.getRecorder().getEndingInventory().addAll(slotList);
+    }
+
+
 
 
 }

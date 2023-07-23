@@ -34,8 +34,8 @@ public class VendingMachine {
         this.initializer.initializeMoney(this);
     }
 
-    public void displayAllItems() {
-        this.displayer.displayAllItems(this);
+    public void displayAllItems(ArrayList<Slot> slots) {
+        this.displayer.displayAllItems(slots);
     }
 
     public void displaySpecificItem(int index) {
@@ -48,18 +48,15 @@ public class VendingMachine {
 
     public boolean checkInputValidity(int indexChoice) { return this.transactionManager.checkInputValidity(this, indexChoice);}
 
-    public void confirmTransaction(int indexChoice)
-    {
-        this.transactionManager.confirmTransaction(this, indexChoice);
-    }
+    public void confirmTransaction(int indexChoice) { this.transactionManager.confirmTransaction(this, indexChoice); }
 
-    public Item dispenseSelectedItem(int indexChoice)
-    {
-        return this.stockManager.dispenseSelectedItem(this,indexChoice);
-    }
+    public Item dispenseSelectedItem(int indexChoice) { return this.stockManager.dispenseSelectedItem(this,indexChoice); }
 
-
-
+    /**
+     * Adds the paid money to the user paid money list.
+     * @param denomination The denomination of the paid money.
+     * @param quantity     The quantity of the paid money.
+     */
     public void addTempPaidMoney(int denomination, int quantity) {
         this.moneyManager.addTempPaidMoney(denomination, quantity);
     }
@@ -81,8 +78,6 @@ public class VendingMachine {
     public void addAdminMoney(int denomination, int quantity) {
         this.moneyManager.addAdminMoney(denomination, quantity);
     }
-
-
 
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
@@ -116,11 +111,22 @@ public class VendingMachine {
         return recorder;
     }
 
-    /**
-     * Adds the paid money to the user paid money list.
-     * @param denomination The denomination of the paid money.
-     * @param quantity     The quantity of the paid money.
-     */
+    public ArrayList<Slot> getPrevStartingInventory()
+    {
+        return this.getRecorder().getPrevStartingInventory();
+    }
+
+    public ArrayList<Slot> getStartingInventory()
+    {
+        return this.getRecorder().getStartingInventory();
+    }
+
+    public ArrayList<Slot> getEndingInventory()
+    {
+        return this.getRecorder().getEndingInventory();
+    }
+
+
 
 
 

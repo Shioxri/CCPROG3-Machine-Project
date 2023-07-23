@@ -5,8 +5,8 @@ package Model;
 import java.util.ArrayList;
 
 public class DisplayManager {
-    public void displayAllItems(VendingMachine vendingMachine) {
-        ArrayList<Slot> slots = vendingMachine.getSlotArrayList();
+    public void displayAllItems(ArrayList<Slot> slots) {
+
 
         int maxItemNameLength = 0;
         for (Slot slot : slots) {

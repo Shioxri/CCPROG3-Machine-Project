@@ -1,8 +1,9 @@
 import Model.Item;
 import Model.Maintenance;
+import Model.Slot;
 import Model.VendingMachine;
-import com.sun.tools.javac.Main;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -43,8 +44,6 @@ public class Driver {
         int vendingMachineChoice;
         boolean isDone = false;
         do {
-
-            System.out.println("Created a Vending Machine!");
             System.out.println("[1] Create Regular Vending Machine");
             System.out.println("[2] Create Special Vending Machine");
             System.out.println("[3] Back");
@@ -56,6 +55,8 @@ public class Driver {
                 case 1:
                     VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
                     Maintenance maintenance = new Maintenance();
+                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
+                    maintenance.addAllToPrevStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
                     isDone = createRegularVendMachineMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
@@ -125,7 +126,7 @@ public class Driver {
             System.out.println("╔═══════════════════════╗");
             System.out.println("║    GREETINGS! USER    ║");
             System.out.println("╚═══════════════════════╝");
-            vendingMachine.displayAllItems();
+            vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
             System.out.println("========User Menu========");
             System.out.println("[1] Display Specific Item Information");
             System.out.println("[2] Buy Item");
@@ -411,6 +412,7 @@ public class Driver {
         int indexChoice;
         boolean isDone = false;
         boolean isCorrect = false;
+        ArrayList<Slot> tempSlotsList = new ArrayList<>(vendingMachine.getSlotArrayList());
         do {
             for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedItem(i).getType()
@@ -429,8 +431,12 @@ public class Driver {
                     isCorrect = true;
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
+                    maintenance.addAllToPrevStartingInventory(vendingMachine,vendingMachine.getStartingInventory());
+                    maintenance.addAllToEndingInventory(vendingMachine, tempSlotsList);
+                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
                     isCorrect = true;
                     isDone = true;
+
                 } else {
                     System.out.println("Invalid input. Please only enter 'Y' or 'N'.");
                 }
@@ -442,6 +448,7 @@ public class Driver {
     public static void stockNewItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
         boolean isCorrect = false;
+        ArrayList<Slot> tempSlotsList = new ArrayList<>(vendingMachine.getSlotArrayList());
         do {
             System.out.println("What type of item would you like to add to the vending machine?");
             String newItem = scanner.nextLine();
@@ -489,6 +496,9 @@ public class Driver {
                     isCorrect = true;
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
+                    maintenance.addAllToPrevStartingInventory(vendingMachine,vendingMachine.getStartingInventory());
+                    maintenance.addAllToEndingInventory(vendingMachine, tempSlotsList);
+                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
                     isCorrect = true;
                     isDone = true;
                 } else {
@@ -511,7 +521,7 @@ public class Driver {
         boolean isCorrect = false;
         int stockChoice;
         do {
-            vendingMachine.displayAllItems();
+            vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
             do{
                 System.out.print("Please provide the index of the item for which you would like to set the price: ");
                 stockChoice = scanner.nextInt();
@@ -633,7 +643,17 @@ public class Driver {
 
     public static void printSummary(VendingMachine vendingMachine, Maintenance maintenance)
     {
-        maintenance.genereateSalesReport(vendingMachine);
+        maintenance.generateSalesReport(vendingMachine);
+        System.out.println();
+        System.out.println("Starting Inventory since previous restocking: ");
+        vendingMachine.displayAllItems(vendingMachine.getPrevStartingInventory());
+
+        if (vendingMachine.getEndingInventory().isEmpty()) {
+            System.out.println("Ending Inventory is not available. No previous restocking recorded.");
+        } else {
+            System.out.println("Ending Inventory since previous restocking: ");
+            vendingMachine.displayAllItems(vendingMachine.getEndingInventory());
+        }
     }
 
 
