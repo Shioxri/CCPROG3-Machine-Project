@@ -22,10 +22,6 @@ public class RecordsManager {
         }
     }
 
-    public HashMap<String, Integer> getItemsQuantities() {
-        return itemsQuantities;
-    }
-
 
     public void generateSalesReport(VendingMachine vendingMachine) {
         for (Slot slot : vendingMachine.getSlotArrayList()) {
@@ -39,15 +35,31 @@ public class RecordsManager {
         }
         System.out.println("Sales Report:");
 
+        int totalSalesAmount = 0;
+
         for (String itemType : itemsQuantities.keySet()) {
             int quantitySold = itemsQuantities.getOrDefault(itemType, 0);
             int totalPrice = itemsPrices.getOrDefault(itemType, 0);
+            totalSalesAmount += totalPrice;
 
-            System.out.println(itemType + " - Sold: " + quantitySold + " - Sales: ₱" + totalPrice);
+            System.out.println(itemType + " - # of Items Sold: " + quantitySold + " - Sales: ₱" + totalPrice);
         }
+
+        System.out.println("Total Sales: ₱" + totalSalesAmount);
     }
 
     public HashMap<String, Integer> getPricesList() {
         return itemsPrices;
+    }
+
+    public void clearItemsQuantities() {
+        itemsQuantities.clear();
+    }
+
+    public HashMap<String, Integer> getItemsQuantities() {
+        return itemsQuantities;
+    }
+    public void clearItemsPrices() {
+        itemsPrices.clear();
     }
 }
