@@ -10,6 +10,7 @@ public class VendingMachine {
     private MoneyManager moneyManager;
     private TransactionManager transactionManager;
     private StockManager stockManager;
+    private RecordsManager recorder;
 
 
 
@@ -21,6 +22,7 @@ public class VendingMachine {
         moneyManager = new MoneyManager();
         transactionManager = new TransactionManager();
         stockManager = new StockManager();
+        recorder = new RecordsManager();
         this.initializeSlotsAndItems();
         this.initializeMoney();
     }
@@ -55,6 +57,8 @@ public class VendingMachine {
     {
         return this.stockManager.dispenseSelectedItem(this,indexChoice);
     }
+
+
 
     public void addTempPaidMoney(int denomination, int quantity) {
         this.moneyManager.addTempPaidMoney(denomination, quantity);
@@ -106,6 +110,10 @@ public class VendingMachine {
     public Item getSelectedItem(int indexChoice)
     {
         return this.getSelectedSlot(indexChoice).getItemArrayList().get(0);
+    }
+
+    public RecordsManager getRecorder() {
+        return recorder;
     }
 
     /**

@@ -14,6 +14,9 @@ public class StockManager {
             vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().set
                     (i, vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().get(i + 1));
         }
+        // Update the item list size of the slot
+        int newSize = vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().size();
+        vendingMachine.getSelectedSlot(itemChoice).setItemStock(newSize);
         return chosenItem;
     }
 

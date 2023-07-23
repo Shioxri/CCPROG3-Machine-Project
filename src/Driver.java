@@ -1,5 +1,7 @@
+import Model.Item;
 import Model.Maintenance;
 import Model.VendingMachine;
+import com.sun.tools.javac.Main;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -90,7 +92,7 @@ public class Driver {
             scanner.nextLine(); // Consume the newline character
             switch (regularVMChoice) {
                 case 1:
-                    createUserMenu(scanner, vendingMachine);
+                    createUserMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
                     if (checkPassword(scanner)) {
@@ -115,7 +117,7 @@ public class Driver {
      * @param scanner        for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void createUserMenu(Scanner scanner, VendingMachine vendingMachine) {
+    public static void createUserMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int userMenuChoice;
 
         do {
@@ -144,7 +146,7 @@ public class Driver {
                 }
 
                 case 2: {
-                    insertMoney(scanner, vendingMachine);
+                    insertMoney(scanner, vendingMachine, maintenance);
                     break;
                 }
 
@@ -164,7 +166,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void insertMoney(Scanner scanner, VendingMachine vendingMachine) {
+    public static void insertMoney(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int quantity;
         boolean isDone = false;
 
@@ -233,7 +235,7 @@ public class Driver {
                     System.out.println("Going to the buy item menu...");
                     isValidInput = true;
                     isDone = true;
-                    buyItemMenu(scanner, vendingMachine);
+                    buyItemMenu(scanner, vendingMachine, maintenance);
                 } else {
                     System.out.println("Invalid input. Please enter 'Y' or 'N'.");
                 }
@@ -243,7 +245,7 @@ public class Driver {
 
 
 
-    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine)
+    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance)
     {
         int choice;
         String stringChoice;
@@ -257,6 +259,11 @@ public class Driver {
                 if(vendingMachine.checkInputValidity(choice))
                 {
                     vendingMachine.confirmTransaction(choice-1);
+                    Item dispensedItem = vendingMachine.dispenseSelectedItem(choice-1);
+                    System.out.println(dispensedItem.getType()+" <- Dispensed 1");
+                    maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
+
+
                     do {
                         if (vendingMachine.getUserBalance() < 10) {
                             try {
@@ -346,6 +353,7 @@ public class Driver {
                     replenishMachineMoney(scanner, vendingMachine, maintenance);
                     break;
                 case 6:
+                    printSummary(vendingMachine, maintenance);
                     break;
                 case 0:
                     System.out.println("Exiting Maintenance Menu.");
@@ -623,6 +631,10 @@ public class Driver {
         } while (!isDone);
     }
 
+    public static void printSummary(VendingMachine vendingMachine, Maintenance maintenance)
+    {
+        maintenance.genereateSalesReport(vendingMachine);
+    }
 
 
 }

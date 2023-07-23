@@ -62,16 +62,8 @@ public class TransactionManager {
         System.out.println("CHANGE: ₱" + change);
         vendingMachine.getMoneyManager().depositMoney();
         vendingMachine.getMoneyManager().returnChange(change);
-        //TODO: THIS
-
-        //vendingMachine.addItemToRecord(vendingMachine.dispenseSelectedItem(itemChoice - 1));
-        Item newItem = vendingMachine.dispenseSelectedItem(itemChoice);
-        System.out.println(newItem.getType()+" <- Dispensed");
-        int newSize = vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().size();
-        vendingMachine.getSelectedSlot(itemChoice).setItemStock(newSize);
-
-
     }
+
 
     private boolean isValidInteger(int input) {
         try {

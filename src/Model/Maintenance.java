@@ -29,4 +29,16 @@ public class Maintenance {
     {
         vendingMachine.getMoneyManager().addStoredMoney(denomination, quantity);
     }
+
+    public void addSoldItems(VendingMachine vendingMachine, String itemType)
+    {
+        vendingMachine.getRecorder().addSoldItems(itemType);
+    }
+
+    public void genereateSalesReport(VendingMachine vendingMachine)
+    {
+        vendingMachine.getRecorder().generateSalesReport(vendingMachine);
+    }
+
+
 }
