@@ -557,7 +557,7 @@ public class Driver {
     public static void collectMachineMoney(Scanner scanner,VendingMachine vendingMachine, Maintenance maintenance)
     {
         boolean isDone = false;
-        int totalMoneyGenerated = vendingMachine.getMoneyManager().getTotalStoredMoney();
+        int totalMoneyGenerated = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getTempMoneyFromUser());
         maintenance.collectMoney(vendingMachine); // empties the denomination array list of the machine and sends it to the admins
         System.out.println("Successfully collected ₱"+totalMoneyGenerated+" from the vending machine!");
         do {
@@ -618,5 +618,7 @@ public class Driver {
             }
         } while (!isDone);
     }
+
+
 
 }

@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Item;
-import Model.Slot;
-
 import java.util.ArrayList;
 
 public class VendingMachine {
@@ -97,7 +94,7 @@ public class VendingMachine {
 
     public int getUserBalance()
     {
-        return this.getMoneyManager().getTotalTempUserMoney();
+        return this.getMoneyManager().getTotalMoneyFromList(this.getMoneyManager().getTempMoneyFromUser());
     }
 
     public Slot getSelectedSlot(int indexChoice)

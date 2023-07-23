@@ -14,7 +14,7 @@ public class Item {
     private int calorie;    // The calorie content of the item
 
     /**
-     * Constructs an Model.Item object with the specified type, price, and calorie content.
+     * Constructs an Item object with the specified type, price, and calorie content.
      * @param type    The type of the item.
      * @param price   The price of the item.
      * @param calorie The calorie content of the item.
@@ -26,7 +26,7 @@ public class Item {
     }
 
     /**
-     * Constructs an empty Model.Item object with default values.
+     * Constructs an empty Item object with default values.
      * The default type is "NULL", price is 0, and calorie content is 0.
      */
     public Item() {

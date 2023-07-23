@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Item;
-import Model.Slot;
-import Model.VendingMachine;
 
 import java.util.ArrayList;
 
@@ -33,7 +30,7 @@ public class StockManager {
             int calories = vendingMachine.getSelectedItem(indexChoice).getCalorie();
 
             if (numFreeSlotSpaces <= 5) { // There must be at most 5 items in the slot to be able to refill, else, it still doesn't need restocking
-                System.out.println("There are already enough items in this slot.");
+                System.out.println("There are already enough items in this slot. Must be 5 or less to refill");
             } else {
                 for (int i = 0; i < numFreeSlotSpaces; i++) {
                     Item newItem = new Item(itemType, price, calories); // Create a new item with the same attributes

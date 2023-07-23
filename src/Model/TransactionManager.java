@@ -55,14 +55,13 @@ public class TransactionManager {
     public void confirmTransaction(VendingMachine vendingMachine, int itemChoice)
     {
         int totalUserMoney = vendingMachine.getUserBalance();
-
-        int itemPrice = vendingMachine.getSelectedItem(itemChoice).getPrice();
+        int change = totalUserMoney - vendingMachine.getSelectedItem(itemChoice).getPrice();
 
         System.out.println("[Transaction Successful]");
         System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice).getAssignedItemType());
-        System.out.println("CHANGE: ₱" + (totalUserMoney - vendingMachine.getSelectedItem(itemChoice).getPrice()));
+        System.out.println("CHANGE: ₱" + change);
         vendingMachine.getMoneyManager().depositMoney();
-        vendingMachine.getMoneyManager().returnChange(itemPrice, vendingMachine.getMoneyManager().getTempMoneyFromUser());
+        vendingMachine.getMoneyManager().returnChange(change);
         //TODO: THIS
 
         //vendingMachine.addItemToRecord(vendingMachine.dispenseSelectedItem(itemChoice - 1));

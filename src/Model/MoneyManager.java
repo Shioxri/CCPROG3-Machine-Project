@@ -57,34 +57,14 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
     }
 
 
-    public int getTotalTempUserMoney() {
-        int totalUserMoney = 0;
+    public int getTotalMoneyFromList(ArrayList<Integer> moneyList) {
+        int totalMoney = 0;
 
-        for (int denomination : tempMoneyFromUser) {
-            totalUserMoney += denomination;
+        for (int denomination : moneyList) {
+            totalMoney += denomination;
         }
 
-        return totalUserMoney;
-    }
-
-    public int getTotalStoredMoney() {
-        int totalStoredMoney = 0;
-
-        for (int denomination : storedMoney) {
-            totalStoredMoney += denomination;
-        }
-
-        return totalStoredMoney;
-    }
-
-    public int getTotalAdminMoney() {
-        int totalAdminMoney = 0;
-
-        for (int denomination : adminMoney) {
-            totalAdminMoney += denomination;
-        }
-
-        return totalAdminMoney;
+        return totalMoney;
     }
 
 
@@ -150,7 +130,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
      */
     public boolean canReturnChange(int amount) {
         ArrayList<Integer> change = new ArrayList<>();
-        ArrayList<Integer> returnedMoney = new ArrayList<>();
         ArrayList<Integer> storedMoneyCopy = new ArrayList<>(storedMoney); // Create a copy to avoid modifying the original storedMoney
 
         storedMoneyCopy.sort(Collections.reverseOrder());
@@ -163,8 +142,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
                 amount -= denomination;
                 storedMoneyCopy.remove(i);
                 i--;
-            } else {
-                returnedMoney.add(denomination);
             }
 
             if (amount == 0) {
@@ -176,7 +153,7 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
     }
 
 
-    public void returnChange(int amount, ArrayList<Integer> tempPaidMoney) {
+    public void returnChange(int amount) {
         ArrayList<Integer> returnedMoney = new ArrayList<>(); // List to hold the denominations to be returned
 
         storedMoney.sort(Collections.reverseOrder()); // Sort the stored money in descending order
@@ -187,11 +164,9 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
 
             if (denomination <= amount) {
                 amount -= denomination; // Subtract the denomination from the remaining amount
-                tempPaidMoney.add(denomination); // Add the denomination to the tempPaidMoney list
+               tempMoneyFromUser.add(denomination); // Add the denomination to the tempPaidMoney list
                 storedMoney.remove(i); // Remove the denomination from storedMoney
                 i--; // Adjust the index after removal to avoid skipping an element
-            } else {
-                returnedMoney.add(denomination); // Add the denomination to be returned
             }
 
             // Break the loop if the amount becomes zero
@@ -200,7 +175,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
             }
         }
 
-        storedMoney.addAll(returnedMoney); // Add the denominations to be returned back to storedMoney
     }
 
     /**
@@ -211,5 +185,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
     public void returnMoney(ArrayList<Integer> moneyToReturn) {
         System.out.println("Returning money: " + moneyToReturn);
         storedMoney.removeAll(moneyToReturn);
+
     }
 }

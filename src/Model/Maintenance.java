@@ -1,6 +1,5 @@
 package Model;
 
-import Model.VendingMachine;
 
 public class Maintenance {
     public void restockItem(VendingMachine vendingMachine, int indexChoice)
