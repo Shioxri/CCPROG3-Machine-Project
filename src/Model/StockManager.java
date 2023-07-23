@@ -39,8 +39,8 @@ public class StockManager {
                     Item newItem = new Item(itemType, price, calories); // Create a new item with the same attributes
                     vendingMachine.getSelectedSlot(indexChoice).getItemArrayList().add(newItem); // Add the item to the slot
                 }
-                System.out.println("Successfully restocked " + indexChoice + " items of type: " + itemType);
-
+                System.out.println("Successfully restocked " + numFreeSlotSpaces + " items of type: " + itemType);
+                vendingMachine.getSelectedSlot(indexChoice).setItemStock(maxItemsPerSlot);
             }
         } else {
             System.out.println("This slot is already fully stocked.");

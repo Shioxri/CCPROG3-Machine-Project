@@ -55,8 +55,10 @@ public class Driver {
                 case 1:
                     VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
                     Maintenance maintenance = new Maintenance();
-                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
-                    maintenance.addAllToPrevStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
+                    ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    ArrayList<Slot> prevStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+                    maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
                     isDone = createRegularVendMachineMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
@@ -173,12 +175,13 @@ public class Driver {
 
         do {
             System.out.println("[Insert Cash - Denomination]");
-            System.out.println("[1] 100");
-            System.out.println("[2] 50");
-            System.out.println("[3] 20");
-            System.out.println("[4] 10");
-            System.out.println("[5] 5");
-            System.out.println("[6] 1");
+            System.out.println("[1] ₱100");
+            System.out.println("[2] ₱50");
+            System.out.println("[3] ₱20");
+            System.out.println("[4] ₱10");
+            System.out.println("[5] ₱5");
+            System.out.println("[6] ₱1");
+            System.out.println("[0] Exit");
             System.out.print("Enter your choice: ");
             int cashDenomination = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character after reading the integer input
@@ -220,27 +223,35 @@ public class Driver {
                     scanner.nextLine(); // Consume the newline character after reading the integer input
                     vendingMachine.addTempPaidMoney(1, quantity);
                     break;
+                case 0:
+                    System.out.println("Exiting money insertion...");
+                    isDone=true;
+                    break;
                 default:
                     System.out.println("INVALID INPUT!");
                     break;
             }
 
-            boolean isValidInput = false;
-            do {
-                System.out.print("Do you want to continue inserting money? [Y]es or [N]o: ");
-                String choice = scanner.nextLine();
+            if(!isDone)
+            {
+                boolean isValidInput = false;
+                do {
+                    System.out.print("Do you want to continue inserting money? [Y]es or [N]o: ");
+                    String choice = scanner.nextLine();
 
-                if (choice.equalsIgnoreCase("Y")) {
-                    isValidInput = true;
-                } else if (choice.equalsIgnoreCase("N")) {
-                    System.out.println("Going to the buy item menu...");
-                    isValidInput = true;
-                    isDone = true;
-                    buyItemMenu(scanner, vendingMachine, maintenance);
-                } else {
-                    System.out.println("Invalid input. Please enter 'Y' or 'N'.");
-                }
-            } while (!isValidInput);
+                    if (choice.equalsIgnoreCase("Y")) {
+                        isValidInput = true;
+                    } else if (choice.equalsIgnoreCase("N")) {
+                        System.out.println("Going to the buy item menu...");
+                        isValidInput = true;
+                        isDone = true;
+                        buyItemMenu(scanner, vendingMachine, maintenance);
+                    } else {
+                        System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                    }
+                } while (!isValidInput);
+            }
+
         } while (!isDone);
     }
 
@@ -305,6 +316,8 @@ public class Driver {
 
                     } while (!isValidInput);
                 }
+                else
+                    isDone=true;
         }while(!isDone);
     }
 
@@ -412,43 +425,57 @@ public class Driver {
         int indexChoice;
         boolean isDone = false;
         boolean isCorrect = false;
-        ArrayList<Slot> tempSlotsList = new ArrayList<>(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+
+
         do {
+            System.out.println("Restocking is only allowed for items with a stock count below 5.");
+            System.out.println();
             for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedItem(i).getType()
-                        +" -- -- Stock: "+vendingMachine.getSelectedSlot(i).getItemStock());
+                        + " -- Stock: " + vendingMachine.getSelectedSlot(i).getItemStock());
             }
+
+            System.out.println("[0] Press 0 to go back");
             System.out.print("Enter the index of the item to be restocked: ");
             indexChoice = scanner.nextInt();
             scanner.nextLine();
-            maintenance.restockItem(vendingMachine, indexChoice-1);
 
-            do {
-                System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
-                String choice = scanner.nextLine();
+            if (indexChoice == 0) {
+                System.out.println("Going back to maintenance menu...");
+                isDone = true;
+            } else if (indexChoice >= 1 && indexChoice <= vendingMachine.getSlotArrayList().size()) {
+                maintenance.restockItem(vendingMachine, indexChoice - 1);
+                boolean isValidInput = false;
+                do {
+                    System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
+                    String choice = scanner.nextLine();
 
-                if (choice.equalsIgnoreCase("Y")) {
-                    isCorrect = true;
-                } else if (choice.equalsIgnoreCase("N")) {
-                    System.out.println("Going back to maintenance menu...");
-                    maintenance.addAllToPrevStartingInventory(vendingMachine,vendingMachine.getStartingInventory());
-                    maintenance.addAllToEndingInventory(vendingMachine, tempSlotsList);
-                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
-                    isCorrect = true;
-                    isDone = true;
-
-                } else {
-                    System.out.println("Invalid input. Please only enter 'Y' or 'N'.");
-                }
-            }while(!isCorrect);
-
+                    if (choice.equalsIgnoreCase("Y")) {
+                        isValidInput = true;
+                    } else if (choice.equalsIgnoreCase("N")) {
+                        System.out.println("Going back to maintenance menu...");
+                        ArrayList<Slot> startingPrevInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                        maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
+                        maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+                        ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                        maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+                        isValidInput = true;
+                        isDone = true;
+                    } else {
+                        System.out.println("Invalid input. Please only enter 'Y' or 'N'.");
+                    }
+                } while (!isValidInput);
+            } else {
+                System.out.println("Invalid index choice. Please select a valid option or press 0 to go back.");
+            }
         } while (!isDone);
     }
 
     public static void stockNewItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
         boolean isCorrect = false;
-        ArrayList<Slot> tempSlotsList = new ArrayList<>(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         do {
             System.out.println("What type of item would you like to add to the vending machine?");
             String newItem = scanner.nextLine();
@@ -496,9 +523,11 @@ public class Driver {
                     isCorrect = true;
                 } else if (choice.equalsIgnoreCase("N")) {
                     System.out.println("Going back to maintenance menu...");
-                    maintenance.addAllToPrevStartingInventory(vendingMachine,vendingMachine.getStartingInventory());
-                    maintenance.addAllToEndingInventory(vendingMachine, tempSlotsList);
-                    maintenance.addAllToStartingInventory(vendingMachine, vendingMachine.getSlotArrayList());
+                    ArrayList<Slot> startingPrevInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                    maintenance.addAllToPrevStartingInventory(vendingMachine,startingPrevInventoryCopy);
+                    maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+                    ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    maintenance.addAllToStartingInventory(vendingMachine,startingInventoryCopy);
                     isCorrect = true;
                     isDone = true;
                 } else {

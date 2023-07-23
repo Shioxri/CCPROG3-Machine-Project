@@ -56,7 +56,13 @@ public class Maintenance {
         vendingMachine.getRecorder().getEndingInventory().addAll(slotList);
     }
 
-
+    public ArrayList<Slot> deepCopySlotArrayList(ArrayList<Slot> original) {
+        ArrayList<Slot> copy = new ArrayList<>();
+        for (Slot slot : original) {
+            copy.add(slot.clone());
+        }
+        return copy;
+    }
 
 
 }

@@ -3,7 +3,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Slot {
+public class Slot implements Cloneable {
     private ArrayList<Item> itemArrayList;
     private String assignedItemType;
     private int itemStock; // The itemStock or quantity of items in the slot
@@ -12,6 +12,16 @@ public class Slot {
         this.assignedItemType = itemType;
         this.itemArrayList = new ArrayList<>();
         this.itemStock = itemStock;
+    }
+
+    @Override
+    public Slot clone() {
+        try {
+            return (Slot) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // Handle the exception, if necessary
+            return null;
+        }
     }
 
     public Slot() {
