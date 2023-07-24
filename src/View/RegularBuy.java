@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
 
@@ -13,6 +14,7 @@ public class RegularBuy {
         // Declarations
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
+        JLabel pageCounter = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
@@ -26,6 +28,10 @@ public class RegularBuy {
         JButton Item7Button = new JButton();
         JButton Item8Button = new JButton();
         JButton Item9Button = new JButton();
+        JButton backButton = new JButton();
+        JButton nextButton = new JButton();
+
+        AtomicInteger pageNumber = new AtomicInteger(1);
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
@@ -48,6 +54,22 @@ public class RegularBuy {
         JPanel bgpanel = new JPanel(null);
         bgpanel.setBounds(0, 0, 10000, 10000);
         bgpanel.add(backgroundLabel);
+
+        // Label
+
+        titleLabel.setHorizontalTextPosition(JLabel.CENTER);
+        titleLabel.setVerticalTextPosition(JLabel.TOP);
+        titleLabel.setIcon(titleIcon);
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        titleLabel.setVerticalAlignment(JLabel.CENTER);
+        titleLabel.setForeground(Color.white);
+        titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
+
+        pageCounter.setBounds(225, 400, 100, 50);
+        pageCounter.setHorizontalAlignment(JLabel.CENTER);
+        pageCounter.setText(String.valueOf(pageNumber));
+        pageCounter.setBorder(borderLine);
+        pageCounter.setForeground(Color.WHITE);
 
         // Buttons
         Item1Button.setBounds(25, 75, 150, 50);
@@ -93,15 +115,15 @@ public class RegularBuy {
         Item9Button.setHorizontalAlignment(JButton.CENTER);
         Item9Button.setText("Not Available");
 
-        // Label
+        backButton.setBounds(125, 400, 100, 50);
+        backButton.setHorizontalAlignment(JButton.CENTER);
+        backButton.setText("<--");
+        backButton.addActionListener(e -> pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get())));
 
-        titleLabel.setHorizontalTextPosition(JLabel.CENTER);
-        titleLabel.setVerticalTextPosition(JLabel.TOP);
-        titleLabel.setIcon(titleIcon);
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        titleLabel.setVerticalAlignment(JLabel.CENTER);
-        titleLabel.setForeground(Color.white);
-        titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        nextButton.setBounds(325, 400, 100, 50);
+        nextButton.setHorizontalAlignment(JButton.CENTER);
+        nextButton.setText("-->");
+        nextButton.addActionListener(e -> pageNumber.set(RegularBuy.magicIncrement(pageCounter, pageNumber.get())));
 
         // Panels
         titlePanel.setBackground(new Color(25, 25, 112, 123));
@@ -123,6 +145,9 @@ public class RegularBuy {
         selectionPanel.add(Item7Button);
         selectionPanel.add(Item8Button);
         selectionPanel.add(Item9Button);
+        selectionPanel.add(backButton);
+        selectionPanel.add(nextButton);
+        selectionPanel.add(pageCounter);
         selectionPanel.setBorder(borderLine);
 
         lowerPanel.setBackground(new Color(25, 25, 112, 123));
@@ -171,5 +196,17 @@ public class RegularBuy {
         } catch (Exception e) {
             System.out.println("Error while playing background music: " + e.getMessage());
         }
+    }
+
+    public static int magicIncrement(JLabel pageCounter, int pageNumber){
+        pageNumber++;
+        pageCounter.setText(String.valueOf(pageNumber));
+        return pageNumber;
+    }
+
+    public static int magicDecrement(JLabel pageCounter, int pageNumber){
+        pageNumber--;
+        pageCounter.setText(String.valueOf(pageNumber));
+        return pageNumber;
     }
 }
