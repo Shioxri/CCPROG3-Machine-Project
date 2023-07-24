@@ -45,6 +45,7 @@ public class RegularBuy {
         ImageIcon sampleBG = new ImageIcon("VM.gif");
         ImageIcon cola = new ImageIcon("cola.png");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
+        Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
 
         // Components for Background
@@ -72,12 +73,17 @@ public class RegularBuy {
         pageCounter.setBorder(borderLine);
         pageCounter.setForeground(Color.WHITE);
 
-        systemMessage.setBounds(10,10,520,110);
+        systemMessage.setBounds(10,8,530,110);
+        systemMessage.setHorizontalAlignment(JLabel.CENTER);
+        systemMessage.setVerticalAlignment(JLabel.CENTER);
+            systemMessage.setBackground(new Color(0,0,0));
+        systemMessage.setBorder(borderLinegrayl);
         systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                 "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
                 "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
                 "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
         systemMessage.setForeground(Color.WHITE);
+        systemMessage.setOpaque(true);
 
 
         // Buttons
