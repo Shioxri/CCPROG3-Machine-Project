@@ -72,7 +72,7 @@ public class RegularBuy {
         pageCounter.setBorder(borderLine);
         pageCounter.setForeground(Color.WHITE);
 
-        systemMessage.setBounds(10,10,530,110);
+        systemMessage.setBounds(10,10,520,110);
         systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                 "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
                 "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
@@ -159,7 +159,7 @@ public class RegularBuy {
         selectionPanel.add(pageCounter);
         selectionPanel.setBorder(borderLine);
 
-        lowerPanel.setBackground(new Color(25, 25, 112, 123));
+        lowerPanel.setBackground(new Color(25, 25, 112, 250));
         lowerPanel.setBounds(0,630,550,130);
         lowerPanel.setLayout(null);
         lowerPanel.setOpaque(true);
