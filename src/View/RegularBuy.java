@@ -15,6 +15,7 @@ public class RegularBuy {
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
+        JLabel systemMessage = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
@@ -70,6 +71,14 @@ public class RegularBuy {
         pageCounter.setText(String.valueOf(pageNumber));
         pageCounter.setBorder(borderLine);
         pageCounter.setForeground(Color.WHITE);
+
+        systemMessage.setBounds(10,10,530,110);
+        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
+                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
+                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
+        systemMessage.setForeground(Color.WHITE);
+
 
         // Buttons
         Item1Button.setBounds(25, 75, 150, 50);
@@ -155,6 +164,7 @@ public class RegularBuy {
         lowerPanel.setLayout(null);
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
+        lowerPanel.add(systemMessage);
 
         rightPanel.setBackground(new Color(25, 25, 112, 123));
         rightPanel.setBounds(550,0,200,751);
