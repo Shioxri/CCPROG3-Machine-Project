@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -33,6 +34,8 @@ public class RegularBuy {
         JButton Item9Button = new JButton();
         JButton backButton = new JButton();
         JButton nextButton = new JButton();
+        JButton buyButton = new JButton();
+        JButton cancelButton = new JButton();
 
         AtomicInteger pageNumber = new AtomicInteger(1);
         AtomicInteger cash = new AtomicInteger(9999);
@@ -98,7 +101,7 @@ public class RegularBuy {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
-        infoLabel.setBounds(10,150,180,200);
+        infoLabel.setBounds(10,200,180,200);
         infoLabel.setText("<html>Price: $999<br/>Calories: 999 <br/> Stock: 10</html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
@@ -162,6 +165,14 @@ public class RegularBuy {
         nextButton.setText("-->");
         nextButton.addActionListener(e -> pageNumber.set(RegularBuy.magicIncrement(pageCounter, pageNumber.get())));
 
+        buyButton.setBounds(10, 410, 80, 50);
+        buyButton.setText("Buy");
+        backButton.setHorizontalAlignment(JButton.CENTER);
+
+        cancelButton.setBounds(110, 410, 80, 50);
+        cancelButton.setText("Cancel");
+        cancelButton.setHorizontalAlignment(JButton.CENTER);
+
         // Panels
         titlePanel.setBackground(new Color(25, 25, 112, 123));
         titlePanel.setBounds(0, 0, 550, 150);
@@ -201,6 +212,8 @@ public class RegularBuy {
         rightPanel.setBorder(borderLine);
         rightPanel.add(userBalanceLabel);
         rightPanel.add(infoLabel);
+        rightPanel.add(buyButton);
+        rightPanel.add(cancelButton);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
