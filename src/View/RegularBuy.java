@@ -183,13 +183,9 @@ public class RegularBuy {
         }
 
         denominations.setBounds(10,110,120,25);
-        denominations.addItem("Insert Cash");
-        denominations.addItem(1);
-        denominations.addItem(5);
-        denominations.addItem(10);
-        denominations.addItem(20);
-        denominations.addItem(50);
-        denominations.addItem(100);
+        for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
+            denominations.addItem(i);
+        }
 
 
         // Panels
