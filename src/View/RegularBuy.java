@@ -37,7 +37,7 @@ public class RegularBuy {
         JButton buyButton = new JButton();
         JButton cancelButton = new JButton();
         JButton addButton = new JButton();
-        JComboBox denominations = new JComboBox<>();
+        JComboBox<Integer> denominations = new JComboBox<>();
 
         AtomicInteger pageNumber = new AtomicInteger(1);
         AtomicInteger cash = new AtomicInteger(9999);
@@ -282,7 +282,7 @@ public class RegularBuy {
 
     public static int magicAdd(JLabel userBalance, int cash, int addition){
         cash += addition;
-        userBalance.setText("$"+String.valueOf(cash));
+        userBalance.setText("$"+cash);
         return cash;
     }
 }
