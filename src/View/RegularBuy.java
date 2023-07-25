@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
@@ -35,6 +36,8 @@ public class RegularBuy {
         JButton nextButton = new JButton();
         JButton buyButton = new JButton();
         JButton cancelButton = new JButton();
+        JButton addButton = new JButton();
+        JComboBox denominations = new JComboBox<>();
 
         AtomicInteger pageNumber = new AtomicInteger(1);
         AtomicInteger cash = new AtomicInteger(9999);
@@ -172,6 +175,23 @@ public class RegularBuy {
         cancelButton.setText("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
+        addButton.setBounds(140, 110, 50,25);
+        addButton.setText("+");
+        addButton.setHorizontalAlignment(JButton.CENTER);
+        if(!Objects.equals(denominations.getSelectedItem(), "Insert Cash")) {
+            addButton.addActionListener(e -> cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem())));
+        }
+
+        denominations.setBounds(10,110,120,25);
+        denominations.addItem("Insert Cash");
+        denominations.addItem(1);
+        denominations.addItem(5);
+        denominations.addItem(10);
+        denominations.addItem(20);
+        denominations.addItem(50);
+        denominations.addItem(100);
+
+
         // Panels
         titlePanel.setBackground(new Color(25, 25, 112, 123));
         titlePanel.setBounds(0, 0, 550, 150);
@@ -213,6 +233,8 @@ public class RegularBuy {
         rightPanel.add(infoLabel);
         rightPanel.add(buyButton);
         rightPanel.add(cancelButton);
+        rightPanel.add(addButton);
+        rightPanel.add(denominations);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
@@ -260,5 +282,11 @@ public class RegularBuy {
         pageNumber--;
         pageCounter.setText(String.valueOf(pageNumber));
         return pageNumber;
+    }
+
+    public static int magicAdd(JLabel userBalance, int cash, int addition){
+        cash += addition;
+        userBalance.setText("$"+String.valueOf(cash));
+        return cash;
     }
 }
