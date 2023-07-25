@@ -16,10 +16,12 @@ public class RegularBuy {
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
         JLabel systemMessage = new JLabel();
+        JLabel userBalanceLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
+        JLabel infoLabel = new JLabel();
         JButton Item1Button = new JButton();
         JButton Item2Button = new JButton();
         JButton Item3Button = new JButton();
@@ -33,6 +35,7 @@ public class RegularBuy {
         JButton nextButton = new JButton();
 
         AtomicInteger pageNumber = new AtomicInteger(1);
+        AtomicInteger cash = new AtomicInteger(9999);
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
@@ -85,6 +88,25 @@ public class RegularBuy {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
+        userBalanceLabel.setBounds(10,50,180,50);
+        userBalanceLabel.setText("$" + cash);
+        userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
+        userBalanceLabel.setForeground(Color.white);
+        userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
+        userBalanceLabel.setVerticalAlignment(JLabel.CENTER);
+        userBalanceLabel.setBorder(borderLine);
+        userBalanceLabel.setBackground(Color.black);
+        userBalanceLabel.setOpaque(true);
+
+        infoLabel.setBounds(10,150,180,200);
+        infoLabel.setText("<html>Price: $999<br/>Calories: 999 <br/> Stock: 10</html>");
+        infoLabel.setForeground(Color.WHITE);
+        infoLabel.setBackground(Color.BLACK);
+        infoLabel.setBorder(borderLinegrayl);
+        infoLabel.setOpaque(true);
+        infoLabel.setVerticalAlignment(JLabel.CENTER);
+        infoLabel.setHorizontalAlignment(JLabel.CENTER);
+        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
 
         // Buttons
         Item1Button.setBounds(25, 75, 150, 50);
@@ -177,6 +199,8 @@ public class RegularBuy {
         rightPanel.setLayout(null);
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
+        rightPanel.add(userBalanceLabel);
+        rightPanel.add(infoLabel);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
