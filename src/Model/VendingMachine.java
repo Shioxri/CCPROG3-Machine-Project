@@ -11,12 +11,11 @@ public class VendingMachine {
     private TransactionManager transactionManager;
     private StockManager stockManager;
     private RecordsManager recorder;
-
-
-
+    private ArrayList<Slot> specialSlots;
 
     public VendingMachine() {
-        slotArrayList = new ArrayList<>(8);
+        slotArrayList = new ArrayList<>();
+        specialSlots = new ArrayList<>();
         initializer = new Initializer();
         displayer = new DisplayManager();
         moneyManager = new MoneyManager();
@@ -127,7 +126,7 @@ public class VendingMachine {
     }
 
 
-
-
-
+    public ArrayList<Slot> getSpecialSlots() {
+        return specialSlots;
+    }
 }

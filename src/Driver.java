@@ -1,7 +1,4 @@
-import Model.Item;
-import Model.Maintenance;
-import Model.Slot;
-import Model.VendingMachine;
+import Model.*;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -59,7 +56,7 @@ public class Driver {
                     ArrayList<Slot> prevStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
                     maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
                     maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
-                    isDone = createRegularVendMachineMenu(scanner, vendingMachine, maintenance);
+                    isDone = createVendingMachineMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
                     System.out.println("Work in progress...");
@@ -80,7 +77,7 @@ public class Driver {
      * @param vendingMachine the vending machine object to be used/tested
      * @return boolean
      */
-    public static boolean createRegularVendMachineMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static boolean createVendingMachineMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int regularVMChoice;
         do {
             System.out.println("╔═══════════════════╗");
@@ -88,7 +85,7 @@ public class Driver {
             System.out.println("╚═══════════════════╝");
             System.out.println("[1] User Menu");
             System.out.println("[2] Maintenance Menu");
-            System.out.println("[3] Exit");
+            System.out.println("[0] Exit");
             System.out.println("(Exiting will discard the current vending machine)");
             System.out.print("Enter your choice: ");
             regularVMChoice = scanner.nextInt();
@@ -124,7 +121,6 @@ public class Driver {
         int userMenuChoice;
 
         do {
-
             System.out.println("╔═══════════════════════╗");
             System.out.println("║    GREETINGS! USER    ║");
             System.out.println("╚═══════════════════════╝");
@@ -132,11 +128,16 @@ public class Driver {
             System.out.println("========User Menu========");
             System.out.println("[1] Display Specific Item Information");
             System.out.println("[2] Buy Item");
-            System.out.println("[3] Go back");
+
+            // Check if vendingMachine is an instance of SpecialVendingMachine
+            if (vendingMachine instanceof SpecialVendingMachine) {
+                System.out.println("[3] Buy Customized Item (Fruit Shake)"); // Include case specific to SpecialVendingMachine
+            }
+
+            System.out.println("[0] Go back");
             System.out.print("Enter your choice: ");
             userMenuChoice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
-
 
             switch (userMenuChoice) {
                 case 1: {
@@ -144,24 +145,32 @@ public class Driver {
                     int chosenSlotIndex = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
                     vendingMachine.displaySpecificItem(chosenSlotIndex - 1);
-
                     break;
                 }
 
                 case 2: {
-                    insertMoney(scanner, vendingMachine, maintenance);
+                    insertMoneyMenu(scanner, vendingMachine, maintenance);
                     break;
                 }
 
                 case 3:
+                    // Handle the case specific to SpecialVendingMachine
+                    if (vendingMachine instanceof SpecialVendingMachine) {
+                        // Call the method or perform actions specific to SpecialVendingMachine
+                        ((SpecialVendingMachine) vendingMachine).specialFeature();
+                    } else {
+                        System.out.println("Invalid choice. Please try again.");
+                    }
+                    break;
+
+                case 0:
                     System.out.println("Exiting...");
                     break;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (userMenuChoice != 3);
-
-
+        } while (userMenuChoice != 0);
     }
 
     /**
@@ -169,7 +178,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void insertMoney(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void insertMoneyMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int quantity;
         boolean isDone = false;
 
@@ -352,22 +361,22 @@ public class Driver {
 
             switch (maintenanceMenuChoice) {
                 case 1:
-                    restockItems(scanner, vendingMachine, maintenance);
+                    restockItemsMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 2:
-                    stockNewItems(scanner, vendingMachine, maintenance);
+                    stockNewItemsMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 3:
-                    setPriceForSelectedItemType(scanner, vendingMachine, maintenance);
+                    setPriceForSelectedItemTypeMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 4:
-                    collectMachineMoney(scanner, vendingMachine, maintenance);
+                    collectMachineMoneyMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 5:
-                    replenishMachineMoney(scanner, vendingMachine, maintenance);
+                    replenishMachineMoneyMenu(scanner, vendingMachine, maintenance);
                     break;
                 case 6:
-                    printSummary(vendingMachine, maintenance);
+                    printSummaryMenu(vendingMachine, maintenance);
                     break;
                 case 0:
                     System.out.println("Exiting Maintenance Menu.");
@@ -387,41 +396,36 @@ public class Driver {
      */
     public static boolean checkPassword(Scanner scanner) {
         String password;
-        String toTryAgain;
+        String toTryAgain=null;
         boolean isCorrect = false;
-        String defaultPassword = "password"; // default admin password
+
+        final String DEFAULT_PASSWORD = "password"; // default admin password
 
         do {
             System.out.print("Input admin password: ");
             password = scanner.nextLine();
 
-            if (defaultPassword.equals(password)) {
+            if (DEFAULT_PASSWORD.equals(password)) {
                 isCorrect = true;
                 System.out.println("Password correct! Access granted.");
             } else {
                 System.out.println("Wrong Password!");
 
-                do {
-                    System.out.print("Do you want to try again? [Y]es or [N]o: ");
-                    toTryAgain = scanner.nextLine();
+                System.out.print("Do you want to try again? [Y]es or [N]o: ");
+                toTryAgain = scanner.nextLine();
 
-                    if (toTryAgain.equalsIgnoreCase("Y")) {
-                        break; // go back to start of outer loop
-                    } else if (toTryAgain.equalsIgnoreCase("N")) {
-                        System.out.println("Exiting...");
-                        return false; // return false if user chooses not to try again
-                    } else {
-                        System.out.println("Invalid input. Please try again.");
-                    }
-                } while (!toTryAgain.equalsIgnoreCase("Y") && !toTryAgain.equalsIgnoreCase("N"));
+                if (toTryAgain.equalsIgnoreCase("N")) {
+                    System.out.println("Exiting...");
+                    return false; // return false if the user chooses not to try again
+                }
             }
-        } while (!isCorrect); // while password isn't correct
+        } while (!isCorrect && toTryAgain.equalsIgnoreCase("Y"));
 
         return true; // return true if the password is correct or the user chooses to try again
     }
 
 
-    public static void restockItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void restockItemsMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         int indexChoice;
         boolean isDone = false;
         boolean isCorrect = false;
@@ -472,7 +476,7 @@ public class Driver {
         } while (!isDone);
     }
 
-    public static void stockNewItems(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void stockNewItemsMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
         boolean isCorrect = false;
         ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
@@ -543,7 +547,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void setPriceForSelectedItemType(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void setPriceForSelectedItemTypeMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
         boolean isValidIndex = false;
         boolean isValidPrice;
@@ -605,7 +609,7 @@ public class Driver {
 
     }
 
-    public static void collectMachineMoney(Scanner scanner,VendingMachine vendingMachine, Maintenance maintenance)
+    public static void collectMachineMoneyMenu(Scanner scanner,VendingMachine vendingMachine, Maintenance maintenance)
     {
         boolean isDone = false;
         int totalMoneyGenerated = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getTempMoneyFromUser());
@@ -621,7 +625,7 @@ public class Driver {
         } while (!isDone);
     }
 
-    public static void replenishMachineMoney(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void replenishMachineMoneyMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
         boolean isDone = false;
         int denomination, quantity;
 
@@ -670,7 +674,7 @@ public class Driver {
         } while (!isDone);
     }
 
-    public static void printSummary(VendingMachine vendingMachine, Maintenance maintenance)
+    public static void printSummaryMenu(VendingMachine vendingMachine, Maintenance maintenance)
     {
         maintenance.generateSalesReport(vendingMachine);
         System.out.println();
