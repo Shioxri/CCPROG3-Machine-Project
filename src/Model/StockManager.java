@@ -78,7 +78,23 @@ public class StockManager {
     }
 
 
+    public void restoreOriginalSlotContents(VendingMachine vendingMachine, ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
+        // Restore the original contents of regular slots
+        for (int i = 0; i < originalSlots.size(); i++) {
+            Slot originalSlot = originalSlots.get(i);
+            Slot currentSlot = vendingMachine.getSlotArrayList().get(i);
+            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
+            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
+        }
 
+        // Restore the original contents of special slots
+        for (int i = 0; i < originalSpecialSlots.size(); i++) {
+            Slot originalSlot = originalSpecialSlots.get(i);
+            Slot currentSlot = vendingMachine.getSpecialSlots().get(i);
+            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
+            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
+        }
+    }
 
 
 }

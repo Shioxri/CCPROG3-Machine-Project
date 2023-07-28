@@ -157,7 +157,7 @@ public class Driver {
                     // Handle the case specific to SpecialVendingMachine
                     if (vendingMachine instanceof SpecialVendingMachine) {
                         // Call the method or perform actions specific to SpecialVendingMachine
-                        ((SpecialVendingMachine) vendingMachine).specialFeature();
+                        ((SpecialVendingMachine) vendingMachine).buyCustomItemMenu();
                     } else {
                         System.out.println("Invalid choice. Please try again.");
                     }
@@ -281,7 +281,7 @@ public class Driver {
                 {
                     vendingMachine.confirmTransaction(choice-1);
                     Item dispensedItem = vendingMachine.dispenseSelectedItem(choice-1);
-                    System.out.println(dispensedItem.getType()+" <- Dispensed 1");
+                    System.out.println(dispensedItem.getType()+" <- Dispensed (1) Item");
                     maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
 
 
@@ -329,7 +329,248 @@ public class Driver {
                     isDone=true;
         }while(!isDone);
     }
+//TODO MAKE SPECIAL SLOT VERSIONS OF DISPLAY AVAILABLE/ALL ITEMS AND DISPENSE AND INVENTORY AND RECORD
+    public static void buyCustomItemMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance)
+    {
+        ArrayList<Slot> originalSlots = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> originalSpecialSlots = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+        ArrayList<Item> selectedItems = new ArrayList<>();
+        int maxFruits = 2;
+        boolean isDone = false;
+        boolean useMilk = false;
+        boolean useWater = false;
+        boolean isOrderCanceled = false;
 
+        do {
+        System.out.print("How many fruits would you like to select (maximum " + maxFruits + ")? ");
+        int numFruits = scanner.nextInt();
+        scanner.nextLine();
+
+            if (numFruits <= 0 || numFruits > maxFruits) {
+                System.out.println("Invalid number of fruits. Please select between 1 and " + maxFruits + " fruits.");
+            } else {
+                while (numFruits > 0) {
+                    vendingMachine.displayAllItems(vendingMachine.getSlotArrayList()); // Display available fruits TODO
+                    System.out.println("Enter the index of your choice: ");
+                    System.out.println("Enter 0 to exit");
+                    int fruitChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (fruitChoice == 0) {
+                        System.out.println("Order canceled.");
+                        vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                        return;
+                    }
+
+                    if (fruitChoice > 0 && fruitChoice <= vendingMachine.getSlotArrayList().size()) {
+                        Item selectedFruit = vendingMachine.getSelectedItem(fruitChoice - 1);
+                        if (selectedItems.contains(selectedFruit)) {
+                            System.out.println("You have already selected this fruit. Please choose another one.");
+                        } else {
+                            selectedItems.add(selectedFruit);
+                            numFruits--;
+                        }
+                    } else {
+                        System.out.println("Invalid choice. Please select a valid fruit.");
+                    }
+                }
+                isDone=true;
+            }
+        }while(!isDone);
+
+        if(!isOrderCanceled)
+        {
+            do {
+                // Second Phase: User picks whether to use milk or water or both
+                System.out.println("Do you want to user water [1], milk [2], or both [3]?");
+                System.out.println("[0] to cancel the order.");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                isDone = true;
+                switch (choice) {
+                    case 1:
+                        useWater = true;
+                        break;
+                    case 2:
+                        useMilk = true;
+                        break;
+                    case 3:
+                        useWater = true;
+                        useMilk = true;
+                        break;
+                    case 0:
+                        System.out.println("Order canceled.");
+                        vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                        return;
+                    default:
+                        isDone = false;
+                        break;
+                }
+            }while(!isDone);
+
+            Item selectedLiquid = new Item();
+            isDone=false;
+            // Handle the Second Phase (A) and (B) based on user choices
+            if (useWater) {
+                do {
+                    System.out.println("Select water type:");
+                    System.out.println("1. Regular Water");
+                    System.out.println("2. Sugar Water");
+                    System.out.println("0. Cancel Order");
+
+                    int waterTypeChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (waterTypeChoice) {
+                        case 1:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Water");
+                            selectedItems.add(selectedLiquid);
+                            isDone = true;
+                            break;
+                        case 2:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Sugar Water");
+                            selectedItems.add(selectedLiquid);
+                            isDone = true;
+                            break;
+                        case 0:
+                            System.out.println("Order canceled.");
+                            vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                            return;
+
+                        default:
+                            System.out.println("Invalid choice. Please select a valid water type.");
+                            break;
+                    }
+                }while (!isDone);
+            }
+            isDone = false;
+            if (useMilk) {
+                do {
+                    System.out.println("Select milk type:");
+                    System.out.println("1. Regular Cow's Milk");
+                    System.out.println("2. Almond Milk");
+                    System.out.println("3. Soy Milk");
+                    System.out.println("4. Condensed Milk");
+                    System.out.println("5. Evaporated Milk");
+
+                    int milkTypeChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (milkTypeChoice) {
+                        case 1:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Regular Milk");
+                            selectedItems.add(selectedLiquid);
+                            isDone = true;
+                            break;
+                        case 2:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Almond Milk");
+                            selectedItems.add(selectedLiquid);
+                            isDone = true;
+                            break;
+                        case 3:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Soy Milk");
+                            selectedItems.add(selectedLiquid);
+                            break;
+                        case 4:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType(" Condensed Milk");
+                            selectedItems.add(selectedLiquid);
+                            break;
+                        case 5:
+                            selectedLiquid = vendingMachine.getSpecialItemByItemType("Evaporated Milk");
+                            selectedItems.add(selectedLiquid);
+                            break;
+                        case 0:
+                            System.out.println("Order canceled.");
+                            vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                            return;
+
+                        default:
+                            System.out.println("Invalid choice. Please select a valid milk type.");
+                            break;
+                    }
+                }while (!isDone);
+            }
+
+            Item selectedIce = new Item();
+            isDone = false;
+            do {
+                System.out.println("Select ice type:");
+                System.out.println("1. Ice Cubes");
+                System.out.println("2. Shaved Ice");
+                System.out.println("3. None");
+                System.out.println("0. Exit");
+
+                int iceTypeChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (iceTypeChoice) {
+                    case 1:
+                        selectedIce = vendingMachine.getSpecialItemByItemType("Ice Cubes");
+                        selectedItems.add(selectedIce);
+                        isDone = true;
+                        break;
+                    case 2:
+                        selectedIce = vendingMachine.getSpecialItemByItemType("Shaved Ice");
+                        selectedItems.add(selectedIce);
+                        isDone = true;
+                        break;
+                    case 3:
+                        break;
+                    case 0:
+                        System.out.println("Order canceled.");
+                        vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                        return;
+
+                    default:
+                        System.out.println("Invalid choice. Please select a valid ice type.");
+                        break;
+                }
+            }while (!isDone);
+
+            Item selectedAddOns = new Item();
+            isDone = false;
+            do {
+                System.out.println("Select additional toppings:");
+                System.out.println("1. Honey");
+                System.out.println("2. Cream");
+                System.out.println("3. None");
+                System.out.println("0. Exit");
+
+                int toppingsChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (toppingsChoice) {
+                    case 1:
+                        selectedAddOns = vendingMachine.getSpecialItemByItemType("Honey");
+                        selectedItems.add(selectedAddOns);
+                        isDone = true;
+                        break;
+                    case 2:
+                        selectedAddOns = vendingMachine.getSpecialItemByItemType("Cream");
+                        selectedItems.add(selectedAddOns);
+                        isDone = true;
+                        break;
+                    case 3:
+                        break;
+                    case 0:
+                        System.out.println("Order canceled.");
+                        vendingMachine.restoreOriginalContents(vendingMachine, originalSlots, originalSpecialSlots);
+                        return;
+
+                    default:
+                        System.out.println("Invalid choice. Please select a valid ice type.");
+                        break;
+                }
+            }while (!isDone);
+
+        }
+
+        // Calculate the final price and calories based on user selections
+
+        // Display the final price and calories
+
+        // Handle out of stock items and return items to their slots if necessary
+    }
 
 
     /**

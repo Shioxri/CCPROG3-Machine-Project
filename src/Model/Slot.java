@@ -8,6 +8,10 @@ public class Slot implements Cloneable {
     private String assignedItemType;
     private int itemStock; // The itemStock or quantity of items in the slot
 
+    public void setItemArrayList(ArrayList<Item> itemArrayList) {
+        this.itemArrayList = itemArrayList;
+    }
+
     public Slot(String itemType, int itemStock) {
         this.assignedItemType = itemType;
         this.itemArrayList = new ArrayList<>();

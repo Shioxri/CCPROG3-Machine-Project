@@ -2,8 +2,11 @@ package Model;
 
 
 public class SpecialSlot extends Slot {
-    public SpecialSlot(String assignedItemType, int itemStock) {
-        super(assignedItemType, itemStock);
+
+    public SpecialSlot(String itemType, int itemStock) {
+        super(itemType, itemStock);
     }
+
+
 
 }
