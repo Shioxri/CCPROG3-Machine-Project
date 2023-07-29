@@ -120,7 +120,7 @@ public class RegularBuy {
         Item1Button.setIcon(cola);
         Item1Button.setText("Item 1");
         Item1Button.setHorizontalTextPosition(JButton.CENTER);
-        Item1Button.addActionListener(e -> System.out.println("show regular VM"));
+        Item1Button.addActionListener(e -> systemMessage.setText("Item 1"));
 
         Item2Button.setBounds(200, 75, 150, 50);
         Item2Button.setHorizontalAlignment(JButton.CENTER);
@@ -132,7 +132,6 @@ public class RegularBuy {
         Item3Button.setBounds(375, 75, 150, 50);
         Item3Button.setHorizontalAlignment(JButton.CENTER);
         Item3Button.setText("Item 3");
-        Item3Button.addActionListener(e -> System.exit(0));
 
         Item4Button.setBounds(25, 175, 150, 50);
         Item4Button.setHorizontalAlignment(JButton.CENTER);
@@ -183,9 +182,11 @@ public class RegularBuy {
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
-        if(!Objects.equals(denominations.getSelectedItem(), "Insert Cash")) {
-            addButton.addActionListener(e -> cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem())));
-        }
+            addButton.addActionListener(e -> {
+                cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem()));
+                systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+            });
+
 
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
