@@ -11,12 +11,11 @@ public class VendingMachine {
     private TransactionManager transactionManager;
     private StockManager stockManager;
     private RecordsManager recorder;
-
-
-
+    private ArrayList<Slot> specialSlots;
 
     public VendingMachine() {
-        slotArrayList = new ArrayList<>(8);
+        slotArrayList = new ArrayList<>();
+        specialSlots = new ArrayList<>();
         initializer = new Initializer();
         displayer = new DisplayManager();
         moneyManager = new MoneyManager();
@@ -126,8 +125,37 @@ public class VendingMachine {
         return this.getRecorder().getEndingInventory();
     }
 
+    public ArrayList<Slot> getSpecialSlots() {
+        return specialSlots;
+    }
 
+    public Item getSpecialItemByItemType(String itemType) {
+        for (Slot slot : this.specialSlots) {
+            for (Item item : slot.getItemArrayList()) {
+                if (item.getType().equalsIgnoreCase(itemType)) {
+                    return item;
+                }
+            }
+        }
+        return null; // Return null if the item with the specified itemType is not found
+    }
 
+    public void restoreOriginalContents(VendingMachine vendingMachine, ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
+        // Restore the original contents of regular slots
+        for (int i = 0; i < originalSlots.size(); i++) {
+            Slot originalSlot = originalSlots.get(i);
+            Slot currentSlot = vendingMachine.getSlotArrayList().get(i);
+            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
+            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
+        }
 
+        // Restore the original contents of special slots
+        for (int i = 0; i < originalSpecialSlots.size(); i++) {
+            Slot originalSlot = originalSpecialSlots.get(i);
+            Slot currentSlot = vendingMachine.getSpecialSlots().get(i);
+            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
+            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
+        }
+    }
 
 }
