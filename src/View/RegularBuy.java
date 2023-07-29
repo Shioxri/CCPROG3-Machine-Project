@@ -42,7 +42,6 @@ public class RegularBuy {
 
         AtomicInteger pageNumber = new AtomicInteger(1);
         AtomicInteger cash = new AtomicInteger(9999);
-        AtomicInteger musicTimes = new AtomicInteger(1);
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
@@ -270,10 +269,7 @@ public class RegularBuy {
                 clip.open(audioStream);
                 clip.loop(0); // Play the music on a loop
                 clip.start();
-            }
-            else if(musicFile.equals("1")){
-                clip.stop();
-            }else {
+            } else {
                 System.out.println("Music file not found: " + musicFilePath);
             }
         } catch (Exception e) {
