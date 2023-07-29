@@ -161,7 +161,11 @@ public class RegularBuy {
         backButton.setBounds(125, 400, 100, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("<--");
-        backButton.addActionListener(e -> pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get())));
+        backButton.addActionListener(e -> {
+            if(pageNumber.get()>1) {
+                pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get()));
+            }
+        });
 
         nextButton.setBounds(325, 400, 100, 50);
         nextButton.setHorizontalAlignment(JButton.CENTER);
