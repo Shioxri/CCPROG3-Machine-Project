@@ -13,7 +13,7 @@ import javax.swing.border.Border;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-public class RegularMaintenance {
+public class SpecialMaintenance {
     public static void main(String[] args) {
         // Declarations
         JFrame frame = new JFrame();
@@ -31,7 +31,9 @@ public class RegularMaintenance {
         JButton addButton = new JButton();
         JButton exitButton = new JButton();
         JButton changePriceButton = new JButton();
+        JButton changePriceButton2 = new JButton();
         JButton reStock = new JButton();
+        JButton reStock2 = new JButton();
         JButton addItem = new JButton();
         JButton collectMoney = new JButton();
         JButton printSummary = new JButton();
@@ -39,8 +41,11 @@ public class RegularMaintenance {
         JButton slotInfoButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> slots = new JComboBox<>();
+        JComboBox<String> slots2 = new JComboBox<>();
         JComboBox<Integer> addStock = new JComboBox<>();
+        JComboBox<Integer> addStock2 = new JComboBox<>();
         JTextField changePrice = new JTextField();
+        JTextField changePrice2 = new JTextField();
         JTextField setName = new JTextField();
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
@@ -62,7 +67,7 @@ public class RegularMaintenance {
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("trueregvm.png");
+        ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
@@ -115,7 +120,7 @@ public class RegularMaintenance {
 
 
         // Buttons
-        changePriceButton.setBounds(265, 90, 70, 30);
+        changePriceButton.setBounds(125, 90, 50, 30);
         changePriceButton.setHorizontalAlignment(JButton.CENTER);
         changePriceButton.setText("<html>Set<br/>Price</html>");
         changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
@@ -125,12 +130,29 @@ public class RegularMaintenance {
             changePrice.setText("");
         });
 
-        reStock.setBounds(265, 130, 70, 30);
+        changePriceButton2.setBounds(295, 90, 50, 30);
+        changePriceButton2.setHorizontalAlignment(JButton.CENTER);
+        changePriceButton2.setText("<html>Set<br/>Price</html>");
+        changePriceButton2.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        changePriceButton2.setHorizontalTextPosition(JButton.CENTER);
+        changePriceButton2.addActionListener(e -> {
+            System.out.println("New Money: " + Integer.parseInt(changePrice2.getText()));
+            changePrice.setText("");
+        });
+
+        reStock.setBounds(125, 130, 50, 30);
         reStock.setHorizontalAlignment(JButton.CENTER);
-        reStock.setText("Restock");
+        reStock.setText("<html>Add<br/>Stock</html>");
         reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
         reStock.setHorizontalTextPosition(JButton.CENTER);
         reStock.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
+
+        reStock2.setBounds(295, 130, 50, 30);
+        reStock2.setHorizontalAlignment(JButton.CENTER);
+        reStock2.setText("<html>Add<br/>Stock</html>");
+        reStock2.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        reStock2.setHorizontalTextPosition(JButton.CENTER);
+        reStock2.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
 
 
         addButton.setBounds(222, 260, 50,25);
@@ -220,21 +242,33 @@ public class RegularMaintenance {
             denominations.addItem(i);
         }
 
-        slots.setBounds(112,25,150,40);
+        slots.setBounds(25,25,150,40);
         slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
+        for (String i : new String[]{"Regular Slot 1", "Slot 2", "Slot 3"}) {
             slots.addItem(i);
         }
 
-        addStock.setBounds(35, 130, 225, 30);
+        slots2.setBounds(195,25,150,40);
+        slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
+        for (String i : new String[]{"Special Slot 1", "Slot 2", "Slot 3"}) {
+            slots2.addItem(i);
+        }
+
+        addStock.setBounds(25, 130, 100, 30);
         addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (int i : new int[]{1, 5, 10}) {
             addStock.addItem(i);
         }
 
+        addStock2.setBounds(195, 130, 100, 30);
+        addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
+        for (int i : new int[]{1, 5, 10}) {
+            addStock2.addItem(i);
+        }
+
 
         // Text Fields
-        changePrice.setBounds(35, 90, 225, 30);
+        changePrice.setBounds(25, 90, 100, 30);
         changePrice.setText("Enter New Price");
         changePrice.setHorizontalAlignment(JTextField.CENTER);
         changePrice.addFocusListener(new FocusListener() {
@@ -249,6 +283,25 @@ public class RegularMaintenance {
         changePrice.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
                 changePrice.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
+                        || ke.getKeyChar() == '\b');
+            }
+        });
+
+        changePrice2.setBounds(195, 90, 100, 30);
+        changePrice2.setText("Enter New Price");
+        changePrice2.setHorizontalAlignment(JTextField.CENTER);
+        changePrice2.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+                changePrice2.setText("");
+            }
+
+            public void focusLost(FocusEvent e) {
+                // nothing
+            }
+        });
+        changePrice2.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
+            public void keyPressed(KeyEvent ke) {
+                changePrice2.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
         });
@@ -322,10 +375,15 @@ public class RegularMaintenance {
         selectionPanel.setOpaque(true);
         selectionPanel.setBorder(borderLine);
         selectionPanel.add(changePriceButton);
+        selectionPanel.add(changePriceButton2);
         selectionPanel.add(reStock);
+        selectionPanel.add(reStock2);
         selectionPanel.add(slots);
+        selectionPanel.add(slots2);
         selectionPanel.add(changePrice);
+        selectionPanel.add(changePrice2);
         selectionPanel.add(addStock);
+        selectionPanel.add(addStock2);
 
         newItemPanel.setBackground(new Color(25, 25, 112, 123));
         newItemPanel.setBounds(0, 390, 375, 240);
@@ -397,4 +455,7 @@ public class RegularMaintenance {
             System.out.println("Error while playing background music: " + e.getMessage());
         }
     }
+
+
 }
+
