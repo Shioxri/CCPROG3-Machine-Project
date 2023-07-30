@@ -115,7 +115,7 @@ public class StockManager {
             System.out.println("Restocking is only allowed for items with a stock count below 5.");
             System.out.println();
             for (int i = 0; i < slotsToUse.size(); i++) {
-                System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedItem(i, isSpecialSlot).getType()
+                System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedSlot(i, isSpecialSlot).getAssignedItemType()
                         + " -- Stock: " + vendingMachine.getSelectedSlot(i, isSpecialSlot).getItemStock());
             }
 

@@ -236,56 +236,61 @@ public class Driver {
                 System.out.print("Input Choice: ");
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character after reading the integer input
-                if(vendingMachine.checkInputValidity(choice))
+                if(choice==0)
                 {
-                    vendingMachine.confirmTransaction(choice-1);
-                    Item dispensedItem = vendingMachine.dispenseSelectedItem(choice-1, false);
-                    System.out.println(dispensedItem.getType()+" <- Dispensed (1) Item");
-                    maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
+                    vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+                    vendingMachine.getMoneyManager().clearUserPaidMoney();
+                    System.out.println("Going back to the user menu...");
+                    isDone=true;
+                }
+                else {
+                    if (vendingMachine.checkInputValidity(choice)) {
+                        vendingMachine.confirmTransaction(choice - 1);
+                        Item dispensedItem = vendingMachine.dispenseSelectedItem(choice - 1, false);
+                        System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
+                        maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
 
 
-                    do {
-                        if (vendingMachine.getUserBalance() < 10) {
-                            try {
-                                System.out.print("Press [0] to go back: ");
-                                choice = scanner.nextInt();
-                                scanner.nextLine();
+                        do {
+                            isValidInput = false;
+                            if (vendingMachine.getUserBalance() < 10) {
+                                try {
+                                    System.out.print("Press [0] to go back: ");
+                                    choice = scanner.nextInt();
+                                    scanner.nextLine();
 
-                                if (choice == 0) {
-                                    vendingMachine.getMoneyManager().clearUserPaidMoney(); // Clear the user's paid money
+                                    if (choice == 0) {
+                                        vendingMachine.getMoneyManager().clearUserPaidMoney(); // Clear the user's paid money
+                                        System.out.println("Exiting...");
+                                        isValidInput = true;
+                                        isDone = true;
+
+                                    } else {
+                                        System.out.println("Invalid input. Please enter a valid integer.");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input. Please enter a valid integer.");
+                                    scanner.nextLine(); // Clear the input buffer
+                                }
+                            } else {
+                                System.out.print("Do you want to continue buying with your remaining balance ₱" + vendingMachine.getUserBalance() + "? [Y]es or [N]o: ");
+                                stringChoice = scanner.nextLine();
+
+                                if (stringChoice.equalsIgnoreCase("Y")) {
+                                    isValidInput = true;
+                                } else if (stringChoice.equalsIgnoreCase("N")) {
                                     System.out.println("Exiting...");
                                     isValidInput = true;
                                     isDone = true;
-
+                                    vendingMachine.getMoneyManager().clearUserPaidMoney();
                                 } else {
-                                    System.out.println("Invalid input. Please enter a valid integer.");
+                                    System.out.println("Invalid input. Please enter 'Y' or 'N'.");
                                 }
-                            } catch (InputMismatchException e) {
-                                System.out.println("Invalid input. Please enter a valid integer.");
-                                scanner.nextLine(); // Clear the input buffer
                             }
-                        }
-                        else
-                        {
-                            System.out.print("Do you want to continue buying with your remaining balance ₱"+vendingMachine.getUserBalance()+"? [Y]es or [N]o: ");
-                            stringChoice = scanner.nextLine();
 
-                            if (stringChoice.equalsIgnoreCase("Y")) {
-                                isValidInput = true;
-                            } else if (stringChoice.equalsIgnoreCase("N")) {
-                                System.out.println("Exiting...");
-                                isValidInput = true;
-                                isDone = true;
-                                vendingMachine.getMoneyManager().clearUserPaidMoney();
-                            } else {
-                                System.out.println("Invalid input. Please enter 'Y' or 'N'.");
-                            }
-                        }
-
-                    } while (!isValidInput);
+                        } while (!isValidInput);
+                    }
                 }
-                else
-                    isDone=true;
         }while(!isDone);
     }
 //TODO MAKE SPECIAL SLOT VERSIONS OF DISPLAY AVAILABLE/ALL ITEMS AND DISPENSE AND INVENTORY AND RECORD
@@ -316,10 +321,10 @@ public class Driver {
                     System.out.println("[Select a fruit]");
                     int itemPrice;
                     for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
-                        itemPrice = vendingMachine.getSelectedItem(i,false).getPrice();
-                        if (vendingMachine.getSlotArrayList().get(i).getItemStock() <= 0) {
+                        if (vendingMachine.getSelectedSlot(i, false).getItemArrayList().isEmpty()) {
                             System.out.println("[X] " + vendingMachine.getSelectedSlot(i, false).getAssignedItemType() + " [ OUT OF STOCK ]");
                         } else {
+                                itemPrice = vendingMachine.getSelectedItem(i,false).getPrice();
                                 System.out.println("[" + (i + 1) + "] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " ₱" + itemPrice);
                         }
                     }
@@ -406,16 +411,28 @@ public class Driver {
 
                     switch (waterTypeChoice) {
                         case 1:
-                            selectedLiquid = vendingMachine.dispenseSelectedItem(0, true);
-                            selectedItems.add(selectedLiquid);
-                            selectedLiquids.add(selectedLiquid);
-                            isDone = true;
+                            if (vendingMachine.getSelectedSlot(0, true).getItemArrayList().isEmpty()) {
+                                System.out.println("Chosen item is not available due to being out of stock.");
+                            }
+                            else {
+                                selectedLiquid = vendingMachine.dispenseSelectedItem(0, true);
+                                selectedItems.add(selectedLiquid);
+                                selectedLiquids.add(selectedLiquid);
+                                isDone = true;
+                            }
+
                             break;
                         case 2:
-                            selectedLiquid = vendingMachine.dispenseSelectedItem(1, true);
-                            selectedItems.add(selectedLiquid);
-                            selectedLiquids.add(selectedLiquid);
-                            isDone = true;
+                            if (vendingMachine.getSelectedSlot(1, true).getItemArrayList().isEmpty()) {
+                                System.out.println("Chosen item is not available due to being out of stock.");
+                            }
+                            else{
+                                selectedLiquid = vendingMachine.dispenseSelectedItem(1, true);
+                                selectedItems.add(selectedLiquid);
+                                selectedLiquids.add(selectedLiquid);
+                                isDone = true;
+                            }
+
                             break;
                         case 0:
                             System.out.println("Order canceled.");
