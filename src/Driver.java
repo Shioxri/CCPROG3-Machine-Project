@@ -581,7 +581,7 @@ public class Driver {
                 System.out.println("Select additional toppings:");
                 System.out.println("[1] Honey |" +
                         " Price: " + vendingMachine.getSelectedItem(9, true).getPrice() + " |" +
-                        " Stock: " + vendingMachine.getSelectedSlot(9, true).getItemStock());;
+                        " Stock: " + vendingMachine.getSelectedSlot(9, true).getItemStock());
                 System.out.println("[2] Cream |" +
                         " Price: " + vendingMachine.getSelectedItem(10, true).getPrice() + " |" +
                         " Stock: " + vendingMachine.getSelectedSlot(10, true).getItemStock());
