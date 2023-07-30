@@ -41,7 +41,6 @@ public class DisplayManager {
 
         if (slotIndex >= 0 && slotIndex < slots.size()) {
             Slot slot = slots.get(slotIndex);
-            String slotType = slot.getAssignedItemType();
             ArrayList<Item> items = slot.getItemArrayList();
 
             System.out.println("----------------------------------");
@@ -69,10 +68,10 @@ public class DisplayManager {
 
         int itemPrice;
         for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
-            itemPrice = vendingMachine.getSelectedItem(i,isSpecialSlot).getPrice();
-            if (vendingMachine.getSelectedSlot(i,false).getItemStock() <= 0) {
+            if (vendingMachine.getSelectedSlot(i,false).getItemArrayList().isEmpty()) {
                 System.out.println("[X] " + vendingMachine.getSelectedSlot(i,false).getAssignedItemType() + " [ OUT OF STOCK ]");
             } else {
+                itemPrice = vendingMachine.getSelectedItem(i,isSpecialSlot).getPrice();
                 if (!isSpecialSlot && itemPrice > totalTempUserMoney) {
                     System.out.println("[X] " + vendingMachine.getSelectedSlot(i,false).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
                 } else {
