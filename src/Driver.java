@@ -47,7 +47,7 @@ public class Driver {
         do {
             System.out.println("[1] Create Regular Vending Machine");
             System.out.println("[2] Create Special Vending Machine");
-            System.out.println("[3] Back");
+            System.out.println("[0] Back");
             System.out.print("Enter your choice: ");
             vendingMachineChoice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
@@ -81,13 +81,13 @@ public class Driver {
                     isDone = createVendingMachineMenu(scanner, vendingMachine, maintenance);
                     System.out.println("Work in progress...");
                     break;
-                case 3:
+                case 0:
                     System.out.println("Going back to the main menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (vendingMachineChoice != 3 && !isDone);
+        } while (vendingMachineChoice != 0 && !isDone);
     }
 
     /**
@@ -121,13 +121,13 @@ public class Driver {
                         continue;
                     }
                     break;
-                case 3:
+                case 0:
                     System.out.println("Going back to the main menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (regularVMChoice != 3);
+        } while (regularVMChoice != 0);
         return true;
     }
 
@@ -305,7 +305,7 @@ public class Driver {
         boolean isOrderCanceled = false;
 
         do {
-        System.out.print("How many fruits would you like to select (maximum " + maxFruits + ")? ");
+        System.out.print("How many fruits would you like to select? (maximum " + maxFruits + "): ");
         int numFruits = scanner.nextInt();
         scanner.nextLine();
 
@@ -313,9 +313,18 @@ public class Driver {
                 System.out.println("Invalid number of fruits. Please select between 1 and " + maxFruits + " fruits.");
             } else {
                 while (numFruits > 0) {
-                    vendingMachine.displayAvailableItems(false); // Display available fruits TODO
-                    System.out.println("Enter the index of your choice: ");
-                    System.out.println("Enter 0 to exit");
+                    System.out.println("[Select a fruit]");
+                    int itemPrice;
+                    for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
+                        itemPrice = vendingMachine.getSelectedItem(i,false).getPrice();
+                        if (vendingMachine.getSlotArrayList().get(i).getItemStock() <= 0) {
+                            System.out.println("[X] " + vendingMachine.getSelectedSlot(i, false).getAssignedItemType() + " [ OUT OF STOCK ]");
+                        } else {
+                                System.out.println("[" + (i + 1) + "] " + vendingMachine.getSlotArrayList().get(i).getAssignedItemType() + " ₱" + itemPrice);
+                        }
+                    }
+                    System.out.println("[0] Exit / Cancel Transaction");
+                    System.out.print("Enter the index of your choice: ");
                     int fruitChoice = scanner.nextInt();
                     scanner.nextLine();
 
@@ -350,10 +359,9 @@ public class Driver {
         if(!isOrderCanceled)
         {
             do {
-                vendingMachine.displayAvailableItems(true);
                 // Second Phase: User picks whether to use milk or water or both
-                System.out.println("Do you want to user water [1], milk [2], or both [3]?");
-                System.out.println("[0] to cancel the order.");
+                System.out.print("Do you want to user water [1], milk [2], or both [3]? ");
+                System.out.print("([0] to cancel the order.): ");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 isDone = true;
@@ -383,11 +391,15 @@ public class Driver {
             // Handle the Second Phase (A) and (B) based on user choices
             if (useWater) {
                 do {
-                    vendingMachine.displayAvailableItems(true);
                     System.out.println("Select water type:");
-                    System.out.println("1. Regular Water");
-                    System.out.println("2. Sugar Water");
-                    System.out.println("0. Cancel Order");
+                    System.out.println("[1] Regular Water |" +
+                            "  Price: "+vendingMachine.getSelectedItem(0, true).getPrice() +" |" +
+                            " Stock: "+vendingMachine.getSelectedSlot(0, true).getItemStock());
+                    System.out.println("[2] Sugar Water |" +
+                            " Price: " + vendingMachine.getSelectedItem(1, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(1, true).getItemStock());
+                    System.out.println("[0] Cancel Order");
+                    System.out.print("Your choice: ");
 
                     int waterTypeChoice = scanner.nextInt();
                     scanner.nextLine();
@@ -419,20 +431,31 @@ public class Driver {
             isDone = false;
             if (useMilk) {
                 do {
-                    vendingMachine.displayAvailableItems(true);
                     System.out.println("Select milk type:");
-                    System.out.println("1. Regular Cow's Milk");
-                    System.out.println("2. Almond Milk");
-                    System.out.println("3. Soy Milk");
-                    System.out.println("4. Condensed Milk");
-                    System.out.println("5. Evaporated Milk");
+                    System.out.println("[1] Regular Cow's Milk |" +
+                            " Price: " + vendingMachine.getSelectedItem(2, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(2, true).getItemStock());
+                    System.out.println("[2] Almond Milk |" +
+                            " Price: " + vendingMachine.getSelectedItem(3, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(3, true).getItemStock());
+                    System.out.println("[3] Soy Milk |" +
+                            " Price: " + vendingMachine.getSelectedItem(4, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(4, true).getItemStock());
+                    System.out.println("[4] Condensed Milk |" +
+                            " Price: " + vendingMachine.getSelectedItem(5, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(5, true).getItemStock());
+                    System.out.println("[5] Evaporated Milk |" +
+                            " Price: " + vendingMachine.getSelectedItem(6, true).getPrice() + " |" +
+                            " Stock: " + vendingMachine.getSelectedSlot(6, true).getItemStock());
+                    System.out.println("[0] Cancel Order");
+                    System.out.print("Your choice: ");
 
                     int milkTypeChoice = scanner.nextInt();
                     scanner.nextLine();
 
                     switch (milkTypeChoice) {
                         case 1:
-                            if (vendingMachine.getSelectedSlot(2, false).getItemArrayList().isEmpty()) {
+                            if (vendingMachine.getSelectedSlot(2, true).getItemArrayList().isEmpty()) {
                                 System.out.println("Chosen item is not available due to being out of stock.");
                             }
                             else {
@@ -444,7 +467,7 @@ public class Driver {
 
                             break;
                         case 2:
-                            if (vendingMachine.getSelectedSlot(3, false).getItemArrayList().isEmpty()) {
+                            if (vendingMachine.getSelectedSlot(3, true).getItemArrayList().isEmpty()) {
                                 System.out.println("Chosen item is not available due to being out of stock.");
                             }
                             else {
@@ -455,7 +478,7 @@ public class Driver {
                             }
                             break;
                         case 3:
-                            if (vendingMachine.getSelectedSlot(4, false).getItemArrayList().isEmpty()) {
+                            if (vendingMachine.getSelectedSlot(4, true).getItemArrayList().isEmpty()) {
                                 System.out.println("Chosen item is not available due to being out of stock.");
                             }
                             else {
@@ -466,7 +489,7 @@ public class Driver {
                             }
                             break;
                         case 4:
-                            if (vendingMachine.getSelectedSlot(5, false).getItemArrayList().isEmpty()) {
+                            if (vendingMachine.getSelectedSlot(5, true).getItemArrayList().isEmpty()) {
                                 System.out.println("Chosen item is not available due to being out of stock.");
                             }
                             else {
@@ -477,7 +500,7 @@ public class Driver {
                             }
                             break;
                         case 5:
-                            if (vendingMachine.getSelectedSlot(6, false).getItemArrayList().isEmpty()) {
+                            if (vendingMachine.getSelectedSlot(6, true).getItemArrayList().isEmpty()) {
                                 System.out.println("Chosen item is not available due to being out of stock.");
                             }
                             else {
@@ -502,19 +525,23 @@ public class Driver {
 
             isDone = false;
             do {
-                vendingMachine.displayAvailableItems(true);
                 System.out.println("Select ice type:");
-                System.out.println("1. Ice Cubes");
-                System.out.println("2. Shaved Ice");
-                System.out.println("3. None");
-                System.out.println("0. Exit");
+                System.out.println("[1] Ice Cubes |" +
+                        " Price: " + vendingMachine.getSelectedItem(7, true).getPrice() + " |" +
+                        " Stock: " + vendingMachine.getSelectedSlot(7, true).getItemStock());
+                System.out.println("[2] Shaved Ice |" +
+                        " Price: " + vendingMachine.getSelectedItem(8, true).getPrice() + " |" +
+                        " Stock: " + vendingMachine.getSelectedSlot(8, true).getItemStock());
+                System.out.println("[3] None");
+                System.out.println("[0] Cancel Order");
+                System.out.print("Your choice: ");
 
                 int iceTypeChoice = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (iceTypeChoice) {
                     case 1:
-                        if (vendingMachine.getSelectedSlot(7, false).getItemArrayList().isEmpty()) {
+                        if (vendingMachine.getSelectedSlot(7, true).getItemArrayList().isEmpty()) {
                             System.out.println("Chosen item is not available due to being out of stock.");
                         }
                         else {
@@ -524,7 +551,7 @@ public class Driver {
                         }
                         break;
                     case 2:
-                        if (vendingMachine.getSelectedSlot(7, false).getItemArrayList().isEmpty()) {
+                        if (vendingMachine.getSelectedSlot(8, true).getItemArrayList().isEmpty()) {
                             System.out.println("Chosen item is not available due to being out of stock.");
                         }
                         else {
@@ -535,6 +562,7 @@ public class Driver {
                         break;
                     case 3:
                         System.out.println("None selected, moving on...");
+                        isDone = true;
                         break;
                     case 0:
                         System.out.println("Order canceled.");
@@ -550,19 +578,23 @@ public class Driver {
 
             isDone = false;
             do {
-                vendingMachine.displayAvailableItems(true);
                 System.out.println("Select additional toppings:");
-                System.out.println("1. Honey");
-                System.out.println("2. Cream");
-                System.out.println("3. None");
-                System.out.println("0. Exit");
+                System.out.println("[1] Honey |" +
+                        " Price: " + vendingMachine.getSelectedItem(9, true).getPrice() + " |" +
+                        " Stock: " + vendingMachine.getSelectedSlot(9, true).getItemStock());;
+                System.out.println("[2] Cream |" +
+                        " Price: " + vendingMachine.getSelectedItem(10, true).getPrice() + " |" +
+                        " Stock: " + vendingMachine.getSelectedSlot(10, true).getItemStock());
+                System.out.println("[3] None");
+                System.out.println("[0] Cancel Order");
+                System.out.print("Your choice: ");
 
                 int toppingsChoice = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (toppingsChoice) {
                     case 1:
-                        if (vendingMachine.getSelectedSlot(9, false).getItemArrayList().isEmpty()) {
+                        if (vendingMachine.getSelectedSlot(9, true).getItemArrayList().isEmpty()) {
                             System.out.println("Chosen item is not available due to being out of stock.");
                         }
                         else{
@@ -572,7 +604,7 @@ public class Driver {
                         }
                         break;
                     case 2:
-                        if (vendingMachine.getSelectedSlot(10, false).getItemArrayList().isEmpty()) {
+                        if (vendingMachine.getSelectedSlot(10, true).getItemArrayList().isEmpty()) {
                             System.out.println("Chosen item is not available due to being out of stock.");
                         }
                         else {
@@ -582,6 +614,8 @@ public class Driver {
                         }
                         break;
                     case 3:
+                        System.out.println("None selected, moving on...");
+                        isDone = true;
                         break;
                     case 0:
                         System.out.println("Order canceled.");
@@ -592,7 +626,7 @@ public class Driver {
                         System.out.println("Invalid choice. Please select a valid ice type.");
                         break;
                 }
-            }while (!isDone);
+            }while (!isDone );
 
         }
 
@@ -603,8 +637,8 @@ public class Driver {
            totalPrice+=selectedItem.getPrice();
            totalCals+=selectedItem.getCalorie();
         }
-        System.out.println("Total price of the items: "+totalPrice);
-        System.out.println("Total calorie count of the items: "+totalCals);
+        System.out.println("Total price of the items: ₱"+totalPrice);
+        System.out.println("Total calorie count of the items: "+totalCals+" cals");
 
         do {
             if (!vendingMachine.insertMoney(scanner)) {
@@ -632,7 +666,7 @@ public class Driver {
             System.out.println(selectedItem.getType() + " - ₱" + selectedItem.getPrice());
         }
         System.out.println("Total Price: ₱" + totalPrice);
-        System.out.println("Total Calories: " + totalCals);
+        System.out.println("Total Calories: " + totalCals+" cals");
         System.out.println();
         System.out.println("Inserted Money: ₱"+totalUserMoney);
         System.out.println("CHANGE: ₱" + change);
@@ -643,25 +677,25 @@ public class Driver {
         System.out.print("Blending Fruits: ");
         for(Item item: selectedFruits)
         {
-            System.out.print(item+" ");
+            System.out.print(item.getType()+" ");
         }
         System.out.println();
-        System.out.println("Pouring Liquids: ");
-        for(Item item: selectedLiquids)
+        System.out.print("Pouring Liquids: ");
+        for(Item liquid: selectedLiquids)
         {
-            System.out.print(item+" ");
+            System.out.print(liquid.getType()+" ");
         }
         System.out.println();
         if(selectedIce!=null)
         {
-            System.out.println("Putting "+selectedIce);
+            System.out.println("Putting "+selectedIce.getType());
         }
         if(selectedAddOns!=null)
         {
-            System.out.println("Topping with "+selectedAddOns);
+            System.out.println("Topping with "+selectedAddOns.getType());
         }
         System.out.println("Order Complete! Enjoy your customized fruit shake!");
-        System.out.println("\nPress 0 to go back");
+        System.out.println("\nPress [0] to go back");
         int backChoice;
         do {
             System.out.print("Enter your choice: ");
@@ -774,6 +808,7 @@ public class Driver {
                 System.out.println("[1] Regular Items");
                 System.out.println("[2] Special Items");
                 System.out.println("[0] Exit");
+                System.out.print("Your choice: ");
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 switch (choice) {

@@ -64,22 +64,19 @@ public class DisplayManager {
     public void displayAvailableItems(VendingMachine vendingMachine, boolean isSpecialSlot) {
         int totalTempUserMoney = vendingMachine.getUserBalance();
         System.out.println("[Select your Item]");
-        System.out.println("Current Balance: " + totalTempUserMoney);
-        System.out.println("Available Items (with respect to current balance): "); // Printing of available items
-
-        // Use the appropriate list based on the menu type
-        ArrayList<? extends Slot> slotsToUse = isSpecialSlot ? vendingMachine.getSlotArrayList() : vendingMachine.getSpecialSlots();
+            System.out.println("Current Balance: " + totalTempUserMoney);
+            System.out.println("Available Items (with respect to current balance): "); // Printing of available items
 
         int itemPrice;
-        for (int i = 0; i < slotsToUse.size(); i++) {
+        for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
             itemPrice = vendingMachine.getSelectedItem(i,isSpecialSlot).getPrice();
-            if (slotsToUse.get(i).getItemStock() <= 0) {
-                System.out.println("[X] " + slotsToUse.get(i).getAssignedItemType() + " [ OUT OF STOCK ]");
+            if (vendingMachine.getSelectedSlot(i,false).getItemStock() <= 0) {
+                System.out.println("[X] " + vendingMachine.getSelectedSlot(i,false).getAssignedItemType() + " [ OUT OF STOCK ]");
             } else {
                 if (!isSpecialSlot && itemPrice > totalTempUserMoney) {
-                    System.out.println("[X] " + slotsToUse.get(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
+                    System.out.println("[X] " + vendingMachine.getSelectedSlot(i,false).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
                 } else {
-                    System.out.println("[" + (i + 1) + "] " + slotsToUse.get(i).getAssignedItemType() + " ₱" + itemPrice);
+                    System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedSlot(i,false).getAssignedItemType() + " ₱" + itemPrice);
                 }
             }
         }
