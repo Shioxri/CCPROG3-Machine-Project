@@ -205,8 +205,6 @@ public class RegularMaintenance {
         });
         changePrice.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                String value = changePrice.getText();
-                
                 changePrice.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
@@ -226,8 +224,6 @@ public class RegularMaintenance {
         });
         changeCalories.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                String value = changeCalories.getText();
-                
                 changeCalories.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
@@ -259,8 +255,6 @@ public class RegularMaintenance {
         setPrice.setHorizontalAlignment(JTextField.CENTER);
         setPrice.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                String value = setPrice.getText();
-                
                 setPrice.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
@@ -280,8 +274,6 @@ public class RegularMaintenance {
         });
         setCalories.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                String value = setCalories.getText();
-                
                 setCalories.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
