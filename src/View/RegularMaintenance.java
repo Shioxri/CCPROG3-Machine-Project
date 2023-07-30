@@ -187,9 +187,7 @@ public class RegularMaintenance {
 
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
-        addItem.addActionListener(e -> {
-            slots.addItem(setName.getText());
-        });
+        addItem.addActionListener(e -> slots.addItem(setName.getText()));
 
         collectMoney.setBounds(92,295, 180, 50);
         collectMoney.setText("Collect Money");
