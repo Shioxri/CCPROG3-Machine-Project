@@ -130,9 +130,7 @@ public class RegularMaintenance {
         reStock.setText("Restock");
         reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
         reStock.setHorizontalTextPosition(JButton.CENTER);
-        reStock.addActionListener(e -> {
-            System.out.println("New Stock: " + addStock.getSelectedItem());
-        });
+        reStock.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
 
 
         addButton.setBounds(222, 260, 50,25);
@@ -189,9 +187,7 @@ public class RegularMaintenance {
 
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
-        addButton.addActionListener(e -> {
-            slots.addItem(setName.getText());
-        });
+        addButton.addActionListener(e -> slots.addItem(setName.getText()));
 
 
         // Dropdows
@@ -377,9 +373,5 @@ public class RegularMaintenance {
         }
     }
 
-    public static int magicAdd(JLabel userBalance, int cash, int addition){
-        cash += addition;
-        userBalance.setText("$"+cash);
-        return cash;
-    }
+
 }
