@@ -147,10 +147,10 @@ public class StockManager {
                         if(vendingMachine instanceof SpecialVendingMachine)
                         {
                             ArrayList<Slot> specialPrevStartingInventory = maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
-                            maintenance.addAllToPrevStartingInventory(vendingMachine, specialPrevStartingInventory);
-                            maintenance.addAllToEndingInventory(vendingMachine, specialEndingInventoryCopy);
+                            maintenance.addAllToPrevStartingSpecialInventory (vendingMachine, specialPrevStartingInventory);
+                            maintenance.addAllToEndingSpecialInventory (vendingMachine, specialEndingInventoryCopy);
                             ArrayList<Slot> specialStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
-                            maintenance.addAllToStartingInventory(vendingMachine, specialStartingInventoryCopy);
+                            maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
                         }
                         isValidInput = true;
                         isDone = true;
