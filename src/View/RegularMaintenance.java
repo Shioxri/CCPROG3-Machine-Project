@@ -18,7 +18,6 @@ public class RegularMaintenance {
         // Declarations
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
-        JLabel pageCounter = new JLabel();
         JLabel systemMessage = new JLabel();
         JLabel userBalanceLabel = new JLabel();
         JPanel titlePanel = new JPanel();
@@ -32,22 +31,26 @@ public class RegularMaintenance {
         JButton addButton = new JButton();
         JButton exitButton = new JButton();
         JButton changePriceButton = new JButton();
-        JButton changeCaloriesButton = new JButton();
         JButton reStock = new JButton();
         JButton addItem = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> slots = new JComboBox<>();
         JComboBox<Integer> addStock = new JComboBox<>();
         JTextField changePrice = new JTextField();
-        JTextField changeCalories = new JTextField();
         JTextField setName = new JTextField();
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
 
 
 
-        AtomicInteger pageNumber = new AtomicInteger(1);
-        AtomicInteger cash = new AtomicInteger(9999);
+        AtomicInteger cash = new AtomicInteger(1);
+        AtomicInteger cash2 = new AtomicInteger(1);
+        AtomicInteger cash3 = new AtomicInteger(1);
+        AtomicInteger cash4 = new AtomicInteger(1);
+        AtomicInteger cash5 = new AtomicInteger(1);
+        AtomicInteger cash6 = new AtomicInteger(1);
+        AtomicInteger cashtotal = new AtomicInteger(186);
+
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
@@ -80,11 +83,6 @@ public class RegularMaintenance {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-        pageCounter.setBounds(225, 400, 100, 50);
-        pageCounter.setHorizontalAlignment(JLabel.CENTER);
-        pageCounter.setText(String.valueOf(pageNumber));
-        pageCounter.setBorder(borderLine);
-        pageCounter.setForeground(Color.WHITE);
 
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
@@ -98,8 +96,10 @@ public class RegularMaintenance {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
-        userBalanceLabel.setBounds(10,50,180,50);
-        userBalanceLabel.setText("$" + cash);
+        userBalanceLabel.setBounds(92,50,180,200);
+        userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
+                "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+                "</html>");
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -108,15 +108,7 @@ public class RegularMaintenance {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
-        infoLabel.setBounds(10,200,180,200);
-        infoLabel.setText("<html>Price: $999<br/>Calories: 999 kCal <br/> Stock: 10</html>");
-        infoLabel.setForeground(Color.WHITE);
-        infoLabel.setBackground(Color.BLACK);
-        infoLabel.setBorder(borderLinegrayl);
-        infoLabel.setOpaque(true);
-        infoLabel.setVerticalAlignment(JLabel.CENTER);
-        infoLabel.setHorizontalAlignment(JLabel.CENTER);
-        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
+
 
         // Buttons
         changePriceButton.setBounds(265, 90, 70, 30);
@@ -129,17 +121,7 @@ public class RegularMaintenance {
             changePrice.setText("");
         });
 
-        changeCaloriesButton.setBounds(265, 130, 70, 30);
-        changeCaloriesButton.setHorizontalAlignment(JButton.CENTER);
-        changeCaloriesButton.setText("<html>Set<br/>Calories</html>");
-        changeCaloriesButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        changeCaloriesButton.setHorizontalTextPosition(JButton.CENTER);
-        changeCaloriesButton.addActionListener(e -> {
-            System.out.println("New Calories: " + Integer.parseInt(changeCalories.getText()));
-            changeCalories.setText("");
-        });
-
-        reStock.setBounds(265, 170, 70, 30);
+        reStock.setBounds(265, 130, 70, 30);
         reStock.setHorizontalAlignment(JButton.CENTER);
         reStock.setText("Restock");
         reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
@@ -149,12 +131,39 @@ public class RegularMaintenance {
         });
 
 
-        addButton.setBounds(140, 110, 50,25);
+        addButton.setBounds(222, 260, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
         addButton.addActionListener(e -> {
-            cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem()));
-            systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+            switch (denominations.getSelectedIndex()) {
+                case 0 -> {
+                    cash.set(cash.get() + 1);
+                    cashtotal.set(cashtotal.get() + 1);
+                }
+                case 1 -> {
+                    cash2.set(cash2.get() + 1);
+                    cashtotal.set(cashtotal.get() + 5);
+                }
+                case 2 -> {
+                    cash3.set(cash3.get() + 1);
+                    cashtotal.set(cashtotal.get() + 10);
+                }
+                case 3 -> {
+                    cash4.set(cash4.get() + 1);
+                    cashtotal.set(cashtotal.get() + 20);
+                }
+                case 4 -> {
+                    cash5.set(cash5.get() + 1);
+                    cashtotal.set(cashtotal.get() + 50);
+                }
+                case 5 -> {
+                    cash6.set(cash6.get() + 1);
+                    cashtotal.set(cashtotal.get() + 100);
+                }
+            }
+            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
+                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+                    "</html>");
         });
 
 
@@ -169,7 +178,7 @@ public class RegularMaintenance {
 
 
         // Dropdows
-        denominations.setBounds(10,110,120,25);
+        denominations.setBounds(92,260,120,25);
         denominations.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
             denominations.addItem(i);
@@ -181,7 +190,7 @@ public class RegularMaintenance {
             slots.addItem(i);
         }
 
-        addStock.setBounds(35,170,225,30);
+        addStock.setBounds(35, 130, 225, 30);
         addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (int i : new int[]{1, 5, 10}) {
             addStock.addItem(i);
@@ -208,24 +217,7 @@ public class RegularMaintenance {
             }
         });
 
-        changeCalories.setBounds(35, 130, 225, 30);
-        changeCalories.setText("Enter New Calorie Count");
-        changeCalories.setHorizontalAlignment(JTextField.CENTER);
-        changeCalories.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-                changeCalories.setText("");
-            }
 
-            public void focusLost(FocusEvent e) {
-                // nothing
-            }
-        });
-        changeCalories.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
-            public void keyPressed(KeyEvent ke) {
-                changeCalories.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
-                        || ke.getKeyChar() == '\b');
-            }
-        });
 
         setName.setBounds(112,25,150,40);
         setName.setText("Enter Product Name");
@@ -294,11 +286,9 @@ public class RegularMaintenance {
         selectionPanel.setOpaque(true);
         selectionPanel.setBorder(borderLine);
         selectionPanel.add(changePriceButton);
-        selectionPanel.add(changeCaloriesButton);
         selectionPanel.add(reStock);
         selectionPanel.add(slots);
         selectionPanel.add(changePrice);
-        selectionPanel.add(changeCalories);
         selectionPanel.add(addStock);
 
         newItemPanel.setBackground(new Color(25, 25, 112, 123));
