@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class VendingMachine {
 
@@ -41,15 +42,15 @@ public class VendingMachine {
         this.displayer.displaySpecificItem(this, index);
     }
 
-    public void displayAvailableItems() {
-        this.displayer.displayAvailableItems(this);
+    public void displayAvailableItems(boolean isSpecialSlot) {
+        this.displayer.displayAvailableItems(this, isSpecialSlot);
     }
 
     public boolean checkInputValidity(int indexChoice) { return this.transactionManager.checkInputValidity(this, indexChoice);}
 
     public void confirmTransaction(int indexChoice) { this.transactionManager.confirmTransaction(this, indexChoice); }
 
-    public Item dispenseSelectedItem(int indexChoice) { return this.stockManager.dispenseSelectedItem(this,indexChoice); }
+    public Item dispenseSelectedItem(int indexChoice, boolean isSpecialSlot) { return this.stockManager.dispenseSelectedItem(this,indexChoice, isSpecialSlot); }
 
     /**
      * Adds the paid money to the user paid money list.
@@ -94,22 +95,39 @@ public class VendingMachine {
     {
         return this.getMoneyManager().getTotalMoneyFromList(this.getMoneyManager().getTempMoneyFromUser());
     }
-
-    public Slot getSelectedSlot(int indexChoice)
+    public int getAdminCollectedMoney()
     {
-        return this.getSlotArrayList().get(indexChoice);
+        return this.getMoneyManager().getTotalMoneyFromList(this.getMoneyManager().getAdminMoney());
+    }
+
+    public Slot getSelectedSlot(int indexChoice, boolean isSpecialSlot)
+    {
+        if(!isSpecialSlot)
+        {
+            return this.getSlotArrayList().get(indexChoice);
+        }
+        else
+            return this.getSpecialSlots().get(indexChoice);
     }
 
 
-    public Item getSelectedItem(int indexChoice)
+    public Item getSelectedItem(int indexChoice, boolean isSpecialSlot)
     {
-        return this.getSelectedSlot(indexChoice).getItemArrayList().get(0);
+        return this.getSelectedSlot(indexChoice, isSpecialSlot).getItemArrayList().get(0);
     }
 
     public RecordsManager getRecorder() {
         return recorder;
     }
 
+    public TransactionManager getTransactionManager() {
+        return transactionManager;
+    }
+
+    public boolean insertMoney(Scanner scanner)
+    {
+        return this.getTransactionManager().insertMoneyProcess(scanner, this);
+    }
     public ArrayList<Slot> getPrevStartingInventory()
     {
         return this.getRecorder().getPrevStartingInventory();
@@ -121,6 +139,21 @@ public class VendingMachine {
     }
 
     public ArrayList<Slot> getEndingInventory()
+    {
+        return this.getRecorder().getEndingInventory();
+    }
+
+    public ArrayList<Slot> getSpecialPrevStartingInventory()
+    {
+        return this.getRecorder().getSpecialPrevStartingInventory();
+    }
+
+    public ArrayList<Slot> getSpecialStartingInventory()
+    {
+        return this.getRecorder().getStartingInventory();
+    }
+
+    public ArrayList<Slot> getSpecialEndingInventory()
     {
         return this.getRecorder().getEndingInventory();
     }
@@ -140,22 +173,9 @@ public class VendingMachine {
         return null; // Return null if the item with the specified itemType is not found
     }
 
-    public void restoreOriginalContents(VendingMachine vendingMachine, ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
-        // Restore the original contents of regular slots
-        for (int i = 0; i < originalSlots.size(); i++) {
-            Slot originalSlot = originalSlots.get(i);
-            Slot currentSlot = vendingMachine.getSlotArrayList().get(i);
-            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
-            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
-        }
+    public void restoreOriginalContents(ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
+        this.getStockManager().restoreOriginalSlotContents(this,originalSlots, originalSpecialSlots);
 
-        // Restore the original contents of special slots
-        for (int i = 0; i < originalSpecialSlots.size(); i++) {
-            Slot originalSlot = originalSpecialSlots.get(i);
-            Slot currentSlot = vendingMachine.getSpecialSlots().get(i);
-            currentSlot.setItemArrayList(originalSlot.getItemArrayList());
-            currentSlot.setItemStock(originalSlot.getItemArrayList().size());
-        }
     }
 
 }

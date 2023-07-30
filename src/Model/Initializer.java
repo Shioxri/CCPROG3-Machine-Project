@@ -37,13 +37,13 @@ public class Initializer {
         if (vendingMachine instanceof SpecialVendingMachine) {
             itemTypes.add(new Item("Water", 5, 0));
             itemTypes.add(new Item("Sugar Water", 10, 100));
-            itemTypes.add(new Item("Shaved Ice", 8, 0));
-            itemTypes.add(new Item("Ice Cubes", 2, 0));
             itemTypes.add(new Item("Regular Milk", 25, 120));
             itemTypes.add(new Item("Almond Milk", 30, 80));
             itemTypes.add(new Item("Soy Milk", 28, 90));
             itemTypes.add(new Item("Condensed Milk", 40, 150));
             itemTypes.add(new Item("Evaporated Milk", 35, 100));
+            itemTypes.add(new Item("Ice Cubes", 2, 0));
+            itemTypes.add(new Item("Shaved Ice", 8, 0));
             itemTypes.add(new Item("Honey", 15, 60));
             itemTypes.add(new Item("Cream", 20, 80));
             for (int i = 0; i < numSlots; i++) {

@@ -1,46 +1,49 @@
 package Model;
 
 
+import com.sun.tools.javac.Main;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class StockManager {
-    public Item dispenseSelectedItem(VendingMachine vendingMachine, int itemChoice) {
+    public Item dispenseSelectedItem(VendingMachine vendingMachine, int itemChoice, boolean isSpecialSlot) {
         // Retrieve the chosen item
-        Item chosenItem = vendingMachine.getSelectedItem(itemChoice);
-        vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().remove(0);
+        Item chosenItem = vendingMachine.getSelectedItem(itemChoice, isSpecialSlot);
+        vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).getItemArrayList().remove(0);
         // Shift the remaining items
-        int itemListSize = vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().size();
+        int itemListSize = vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).getItemArrayList().size();
         for (int i = 0; i < itemListSize - 1; i++) {
-            vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().set
-                    (i, vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().get(i + 1));
+            vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).getItemArrayList().set
+                    (i, vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).getItemArrayList().get(i + 1));
         }
         // Update the item list size of the slot
-        int newSize = vendingMachine.getSelectedSlot(itemChoice).getItemArrayList().size();
-        vendingMachine.getSelectedSlot(itemChoice).setItemStock(newSize);
+        int newSize = vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).getItemArrayList().size();
+        vendingMachine.getSelectedSlot(itemChoice, isSpecialSlot).setItemStock(newSize);
         return chosenItem;
     }
 
-    public void restockItems(VendingMachine vendingMachine, int indexChoice) { // -1 the indexChoice
+    public void restockItems(VendingMachine vendingMachine, int indexChoice, boolean isSpecialSlot) { // -1 the indexChoice
 
         int maxItemsPerSlot = 10; // Actual maximum capacity of the slots
-        int currentItemsCount = vendingMachine.getSelectedSlot(indexChoice).getItemArrayList().size();
+        int currentItemsCount = vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).getItemArrayList().size();
         int numFreeSlotSpaces = maxItemsPerSlot - currentItemsCount;
 
         if (numFreeSlotSpaces > 0) { // if there are still empty spaces available in the slot
             //get the attributes of the item
-            String itemType = vendingMachine.getSelectedItem(indexChoice).getType();
-            int price = vendingMachine.getSelectedItem(indexChoice).getPrice();
-            int calories = vendingMachine.getSelectedItem(indexChoice).getCalorie();
+            String itemType = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getType();
+            int price = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getPrice();
+            int calories = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getCalorie();
 
             if (numFreeSlotSpaces <= 5) { // There must be at most 5 items in the slot to be able to refill, else, it still doesn't need restocking
                 System.out.println("There are already enough items in this slot. Must be 5 or less to refill");
             } else {
                 for (int i = 0; i < numFreeSlotSpaces; i++) {
                     Item newItem = new Item(itemType, price, calories); // Create a new item with the same attributes
-                    vendingMachine.getSelectedSlot(indexChoice).getItemArrayList().add(newItem); // Add the item to the slot
+                    vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).getItemArrayList().add(newItem); // Add the item to the slot
                 }
                 System.out.println("Successfully restocked " + numFreeSlotSpaces + " items of type: " + itemType);
-                vendingMachine.getSelectedSlot(indexChoice).setItemStock(maxItemsPerSlot);
+                vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).setItemStock(maxItemsPerSlot);
             }
         } else {
             System.out.println("This slot is already fully stocked.");
@@ -51,7 +54,7 @@ public class StockManager {
         // Check the input if an item of the same type already exists
         int slotSize = vendingMachine.getSlotArrayList().size();
         for (int i = 0; i < slotSize; i++) {
-            if (vendingMachine.getSelectedSlot(i).getAssignedItemType().equalsIgnoreCase(inputString)) {
+            if (vendingMachine.getSelectedSlot(i, false).getAssignedItemType().equalsIgnoreCase(inputString)) {
                 System.out.println("An item of the same type already exists. Please enter a different item.");
                 return true;
             }
@@ -64,13 +67,13 @@ public class StockManager {
         vendingMachine.getSlotArrayList().add(new Slot(newItem, 10));
         int lastIndex = vendingMachine.getSlotArrayList().size() - 1;
         for (int i = 0; i < 10; i++) {
-            vendingMachine.getSelectedSlot(lastIndex).getItemArrayList().add(new Item(newItem, newPrice, newCals));
+            vendingMachine.getSelectedSlot(lastIndex, false).getItemArrayList().add(new Item(newItem, newPrice, newCals));
         }
     }
 
 
-    public void updateItemPrice(VendingMachine vendingMachine, int slotIndex, int newPrice) {
-        ArrayList<Item> itemArrayList = vendingMachine.getSelectedSlot(slotIndex).getItemArrayList();
+    public void updateItemPrice(VendingMachine vendingMachine, boolean isSpecialSlot, int slotIndex, int newPrice) {
+        ArrayList<Item> itemArrayList = vendingMachine.getSelectedSlot(slotIndex, isSpecialSlot).getItemArrayList();
         for (Item item : itemArrayList) {
             item.setPrice(newPrice);
         }
@@ -97,4 +100,68 @@ public class StockManager {
     }
 
 
+    public void restockProcess(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance, boolean isSpecialSlot)
+    {
+        int indexChoice;
+        boolean isDone = false;
+        ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> specialEndingInventoryCopy = null;
+        if(vendingMachine instanceof SpecialVendingMachine)
+        {
+            specialEndingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+        }
+        ArrayList<? extends Slot> slotsToUse = isSpecialSlot ? vendingMachine.getSpecialSlots() : vendingMachine.getSlotArrayList();
+        do {
+            System.out.println("Restocking is only allowed for items with a stock count below 5.");
+            System.out.println();
+            for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedItem(i, isSpecialSlot).getType()
+                        + " -- Stock: " + vendingMachine.getSelectedSlot(i, isSpecialSlot).getItemStock());
+            }
+
+            System.out.println("[0] Press 0 to go back");
+            System.out.print("Enter the index of the item to be restocked: ");
+            indexChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (indexChoice == 0) {
+                System.out.println("Going back to maintenance menu...");
+                isDone = true;
+            } else if (indexChoice >= 1 && indexChoice <= slotsToUse.size()) {
+                maintenance.restockItem(vendingMachine, indexChoice - 1, isSpecialSlot);
+                boolean isValidInput = false;
+                do {
+                    System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
+                    String choice = scanner.nextLine();
+
+                    if (choice.equalsIgnoreCase("Y")) {
+                        isValidInput = true;
+                    } else if (choice.equalsIgnoreCase("N")) {
+                        System.out.println("Going back to previous menu...");
+                        ArrayList<Slot> startingPrevInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                        maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
+                        maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+                        ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                        maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+
+                        if(vendingMachine instanceof SpecialVendingMachine)
+                        {
+                            ArrayList<Slot> specialPrevStartingInventory = maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
+                            maintenance.addAllToPrevStartingInventory(vendingMachine, specialPrevStartingInventory);
+                            maintenance.addAllToEndingInventory(vendingMachine, specialEndingInventoryCopy);
+                            ArrayList<Slot> specialStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                            maintenance.addAllToStartingInventory(vendingMachine, specialStartingInventoryCopy);
+                        }
+                        isValidInput = true;
+                        isDone = true;
+                    } else {
+                        System.out.println("Invalid input. Please only enter 'Y' or 'N'.");
+                    }
+                } while (!isValidInput);
+            } else {
+                System.out.println("Invalid index choice. Please select a valid option or press 0 to go back.");
+            }
+        } while (!isDone);
+    }
 }
+
