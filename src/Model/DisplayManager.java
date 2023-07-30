@@ -27,7 +27,8 @@ public class DisplayManager {
             String slotType = slot.getAssignedItemType();
             int stock = slot.getItemStock();
 
-            String itemName = slotType + " ".repeat(maxItemNameLength - slotType.length());
+            int itemNameLength = Math.max(maxItemNameLength, slotType.length());
+            String itemName = slotType + " ".repeat(itemNameLength - slotType.length());
             String stockDisplay = stock > 0 ? String.valueOf(stock) : "[ X ]";
 
             System.out.printf("| %-8d| %-8s| %-6s|\n", i + 1, itemName, stockDisplay);

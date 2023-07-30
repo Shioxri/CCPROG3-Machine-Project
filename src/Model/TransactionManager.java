@@ -12,13 +12,7 @@ public class TransactionManager {
             return false;
         }
 
-        if (itemChoice == 0) { // If user cancels the transaction
-            // Return user's money and clear user paid money
-            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
-            vendingMachine.getMoneyManager().clearUserPaidMoney();
-            System.out.println("Going back to the user menu...");
-            return false;
-        } else if (itemChoice > 0 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
+        if (itemChoice > 0 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
             // Check if the chosen item is available and in stock
             Slot selectedSlot = vendingMachine.getSlotArrayList().get(itemChoice - 1);
             if (selectedSlot.getItemArrayList().isEmpty()) {
