@@ -3,7 +3,6 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
@@ -37,6 +36,7 @@ public class RegularBuy {
         JButton buyButton = new JButton();
         JButton cancelButton = new JButton();
         JButton addButton = new JButton();
+        JButton exitButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
 
         AtomicInteger pageNumber = new AtomicInteger(1);
@@ -104,7 +104,7 @@ public class RegularBuy {
         userBalanceLabel.setOpaque(true);
 
         infoLabel.setBounds(10,200,180,200);
-        infoLabel.setText("<html>Price: $999<br/>Calories: 999 <br/> Stock: 10</html>");
+        infoLabel.setText("<html>Price: $999<br/>Calories: 999 kCal <br/> Stock: 10</html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -119,7 +119,7 @@ public class RegularBuy {
         Item1Button.setIcon(cola);
         Item1Button.setText("Item 1");
         Item1Button.setHorizontalTextPosition(JButton.CENTER);
-        Item1Button.addActionListener(e -> System.out.println("show regular VM"));
+        Item1Button.addActionListener(e -> systemMessage.setText("Item 1"));
 
         Item2Button.setBounds(200, 75, 150, 50);
         Item2Button.setHorizontalAlignment(JButton.CENTER);
@@ -131,7 +131,6 @@ public class RegularBuy {
         Item3Button.setBounds(375, 75, 150, 50);
         Item3Button.setHorizontalAlignment(JButton.CENTER);
         Item3Button.setText("Item 3");
-        Item3Button.addActionListener(e -> System.exit(0));
 
         Item4Button.setBounds(25, 175, 150, 50);
         Item4Button.setHorizontalAlignment(JButton.CENTER);
@@ -160,7 +159,11 @@ public class RegularBuy {
         backButton.setBounds(125, 400, 100, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("<--");
-        backButton.addActionListener(e -> pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get())));
+        backButton.addActionListener(e -> {
+            if(pageNumber.get()>1) {
+                pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get()));
+            }
+        });
 
         nextButton.setBounds(325, 400, 100, 50);
         nextButton.setHorizontalAlignment(JButton.CENTER);
@@ -178,9 +181,18 @@ public class RegularBuy {
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
-        if(!Objects.equals(denominations.getSelectedItem(), "Insert Cash")) {
-            addButton.addActionListener(e -> cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem())));
-        }
+            addButton.addActionListener(e -> {
+                cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem()));
+                systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+            });
+
+
+        exitButton.setBounds(10,700,180,25);
+        exitButton.setHorizontalAlignment(JButton.CENTER);
+        exitButton.setText("Menu");
+        exitButton.addActionListener(e -> System.exit(0));
+        /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
+
 
         denominations.setBounds(10,110,120,25);
         for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
@@ -231,6 +243,7 @@ public class RegularBuy {
         rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
+        rightPanel.add(exitButton);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
@@ -254,11 +267,11 @@ public class RegularBuy {
     public static void playBackgroundMusic(String musicFilePath) {
         try {
             File musicFile = new File(musicFilePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+            Clip clip = AudioSystem.getClip();
             if (musicFile.exists()) {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-                Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);
-                clip.loop(Clip.LOOP_CONTINUOUSLY); // Play the music on a loop
+                clip.loop(0); // Play the music on a loop
                 clip.start();
             } else {
                 System.out.println("Music file not found: " + musicFilePath);
