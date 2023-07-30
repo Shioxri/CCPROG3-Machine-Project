@@ -33,6 +33,10 @@ public class RegularMaintenance {
         JButton changePriceButton = new JButton();
         JButton reStock = new JButton();
         JButton addItem = new JButton();
+        JButton collectMoney = new JButton();
+        JButton printSummary = new JButton();
+        JButton instructionsButton = new JButton();
+        JButton slotInfoButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> slots = new JComboBox<>();
         JComboBox<Integer> addStock = new JComboBox<>();
@@ -40,6 +44,7 @@ public class RegularMaintenance {
         JTextField setName = new JTextField();
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
+        JOptionPane summary = new JOptionPane();
 
 
 
@@ -126,9 +131,7 @@ public class RegularMaintenance {
         reStock.setText("Restock");
         reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
         reStock.setHorizontalTextPosition(JButton.CENTER);
-        reStock.addActionListener(e -> {
-            System.out.println("New Stock: " + addStock.getSelectedItem());
-        });
+        reStock.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
 
 
         addButton.setBounds(222, 260, 50,25);
@@ -167,14 +170,48 @@ public class RegularMaintenance {
         });
 
 
-        exitButton.setBounds(10,700,180,25);
+        exitButton.setBounds(550,80,190,35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
+        slotInfoButton.setBounds(550,10,190,35);
+        slotInfoButton.setHorizontalAlignment(JButton.CENTER);
+        slotInfoButton.setText("Slot Info");
+        slotInfoButton.addActionListener(e -> System.exit(0));
+
+        instructionsButton.setBounds(550,45,190,35);
+        instructionsButton.setHorizontalAlignment(JButton.CENTER);
+        instructionsButton.setText("Instructions");
+        instructionsButton.addActionListener(e -> System.exit(0));
+
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
+        addButton.addActionListener(e -> slots.addItem(setName.getText()));
+
+        collectMoney.setBounds(92,295, 180, 50);
+        collectMoney.setText("Collect Money");
+        collectMoney.addActionListener(e -> {
+            cash.set(0);
+            cash2.set(0);
+            cash3.set(0);
+            cash4.set(0);
+            cash5.set(0);
+            cash6.set(0);
+            systemMessage.setText("You have collected $"+cashtotal.get());
+            cashtotal.set(0);
+            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
+                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+                    "</html>");
+        });
+
+        printSummary.setBounds(92, 355,180,50);
+        printSummary.setText("Print Summary");
+        printSummary.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,"summary");//remember to add wrapping
+        });
+
 
 
         // Dropdows
@@ -307,6 +344,9 @@ public class RegularMaintenance {
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
+        lowerPanel.add(slotInfoButton);
+        lowerPanel.add(instructionsButton);
+        lowerPanel.add(exitButton);
 
         rightPanel.setBackground(new Color(25, 25, 112, 123));
         rightPanel.setBounds(375,150,375,480);
@@ -319,7 +359,8 @@ public class RegularMaintenance {
         rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
-        rightPanel.add(exitButton);
+        rightPanel.add(collectMoney);
+        rightPanel.add(printSummary);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
@@ -358,9 +399,5 @@ public class RegularMaintenance {
         }
     }
 
-    public static int magicAdd(JLabel userBalance, int cash, int addition){
-        cash += addition;
-        userBalance.setText("$"+cash);
-        return cash;
-    }
+
 }
