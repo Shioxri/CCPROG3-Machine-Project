@@ -378,18 +378,6 @@ public class RegularMaintenance {
         }
     }
 
-    public static int magicIncrement(JLabel pageCounter, int pageNumber){
-        pageNumber++;
-        pageCounter.setText(String.valueOf(pageNumber));
-        return pageNumber;
-    }
-
-    public static int magicDecrement(JLabel pageCounter, int pageNumber){
-        pageNumber--;
-        pageCounter.setText(String.valueOf(pageNumber));
-        return pageNumber;
-    }
-
     public static int magicAdd(JLabel userBalance, int cash, int addition){
         cash += addition;
         userBalance.setText("$"+cash);
