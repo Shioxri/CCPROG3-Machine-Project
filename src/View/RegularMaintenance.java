@@ -44,7 +44,6 @@ public class RegularMaintenance {
         JTextField setName = new JTextField();
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
-        JOptionPane summary = new JOptionPane();
 
 
 
@@ -188,7 +187,9 @@ public class RegularMaintenance {
 
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
-        addButton.addActionListener(e -> slots.addItem(setName.getText()));
+        addItem.addActionListener(e -> {
+            slots.addItem(setName.getText());
+        });
 
         collectMoney.setBounds(92,295, 180, 50);
         collectMoney.setText("Collect Money");
@@ -223,7 +224,7 @@ public class RegularMaintenance {
 
         slots.setBounds(112,25,150,40);
         slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        for (String i : new String[]{"Slot 1", " Slot 2", "Slot 3"}) {
+        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
             slots.addItem(i);
         }
 
