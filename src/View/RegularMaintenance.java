@@ -44,6 +44,7 @@ public class RegularMaintenance {
         JTextField setName = new JTextField();
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
+        JOptionPane summary = new JOptionPane();
 
 
 
@@ -188,6 +189,29 @@ public class RegularMaintenance {
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
         addButton.addActionListener(e -> slots.addItem(setName.getText()));
+
+        collectMoney.setBounds(92,295, 180, 50);
+        collectMoney.setText("Collect Money");
+        collectMoney.addActionListener(e -> {
+            cash.set(0);
+            cash2.set(0);
+            cash3.set(0);
+            cash4.set(0);
+            cash5.set(0);
+            cash6.set(0);
+            systemMessage.setText("You have collected $"+cashtotal.get());
+            cashtotal.set(0);
+            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
+                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+                    "</html>");
+        });
+
+        printSummary.setBounds(92, 355,180,50);
+        printSummary.setText("Print Summary");
+        printSummary.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,"summary");//remember to add wrapping
+        });
+
 
 
         // Dropdows
@@ -335,6 +359,8 @@ public class RegularMaintenance {
         rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
+        rightPanel.add(collectMoney);
+        rightPanel.add(printSummary);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
