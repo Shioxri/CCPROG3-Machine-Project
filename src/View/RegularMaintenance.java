@@ -56,9 +56,7 @@ public class RegularMaintenance {
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("trueregvm.png");
-        ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("cola.png");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
