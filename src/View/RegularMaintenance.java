@@ -33,6 +33,10 @@ public class RegularMaintenance {
         JButton changePriceButton = new JButton();
         JButton reStock = new JButton();
         JButton addItem = new JButton();
+        JButton collectMoney = new JButton();
+        JButton printSummary = new JButton();
+        JButton instructionsButton = new JButton();
+        JButton slotInfoButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> slots = new JComboBox<>();
         JComboBox<Integer> addStock = new JComboBox<>();
@@ -167,14 +171,27 @@ public class RegularMaintenance {
         });
 
 
-        exitButton.setBounds(10,700,180,25);
+        exitButton.setBounds(550,80,190,35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
+        slotInfoButton.setBounds(550,10,190,35);
+        slotInfoButton.setHorizontalAlignment(JButton.CENTER);
+        slotInfoButton.setText("Slot Info");
+        slotInfoButton.addActionListener(e -> System.exit(0));
+
+        instructionsButton.setBounds(550,45,190,35);
+        instructionsButton.setHorizontalAlignment(JButton.CENTER);
+        instructionsButton.setText("Instructions");
+        instructionsButton.addActionListener(e -> System.exit(0));
+
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
+        addButton.addActionListener(e -> {
+            slots.addItem(setName.getText());
+        });
 
 
         // Dropdows
@@ -307,6 +324,9 @@ public class RegularMaintenance {
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
+        lowerPanel.add(slotInfoButton);
+        lowerPanel.add(instructionsButton);
+        lowerPanel.add(exitButton);
 
         rightPanel.setBackground(new Color(25, 25, 112, 123));
         rightPanel.setBounds(375,150,375,480);
@@ -319,7 +339,6 @@ public class RegularMaintenance {
         rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
-        rightPanel.add(exitButton);
 
         // Layered Pane
         JLayeredPane layeredPane = new JLayeredPane();
