@@ -11,6 +11,9 @@ public class RecordsManager {
     private ArrayList<Slot> startingInventory;
     private ArrayList<Slot> prevStartingInventory;
     private ArrayList<Slot> endingInventory;
+    private ArrayList<Slot> specialStartingInventory;
+    private ArrayList<Slot> specialPrevStartingInventory;
+    private ArrayList<Slot> specialEndingInventory;
 
     public RecordsManager() {
         itemsQuantities = new HashMap<>();
@@ -18,6 +21,9 @@ public class RecordsManager {
         startingInventory = new ArrayList<>();
         endingInventory = new ArrayList<>();
         prevStartingInventory = new ArrayList<>();
+        specialStartingInventory = new ArrayList<>();
+        specialEndingInventory = new ArrayList<>();
+        specialPrevStartingInventory = new ArrayList<>();
   }
 
 
@@ -41,6 +47,18 @@ public class RecordsManager {
             }
         }
 
+        if(vendingMachine instanceof SpecialVendingMachine)
+        {
+            for (Slot slot : vendingMachine.getSpecialSlots()) {
+                String itemTypeKey = slot.getAssignedItemType();
+
+                if (itemsQuantities.containsKey(itemTypeKey)) {
+                    int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
+                    itemsPrices.put(itemTypeKey, itemPrice);
+                }
+            }
+        }
+
         if (itemsQuantities.isEmpty()) {
             System.out.println("No sales recorded.");
         } else {
@@ -57,6 +75,14 @@ public class RecordsManager {
             }
 
             System.out.println("Total Sales: ₱" + totalSalesAmount);
+            if(vendingMachine.getAdminCollectedMoney()>0)
+            {
+                System.out.println("Total Collected Money: ₱"+vendingMachine.getAdminCollectedMoney());
+            }
+            else
+            {
+                System.out.println("Admin has not claimed any money from the machine yet.");
+            }
         }
     }
 
@@ -85,5 +111,17 @@ public class RecordsManager {
     }
     public void clearItemsPrices() {
         itemsPrices.clear();
+    }
+
+    public ArrayList<Slot> getSpecialStartingInventory() {
+        return specialStartingInventory;
+    }
+
+    public ArrayList<Slot> getSpecialPrevStartingInventory() {
+        return specialPrevStartingInventory;
+    }
+
+    public ArrayList<Slot> getSpecialEndingInventory() {
+        return specialEndingInventory;
     }
 }

@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Scanner;
+
 public class TransactionManager {
     public boolean checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
         int itemPrice;
@@ -55,10 +57,10 @@ public class TransactionManager {
     public void confirmTransaction(VendingMachine vendingMachine, int itemChoice)
     {
         int totalUserMoney = vendingMachine.getUserBalance();
-        int change = totalUserMoney - vendingMachine.getSelectedItem(itemChoice).getPrice();
+        int change = totalUserMoney - vendingMachine.getSelectedItem(itemChoice, false).getPrice();
 
         System.out.println("[Transaction Successful]");
-        System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice).getAssignedItemType());
+        System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice, false).getAssignedItemType());
         System.out.println("CHANGE: ₱" + change);
         vendingMachine.getMoneyManager().depositMoney();
         vendingMachine.getMoneyManager().returnChange(change);
@@ -74,4 +76,60 @@ public class TransactionManager {
         }
     }
 
+
+    public boolean insertMoneyProcess(Scanner scanner, VendingMachine vendingMachine)
+    {
+        int quantity;
+            System.out.println("[Insert Cash - Denomination]");
+            System.out.println("[1] ₱100");
+            System.out.println("[2] ₱50");
+            System.out.println("[3] ₱20");
+            System.out.println("[4] ₱10");
+            System.out.println("[5] ₱5");
+            System.out.println("[6] ₱1");
+            System.out.println("[0] Exit");
+            System.out.print("Enter your choice: ");
+            int cashDenomination = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character after reading the integer input
+
+            switch (cashDenomination) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    System.out.print("Enter quantity: ");
+                    quantity = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character after reading the integer input
+                    vendingMachine.addTempPaidMoney(getDenominationValue(cashDenomination), quantity);
+                    break;
+                case 0:
+                    System.out.println("Exiting money insertion...");
+                    return false;
+                default:
+                    System.out.println("INVALID INPUT!");
+                    break;
+            }
+            return true;
+    }
+
+    private static int getDenominationValue(int cashDenomination) {
+        switch (cashDenomination) {
+            case 1:
+                return 100;
+            case 2:
+                return 50;
+            case 3:
+                return 20;
+            case 4:
+                return 10;
+            case 5:
+                return 5;
+            case 6:
+                return 1;
+            default:
+                return 0;
+        }
+    }
 }

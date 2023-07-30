@@ -61,23 +61,25 @@ public class DisplayManager {
             System.out.println("Invalid slot index.");
         }
     }
-    public void displayAvailableItems(VendingMachine vendingMachine)
-    {
+    public void displayAvailableItems(VendingMachine vendingMachine, boolean isSpecialSlot) {
         int totalTempUserMoney = vendingMachine.getUserBalance();
         System.out.println("[Select your Item]");
         System.out.println("Current Balance: " + totalTempUserMoney);
-        System.out.println("Available Items (with respect to current balance): "); //Printing of available items
+        System.out.println("Available Items (with respect to current balance): "); // Printing of available items
+
+        // Use the appropriate list based on the menu type
+        ArrayList<? extends Slot> slotsToUse = isSpecialSlot ? vendingMachine.getSlotArrayList() : vendingMachine.getSpecialSlots();
+
         int itemPrice;
-        for (int i = 0; i < vendingMachine.getSlotArrayList().size(); i++) {
-            itemPrice = vendingMachine.getSelectedItem(i).getPrice();
-            if (vendingMachine.getSelectedSlot(i).getItemStock() <= 0) {
-                System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ OUT OF STOCK ]");
+        for (int i = 0; i < slotsToUse.size(); i++) {
+            itemPrice = vendingMachine.getSelectedItem(i,isSpecialSlot).getPrice();
+            if (slotsToUse.get(i).getItemStock() <= 0) {
+                System.out.println("[X] " + slotsToUse.get(i).getAssignedItemType() + " [ OUT OF STOCK ]");
             } else {
-                if (itemPrice > totalTempUserMoney) {
-                    System.out.println("[X] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
-                }
-                else {
-                    System.out.println("[" + (i + 1) + "] " + vendingMachine.getSelectedSlot(i).getAssignedItemType() + " ₱" + itemPrice);
+                if (!isSpecialSlot && itemPrice > totalTempUserMoney) {
+                    System.out.println("[X] " + slotsToUse.get(i).getAssignedItemType() + " [ INSUFFICIENT BALANCE ]");
+                } else {
+                    System.out.println("[" + (i + 1) + "] " + slotsToUse.get(i).getAssignedItemType() + " ₱" + itemPrice);
                 }
             }
         }
