@@ -5,74 +5,74 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Maintenance {
-    public void restockItem(VendingMachine vendingMachine, int indexChoice, boolean isSpecialSlot) {
+    public static void restockItem(VendingMachine vendingMachine, int indexChoice, boolean isSpecialSlot) {
         vendingMachine.getStockManager().restockItems(vendingMachine, indexChoice, isSpecialSlot);
     }
 
-    public void restockProcess(Scanner scanner, VendingMachine vendingMachine, boolean isSpecialSlot) {
-        vendingMachine.getStockManager().restockProcess(scanner, vendingMachine, this, isSpecialSlot);
+    public static void restockProcess(Scanner scanner, VendingMachine vendingMachine, boolean isSpecialSlot) {
+        vendingMachine.getStockManager().restockProcess(scanner, vendingMachine, isSpecialSlot);
     }
 
 
-    public boolean isSameItemType(VendingMachine vendingMachine, String inputString) {
+    public static boolean isSameItemType(VendingMachine vendingMachine, String inputString) {
         return vendingMachine.getStockManager().isSameItemType(vendingMachine, inputString);
     }
 
-    public void stockNewItems(VendingMachine vendingMachine, String newItem, int newPrice, int newCals) {
+    public static void stockNewItems(VendingMachine vendingMachine, String newItem, int newPrice, int newCals) {
         vendingMachine.getStockManager().stockNewItems(vendingMachine, newItem, newPrice, newCals);
     }
 
-    public void updateItemPrices(VendingMachine vendingMachine, boolean isSpecialSlot, int userChoice, int newPrice) {
+    public static void updateItemPrices(VendingMachine vendingMachine, boolean isSpecialSlot, int userChoice, int newPrice) {
         vendingMachine.getStockManager().updateItemPrice(vendingMachine, isSpecialSlot, userChoice, newPrice);
     }
 
-    public void collectMoney(VendingMachine vendingMachine) {
+    public static void collectMoney(VendingMachine vendingMachine) {
         vendingMachine.getMoneyManager().collectMoney();
     }
 
-    public void replenishMoney(VendingMachine vendingMachine, int denomination, int quantity) {
+    public static void replenishMoney(VendingMachine vendingMachine, int denomination, int quantity) {
         vendingMachine.getMoneyManager().addStoredMoney(denomination, quantity);
     }
 
-    public void addSoldItems(VendingMachine vendingMachine, String itemType) {
+    public static void addSoldItems(VendingMachine vendingMachine, String itemType) {
         vendingMachine.getRecorder().addSoldItems(itemType);
     }
 
-    public void generateSalesReport(VendingMachine vendingMachine) {
+    public static void generateSalesReport(VendingMachine vendingMachine) {
         vendingMachine.getRecorder().generateSalesReport(vendingMachine);
     }
 
-    public void addAllToStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getStartingInventory().clear();
         vendingMachine.getRecorder().getStartingInventory().addAll(slotList);
     }
 
-    public void addAllToPrevStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToPrevStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getPrevStartingInventory().clear();
         vendingMachine.getRecorder().getPrevStartingInventory().addAll(slotList);
     }
 
-    public void addAllToEndingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToEndingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getEndingInventory().clear();
         vendingMachine.getRecorder().getEndingInventory().addAll(slotList);
     }
 
-    public void addAllToStartingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToStartingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getSpecialStartingInventory().clear();
         vendingMachine.getRecorder().getSpecialStartingInventory().addAll(slotList);
     }
 
-    public void addAllToPrevStartingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToPrevStartingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getSpecialPrevStartingInventory().clear();
         vendingMachine.getRecorder().getSpecialPrevStartingInventory().addAll(slotList);
     }
 
-    public void addAllToEndingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
+    public static void addAllToEndingSpecialInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getSpecialEndingInventory().clear();
         vendingMachine.getRecorder().getSpecialEndingInventory().addAll(slotList);
     }
 
-    public ArrayList<Slot> deepCopySlotArrayList(ArrayList<Slot> original) {
+    public static ArrayList<Slot> deepCopySlotArrayList(ArrayList<Slot> original) {
         ArrayList<Slot> copy = new ArrayList<>();
         for (Slot slot : original) {
             copy.add(slot.clone());
@@ -81,7 +81,7 @@ public class Maintenance {
     }
 
 
-    public void setPricesProcess(Scanner scanner, VendingMachine vendingMachine, ArrayList<Slot> slotsToUse, boolean isSpecialSlot) {
+    public static void setPricesProcess(Scanner scanner, VendingMachine vendingMachine, ArrayList<Slot> slotsToUse, boolean isSpecialSlot) {
         boolean isValidIndex = false;
         boolean isValidPrice;
 
@@ -116,7 +116,7 @@ public class Maintenance {
                 isValidPrice = false;
             }
         } while (!isValidPrice);
-        this.updateItemPrices(vendingMachine, isSpecialSlot,stockChoice - 1, newPrice);
+        updateItemPrices(vendingMachine, isSpecialSlot,stockChoice - 1, newPrice);
 
     }
 }

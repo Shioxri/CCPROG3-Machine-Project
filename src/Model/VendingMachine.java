@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class VendingMachine {
 
     private ArrayList<Slot> slotArrayList;
+
+    public Initializer getInitializer() {
+        return initializer;
+    }
+
     private Initializer initializer;
     private DisplayManager displayer;
     private MoneyManager moneyManager;
@@ -176,6 +181,11 @@ public class VendingMachine {
     public void restoreOriginalContents(ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
         this.getStockManager().restoreOriginalSlotContents(this,originalSlots, originalSpecialSlots);
 
+    }
+
+    public void initializeInventory()
+    {
+        this.getInitializer().initializeInventory(this);
     }
 
 }

@@ -100,15 +100,15 @@ public class StockManager {
     }
 
 
-    public void restockProcess(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance, boolean isSpecialSlot)
+    public void restockProcess(Scanner scanner, VendingMachine vendingMachine, boolean isSpecialSlot)
     {
         int indexChoice;
         boolean isDone = false;
-        ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         ArrayList<Slot> specialEndingInventoryCopy = null;
         if(vendingMachine instanceof SpecialVendingMachine)
         {
-            specialEndingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+            specialEndingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
         }
         ArrayList<? extends Slot> slotsToUse = isSpecialSlot ? vendingMachine.getSpecialSlots() : vendingMachine.getSlotArrayList();
         do {
@@ -128,7 +128,7 @@ public class StockManager {
                 System.out.println("Going back to maintenance menu...");
                 isDone = true;
             } else if (indexChoice >= 1 && indexChoice <= slotsToUse.size()) {
-                maintenance.restockItem(vendingMachine, indexChoice - 1, isSpecialSlot);
+                Maintenance.restockItem(vendingMachine, indexChoice - 1, isSpecialSlot);
                 boolean isValidInput = false;
                 do {
                     System.out.print("Do you want to continue restocking items? [Y]es or [N]o: ");
@@ -138,19 +138,19 @@ public class StockManager {
                         isValidInput = true;
                     } else if (choice.equalsIgnoreCase("N")) {
                         System.out.println("Going back to previous menu...");
-                        ArrayList<Slot> startingPrevInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
-                        maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
-                        maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
-                        ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-                        maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+                        ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                        Maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
+                        Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+                        ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                        Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
 
                         if(vendingMachine instanceof SpecialVendingMachine)
                         {
-                            ArrayList<Slot> specialPrevStartingInventory = maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
-                            maintenance.addAllToPrevStartingSpecialInventory (vendingMachine, specialPrevStartingInventory);
-                            maintenance.addAllToEndingSpecialInventory (vendingMachine, specialEndingInventoryCopy);
-                            ArrayList<Slot> specialStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
-                            maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
+                            ArrayList<Slot> specialPrevStartingInventory = Maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
+                            Maintenance.addAllToPrevStartingSpecialInventory (vendingMachine, specialPrevStartingInventory);
+                            Maintenance.addAllToEndingSpecialInventory (vendingMachine, specialEndingInventoryCopy);
+                            ArrayList<Slot> specialStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                            Maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
                         }
                         isValidInput = true;
                         isDone = true;

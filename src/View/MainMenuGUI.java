@@ -1,22 +1,33 @@
 package View;
 
+import Controller.MainMenuController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import javax.sound.sampled.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class MainMenuGUI {
-    public static void main(String[] args) {
+
+    JButton regularVMButton = new JButton();
+    JButton specialVMButton = new JButton();
+    JButton exitButton = new JButton();
+    JFrame frame;
+
+    public MainMenuGUI() {
+        init();
+    }
+    private void init()
+    {
         // Declarations
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
-        JButton regularVMbutton = new JButton();
-        JButton specialVMbutton = new JButton();
-        JButton exitButton = new JButton();
+
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
         playBackgroundMusic(musicFilePath);
@@ -38,23 +49,22 @@ public class MainMenuGUI {
 
         // Buttons
         //TODO: need method to switch GUI to RegularVMMenu
-        regularVMbutton.setBounds(100, 75, 300, 50);
-        regularVMbutton.setHorizontalAlignment(JButton.CENTER);
-        regularVMbutton.setText("Create Regular Vending Machine");
-        regularVMbutton.addActionListener(e -> System.out.println("show regular VM"));
+        regularVMButton.setBounds(100, 75, 300, 50);
+        regularVMButton.setHorizontalAlignment(JButton.CENTER);
+
+
 
         //TODO: need method to switch GUI to SpecialVMMenu
-        specialVMbutton.setBounds(100, 175, 300, 50);
-        specialVMbutton.setHorizontalAlignment(JButton.CENTER);
-        specialVMbutton.setText("Create Special Vending Machine");
-        specialVMbutton.setIcon(sampleIcon);
-        specialVMbutton.addActionListener(e -> System.out.println("show special VM"));
+        specialVMButton.setBounds(100, 175, 300, 50);
+        specialVMButton.setHorizontalAlignment(JButton.CENTER);
+        specialVMButton.setText("Create Special Vending Machine");
+        specialVMButton.setIcon(sampleIcon);
+
 
 
         exitButton.setBounds(100, 275, 300, 50);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Exit");
-        exitButton.addActionListener(e -> System.exit(0));
 
         // Label
         titleLabel.setText("Vending Machine Main Menu");
@@ -76,8 +86,8 @@ public class MainMenuGUI {
         selectionPanel.setBounds(125, 250, 500, 400);
         selectionPanel.setLayout(null);
         selectionPanel.setOpaque(true);
-        selectionPanel.add(regularVMbutton);
-        selectionPanel.add(specialVMbutton);
+        selectionPanel.add(specialVMButton);
+        selectionPanel.add(specialVMButton);
         selectionPanel.add(exitButton);
 
         // Layered Pane
@@ -97,7 +107,31 @@ public class MainMenuGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void playBackgroundMusic(String musicFilePath) {
+    public void toggleFrame()
+    {
+        if(frame.isVisible())
+            frame.setVisible(false);
+        else
+            frame.setVisible(true);
+    }
+
+
+    public JButton getSpecialVMButton() {
+        return specialVMButton;
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public JButton getRegularVMButton()
+    {
+        return regularVMButton;
+    }
+
+
+
+    public void playBackgroundMusic(String musicFilePath) {
         try {
             File musicFile = new File(musicFilePath);
             if (musicFile.exists()) {
@@ -113,4 +147,7 @@ public class MainMenuGUI {
             System.out.println("Error while playing background music: " + e.getMessage());
         }
     }
+
+
+
 }

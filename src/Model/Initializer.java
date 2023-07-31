@@ -70,5 +70,24 @@ public class Initializer {
             vendingMachine.addStoredMoney(1, 100);
 
         }
+
+
+
+    public void initializeInventory(VendingMachine vendingMachine) {
+        ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> prevStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+
+        Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+        Maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
+
+        if (vendingMachine instanceof SpecialVendingMachine) {
+            ArrayList<Slot> startingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList(((SpecialVendingMachine) vendingMachine).getSpecialSlots());
+            ArrayList<Slot> prevStartingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList(((SpecialVendingMachine) vendingMachine).getSpecialSlots());
+
+            Maintenance.addAllToStartingSpecialInventory((SpecialVendingMachine) vendingMachine, startingSpecialInventoryCopy);
+            Maintenance.addAllToPrevStartingSpecialInventory((SpecialVendingMachine) vendingMachine, prevStartingSpecialInventoryCopy);
+        }
+    }
+
     }
 

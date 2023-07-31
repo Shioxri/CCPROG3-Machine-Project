@@ -41,7 +41,6 @@ public class Driver {
         int vendingMachineChoice;
         boolean isDone = false;
         VendingMachine vendingMachine;
-        Maintenance maintenance;
         ArrayList<Slot> startingInventoryCopy;
         ArrayList<Slot> prevStartingInventoryCopy;
         do {
@@ -55,30 +54,28 @@ public class Driver {
             switch (vendingMachineChoice) {
                 case 1:
                     vendingMachine = new VendingMachine(); //instantiate from the vending machine class
-                    maintenance = new Maintenance();
-                    startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-                    prevStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    prevStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
 
-                    maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
-                    maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
+                    Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+                    Maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
 
-                    isDone = createVendingMachineMenu(scanner, vendingMachine, maintenance);
+                    isDone = createVendingMachineMenu(scanner, vendingMachine);
                     break;
                 case 2:
                     vendingMachine = new SpecialVendingMachine(); //instantiate from the vending machine class
-                    maintenance = new Maintenance();
 
-                    startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-                    prevStartingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-                    maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
-                    maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
+                    startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    prevStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+                    Maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
 
-                    ArrayList<Slot> startingSpecialInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
-                    ArrayList<Slot> prevStartingSpecialInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
-                    maintenance.addAllToStartingSpecialInventory(vendingMachine, startingSpecialInventoryCopy);
-                    maintenance.addAllToPrevStartingSpecialInventory(vendingMachine, prevStartingSpecialInventoryCopy);
+                    ArrayList<Slot> startingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+                    ArrayList<Slot> prevStartingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+                    Maintenance.addAllToStartingSpecialInventory(vendingMachine, startingSpecialInventoryCopy);
+                    Maintenance.addAllToPrevStartingSpecialInventory(vendingMachine, prevStartingSpecialInventoryCopy);
 
-                    isDone = createVendingMachineMenu(scanner, vendingMachine, maintenance);
+                    isDone = createVendingMachineMenu(scanner, vendingMachine);
                     System.out.println("Work in progress...");
                     break;
                 case 0:
@@ -97,7 +94,7 @@ public class Driver {
      * @param vendingMachine the vending machine object to be used/tested
      * @return boolean
      */
-    public static boolean createVendingMachineMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static boolean createVendingMachineMenu(Scanner scanner, VendingMachine vendingMachine) {
         int regularVMChoice;
         do {
             System.out.println("╔═══════════════════╗");
@@ -112,11 +109,11 @@ public class Driver {
             scanner.nextLine(); // Consume the newline character
             switch (regularVMChoice) {
                 case 1:
-                    createUserMenu(scanner, vendingMachine, maintenance);
+                    createUserMenu(scanner, vendingMachine);
                     break;
                 case 2:
                     if (checkPassword(scanner)) {
-                        createMaintenanceMenu(scanner, vendingMachine, maintenance);
+                        createMaintenanceMenu(scanner, vendingMachine);
                     } else {
                         continue;
                     }
@@ -137,7 +134,7 @@ public class Driver {
      * @param scanner        for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void createUserMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void createUserMenu(Scanner scanner, VendingMachine vendingMachine) {
         int userMenuChoice;
 
         do {
@@ -169,7 +166,7 @@ public class Driver {
                 }
 
                 case 2: {
-                    insertMoneyMenu(scanner, vendingMachine, maintenance);
+                    insertMoneyMenu(scanner, vendingMachine);
                     break;
                 }
 
@@ -177,7 +174,7 @@ public class Driver {
                     // Handle the case specific to SpecialVendingMachine
                     if (vendingMachine instanceof SpecialVendingMachine) {
                         // Call the method or perform actions specific to SpecialVendingMachine
-                        buyCustomItemMenu(scanner, vendingMachine, maintenance);
+                        buyCustomItemMenu(scanner, vendingMachine);
                     } else {
                         System.out.println("Invalid choice. Please try again.");
                     }
@@ -198,7 +195,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void insertMoneyMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void insertMoneyMenu(Scanner scanner, VendingMachine vendingMachine) {
         boolean isDone = false;
         boolean isValidInput = false;
 
@@ -214,7 +211,7 @@ public class Driver {
                         System.out.println("Going to the buy item menu...");
                         isValidInput = true;
                         isDone = true;
-                        buyItemMenu(scanner, vendingMachine, maintenance);
+                        buyItemMenu(scanner, vendingMachine);
                     } else {
                         System.out.println("Invalid input. Please enter 'Y' or 'N'.");
                     }
@@ -225,11 +222,11 @@ public class Driver {
 
 
 
-    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance)
+    public static void buyItemMenu(Scanner scanner, VendingMachine vendingMachine)
     {
         int choice;
         String stringChoice;
-        boolean isValidInput = false;
+        boolean isValidInput;
         boolean isDone = false;
         do {
             vendingMachine.displayAvailableItems(false);
@@ -248,7 +245,7 @@ public class Driver {
                         vendingMachine.confirmTransaction(choice - 1);
                         Item dispensedItem = vendingMachine.dispenseSelectedItem(choice - 1, false);
                         System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
-                        maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
+                        Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
 
 
                         do {
@@ -294,10 +291,10 @@ public class Driver {
         }while(!isDone);
     }
 //TODO MAKE SPECIAL SLOT VERSIONS OF DISPLAY AVAILABLE/ALL ITEMS AND DISPENSE AND INVENTORY AND RECORD
-    public static void buyCustomItemMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance)
+    public static void buyCustomItemMenu(Scanner scanner, VendingMachine vendingMachine)
     {
-        ArrayList<Slot> originalSlots = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-        ArrayList<Slot> originalSpecialSlots = maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+        ArrayList<Slot> originalSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> originalSpecialSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
         ArrayList<Item> selectedItems = new ArrayList<>();
         ArrayList<Item> selectedFruits = new ArrayList<>();
         ArrayList<Item> selectedLiquids = new ArrayList<>();
@@ -728,7 +725,7 @@ public class Driver {
      * @param scanner        for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void createMaintenanceMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void createMaintenanceMenu(Scanner scanner, VendingMachine vendingMachine) {
 
         int maintenanceMenuChoice;
 
@@ -751,22 +748,22 @@ public class Driver {
 
             switch (maintenanceMenuChoice) {
                 case 1:
-                    restockItemsMenu(scanner, vendingMachine, maintenance);
+                    restockItemsMenu(scanner, vendingMachine);
                     break;
                 case 2:
-                    stockNewItemsMenu(scanner, vendingMachine, maintenance);
+                    stockNewItemsMenu(scanner, vendingMachine);
                     break;
                 case 3:
-                    setPriceForSelectedItemTypeMenu(scanner, vendingMachine, maintenance);
+                    setPriceForSelectedItemTypeMenu(scanner, vendingMachine);
                     break;
                 case 4:
-                    collectMachineMoneyMenu(scanner, vendingMachine, maintenance);
+                    collectMachineMoneyMenu(scanner, vendingMachine);
                     break;
                 case 5:
-                    replenishMachineMoneyMenu(scanner, vendingMachine, maintenance);
+                    replenishMachineMoneyMenu(scanner, vendingMachine);
                     break;
                 case 6:
-                    printSummaryMenu(vendingMachine, maintenance);
+                    printSummaryMenu(vendingMachine);
                     break;
                 case 0:
                     System.out.println("Exiting Maintenance Menu.");
@@ -815,7 +812,7 @@ public class Driver {
     }
 
 
-    public static void restockItemsMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void restockItemsMenu(Scanner scanner, VendingMachine vendingMachine) {
         boolean isDone = false;
 
         if (vendingMachine instanceof SpecialVendingMachine) {
@@ -830,10 +827,10 @@ public class Driver {
                 scanner.nextLine();
                 switch (choice) {
                     case 1:
-                        maintenance.restockProcess(scanner, vendingMachine, false);
+                        Maintenance.restockProcess(scanner, vendingMachine, false);
                         break;
                     case 2:
-                        maintenance.restockProcess(scanner, vendingMachine, true);
+                        Maintenance.restockProcess(scanner, vendingMachine, true);
                         break;
                     case 0:
                         isDone=true;
@@ -845,20 +842,20 @@ public class Driver {
                 }
             } while (!isDone);
         } else
-            maintenance.restockProcess(scanner, vendingMachine, false);
+            Maintenance.restockProcess(scanner, vendingMachine, false);
 
 
 
     }
-    public static void stockNewItemsMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void stockNewItemsMenu(Scanner scanner, VendingMachine vendingMachine) {
         boolean isDone = false;
         boolean isCorrect = false;
-        ArrayList<Slot> endingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         do {
             System.out.println("What type of item would you like to add to the vending machine?");
             String newItem = scanner.nextLine();
 
-            if (maintenance.isSameItemType(vendingMachine, newItem)) {
+            if (Maintenance.isSameItemType(vendingMachine, newItem)) {
                 System.out.println("An item of the same type already exists. Please enter a different item.");
                 return;
             }
@@ -889,7 +886,7 @@ public class Driver {
                     }
                 }
 
-                maintenance.stockNewItems(vendingMachine, newItem, newPrice, newCals);
+                Maintenance.stockNewItems(vendingMachine, newItem, newPrice, newCals);
                 System.out.println("Successfully stocked up on new item: " + newItem);
             }
 
@@ -901,11 +898,11 @@ public class Driver {
                     isCorrect = true;
                 } else if (choice.equalsIgnoreCase("N")) { //TODO MAKE THIS A FUNCTION
                     System.out.println("Going back to maintenance menu...");
-                    ArrayList<Slot> startingPrevInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
-                    maintenance.addAllToPrevStartingInventory(vendingMachine,startingPrevInventoryCopy);
-                    maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
-                    ArrayList<Slot> startingInventoryCopy = maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-                    maintenance.addAllToStartingInventory(vendingMachine,startingInventoryCopy);
+                    ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+                    Maintenance.addAllToPrevStartingInventory(vendingMachine,startingPrevInventoryCopy);
+                    Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+                    ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+                    Maintenance.addAllToStartingInventory(vendingMachine,startingInventoryCopy);
                     isCorrect = true;
                     isDone = true;
                 } else {
@@ -921,7 +918,7 @@ public class Driver {
      * @param scanner for scanning user input
      * @param vendingMachine the vending machine object to be used/tested
      */
-    public static void setPriceForSelectedItemTypeMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void setPriceForSelectedItemTypeMenu(Scanner scanner, VendingMachine vendingMachine) {
         boolean isDone = false;
         int choice;
 
@@ -936,10 +933,10 @@ public class Driver {
                 scanner.nextLine();
                 switch (choice) {
                     case 1:
-                        maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSlotArrayList(), false);
+                        Maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSlotArrayList(), false);
                         break;
                     case 2:
-                        maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSpecialSlots(), true);
+                        Maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSpecialSlots(), true);
                         break;
                     case 0:
                         isDone=true;
@@ -970,7 +967,7 @@ public class Driver {
         else
         {
             do{
-                maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSlotArrayList(), false);
+                Maintenance.setPricesProcess(scanner, vendingMachine, vendingMachine.getSlotArrayList(), false);
                 boolean isCorrect = false;
                 do {
                     System.out.print("Do you want to continue setting prices for items? [Y]es or [N]o: ");
@@ -990,11 +987,11 @@ public class Driver {
         }
     }
 
-    public static void collectMachineMoneyMenu(Scanner scanner,VendingMachine vendingMachine, Maintenance maintenance)
+    public static void collectMachineMoneyMenu(Scanner scanner,VendingMachine vendingMachine)
     {
         boolean isDone = false;
         int totalMoneyGenerated = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getTempMoneyFromUser());
-        maintenance.collectMoney(vendingMachine); // empties the denomination array list of the machine and sends it to the admins
+        Maintenance.collectMoney(vendingMachine); // empties the denomination array list of the machine and sends it to the admins
         System.out.println("Successfully collected ₱"+totalMoneyGenerated+" from the vending machine!");
         do {
             System.out.println("Enter [0] to go back: ");
@@ -1006,7 +1003,7 @@ public class Driver {
         } while (!isDone);
     }
 
-    public static void replenishMachineMoneyMenu(Scanner scanner, VendingMachine vendingMachine, Maintenance maintenance) {
+    public static void replenishMachineMoneyMenu(Scanner scanner, VendingMachine vendingMachine) {
         boolean isDone = false;
         int denomination, quantity;
 
@@ -1042,7 +1039,7 @@ public class Driver {
             }
         }
 
-        maintenance.replenishMoney(vendingMachine, denomination, quantity); // adds the denomination x (quantity) amount of times
+        Maintenance.replenishMoney(vendingMachine, denomination, quantity); // adds the denomination x (quantity) amount of times
         System.out.println("Successfully replenished ₱" + (denomination * quantity) + " in denominations of ₱" + denomination + ".");
 
         do {
@@ -1055,9 +1052,9 @@ public class Driver {
         } while (!isDone);
     }
 
-    public static void printSummaryMenu(VendingMachine vendingMachine, Maintenance maintenance)
+    public static void printSummaryMenu(VendingMachine vendingMachine)
     {
-        maintenance.generateSalesReport(vendingMachine);
+        Maintenance.generateSalesReport(vendingMachine);
         System.out.println();
         System.out.println("Starting Inventory since previous restocking: ");
         vendingMachine.displayAllItems(vendingMachine.getPrevStartingInventory());

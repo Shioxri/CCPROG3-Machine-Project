@@ -315,4 +315,5 @@ public class RegularBuy {
         userBalance.setText("$"+cash);
         return cash;
     }
+
 }

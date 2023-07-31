@@ -1,5 +1,8 @@
 package View;
 
+import Controller.MainMenuController;
+import Controller.RegVMMenuController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -8,15 +11,21 @@ import javax.sound.sampled.*;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularVMMenu {
-    public static void main(String[] args) {
+
+    JButton UseVMButton = new JButton();
+    JButton maintenanceButton = new JButton();
+    JButton backButton = new JButton();
+    public RegularVMMenu() {
+        init();
+    }
+    private void init()
+    {
         // Declarations
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
-        JButton UseVMButton = new JButton();
-        JButton maintenanceButton = new JButton();
-        JButton backButton = new JButton();
+
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
         playBackgroundMusic(musicFilePath);
@@ -101,7 +110,8 @@ public class RegularVMMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void playBackgroundMusic(String musicFilePath) {
+
+    public void playBackgroundMusic(String musicFilePath) {
         try {
             File musicFile = new File(musicFilePath);
             if (musicFile.exists()) {
