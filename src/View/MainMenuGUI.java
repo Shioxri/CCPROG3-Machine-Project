@@ -37,16 +37,19 @@ public class MainMenuGUI {
         bgpanel.add(backgroundLabel);
 
         // Buttons
+        //TODO: need method to switch GUI to RegularVMMenu
         regularVMbutton.setBounds(100, 75, 300, 50);
         regularVMbutton.setHorizontalAlignment(JButton.CENTER);
         regularVMbutton.setText("Create Regular Vending Machine");
         regularVMbutton.addActionListener(e -> System.out.println("show regular VM"));
 
+        //TODO: need method to switch GUI to SpecialVMMenu
         specialVMbutton.setBounds(100, 175, 300, 50);
         specialVMbutton.setHorizontalAlignment(JButton.CENTER);
         specialVMbutton.setText("Create Special Vending Machine");
         specialVMbutton.setIcon(sampleIcon);
         specialVMbutton.addActionListener(e -> System.out.println("show special VM"));
+
 
         exitButton.setBounds(100, 275, 300, 50);
         exitButton.setHorizontalAlignment(JButton.CENTER);

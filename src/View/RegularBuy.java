@@ -39,7 +39,9 @@ public class RegularBuy {
         JButton exitButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
 
+        //TODO: need method that limits page number
         AtomicInteger pageNumber = new AtomicInteger(1);
+        //TODO: need method to reflect user balance
         AtomicInteger cash = new AtomicInteger(9999);
 
 
@@ -75,6 +77,7 @@ public class RegularBuy {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
+        //TODO: need method that limits the page number and changes the name of the items per page
         pageCounter.setBounds(225, 400, 100, 50);
         pageCounter.setHorizontalAlignment(JLabel.CENTER);
         pageCounter.setText(String.valueOf(pageNumber));
@@ -103,6 +106,7 @@ public class RegularBuy {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
+        //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
         infoLabel.setBounds(10,200,180,200);
         infoLabel.setText("<html>Price: $999<br/>Calories: 999 kCal <br/> Stock: 10</html>");
         infoLabel.setForeground(Color.WHITE);
@@ -114,6 +118,7 @@ public class RegularBuy {
         infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
 
         // Buttons
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item1Button.setBounds(25, 75, 150, 50);
         Item1Button.setHorizontalAlignment(JButton.CENTER);
         Item1Button.setIcon(cola);
@@ -121,6 +126,7 @@ public class RegularBuy {
         Item1Button.setHorizontalTextPosition(JButton.CENTER);
         Item1Button.addActionListener(e -> systemMessage.setText("Item 1"));
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item2Button.setBounds(200, 75, 150, 50);
         Item2Button.setHorizontalAlignment(JButton.CENTER);
         Item2Button.setText("Item 2");
@@ -128,30 +134,37 @@ public class RegularBuy {
         Item2Button.setIcon(sampleIcon);
         Item2Button.addActionListener(e -> System.out.println("show special VM"));
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item3Button.setBounds(375, 75, 150, 50);
         Item3Button.setHorizontalAlignment(JButton.CENTER);
         Item3Button.setText("Item 3");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item4Button.setBounds(25, 175, 150, 50);
         Item4Button.setHorizontalAlignment(JButton.CENTER);
         Item4Button.setText("Item 4");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item5Button.setBounds(200, 175, 150, 50);
         Item5Button.setHorizontalAlignment(JButton.CENTER);
         Item5Button.setText("Item 5");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item6Button.setBounds(375, 175, 150, 50);
         Item6Button.setHorizontalAlignment(JButton.CENTER);
         Item6Button.setText("Item 6");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item7Button.setBounds(25, 275, 150, 50);
         Item7Button.setHorizontalAlignment(JButton.CENTER);
         Item7Button.setText("Item 7");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item8Button.setBounds(200, 275, 150, 50);
         Item8Button.setHorizontalAlignment(JButton.CENTER);
         Item8Button.setText("Item 8");
 
+        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item9Button.setBounds(375, 275, 150, 50);
         Item9Button.setHorizontalAlignment(JButton.CENTER);
         Item9Button.setText("Not Available");
@@ -170,14 +183,17 @@ public class RegularBuy {
         nextButton.setText("-->");
         nextButton.addActionListener(e -> pageNumber.set(RegularBuy.magicIncrement(pageCounter, pageNumber.get())));
 
+        //TODO: need method to minus the slot and change of the machine
         buyButton.setBounds(10, 410, 80, 50);
         buyButton.setText("Buy");
         backButton.setHorizontalAlignment(JButton.CENTER);
+
 
         cancelButton.setBounds(110, 410, 80, 50);
         cancelButton.setText("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
+        //TODO: need method to connect this to userbalance or make "cash" automatically update the balance in the back end
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
@@ -187,12 +203,12 @@ public class RegularBuy {
             });
 
 
+        //TODO: need method to switch GUI to RegularVMMenu
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
-
 
         denominations.setBounds(10,110,120,25);
         for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
@@ -293,6 +309,7 @@ public class RegularBuy {
         return pageNumber;
     }
 
+    //TODO: either update the userbalance in the backend itself or make cash connected to userbalance
     public static int magicAdd(JLabel userBalance, int cash, int addition){
         cash += addition;
         userBalance.setText("$"+cash);

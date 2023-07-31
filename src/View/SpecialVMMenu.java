@@ -38,6 +38,7 @@ public class SpecialVMMenu {
         bgpanel.add(backgroundLabel);
 
         // Buttons
+        //TODO: need method to switch GUI to SpecialBuy
         UseVMButton.setBounds(100, 75, 300, 50);
         UseVMButton.setHorizontalAlignment(JButton.CENTER);
         UseVMButton.setIcon(cola);
@@ -45,6 +46,7 @@ public class SpecialVMMenu {
         UseVMButton.setHorizontalTextPosition(JButton.CENTER);
         UseVMButton.addActionListener(e -> System.out.println("show regular VM"));
 
+        //TODO: need method to switch GUI to SpecialMaintenance
         maintenanceButton.setBounds(100, 175, 300, 50);
         maintenanceButton.setHorizontalAlignment(JButton.CENTER);
         maintenanceButton.setText("Enter Maintenance Mode");
@@ -52,6 +54,7 @@ public class SpecialVMMenu {
         maintenanceButton.setIcon(sampleIcon);
         maintenanceButton.addActionListener(e -> System.out.println("show special VM"));
 
+        //TODO: need method to switch GUI to MainMenuGUI
         backButton.setBounds(100, 275, 300, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("Back");

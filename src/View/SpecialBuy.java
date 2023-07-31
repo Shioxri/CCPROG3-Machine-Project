@@ -35,7 +35,9 @@ public class SpecialBuy {
 
 
 
+        //TODO: need method that limits page numbers and sets a page by 9 items
         AtomicInteger pageNumber = new AtomicInteger(1);
+        //TODO: need method to either connect this to userbalance in backend or pass its value here
         AtomicInteger cash = new AtomicInteger(9999);
 
 
@@ -45,9 +47,7 @@ public class SpecialBuy {
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
-        ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("cola.png");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
@@ -71,12 +71,14 @@ public class SpecialBuy {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
+        //TODO: need method that limits page numbers and automatically changes item names based on page number
         pageCounter.setBounds(225, 400, 100, 50);
         pageCounter.setHorizontalAlignment(JLabel.CENTER);
         pageCounter.setText(String.valueOf(pageNumber));
         pageCounter.setBorder(borderLine);
         pageCounter.setForeground(Color.WHITE);
 
+        //TODO: need method that prints error messages or normal notifications
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
@@ -99,6 +101,7 @@ public class SpecialBuy {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
+        //TODO: need method to put the price and calories of the shake/item here
         infoLabel.setBounds(10,200,180,200);
         infoLabel.setText("<html>Price: $999 " +
                 "<br/>Calories: 999 kCal" +
@@ -116,12 +119,13 @@ public class SpecialBuy {
 
         // Buttons
 
+        //TODO: need method that simulates buy(reduce change reduce stocks)
         buyButton.setToolTipText("Buy Item");
         buyButton.setBounds(10, 410, 180, 50);
         buyButton.setText("Buy");
         buyButton.setHorizontalAlignment(JButton.CENTER);
 
-
+        //TODO: need method to connect this to userbalance in backend or make "cash" connected to the backend
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
@@ -130,7 +134,7 @@ public class SpecialBuy {
             systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
         });
 
-
+        //TODO: need method to switch GUI to SpecialVMMenu
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
@@ -145,6 +149,8 @@ public class SpecialBuy {
             denominations.addItem(i);
         }
 
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         fruit1.setFocusable(false);
         fruit1.setToolTipText("First Fruit");
         fruit1.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -162,6 +168,9 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
 
+
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         fruit2.setFocusable(false);
         fruit2.setToolTipText("Second Fruit");
         fruit2.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -179,6 +188,9 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
 
+
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         waterType.setFocusable(false);
         waterType.setToolTipText("Water type");
         waterType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -196,6 +208,9 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
 
+
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         milkType.setFocusable(false);
         milkType.setToolTipText("Milk type");
         milkType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -213,6 +228,9 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
 
+
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         iceType.setFocusable(false);
         iceType.setFocusable(false);
         iceType.setToolTipText("Ice type");
@@ -231,6 +249,9 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
 
+
+        //TODO: need method to add calories and price to the info when clicked(use action listener)
+        //TODO: need method/String[] to input items in the dropdown(for loop)
         toppingsType.setFocusable(false);
         toppingsType.setToolTipText("Toppings");
         toppingsType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);

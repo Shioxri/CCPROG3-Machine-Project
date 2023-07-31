@@ -46,13 +46,19 @@ public class RegularMaintenance {
         JTextField setCalories = new JTextField();
 
 
-
+        //TODO: need method to connect this to amount of $1 in backend
         AtomicInteger cash = new AtomicInteger(1);
+        //TODO: need method to connect this to amount of $5 in backend
         AtomicInteger cash2 = new AtomicInteger(1);
+        //TODO: need method to connect this to amount of $10 in backend
         AtomicInteger cash3 = new AtomicInteger(1);
+        //TODO: need method to connect this to amount of $20 in backend
         AtomicInteger cash4 = new AtomicInteger(1);
+        //TODO: need method to connect this to amount of $50 in backend
         AtomicInteger cash5 = new AtomicInteger(1);
+        //TODO: need method to connect this to amount of $100 in backend
         AtomicInteger cash6 = new AtomicInteger(1);
+        //TODO: need method to show the total amount of all these items
         AtomicInteger cashtotal = new AtomicInteger(186);
 
 
@@ -87,7 +93,7 @@ public class RegularMaintenance {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-
+        //TODO: need method to show error messages or normal notifs
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
@@ -100,6 +106,7 @@ public class RegularMaintenance {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
+        //balance is shown here
         userBalanceLabel.setBounds(92,50,180,200);
         userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
                 "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
@@ -115,6 +122,7 @@ public class RegularMaintenance {
 
 
         // Buttons
+        //TODO: need method to connect this button to change price using the text given in changePrice text field
         changePriceButton.setBounds(265, 90, 70, 30);
         changePriceButton.setHorizontalAlignment(JButton.CENTER);
         changePriceButton.setText("<html>Set<br/>Price</html>");
@@ -125,6 +133,7 @@ public class RegularMaintenance {
             changePrice.setText("");
         });
 
+        //TODO: need method to restock the stock based on the chosen number in the dropdown "addStock"
         reStock.setBounds(265, 130, 70, 30);
         reStock.setHorizontalAlignment(JButton.CENTER);
         reStock.setText("Restock");
@@ -132,7 +141,8 @@ public class RegularMaintenance {
         reStock.setHorizontalTextPosition(JButton.CENTER);
         reStock.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
 
-
+        //TODO: need method to connect this to denominations amount in the backend
+        //if cash and the backend is connected ignore this
         addButton.setBounds(222, 260, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
@@ -168,27 +178,32 @@ public class RegularMaintenance {
                     "</html>");
         });
 
-
+        //TODO: need method to switch GUI to RegularVMMenu
         exitButton.setBounds(550,80,190,35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
+        //TODO: need method to display to system message the information of the chosen stock
         slotInfoButton.setBounds(550,10,190,35);
         slotInfoButton.setHorizontalAlignment(JButton.CENTER);
         slotInfoButton.setText("Slot Info");
         slotInfoButton.addActionListener(e -> System.exit(0));
 
+        //TODO: need method to display in system message instructions to use the maintenance
         instructionsButton.setBounds(550,45,190,35);
         instructionsButton.setHorizontalAlignment(JButton.CENTER);
         instructionsButton.setText("Instructions");
         instructionsButton.addActionListener(e -> System.exit(0));
 
+        //TODO: need method to add new item based on the 3 text fields like name price and calories(use the action listener)
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
         addItem.addActionListener(e -> slots.addItem(setName.getText()));
 
+        //TODO: need method that mirrors collecting money
+        // if cash is connected, ignore this
         collectMoney.setBounds(92,295, 180, 50);
         collectMoney.setText("Collect Money");
         collectMoney.addActionListener(e -> {
@@ -205,6 +220,7 @@ public class RegularMaintenance {
                     "</html>");
         });
 
+        //TODO: need method to print the summary here and add text wrapping
         printSummary.setBounds(92, 355,180,50);
         printSummary.setText("Print Summary");
         printSummary.addActionListener(e -> {
@@ -220,6 +236,7 @@ public class RegularMaintenance {
             denominations.addItem(i);
         }
 
+        //TODO: need method to show the items here
         slots.setBounds(112,25,150,40);
         slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
