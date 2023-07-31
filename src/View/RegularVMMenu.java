@@ -11,17 +11,21 @@ import javax.sound.sampled.*;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularVMMenu {
+    JFrame frame;
+    JButton UseVMButton;
+    JButton maintenanceButton;
+    JButton backButton;
 
-    JButton UseVMButton = new JButton();
-    JButton maintenanceButton = new JButton();
-    JButton backButton = new JButton();
     public RegularVMMenu() {
         init();
     }
     private void init()
     {
+        UseVMButton = new JButton();
+        maintenanceButton = new JButton();
+        backButton = new JButton();
         // Declarations
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
@@ -53,7 +57,6 @@ public class RegularVMMenu {
         UseVMButton.setIcon(cola);
         UseVMButton.setText("Use Vending Machine");
         UseVMButton.setHorizontalTextPosition(JButton.CENTER);
-        UseVMButton.addActionListener(e -> System.out.println("show regular VM"));
 
         //TODO: need method to switch GUI to RegularMaintenance
         maintenanceButton.setBounds(100, 175, 300, 50);
@@ -61,13 +64,11 @@ public class RegularVMMenu {
         maintenanceButton.setText("Enter Maintenance Mode");
         maintenanceButton.setHorizontalTextPosition(JButton.CENTER);
         maintenanceButton.setIcon(sampleIcon);
-        maintenanceButton.addActionListener(e -> System.out.println("show special VM"));
 
         //TODO: need method to switch GUI to MainMenuGUI
         backButton.setBounds(100, 275, 300, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("Back");
-        backButton.addActionListener(e -> System.exit(0));
 
         // Label
         titleLabel.setText("\u200E");
@@ -126,5 +127,22 @@ public class RegularVMMenu {
         } catch (Exception e) {
             System.out.println("Error while playing background music: " + e.getMessage());
         }
+    }
+
+    public void toggleFrame()
+    {
+        frame.setVisible(!frame.isVisible());
+    }
+
+    public JButton getUseVMButton() {
+        return UseVMButton;
+    }
+
+    public JButton getMaintenanceButton() {
+        return maintenanceButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }

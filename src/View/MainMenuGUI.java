@@ -12,9 +12,9 @@ import javax.sound.sampled.*;
 // then press Enter. You can now see whitespace characters in your code.
 public class MainMenuGUI {
 
-    JButton regularVMButton = new JButton();
-    JButton specialVMButton = new JButton();
-    JButton exitButton = new JButton();
+    JButton regularVMButton;
+    JButton specialVMButton;
+    JButton exitButton;
     JFrame frame;
 
     public MainMenuGUI() {
@@ -22,6 +22,9 @@ public class MainMenuGUI {
     }
     private void init()
     {
+        regularVMButton = new JButton();
+        specialVMButton = new JButton();
+        exitButton = new JButton();
         // Declarations
         JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
@@ -109,10 +112,7 @@ public class MainMenuGUI {
 
     public void toggleFrame()
     {
-        if(frame.isVisible())
-            frame.setVisible(false);
-        else
-            frame.setVisible(true);
+        frame.setVisible(!frame.isVisible());
     }
 
 

@@ -29,18 +29,19 @@ public class MainMenuController implements ActionListener {
             VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
             vendingMachine.initializeInventory();
             RegularVMMenu regularVMMenu = new RegularVMMenu();
-            RegVMMenuController(regularVMMenu);
+            RegVMMenuController regVMMenuController = new RegVMMenuController(regularVMMenu, this);
 
         });
         mainMenuGUI.getSpecialVMButton().addActionListener(e -> {
             mainMenuGUI.toggleFrame();
             SpecialVendingMachine vendingMachine = new SpecialVendingMachine(); //instantiate from the vending machine class
             vendingMachine.initializeInventory();
+            SpecialVMMenu specialVMMenu = new SpecialVMMenu();
+            SpecVMMenuController specialVMMenuController = new SpecVMMenuController(specialVMMenu, this);
+
 
         });
         mainMenuGUI.getExitButton().addActionListener(e -> System.exit(0));
-
-
 
     }
     @Override

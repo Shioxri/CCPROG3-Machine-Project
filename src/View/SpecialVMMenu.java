@@ -44,7 +44,6 @@ public class SpecialVMMenu {
         UseVMButton.setIcon(cola);
         UseVMButton.setText("Use Vending Machine");
         UseVMButton.setHorizontalTextPosition(JButton.CENTER);
-        UseVMButton.addActionListener(e -> System.out.println("show regular VM"));
 
         //TODO: need method to switch GUI to SpecialMaintenance
         maintenanceButton.setBounds(100, 175, 300, 50);
@@ -52,13 +51,11 @@ public class SpecialVMMenu {
         maintenanceButton.setText("Enter Maintenance Mode");
         maintenanceButton.setHorizontalTextPosition(JButton.CENTER);
         maintenanceButton.setIcon(sampleIcon);
-        maintenanceButton.addActionListener(e -> System.out.println("show special VM"));
 
         //TODO: need method to switch GUI to MainMenuGUI
         backButton.setBounds(100, 275, 300, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("Back");
-        backButton.addActionListener(e -> System.exit(0));
 
         // Label
         titleLabel.setText("\u200E");
