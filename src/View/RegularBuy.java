@@ -11,22 +11,12 @@ import javax.swing.border.Border;
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularBuy {
     JFrame frame = new JFrame();
-    JButton Item1Button = new JButton();
-    JButton Item2Button = new JButton();
-    JButton Item3Button = new JButton();
-    JButton Item4Button = new JButton();
-    JButton Item5Button = new JButton();
-    JButton Item6Button = new JButton();
-    JButton Item7Button = new JButton();
-    JButton Item8Button = new JButton();
-    JButton Item9Button = new JButton();
-    JButton backButton = new JButton();
-    JButton nextButton = new JButton();
     JButton buyButton = new JButton();
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
     AtomicInteger cashBalance = new AtomicInteger();
+    JComboBox<String> regularItems = new JComboBox<>();
 
 
 
@@ -38,6 +28,7 @@ public class RegularBuy {
 
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
+        JLabel instructionsLabel = new JLabel();
         JLabel systemMessage = new JLabel();
         JLabel userBalanceLabel = new JLabel();
         JPanel titlePanel = new JPanel();
@@ -87,12 +78,13 @@ public class RegularBuy {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-        //TODO: need method that limits the page number and changes the name of the items per page
-        pageCounter.setBounds(225, 400, 100, 50);
-        pageCounter.setHorizontalAlignment(JLabel.CENTER);
-        pageCounter.setText(String.valueOf(pageNumber));
-        pageCounter.setBorder(borderLine);
-        pageCounter.setForeground(Color.WHITE);
+        instructionsLabel.setBounds(10, 200, 180, 400);
+        instructionsLabel.setText("Instructions: ");
+        instructionsLabel.setBackground(Color.BLACK);
+        instructionsLabel.setBorder(borderLine);
+        instructionsLabel.setForeground(Color.WHITE);
+        instructionsLabel.setOpaque(true);
+        instructionsLabel.setHorizontalAlignment(JLabel.CENTER);
 
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
@@ -117,7 +109,7 @@ public class RegularBuy {
         userBalanceLabel.setOpaque(true);
 
         //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
-        infoLabel.setBounds(10,200,180,200);
+        infoLabel.setBounds(75,110,400,200);
         infoLabel.setText("<html>Price: <br/>Calories: <br/> Stock: </html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
@@ -128,79 +120,24 @@ public class RegularBuy {
         infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
 
         // Buttons
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item1Button.setBounds(25, 75, 150, 50);
-        Item1Button.setHorizontalAlignment(JButton.CENTER);
-        Item1Button.setIcon(cola);
-        Item1Button.setText("Item 1");
-        Item1Button.setHorizontalTextPosition(JButton.CENTER);
-        Item1Button.addActionListener(e -> infoLabel.setText("<html>Price: itemprice<br/>Calories: itemcalories kCal " +
-                "<br/> Stock: itemstock</html>"));
+
 
         //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item2Button.setBounds(200, 75, 150, 50);
-        Item2Button.setHorizontalAlignment(JButton.CENTER);
-        Item2Button.setText("Item 2");
-        Item2Button.setHorizontalTextPosition(JButton.CENTER);
-        Item2Button.setIcon(sampleIcon);
-        Item2Button.addActionListener(e -> System.out.println("show special VM"));
+        regularItems.setBounds(75, 75, 400, 30);
+        regularItems.setFocusable(false);
+        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
+            regularItems.addItem(i);
+        }
 
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item3Button.setBounds(375, 75, 150, 50);
-        Item3Button.setHorizontalAlignment(JButton.CENTER);
-        Item3Button.setText("Item 3");
 
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item4Button.setBounds(25, 175, 150, 50);
-        Item4Button.setHorizontalAlignment(JButton.CENTER);
-        Item4Button.setText("Item 4");
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item5Button.setBounds(200, 175, 150, 50);
-        Item5Button.setHorizontalAlignment(JButton.CENTER);
-        Item5Button.setText("Item 5");
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item6Button.setBounds(375, 175, 150, 50);
-        Item6Button.setHorizontalAlignment(JButton.CENTER);
-        Item6Button.setText("Item 6");
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item7Button.setBounds(25, 275, 150, 50);
-        Item7Button.setHorizontalAlignment(JButton.CENTER);
-        Item7Button.setText("Item 7");
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item8Button.setBounds(200, 275, 150, 50);
-        Item8Button.setHorizontalAlignment(JButton.CENTER);
-        Item8Button.setText("Item 8");
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
-        Item9Button.setBounds(375, 275, 150, 50);
-        Item9Button.setHorizontalAlignment(JButton.CENTER);
-        Item9Button.setText("Not Available");
-
-        backButton.setBounds(125, 400, 100, 50);
-        backButton.setHorizontalAlignment(JButton.CENTER);
-        backButton.setText("<--");
-        backButton.addActionListener(e -> {
-            if(pageNumber.get()>1) {
-                pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get()));
-            }
-        });
-
-        nextButton.setBounds(325, 400, 100, 50);
-        nextButton.setHorizontalAlignment(JButton.CENTER);
-        nextButton.setText("-->");
-        nextButton.addActionListener(e -> pageNumber.set(RegularBuy.magicIncrement(pageCounter, pageNumber.get())));
 
         //TODO: need method to minus the slot and change of the machine
-        buyButton.setBounds(10, 410, 80, 50);
+        buyButton.setBounds(75, 320, 195, 50);
         buyButton.setText("Buy");
-        backButton.setHorizontalAlignment(JButton.CENTER);
+        buyButton.setHorizontalAlignment(JButton.CENTER);
 
 
-        cancelButton.setBounds(110, 410, 80, 50);
+        cancelButton.setBounds(275, 320, 195, 50);
         cancelButton.setText("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
@@ -238,17 +175,10 @@ public class RegularBuy {
         selectionPanel.setBounds(0, 150, 550, 480);
         selectionPanel.setLayout(null);
         selectionPanel.setOpaque(true);
-        selectionPanel.add(Item1Button);
-        selectionPanel.add(Item2Button);
-        selectionPanel.add(Item3Button);
-        selectionPanel.add(Item4Button);
-        selectionPanel.add(Item5Button);
-        selectionPanel.add(Item6Button);
-        selectionPanel.add(Item7Button);
-        selectionPanel.add(Item8Button);
-        selectionPanel.add(Item9Button);
-        selectionPanel.add(backButton);
-        selectionPanel.add(nextButton);
+        selectionPanel.add(infoLabel);
+        selectionPanel.add(regularItems);
+        selectionPanel.add(buyButton);
+        selectionPanel.add(cancelButton);
         selectionPanel.add(pageCounter);
         selectionPanel.setBorder(borderLine);
 
@@ -265,10 +195,8 @@ public class RegularBuy {
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
         rightPanel.add(userBalanceLabel);
-        rightPanel.add(infoLabel);
-        rightPanel.add(buyButton);
-        rightPanel.add(cancelButton);
         rightPanel.add(addButton);
+        rightPanel.add(instructionsLabel);
         rightPanel.add(denominations);
         rightPanel.add(exitButton);
 
@@ -341,49 +269,6 @@ public class RegularBuy {
     }
 
 
-    public JButton getItem1Button() {
-        return Item1Button;
-    }
-
-    public JButton getItem2Button() {
-        return Item2Button;
-    }
-
-    public JButton getItem3Button() {
-        return Item3Button;
-    }
-
-    public JButton getItem4Button() {
-        return Item4Button;
-    }
-
-    public JButton getItem5Button() {
-        return Item5Button;
-    }
-
-    public JButton getItem6Button() {
-        return Item6Button;
-    }
-
-    public JButton getItem7Button() {
-        return Item7Button;
-    }
-
-    public JButton getItem8Button() {
-        return Item8Button;
-    }
-
-    public JButton getItem9Button() {
-        return Item9Button;
-    }
-
-    public JButton getBackButton() {
-        return backButton;
-    }
-
-    public JButton getNextButton() {
-        return nextButton;
-    }
 
     public JButton getBuyButton() {
         return buyButton;
