@@ -98,7 +98,7 @@ public class RegularBuy {
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
-            systemMessage.setBackground(new Color(0,0,0));
+        systemMessage.setBackground(new Color(0,0,0));
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                 "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
