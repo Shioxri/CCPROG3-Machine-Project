@@ -62,7 +62,7 @@ public class MainMenuGUI {
         specialVMButton.setBounds(100, 175, 300, 50);
         specialVMButton.setHorizontalAlignment(JButton.CENTER);
         specialVMButton.setText("Create Special Vending Machine");
-        specialVMButton.setIcon(sampleIcon);
+        specialVMButton.setVisible(true);
 
 
 

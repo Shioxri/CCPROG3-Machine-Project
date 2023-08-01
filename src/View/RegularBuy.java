@@ -118,7 +118,7 @@ public class RegularBuy {
 
         //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
         infoLabel.setBounds(10,200,180,200);
-        infoLabel.setText("<html>Price: $999<br/>Calories: 999 kCal <br/> Stock: 10</html>");
+        infoLabel.setText("<html>Price: <br/>Calories: <br/> Stock: </html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -134,7 +134,8 @@ public class RegularBuy {
         Item1Button.setIcon(cola);
         Item1Button.setText("Item 1");
         Item1Button.setHorizontalTextPosition(JButton.CENTER);
-        Item1Button.addActionListener(e -> systemMessage.setText("Item 1"));
+        Item1Button.addActionListener(e -> infoLabel.setText("<html>Price: itemprice<br/>Calories: itemcalories kCal " +
+                "<br/> Stock: itemstock</html>"));
 
         //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         Item2Button.setBounds(200, 75, 150, 50);
