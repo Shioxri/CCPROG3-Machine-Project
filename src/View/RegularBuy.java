@@ -28,9 +28,7 @@ public class RegularBuy {
     JButton exitButton = new JButton();
     AtomicInteger cashBalance = new AtomicInteger();
 
-    public void setCash(AtomicInteger cash) {
-        this.cashBalance = cash;
-    }
+
 
     public void RegularBuy(){
         init();
@@ -53,6 +51,7 @@ public class RegularBuy {
         //TODO: need method that limits page number
         AtomicInteger pageNumber = new AtomicInteger();
         //TODO: need method to reflect user balance
+
 
 
 
@@ -335,4 +334,65 @@ public class RegularBuy {
         return exitButton;
     }
 
+    public void setCashBalance(int cash)
+    {
+        this.cashBalance.set(cash);
+    }
+
+
+    public JButton getItem1Button() {
+        return Item1Button;
+    }
+
+    public JButton getItem2Button() {
+        return Item2Button;
+    }
+
+    public JButton getItem3Button() {
+        return Item3Button;
+    }
+
+    public JButton getItem4Button() {
+        return Item4Button;
+    }
+
+    public JButton getItem5Button() {
+        return Item5Button;
+    }
+
+    public JButton getItem6Button() {
+        return Item6Button;
+    }
+
+    public JButton getItem7Button() {
+        return Item7Button;
+    }
+
+    public JButton getItem8Button() {
+        return Item8Button;
+    }
+
+    public JButton getItem9Button() {
+        return Item9Button;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getNextButton() {
+        return nextButton;
+    }
+
+    public JButton getBuyButton() {
+        return buyButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
 }

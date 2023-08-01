@@ -54,7 +54,8 @@ public class MainMenuGUI {
         //TODO: need method to switch GUI to RegularVMMenu
         regularVMButton.setBounds(100, 75, 300, 50);
         regularVMButton.setHorizontalAlignment(JButton.CENTER);
-
+        regularVMButton.setText("Create Regular Vending Machine");
+        regularVMButton.setVisible(true);
 
 
         //TODO: need method to switch GUI to SpecialVMMenu
