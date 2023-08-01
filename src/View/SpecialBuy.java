@@ -14,6 +14,12 @@ public class SpecialBuy {
     JButton buyButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
+    //TODO: need method to either connect this to userbalance in backend or pass its value here
+    AtomicInteger cash = new AtomicInteger();
+
+    public void setCash(AtomicInteger cash){
+        this.cash.set(cash.get());
+    }
 
     public SpecialBuy() {
         init();
@@ -42,8 +48,6 @@ public class SpecialBuy {
 
         //TODO: need method that limits page numbers and sets a page by 9 items
         AtomicInteger pageNumber = new AtomicInteger(1);
-        //TODO: need method to either connect this to userbalance in backend or pass its value here
-        AtomicInteger cash = new AtomicInteger(9999);
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file

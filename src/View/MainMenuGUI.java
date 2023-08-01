@@ -90,7 +90,7 @@ public class MainMenuGUI {
         selectionPanel.setBounds(125, 250, 500, 400);
         selectionPanel.setLayout(null);
         selectionPanel.setOpaque(true);
-        selectionPanel.add(specialVMButton);
+        selectionPanel.add(regularVMButton);
         selectionPanel.add(specialVMButton);
         selectionPanel.add(exitButton);
 
