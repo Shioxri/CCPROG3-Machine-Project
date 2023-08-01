@@ -146,11 +146,12 @@ public class RegularBuy {
 
         // Buttons
         //TODO: need method to minus the slot and change of the machine
-        buyButton.setBounds(10, 410, 80, 50);
+        buyButton.setBounds(75, 320, 195, 50);
         buyButton.setText("Buy");
+        buyButton.setHorizontalAlignment(JButton.CENTER);
 
 
-        cancelButton.setBounds(110, 410, 80, 50);
+        cancelButton.setBounds(275, 320, 195, 50);
         cancelButton.setText("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
