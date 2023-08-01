@@ -8,15 +8,21 @@ import javax.sound.sampled.*;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class SpecialVMMenu {
-    public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    JButton UseVMButton = new JButton();
+    JButton maintenanceButton = new JButton();
+    JButton backButton = new JButton();
+
+    public SpecialVMMenu(){
+        init();
+    }
+    public void init() {
         // Declarations
-        JFrame frame = new JFrame();
+
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
-        JButton UseVMButton = new JButton();
-        JButton maintenanceButton = new JButton();
-        JButton backButton = new JButton();
+
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
         playBackgroundMusic(musicFilePath);
@@ -113,5 +119,21 @@ public class SpecialVMMenu {
         } catch (Exception e) {
             System.out.println("Error while playing background music: " + e.getMessage());
         }
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JButton getUseVMButton() {
+        return UseVMButton;
+    }
+
+    public JButton getMaintenanceButton() {
+        return maintenanceButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }

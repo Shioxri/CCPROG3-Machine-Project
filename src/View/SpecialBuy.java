@@ -21,7 +21,6 @@ public class SpecialBuy {
 
     private void init() {
         // Declarations
-        JFrame frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
         JLabel systemMessage = new JLabel();
@@ -31,9 +30,6 @@ public class SpecialBuy {
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
-        JButton buyButton = new JButton();
-        JButton addButton = new JButton();
-        JButton exitButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> fruit1 = new JComboBox<>();
         JComboBox<String> fruit2 = new JComboBox<>();
@@ -365,6 +361,14 @@ public class SpecialBuy {
         cash += addition;
         userBalance.setText("$"+cash);
         return cash;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JButton getExitButton(){
+        return exitButton;
     }
 
 }

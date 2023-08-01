@@ -51,5 +51,9 @@ public class MainMenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    public MainMenuGUI getMainMenuGUI(){
+        return mainMenuGUI;
+    }
 }
 

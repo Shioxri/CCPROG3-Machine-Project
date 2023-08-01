@@ -10,9 +10,34 @@ import javax.swing.border.Border;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularBuy {
-    public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    JButton Item1Button = new JButton();
+    JButton Item2Button = new JButton();
+    JButton Item3Button = new JButton();
+    JButton Item4Button = new JButton();
+    JButton Item5Button = new JButton();
+    JButton Item6Button = new JButton();
+    JButton Item7Button = new JButton();
+    JButton Item8Button = new JButton();
+    JButton Item9Button = new JButton();
+    JButton backButton = new JButton();
+    JButton nextButton = new JButton();
+    JButton buyButton = new JButton();
+    JButton cancelButton = new JButton();
+    JButton addButton = new JButton();
+    JButton exitButton = new JButton();
+    AtomicInteger cashBalance = new AtomicInteger();
+
+    public void setCash(AtomicInteger cash) {
+        this.cashBalance = cash;
+    }
+
+    public void RegularBuy(){
+        init();
+    }
+    public void init() {
         // Declarations
-        JFrame frame = new JFrame();
+
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
         JLabel systemMessage = new JLabel();
@@ -22,21 +47,7 @@ public class RegularBuy {
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
-        JButton Item1Button = new JButton();
-        JButton Item2Button = new JButton();
-        JButton Item3Button = new JButton();
-        JButton Item4Button = new JButton();
-        JButton Item5Button = new JButton();
-        JButton Item6Button = new JButton();
-        JButton Item7Button = new JButton();
-        JButton Item8Button = new JButton();
-        JButton Item9Button = new JButton();
-        JButton backButton = new JButton();
-        JButton nextButton = new JButton();
-        JButton buyButton = new JButton();
-        JButton cancelButton = new JButton();
-        JButton addButton = new JButton();
-        JButton exitButton = new JButton();
+
         JComboBox<Integer> denominations = new JComboBox<>();
 
         //TODO: need method that limits page number
@@ -314,6 +325,14 @@ public class RegularBuy {
         cash += addition;
         userBalance.setText("$"+cash);
         return cash;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JButton getExitButton(){
+        return exitButton;
     }
 
 }

@@ -14,9 +14,27 @@ import javax.swing.border.Border;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class SpecialMaintenance {
-    public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    JButton buyButton = new JButton();
+    JButton cancelButton = new JButton();
+    JButton addButton = new JButton();
+    JButton exitButton = new JButton();
+    JButton changePriceButton = new JButton();
+    JButton changePriceButton2 = new JButton();
+    JButton reStock = new JButton();
+    JButton reStock2 = new JButton();
+    JButton addItem = new JButton();
+    JButton collectMoney = new JButton();
+    JButton printSummary = new JButton();
+    JButton instructionsButton = new JButton();
+    JButton slotInfoButton = new JButton();
+
+    public SpecialMaintenance(){
+
+    }
+    public void init() {
         // Declarations
-        JFrame frame = new JFrame();
+
         JLabel titleLabel = new JLabel();
         JLabel systemMessage = new JLabel();
         JLabel userBalanceLabel = new JLabel();
@@ -26,19 +44,6 @@ public class SpecialMaintenance {
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
-        JButton buyButton = new JButton();
-        JButton cancelButton = new JButton();
-        JButton addButton = new JButton();
-        JButton exitButton = new JButton();
-        JButton changePriceButton = new JButton();
-        JButton changePriceButton2 = new JButton();
-        JButton reStock = new JButton();
-        JButton reStock2 = new JButton();
-        JButton addItem = new JButton();
-        JButton collectMoney = new JButton();
-        JButton printSummary = new JButton();
-        JButton instructionsButton = new JButton();
-        JButton slotInfoButton = new JButton();
         JComboBox<Integer> denominations = new JComboBox<>();
         JComboBox<String> slots = new JComboBox<>();
         JComboBox<String> slots2 = new JComboBox<>();
