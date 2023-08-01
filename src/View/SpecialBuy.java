@@ -19,6 +19,7 @@ public class SpecialBuy {
     JComboBox<String> toppingsType = new JComboBox<>();
     JLabel systemMessage = new JLabel();
     JLabel userBalanceLabel = new JLabel();
+    JLabel orderLabel = new JLabel();
     AtomicInteger cash = new AtomicInteger();
 
     JComboBox<String> firstFruitsDropDown;
@@ -42,7 +43,6 @@ public class SpecialBuy {
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
-        JLabel infoLabel = new JLabel();
         JComboBox<Integer> denominations = new JComboBox<>();
 
         firstFruitsDropDown = new JComboBox<>();
@@ -362,6 +362,8 @@ public class SpecialBuy {
     public JLabel getSystemMessage(){return systemMessage;}
 
     public JLabel getUserBalanceLabel(){return userBalanceLabel;}
+
+    public JLabel getOrderLabel(){return orderLabel;}
 
     public void setFirstFruitsDropDown(ArrayList<String> slotTypes) {
         firstFruitsDropDown.setFocusable(false);
