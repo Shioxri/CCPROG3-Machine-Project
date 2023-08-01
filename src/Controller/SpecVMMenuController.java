@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.SpecialVendingMachine;
 import Model.VendingMachine;
 import View.*;
 
@@ -11,7 +12,7 @@ public class SpecVMMenuController implements ActionListener {
 
 
 
-    public SpecVMMenuController(SpecialVMMenu specialVMMenu, MainMenuController mainMenuController, VendingMachine vendingMachine){
+    public SpecVMMenuController(SpecialVMMenu specialVMMenu, MainMenuController mainMenuController, SpecialVendingMachine vendingMachine){
         this.specialVMMenu = specialVMMenu;
 
         specialVMMenu.getUseVMButton().addActionListener(e -> {

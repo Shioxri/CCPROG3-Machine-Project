@@ -77,12 +77,12 @@ public class RegularBuy {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
         instructionsLabel.setBounds(10, 200, 180, 400);
-        instructionsLabel.setText("<html>Instructions: <br/><br/>" +
-                "1. Select an Item from the dropdown<br/>" +
-                "2. Add money to your balance using the dropdown and add button above<br/>" +
-                "3. You may press the cancel button if you have inserted too much<br/>" +
-                "4. Press the Buy button to buy your Item<br/>" +
-                "Note: You can continue to buy as long as there is a balance</html>");
+        instructionsLabel.setText("<html>Instructions: <br/><br/><br/>" +
+                "1. Select an Item from the dropdown<br/><br/>" +
+                "2. Add money to your balance using the dropdown and add button above<br/><br/>" +
+                "3. You may press the cancel button if you have inserted too much</br>& want to clear your balance<br/><br/>" +
+                "4. Press the Buy button to buy your Item<br/><br/>" +
+                "Note: You can continue to buy as long as there is balance left</html>");
         instructionsLabel.setBackground(Color.BLACK);
         instructionsLabel.setBorder(borderLine);
         instructionsLabel.setForeground(Color.WHITE);
