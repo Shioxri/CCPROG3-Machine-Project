@@ -14,10 +14,18 @@ public class SpecialBuy {
     JButton buyButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
+    JComboBox<String> fruit1 = new JComboBox<>();
+    JComboBox<String> fruit2 = new JComboBox<>();
+    JComboBox<String> waterType = new JComboBox<>();
+    JComboBox<String> milkType = new JComboBox<>();
+    JComboBox<String> iceType = new JComboBox<>();
+    JComboBox<String> toppingsType = new JComboBox<>();
+    JLabel systemMessage = new JLabel();
+    JLabel userBalanceLabel = new JLabel();
     //TODO: need method to either connect this to userbalance in backend or pass its value here
     AtomicInteger cash = new AtomicInteger();
 
-    public void setCash(AtomicInteger cash){
+    public void setCash(AtomicInteger cash) {
         this.cash.set(cash.get());
     }
 
@@ -28,22 +36,12 @@ public class SpecialBuy {
     private void init() {
         // Declarations
         JLabel titleLabel = new JLabel();
-        JLabel pageCounter = new JLabel();
-        JLabel systemMessage = new JLabel();
-        JLabel userBalanceLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
         JComboBox<Integer> denominations = new JComboBox<>();
-        JComboBox<String> fruit1 = new JComboBox<>();
-        JComboBox<String> fruit2 = new JComboBox<>();
-        JComboBox<String> waterType = new JComboBox<>();
-        JComboBox<String> milkType = new JComboBox<>();
-        JComboBox<String> iceType = new JComboBox<>();
-        JComboBox<String> toppingsType = new JComboBox<>();
-
 
 
         //TODO: need method that limits page numbers and sets a page by 9 items
@@ -77,18 +75,12 @@ public class SpecialBuy {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-        //TODO: need method that limits page numbers and automatically changes item names based on page number
-        pageCounter.setBounds(225, 400, 100, 50);
-        pageCounter.setHorizontalAlignment(JLabel.CENTER);
-        pageCounter.setText(String.valueOf(pageNumber));
-        pageCounter.setBorder(borderLine);
-        pageCounter.setForeground(Color.WHITE);
 
         //TODO: need method that prints error messages or normal notifications
-        systemMessage.setBounds(10,8,530,110);
+        systemMessage.setBounds(10, 8, 530, 110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
-        systemMessage.setBackground(new Color(0,0,0));
+        systemMessage.setBackground(new Color(0, 0, 0));
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                 "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
@@ -97,7 +89,7 @@ public class SpecialBuy {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
-        userBalanceLabel.setBounds(10,50,180,50);
+        userBalanceLabel.setBounds(10, 50, 180, 50);
         userBalanceLabel.setText("$" + cash);
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
@@ -108,7 +100,7 @@ public class SpecialBuy {
         userBalanceLabel.setOpaque(true);
 
         //TODO: need method to put the price and calories of the shake/item here
-        infoLabel.setBounds(10,200,180,200);
+        infoLabel.setBounds(10, 200, 180, 200);
         infoLabel.setText("<html>Price: $999 " +
                 "<br/>Calories: 999 kCal" +
                 "<br/>First Fruit: " + fruit1.getSelectedItem() +
@@ -116,7 +108,7 @@ public class SpecialBuy {
                 "<br/> Water Type: " + waterType.getSelectedItem() +
                 "<br/> Milk Type " + milkType.getSelectedItem() +
                 "<br/> Ice Type:" + iceType.getSelectedItem() +
-                " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>");
+                " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -132,7 +124,7 @@ public class SpecialBuy {
         buyButton.setHorizontalAlignment(JButton.CENTER);
 
         //TODO: need method to connect this to userbalance in backend or make "cash" connected to the backend
-        addButton.setBounds(140, 110, 50,25);
+        addButton.setBounds(140, 110, 50, 25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
         addButton.addActionListener(e -> {
@@ -141,7 +133,7 @@ public class SpecialBuy {
         });
 
         //TODO: need method to switch GUI to SpecialVMMenu
-        exitButton.setBounds(10,700,180,25);
+        exitButton.setBounds(10, 700, 180, 25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
@@ -150,7 +142,7 @@ public class SpecialBuy {
         // Dropdowns
         denominations.setFocusable(false);
         denominations.setToolTipText("Choose Denomination");
-        denominations.setBounds(10,110,120,25);
+        denominations.setBounds(10, 110, 120, 25);
         for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
             denominations.addItem(i);
         }
@@ -160,8 +152,8 @@ public class SpecialBuy {
         fruit1.setFocusable(false);
         fruit1.setToolTipText("First Fruit");
         fruit1.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        fruit1.setBounds(25,75,240,50);
-        for (String i : new String[]{"No Fruit","test", "test2"}) {
+        fruit1.setBounds(25, 75, 240, 50);
+        for (String i : new String[]{"No Fruit", "test", "test2"}) {
             fruit1.addItem(i);
         }
         fruit1.addActionListener(e ->
@@ -172,7 +164,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -180,8 +172,8 @@ public class SpecialBuy {
         fruit2.setFocusable(false);
         fruit2.setToolTipText("Second Fruit");
         fruit2.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        fruit2.setBounds(285,75,240,50);
-        for (String i : new String[]{"No Fruit","test", "test2"}) {
+        fruit2.setBounds(285, 75, 240, 50);
+        for (String i : new String[]{"No Fruit", "test", "test2"}) {
             fruit2.addItem(i);
         }
         fruit2.addActionListener(e ->
@@ -192,7 +184,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -200,8 +192,8 @@ public class SpecialBuy {
         waterType.setFocusable(false);
         waterType.setToolTipText("Water type");
         waterType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        waterType.setBounds(25,140,500,50);
-        for (String i : new String[]{"No Water","test", "test2"}) {
+        waterType.setBounds(25, 140, 500, 50);
+        for (String i : new String[]{"No Water", "test", "test2"}) {
             waterType.addItem(i);
         }
         waterType.addActionListener(e ->
@@ -212,7 +204,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -220,8 +212,8 @@ public class SpecialBuy {
         milkType.setFocusable(false);
         milkType.setToolTipText("Milk type");
         milkType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        milkType.setBounds(25,205,500,50);
-        for (String i : new String[]{"No Milk","test", "test2"}) {
+        milkType.setBounds(25, 205, 500, 50);
+        for (String i : new String[]{"No Milk", "test", "test2"}) {
             milkType.addItem(i);
         }
         milkType.addActionListener(e ->
@@ -232,7 +224,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -241,8 +233,8 @@ public class SpecialBuy {
         iceType.setFocusable(false);
         iceType.setToolTipText("Ice type");
         iceType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        iceType.setBounds(25,270,500,50);
-        for (String i : new String[]{"No Ice","test", "test2"}) {
+        iceType.setBounds(25, 270, 500, 50);
+        for (String i : new String[]{"No Ice", "test", "test2"}) {
             iceType.addItem(i);
         }
         iceType.addActionListener(e ->
@@ -253,7 +245,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -261,8 +253,8 @@ public class SpecialBuy {
         toppingsType.setFocusable(false);
         toppingsType.setToolTipText("Toppings");
         toppingsType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        toppingsType.setBounds(25,335,500,50);
-        for (String i : new String[]{"No Toppings","test", "test2"}) {
+        toppingsType.setBounds(25, 335, 500, 50);
+        for (String i : new String[]{"No Toppings", "test", "test2"}) {
             toppingsType.addItem(i);
         }
         toppingsType.addActionListener(e ->
@@ -273,7 +265,7 @@ public class SpecialBuy {
                         "<br/> Water Type: " + waterType.getSelectedItem() +
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>"));
+                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
         infoLabel.setText("<html>Price: $999 " +
                 "<br/>Calories: 999 kCal" +
@@ -282,7 +274,7 @@ public class SpecialBuy {
                 "<br/> Water Type: " + waterType.getSelectedItem() +
                 "<br/> Milk Type " + milkType.getSelectedItem() +
                 "<br/> Ice Type:" + iceType.getSelectedItem() +
-                " <br/> Toppings: " +toppingsType.getSelectedItem()+"</html>");
+                " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>");
 
         // Panels
         titlePanel.setBackground(new Color(25, 25, 112, 123));
@@ -304,14 +296,14 @@ public class SpecialBuy {
         selectionPanel.add(iceType);
 
         lowerPanel.setBackground(new Color(25, 25, 112, 250));
-        lowerPanel.setBounds(0,630,550,130);
+        lowerPanel.setBounds(0, 630, 550, 130);
         lowerPanel.setLayout(null);
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
 
         rightPanel.setBackground(new Color(25, 25, 112, 123));
-        rightPanel.setBounds(550,0,200,751);
+        rightPanel.setBounds(550, 0, 200, 751);
         rightPanel.setLayout(null);
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
@@ -341,9 +333,9 @@ public class SpecialBuy {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static int magicAdd(JLabel userBalance, int cash, int addition){
+    public static int magicAdd(JLabel userBalance, int cash, int addition) {
         cash += addition;
-        userBalance.setText("$"+cash);
+        userBalance.setText("$" + cash);
         return cash;
     }
 
@@ -351,8 +343,37 @@ public class SpecialBuy {
         return frame;
     }
 
-    public JButton getExitButton(){
+    public JButton getExitButton() {
         return exitButton;
     }
+
+    public JButton getBuyButton() {
+        return buyButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JComboBox<String> getFruit1() {
+        return fruit1;
+    }
+
+    public JComboBox<String> getFruit2(){return fruit2;}
+
+    public JComboBox<String> getWaterType(){return waterType;}
+
+    public JComboBox<String> getMilkType(){return  milkType;}
+
+    public JComboBox<String> getIceType(){return iceType;}
+
+    public JComboBox<String> getToppingsType(){return toppingsType;}
+
+    public JLabel getSystemMessage(){return systemMessage;}
+
+    public JLabel getUserBalanceLabel(){return userBalanceLabel;}
+
+
+
 
 }

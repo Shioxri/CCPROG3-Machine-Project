@@ -15,6 +15,8 @@ import javax.swing.border.Border;
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularMaintenance {
     JFrame frame = new JFrame();
+    JLabel systemMessage = new JLabel();
+    JLabel userBalanceLabel = new JLabel();
     JButton buyButton = new JButton();
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
@@ -26,12 +28,17 @@ public class RegularMaintenance {
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
     JButton slotInfoButton = new JButton();
+    JComboBox<String> slots = new JComboBox<>();
+    JComboBox<Integer> addStock = new JComboBox<>();
+    JTextField changePrice = new JTextField();
+    JTextField setName = new JTextField();
+    JTextField setPrice = new JTextField();
+    JTextField setCalories = new JTextField();
 
     public void init() {
         // Declarations
         JLabel titleLabel = new JLabel();
-        JLabel systemMessage = new JLabel();
-        JLabel userBalanceLabel = new JLabel();
+        
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel newItemPanel = new JPanel();
@@ -39,12 +46,7 @@ public class RegularMaintenance {
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
         JComboBox<Integer> denominations = new JComboBox<>();
-        JComboBox<String> slots = new JComboBox<>();
-        JComboBox<Integer> addStock = new JComboBox<>();
-        JTextField changePrice = new JTextField();
-        JTextField setName = new JTextField();
-        JTextField setPrice = new JTextField();
-        JTextField setCalories = new JTextField();
+
 
 
         //TODO: need method to connect this to amount of $1 in backend
@@ -404,4 +406,28 @@ public class RegularMaintenance {
     public JButton getExitButton(){
         return exitButton;
     }
+    
+    public JButton getBuyButton(){return buyButton;}
+
+    public JButton getCancelButton(){return cancelButton;}
+
+    public JButton getAddButton(){return addButton;}
+
+    public JButton getChangePriceButton(){return changePriceButton;}
+
+    public JButton getReStock(){return reStock;}
+
+    public JButton getAddItem(){return addItem;}
+
+    public JButton getCollectMoney(){return collectMoney;}
+
+    public JButton getInstructionsButton(){return instructionsButton;}
+
+    public JButton getPrintSummary(){return printSummary;}
+
+    public JButton getSlotInfoButton(){return slotInfoButton;}
+
+    public JLabel getUserBalanceLabel(){return userBalanceLabel;}
+
+    public JLabel getSystemMessage(){return  systemMessage;}
 }
