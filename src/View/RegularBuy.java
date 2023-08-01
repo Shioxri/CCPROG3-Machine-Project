@@ -30,7 +30,7 @@ public class RegularBuy {
 
 
 
-    public void RegularBuy(){
+    public RegularBuy(){
         init();
     }
     public void init() {

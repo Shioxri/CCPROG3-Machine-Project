@@ -7,8 +7,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RegularBuyController {
     private RegularBuy regularBuyMenu;
-    
-    private AtomicInteger cash;
 
     public RegularBuyController(RegularBuy regularBuyMenu, RegVMMenuController regVMMenuController, VendingMachine vendingMachine){
         this.regularBuyMenu = regularBuyMenu;
