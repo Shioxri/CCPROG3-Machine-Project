@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
@@ -20,7 +21,6 @@ public class RegularBuy {
     JComboBox<Integer> denominations;
     JLabel systemMessage;
     JComboBox<String> regularItems;
-
 
 
     public RegularBuy(){
@@ -43,13 +43,6 @@ public class RegularBuy {
         regularItems = new JComboBox<>();
         denominations = new JComboBox<>(new Integer[]{1, 5, 10, 20, 50, 100});
         denominations.setBounds(10,110,120,25);
-
-
-        //TODO: need method that limits page number
-        AtomicInteger pageNumber = new AtomicInteger();
-        //TODO: need method to reflect user balance
-
-
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
@@ -93,10 +86,6 @@ public class RegularBuy {
         systemMessage.setVerticalAlignment(JLabel.CENTER);
         systemMessage.setBackground(new Color(0,0,0));
         systemMessage.setBorder(borderLinegrayl);
-        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
-                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
-                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
@@ -122,15 +111,8 @@ public class RegularBuy {
         infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
 
         // Buttons
-
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         regularItems.setBounds(75, 75, 400, 30);
         regularItems.setFocusable(false);
-        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
-            regularItems.addItem(i);
-        }
-
 
 
         //TODO: need method to minus the slot and change of the machine
@@ -226,9 +208,17 @@ public class RegularBuy {
     }
 
     public void updateBalanceText(int userBalance){
-        this.getUserBalanceLabel().setText("$"+userBalance);
+        this.getUserBalanceLabel().setText("Balance: Php "+userBalance);
         this.cashBalance.set(userBalance);
-        systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+        systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
+    }
+
+    public void setRegularItems(ArrayList<String> slotTypes) {
+        regularItems.setFocusable(false);
+        regularItems.addItem("Choose an item...");
+        for (String string : slotTypes) {
+            regularItems.addItem(string);
+        }
     }
 
     public JComboBox<Integer> getDenominations() {

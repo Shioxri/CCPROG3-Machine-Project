@@ -137,8 +137,12 @@ public class MainMenuGUI {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                float volume = -5.0f; // Adjust this value to set the desired volume level
+                gainControl.setValue(volume);
                 clip.loop(Clip.LOOP_CONTINUOUSLY); // Play the music on a loop
                 clip.start();
+
             } else {
                 System.out.println("Music file not found: " + musicFilePath);
             }

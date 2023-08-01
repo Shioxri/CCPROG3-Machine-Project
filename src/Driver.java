@@ -241,7 +241,7 @@ public class Driver {
                     isDone=true;
                 }
                 else {
-                    if (vendingMachine.checkInputValidity(choice)) {
+                    if (vendingMachine.checkInputValidity(choice)==0) {
                         vendingMachine.confirmTransaction(choice - 1);
                         Item dispensedItem = vendingMachine.dispenseSelectedItem(choice - 1, false);
                         System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
