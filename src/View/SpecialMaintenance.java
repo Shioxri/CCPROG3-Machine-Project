@@ -476,6 +476,12 @@ public class SpecialMaintenance {
         }
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
 
+    public JButton getExitButton(){
+        return exitButton;
+    }
 }
 

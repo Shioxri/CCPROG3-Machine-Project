@@ -40,9 +40,9 @@ public class RegularBuy {
         JComboBox<Integer> denominations = new JComboBox<>();
 
         //TODO: need method that limits page number
-        AtomicInteger pageNumber = new AtomicInteger(1);
+        AtomicInteger pageNumber = new AtomicInteger();
         //TODO: need method to reflect user balance
-        AtomicInteger cash = new AtomicInteger(9999);
+
 
 
         String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
@@ -97,7 +97,7 @@ public class RegularBuy {
         systemMessage.setOpaque(true);
 
         userBalanceLabel.setBounds(10,50,180,50);
-        userBalanceLabel.setText("$" + cash);
+        userBalanceLabel.setText("$" + cashBalance);
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -198,7 +198,7 @@ public class RegularBuy {
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
             addButton.addActionListener(e -> {
-                cash.set(magicAdd(userBalanceLabel, cash.get(), (Integer) denominations.getSelectedItem()));
+                cashBalance.set(magicAdd(userBalanceLabel, cashBalance.get(), (Integer) denominations.getSelectedItem()));
                 systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
             });
 

@@ -110,11 +110,9 @@ public class MainMenuGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void toggleFrame()
-    {
-        frame.setVisible(!frame.isVisible());
+    public JFrame getFrame() {
+        return frame;
     }
-
 
     public JButton getSpecialVMButton() {
         return specialVMButton;

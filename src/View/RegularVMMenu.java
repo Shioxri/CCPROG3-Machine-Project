@@ -129,9 +129,8 @@ public class RegularVMMenu {
         }
     }
 
-    public void toggleFrame()
-    {
-        frame.setVisible(!frame.isVisible());
+    public JFrame getFrame() {
+        return frame;
     }
 
     public JButton getUseVMButton() {

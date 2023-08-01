@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.VendingMachine;
 import View.*;
 
 import java.awt.event.ActionEvent;
@@ -10,23 +11,26 @@ public class SpecVMMenuController implements ActionListener {
 
 
 
-    public SpecVMMenuController(SpecialVMMenu specialVMMenu, MainMenuController mainMenuController){
+    public SpecVMMenuController(SpecialVMMenu specialVMMenu, MainMenuController mainMenuController, VendingMachine vendingMachine){
         this.specialVMMenu = specialVMMenu;
 
         specialVMMenu.getUseVMButton().addActionListener(e -> {
-            specialVMMenu.toggleFrame();
+            specialVMMenu.getFrame().setVisible(false);
             SpecialBuy specialBuyMenu = new SpecialBuy();
-            SpecialBuyController specialBuyController = new SpecialBuyController(specialBuyMenu, this);
-
+            SpecialBuyController specialBuyController =
+                    new SpecialBuyController(specialBuyMenu, this, vendingMachine);
+            specialBuyMenu.getFrame().setVisible(true);
         });
         specialVMMenu.getMaintenanceButton().addActionListener(e -> {
-            specialVMMenu.toggleFrame();
+            specialVMMenu.getFrame().setVisible(false);
             SpecialMaintenance specialMaintenanceMenu = new SpecialMaintenance();
-            SpecMaintenanceController specMaintenanceController = new SpecMaintenanceController(specialMaintenanceMenu, this);
+            SpecMaintenanceController specMaintenanceController =
+                    new SpecMaintenanceController(specialMaintenanceMenu, this, vendingMachine);
+            specialMaintenanceMenu.getFrame().setVisible(true);
         });
         specialVMMenu.getBackButton().addActionListener(e -> {
-            specialVMMenu.toggleFrame();
-            mainMenuController.getMainMenuGUI().toggleFrame();
+            specialVMMenu.getFrame().setVisible(false);
+            mainMenuController.getMainMenuGUI().getFrame().setVisible(true);
         });
     }
 
