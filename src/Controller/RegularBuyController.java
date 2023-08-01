@@ -50,6 +50,8 @@ public class RegularBuyController {
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
                 Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
+                regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>Dispensed "+dispensedItem.getType()
+                +"</html>");
             }
             else {
                regularBuyMenu.setTextAfterBuy(errorType);

@@ -269,6 +269,7 @@ public class RegularBuy {
         }
     }
 
-
-
+    public JLabel getSystemMessage() {
+        return systemMessage;
+    }
 }
