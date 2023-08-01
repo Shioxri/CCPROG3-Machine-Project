@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TransactionManager {
@@ -10,7 +11,7 @@ public class TransactionManager {
     public static final int INSUFFICIENT_BALANCE = 3;
     public static final int INSUFFICIENT_CHANGE = 4;
 
-    public int checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
+    public int checkInputValidity(VendingMachine vendingMachine, int itemChoice, boolean isSpecialSlot) {
         int itemPrice;
         int totalUserMoney;
 
@@ -19,9 +20,11 @@ public class TransactionManager {
             return INVALID_INTEGER_INPUT;
         }
 
-        if (itemChoice >= 1 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
+        ArrayList<Slot> slots = isSpecialSlot ? vendingMachine.getSpecialSlots() : vendingMachine.getSlotArrayList();
+
+        if (itemChoice >= 1 && itemChoice <= slots.size()) {
             // Check if the chosen item is available and in stock
-            Slot selectedSlot = vendingMachine.getSlotArrayList().get(itemChoice - 1);
+            Slot selectedSlot = slots.get(itemChoice - 1);
             if (selectedSlot.getItemArrayList().isEmpty()) {
                 System.out.println("Chosen item is not available due to being out of stock.");
                 return OUT_OF_STOCK;

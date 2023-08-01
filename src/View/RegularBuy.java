@@ -140,7 +140,7 @@ public class RegularBuy {
 
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
-        exitButton.setText("Menu");
+        exitButton.setText("Go Back");
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
 

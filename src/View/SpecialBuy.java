@@ -2,10 +2,8 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.sound.sampled.*;
 import javax.swing.border.Border;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -26,8 +24,8 @@ public class SpecialBuy {
     JComboBox<String> firstFruitsDropDown;
     JComboBox<String> secondFruitsDropDown;
     JComboBox<Integer> denominations;
-    private int totalPrice;
-    private int totalCals;
+    private int totalPrice=0;
+    private int totalCals=0;
 
     public void setCash(AtomicInteger cash) {
         this.cash.set(cash.get());
@@ -103,8 +101,8 @@ public class SpecialBuy {
         userBalanceLabel.setOpaque(true);
 
         //TODO: need method to put the price and calories of the shake/item here
-        infoLabel.setBounds(10, 200, 180, 200);
-        infoLabel.setText("<html>Price: $999 " +
+        orderLabel.setBounds(10, 200, 180, 200);
+        orderLabel.setText("<html>Price: $999 " +
                 "<br/>Calories: 999 kCal" +
                 "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                 "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -112,11 +110,11 @@ public class SpecialBuy {
                 "<br/> Milk Type " + milkType.getSelectedItem() +
                 "<br/> Ice Type:" + iceType.getSelectedItem() +
                 " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>");
-        infoLabel.setForeground(Color.WHITE);
-        infoLabel.setBackground(Color.BLACK);
-        infoLabel.setBorder(borderLinegrayl);
-        infoLabel.setOpaque(true);
-        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        orderLabel.setForeground(Color.WHITE);
+        orderLabel.setBackground(Color.BLACK);
+        orderLabel.setBorder(borderLinegrayl);
+        orderLabel.setOpaque(true);
+        orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 13));
 
         // Buttons
 
@@ -135,7 +133,7 @@ public class SpecialBuy {
         //TODO: need method to switch GUI to SpecialVMMenu
         exitButton.setBounds(10, 700, 180, 25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
-        exitButton.setText("Menu");
+        exitButton.setText("Go Back");
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
         // Dropdowns
@@ -148,7 +146,7 @@ public class SpecialBuy {
         firstFruitsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         firstFruitsDropDown.setBounds(25, 75, 240, 50);
         firstFruitsDropDown.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -165,7 +163,7 @@ public class SpecialBuy {
         secondFruitsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         secondFruitsDropDown.setBounds(285, 75, 240, 50);
         secondFruitsDropDown.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -183,7 +181,7 @@ public class SpecialBuy {
         waterType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         waterType.setBounds(25, 140, 500, 50);
         waterType.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -200,7 +198,7 @@ public class SpecialBuy {
         milkType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         milkType.setBounds(25, 205, 500, 50);
         milkType.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -218,7 +216,7 @@ public class SpecialBuy {
         iceType.setBounds(25, 270, 500, 50);
 
         iceType.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -235,7 +233,7 @@ public class SpecialBuy {
         toppingsType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         toppingsType.setBounds(25, 335, 500, 50);
         toppingsType.addActionListener(e ->
-                infoLabel.setText("<html>Price: $999 " +
+                orderLabel.setText("<html>Price: $999 " +
                         "<br/>Calories: 999 kCal" +
                         "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                         "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -244,7 +242,7 @@ public class SpecialBuy {
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
-        infoLabel.setText("<html>Price: $999 " +
+        orderLabel.setText("<html>Price: $999 " +
                 "<br/>Calories: 999 kCal" +
                 "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
                 "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
@@ -285,7 +283,7 @@ public class SpecialBuy {
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
         rightPanel.add(userBalanceLabel);
-        rightPanel.add(infoLabel);
+        rightPanel.add(orderLabel);
         rightPanel.add(buyButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
@@ -345,6 +343,14 @@ public class SpecialBuy {
         return addButton;
     }
 
+    public JComboBox<String> getFirstFruitsDropDown() {
+        return firstFruitsDropDown;
+    }
+
+    public JComboBox<String> getSecondFruitsDropDown() {
+        return secondFruitsDropDown;
+    }
+
     public JComboBox<String> getWaterType(){return waterType;}
 
     public JComboBox<String> getMilkType(){return  milkType;}
@@ -391,7 +397,7 @@ public class SpecialBuy {
 
     public void setIceDropDown(ArrayList<String> slotTypes) {
         iceType.setFocusable(false);
-        iceType.addItem("Choose the type of ice to be used...");
+        iceType.addItem("Choose the type of ice...");
         for (String string : slotTypes) {
             iceType.addItem(string);
         }
@@ -403,5 +409,31 @@ public class SpecialBuy {
         for (String string : slotTypes) {
             toppingsType.addItem(string);
         }
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void addToTotalPrice(int value)
+    {
+        totalPrice += value;
+    }
+
+    public void addToTotalCals(int value)
+    {
+        totalCals += value;
+    }
+
+    public void resetTotalPrice()
+    {
+        totalPrice = 0;
+    }
+    public void resetTotalCals()
+    {
+        totalCals = 0;
+    }
+    public int getTotalCals() {
+        return totalCals;
     }
 }

@@ -41,7 +41,7 @@ public class RegularBuyController {
         regularBuyMenu.getBuyButton().addActionListener(e -> {
             vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
-            int errorType = vendingMachine.checkInputValidity(selectedItemIndex);
+            int errorType = vendingMachine.checkInputValidity(selectedItemIndex, false);
             if(errorType==0)
             {
 

@@ -51,7 +51,7 @@ public class VendingMachine {
         this.displayer.displayAvailableItems(this, isSpecialSlot);
     }
 
-    public int checkInputValidity(int indexChoice) { return this.transactionManager.checkInputValidity(this, indexChoice);}
+    public int checkInputValidity(int indexChoice, boolean isSpecialSlot) { return this.transactionManager.checkInputValidity(this, indexChoice, isSpecialSlot);}
 
     public void confirmTransaction(int indexChoice) { this.transactionManager.confirmTransaction(this, indexChoice); }
 
