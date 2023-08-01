@@ -26,7 +26,7 @@ public class MainMenuGUI {
         specialVMButton = new JButton();
         exitButton = new JButton();
         // Declarations
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
