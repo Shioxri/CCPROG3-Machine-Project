@@ -173,7 +173,7 @@ public class SpecialBuyController {
         }
         return stringSlotTypes;
     }
-/*
+
     public void updateInfoLabel(int selectedItemIndex, VendingMachine vendingMachine, boolean isSpecialSlot) {
         if (selectedItemIndex != 0) {
             int chosenItemIndex = selectedItemIndex - 1;
@@ -195,7 +195,7 @@ public class SpecialBuyController {
             specialBuyMenu.getOrderLabel().setText("");
         }
     }
-*/
+
     public void updateOrderLabel(SpecialBuy specialBuyMenu) {
         String firstFruit = (String) specialBuyMenu.getFirstFruitsDropDown().getSelectedItem();
         String secondFruit = (String) specialBuyMenu.getSecondFruitsDropDown().getSelectedItem();
@@ -208,22 +208,22 @@ public class SpecialBuyController {
         orderText.append("<html>Price: Php").append(specialBuyMenu.getTotalPrice());
         orderText.append("<br/>Calories: ").append(specialBuyMenu.getTotalCals()).append(" kCal");
 
-        if (firstFruit != null && !firstFruit.equals("Choose a fruit...")) {
+        if (!firstFruit.equals("Choose a fruit...")) {
             orderText.append("<br/>First Fruit: ").append(firstFruit);
         }
-        if (secondFruit != null && !secondFruit.equals("Choose a fruit...")) {
+        if (!secondFruit.equals("Choose a fruit...")) {
             orderText.append("<br/>Second Fruit: ").append(secondFruit);
         }
-        if (waterType != null && !waterType.equals("Choose a type of milk...")) {
+        if (!waterType.equals("Choose a type of milk...")) {
             orderText.append("<br/>Water Type: ").append(waterType);
         }
-        if (milkType != null && !milkType.equals("Choose a type of water...")) {
+        if (!milkType.equals("Choose a type of water...")) {
             orderText.append("<br/>Milk Type: ").append(milkType);
         }
-        if (iceType != null && !iceType.equals("Choose the type of ice...")) {
+        if (!iceType.equals("Choose the type of ice...")) {
             orderText.append("<br/>Ice Type: ").append(iceType);
         }
-        if (toppingsType != null && !toppingsType.equals("Choose a topping...")) {
+        if (!toppingsType.equals("Choose a topping...")) {
             orderText.append("<br/>Toppings: ").append(toppingsType);
         }
 
