@@ -17,7 +17,7 @@ public class RegularBuyController {
 
 
 
-        updateGUI(vendingMachine);
+        setDropdownContents(vendingMachine);
 
         regularBuyMenu.getAddButton().addActionListener(e -> {
             vendingMachine.addTempPaidMoney((Integer) regularBuyMenu.getDenominations().getSelectedItem(), 1);
@@ -73,7 +73,7 @@ public class RegularBuyController {
                     "Successfully cancelled the transaction </html>");
         });
     }
-    private void updateGUI(VendingMachine vendingMachine)
+    private void setDropdownContents(VendingMachine vendingMachine)
     {
         regularBuyMenu.setRegularItems(getSlotTypes(vendingMachine.getSlotArrayList()));
     }
