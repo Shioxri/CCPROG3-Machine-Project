@@ -31,6 +31,31 @@ public class RegularBuyController {
             regularBuyMenu.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
         });
+
+        regularBuyMenu.getRegularItems().addActionListener(e ->{
+            int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
+            updateInfoLabel(selectedItemIndex, vendingMachine);
+        });
+
+        regularBuyMenu.getBuyButton().addActionListener(e -> {
+            int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
+            if(vendingMachine.checkInputValidity(selectedItemIndex)==0)
+            {
+                regularBuyMenu.setTextAfterBuy(0);
+                updateInfoLabel(selectedItemIndex, vendingMachine);
+                regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
+                vendingMachine.confirmTransaction(selectedItemIndex-1);
+                Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex-1, false);
+                regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
+                System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
+                Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
+            }
+            else {
+               regularBuyMenu.setTextAfterBuy(vendingMachine.checkInputValidity(selectedItemIndex));
+            }
+
+        });
+
     }
     private void updateGUI(VendingMachine vendingMachine)
     {

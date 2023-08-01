@@ -20,12 +20,16 @@ public class RegularBuy {
     JLabel userBalanceLabel;
     JComboBox<Integer> denominations;
     JLabel systemMessage;
+    JLabel infoLabel = new JLabel();
     JComboBox<String> regularItems;
 
 
     public RegularBuy(){
         init();
     }
+
+
+
     public void init() {
         // Declarations
         frame = new JFrame();
@@ -38,7 +42,7 @@ public class RegularBuy {
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
-        JLabel infoLabel = new JLabel();
+
 
         regularItems = new JComboBox<>();
         denominations = new JComboBox<>(new Integer[]{1, 5, 10, 20, 50, 100});
@@ -90,7 +94,7 @@ public class RegularBuy {
         systemMessage.setOpaque(true);
 
         userBalanceLabel.setBounds(10,50,180,50);
-        userBalanceLabel.setText("$" + cashBalance);
+        userBalanceLabel.setText("Balance: Php " + cashBalance);
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -101,7 +105,6 @@ public class RegularBuy {
 
         //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
         infoLabel.setBounds(75,110,400,200);
-        infoLabel.setText("<html>Price: <br/>Calories: <br/> Stock: </html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -225,6 +228,10 @@ public class RegularBuy {
         return denominations;
     }
 
+    public JComboBox<String> getRegularItems(){return regularItems;}
+
+    public JLabel getInfoLabel(){return infoLabel;}
+
     public JFrame getFrame() {
         return frame;
     }
@@ -245,6 +252,27 @@ public class RegularBuy {
     public JLabel getUserBalanceLabel() {
         return userBalanceLabel;
     }
+
+
+    public JButton getBuyButton() {return buyButton;}
+
+    public void setTextAfterBuy(int errorType)
+    {
+        switch(errorType)
+        {
+            case 1:systemMessage.setText("[Transaction Successful!]");
+                break;
+            case 3:systemMessage.setText("Chosen item is not available due to being out of stock.");
+                break;
+            case 4:systemMessage.setText("Chosen item is not available due to insufficient balance.");
+                break;
+            case 5:systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
+                break;
+            default:systemMessage.setText("Please select an item at the dropdown menu");
+                break;
+        }
+    }
+
 
 
 }
