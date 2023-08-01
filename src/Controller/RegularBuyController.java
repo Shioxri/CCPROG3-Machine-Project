@@ -22,6 +22,7 @@ public class RegularBuyController {
         regularBuyMenu.getAddButton().addActionListener(e -> {
             vendingMachine.addTempPaidMoney((Integer) regularBuyMenu.getDenominations().getSelectedItem(), 1);
             regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
+            regularBuyMenu.showAddedMoneyText();
             System.out.println("Added: "+vendingMachine.getMoneyManager().getTempMoneyFromUser().
                     get(vendingMachine.getMoneyManager().getTempMoneyFromUser().size()-1));
             System.out.println("User Bal: "+vendingMachine.getUserBalance());
@@ -43,10 +44,13 @@ public class RegularBuyController {
             int errorType = vendingMachine.checkInputValidity(selectedItemIndex);
             if(errorType==0)
             {
+
                 updateInfoLabel(selectedItemIndex, vendingMachine);
-                regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
-                vendingMachine.confirmTransaction(selectedItemIndex-1);
                 Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex-1, false);
+                int change = vendingMachine.getUserBalance()-dispensedItem.getPrice();
+                vendingMachine.confirmTransaction(selectedItemIndex-1);
+
+
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
 
@@ -60,6 +64,14 @@ public class RegularBuyController {
             }
         });
 
+        regularBuyMenu.getCancelButton().addActionListener(e -> {
+            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+            vendingMachine.getMoneyManager().clearUserPaidMoney();
+            regularBuyMenu.defaultBalanceText();
+            regularBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>"+
+                    "Returned User Money<br/>"+
+                    "Successfully cancelled the transaction </html>");
+        });
     }
     private void updateGUI(VendingMachine vendingMachine)
     {
@@ -95,5 +107,7 @@ public class RegularBuyController {
             regularBuyMenu.getInfoLabel().setText("");
         }
     }
+
+
 
 }

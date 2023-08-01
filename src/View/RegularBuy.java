@@ -23,7 +23,6 @@ public class RegularBuy {
     JLabel infoLabel = new JLabel();
     JComboBox<String> regularItems;
 
-
     public RegularBuy(){
         init();
     }
@@ -97,7 +96,7 @@ public class RegularBuy {
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
-
+        defaultBalanceText();
         userBalanceLabel.setBounds(10,50,180,50);
 
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
@@ -143,7 +142,6 @@ public class RegularBuy {
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
-
 
 
 
@@ -206,6 +204,12 @@ public class RegularBuy {
         userBalanceLabel.setText("Balance: Php "+userBalance);
     }
 
+    public void defaultBalanceText()
+    {
+        userBalanceLabel.setText("No Balance Yet");
+    }
+
+
     public void showAddedMoneyText()
     {
         systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
@@ -238,9 +242,6 @@ public class RegularBuy {
         return addButton;
     }
 
-    public JLabel getUserBalanceLabel() {
-        return userBalanceLabel;
-    }
 
     public JButton getCancelButton(){return cancelButton;}
 
@@ -261,4 +262,5 @@ public class RegularBuy {
     public JLabel getSystemMessage() {
         return systemMessage;
     }
+
 }
