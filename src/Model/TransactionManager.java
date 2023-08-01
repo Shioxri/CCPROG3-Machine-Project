@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class TransactionManager {
     public static final int VALID_TRANSACTION = 0;
-    public static final int INVALID_INTEGER_INPUT = 1;
-    public static final int INVALID_ITEM_CHOICE = 2;
-    public static final int OUT_OF_STOCK = 3;
-    public static final int INSUFFICIENT_BALANCE = 4;
-    public static final int INSUFFICIENT_CHANGE = 5;
+    public static final int INVALID_INTEGER_INPUT = 9;
+    public static final int INVALID_ITEM_CHOICE = 1;
+    public static final int OUT_OF_STOCK = 2;
+    public static final int INSUFFICIENT_BALANCE = 3;
+    public static final int INSUFFICIENT_CHANGE = 4;
 
     public int checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
         int itemPrice;
@@ -19,7 +19,7 @@ public class TransactionManager {
             return INVALID_INTEGER_INPUT;
         }
 
-        if (itemChoice > 0 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
+        if (itemChoice >= 1 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
             // Check if the chosen item is available and in stock
             Slot selectedSlot = vendingMachine.getSlotArrayList().get(itemChoice - 1);
             if (selectedSlot.getItemArrayList().isEmpty()) {

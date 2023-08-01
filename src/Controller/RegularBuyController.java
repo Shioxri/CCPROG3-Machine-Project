@@ -38,10 +38,11 @@ public class RegularBuyController {
         });
 
         regularBuyMenu.getBuyButton().addActionListener(e -> {
+            vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
-            if(vendingMachine.checkInputValidity(selectedItemIndex)==0)
+            int errorType = vendingMachine.checkInputValidity(selectedItemIndex);
+            if(errorType==0)
             {
-                regularBuyMenu.setTextAfterBuy(0);
                 updateInfoLabel(selectedItemIndex, vendingMachine);
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 vendingMachine.confirmTransaction(selectedItemIndex-1);
@@ -51,7 +52,7 @@ public class RegularBuyController {
                 Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
             }
             else {
-               regularBuyMenu.setTextAfterBuy(vendingMachine.checkInputValidity(selectedItemIndex));
+               regularBuyMenu.setTextAfterBuy(errorType);
             }
 
         });
@@ -73,13 +74,21 @@ public class RegularBuyController {
 
     public void updateInfoLabel(int selectedItemIndex, VendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
-            int itemIndex = selectedItemIndex - 1;
-            int slotIndex = selectedItemIndex - 1;
-            String infoText = "<html>Price: " + vendingMachine.getSelectedItem(itemIndex, false).getPrice() +
-                    "<br/>Calories: " + vendingMachine.getSelectedItem(itemIndex, false).getCalorie() +
-                    " kCal<br/> Stock: " + vendingMachine.getSelectedSlot(slotIndex, false).getItemStock() +
-                    "</html>";
-            regularBuyMenu.getInfoLabel().setText(infoText);
+            int chosenItemIndex = selectedItemIndex - 1;
+            Item selectedItem = vendingMachine.getSelectedItem(chosenItemIndex, false);
+            Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItemIndex, false);
+            if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
+                String infoText = "<html>Price: " +  selectedItem.getPrice() +
+                        "<br/>Calories: " +  selectedItem.getCalorie() +
+                        " kCal<br/> Stock: " + selectedSlot.getItemStock() +
+                        "</html>";
+                regularBuyMenu.getInfoLabel().setText(infoText);
+            }
+            else
+            {
+                regularBuyMenu.getInfoLabel().setText("Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!");
+            }
+
         } else {
             regularBuyMenu.getInfoLabel().setText("");
         }

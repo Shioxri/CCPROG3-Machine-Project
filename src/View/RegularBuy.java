@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 public class RegularBuy {
     JFrame frame;
     JButton buyButton = new JButton();
+
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
@@ -258,18 +259,13 @@ public class RegularBuy {
 
     public void setTextAfterBuy(int errorType)
     {
-        switch(errorType)
-        {
-            case 1:systemMessage.setText("[Transaction Successful!]");
-                break;
-            case 3:systemMessage.setText("Chosen item is not available due to being out of stock.");
-                break;
-            case 4:systemMessage.setText("Chosen item is not available due to insufficient balance.");
-                break;
-            case 5:systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
-                break;
-            default:systemMessage.setText("Please select an item at the dropdown menu");
-                break;
+        switch (errorType) {
+            case 1 -> systemMessage.setText("Please select an item at the dropdown menu");
+            case 2 -> systemMessage.setText("Chosen item is not available due to being out of stock.");
+            case 3 -> systemMessage.setText("Chosen item is not available due to insufficient balance.");
+            case 4 -> systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
+            default -> systemMessage.setText("Unknown Error");
+
         }
     }
 

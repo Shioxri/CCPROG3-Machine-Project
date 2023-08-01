@@ -116,9 +116,14 @@ public class VendingMachine {
     }
 
 
-    public Item getSelectedItem(int indexChoice, boolean isSpecialSlot)
-    {
-        return this.getSelectedSlot(indexChoice, isSpecialSlot).getItemArrayList().get(0);
+    public Item getSelectedItem(int indexChoice, boolean isSpecialSlot) {
+        Slot selectedSlot = this.getSelectedSlot(indexChoice, isSpecialSlot);
+        if (!selectedSlot.getItemArrayList().isEmpty()) {
+            return selectedSlot.getItemArrayList().get(0);
+        } else {
+            // You can return null or some other indicator to signify that the slot is empty
+            return null;
+        }
     }
 
     public RecordsManager getRecorder() {
