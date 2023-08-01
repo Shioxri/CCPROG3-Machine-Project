@@ -17,7 +17,6 @@ public class RegularBuy {
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
-    AtomicInteger cashBalance = new AtomicInteger();
     JLabel userBalanceLabel;
     JComboBox<Integer> denominations;
     JLabel systemMessage;
@@ -95,7 +94,7 @@ public class RegularBuy {
         systemMessage.setOpaque(true);
 
         userBalanceLabel.setBounds(10,50,180,50);
-        userBalanceLabel.setText("Balance: Php " + cashBalance);
+
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -104,7 +103,7 @@ public class RegularBuy {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
-        //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
+
         infoLabel.setBounds(75,110,400,200);
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
@@ -118,8 +117,6 @@ public class RegularBuy {
         regularItems.setBounds(75, 75, 400, 30);
         regularItems.setFocusable(false);
 
-
-        //TODO: need method to minus the slot and change of the machine
         buyButton.setBounds(75, 320, 195, 50);
         buyButton.setText("Buy");
         buyButton.setHorizontalAlignment(JButton.CENTER);
@@ -141,13 +138,12 @@ public class RegularBuy {
         cancelButton.setText("Cancel");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
-        //TODO: need method to connect this to userbalance or make "cash" automatically update the balance in the back end
+
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
 
 
 
-        //TODO: need method to switch GUI to RegularVMMenu
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
@@ -212,11 +208,13 @@ public class RegularBuy {
     }
 
     public void updateBalanceText(int userBalance){
-        this.getUserBalanceLabel().setText("Balance: Php "+userBalance);
-        this.cashBalance.set(userBalance);
-        systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
+        userBalanceLabel.setText("Balance: Php "+userBalance);
     }
 
+    public void showAddedMoneyText()
+    {
+        systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
+    }
     public void setRegularItems(ArrayList<String> slotTypes) {
         regularItems.setFocusable(false);
         regularItems.addItem("Choose an item...");
@@ -239,11 +237,6 @@ public class RegularBuy {
 
     public JButton getExitButton(){
         return exitButton;
-    }
-
-    public void setCashBalance(int cash)
-    {
-        this.cashBalance.set(cash);
     }
 
     public JButton getAddButton() {

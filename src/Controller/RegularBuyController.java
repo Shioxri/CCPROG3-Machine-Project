@@ -49,9 +49,11 @@ public class RegularBuyController {
                 Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex-1, false);
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
-                Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
-                regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>Dispensed "+dispensedItem.getType()
-                +"</html>");
+
+                regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>"+
+                        "Dispensed "+dispensedItem.getType()+"<br/>"+
+                        "Return Change: "+change+"</html>");
+
             }
             else {
                regularBuyMenu.setTextAfterBuy(errorType);
@@ -62,7 +64,6 @@ public class RegularBuyController {
     }
     private void updateGUI(VendingMachine vendingMachine)
     {
-        regularBuyMenu.setCashBalance(vendingMachine.getUserBalance());
         regularBuyMenu.setRegularItems(getSlotTypes(vendingMachine.getSlotArrayList()));
     }
 

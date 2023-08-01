@@ -29,9 +29,10 @@ public class SpecialMaintenance {
     JButton instructionsButton = new JButton();
     JButton slotInfoButton = new JButton();
 
-    public SpecialMaintenance(){
+    public SpecialMaintenance() {
 
     }
+
     public void init() {
         // Declarations
 
@@ -55,8 +56,6 @@ public class SpecialMaintenance {
         JTextField setPrice = new JTextField();
         JTextField setCalories = new JTextField();
 
-
-
         //TODO: need method to connect this to amount of $1 in backend
         AtomicInteger cash = new AtomicInteger(1);
         //TODO: need method to connect this to amount of $5 in backend
@@ -71,7 +70,6 @@ public class SpecialMaintenance {
         AtomicInteger cash6 = new AtomicInteger(1);
         //TODO: need method to show the total amount of all these items
         AtomicInteger cashtotal = new AtomicInteger(186);
-
 
 
         // Images
@@ -102,10 +100,10 @@ public class SpecialMaintenance {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
         //TODO: need method to print errors and notifications here
-        systemMessage.setBounds(10,8,530,110);
+        systemMessage.setBounds(10, 8, 530, 110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
-        systemMessage.setBackground(new Color(0,0,0));
+        systemMessage.setBackground(new Color(0, 0, 0));
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                 "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
@@ -115,9 +113,9 @@ public class SpecialMaintenance {
         systemMessage.setOpaque(true);
 
         //TODO: need method to show denominations here(ignore if cashes are connected)
-        userBalanceLabel.setBounds(92,50,180,200);
-        userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+        userBalanceLabel.setBounds(92, 50, 180, 200);
+        userBalanceLabel.setText("<html>$1 Bill: " + cash.get() + "<br/>$5 Bill: " + cash2.get() + "<br/> $10 Bill: " + cash3.get() +
+                "<br/>$20 Bill: " + cash4.get() + "<br/>$50 Bill: " + cash5.get() + "<br/> $100 Bill: " + cash6.get() + "<br/>Total: " + cashtotal.get() +
                 "</html>");
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
@@ -126,7 +124,6 @@ public class SpecialMaintenance {
         userBalanceLabel.setBorder(borderLine);
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
-
 
 
         // Buttons
@@ -169,7 +166,7 @@ public class SpecialMaintenance {
         reStock2.addActionListener(e -> System.out.println("New Stock: " + addStock2.getSelectedItem()));
 
         //TODO: need method to update denominations in the backend(if cash is connected ignore this)
-        addButton.setBounds(222, 260, 50,25);
+        addButton.setBounds(222, 260, 50, 25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
         addButton.addActionListener(e -> {
@@ -199,37 +196,37 @@ public class SpecialMaintenance {
                     cashtotal.set(cashtotal.get() + 100);
                 }
             }
-            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+            userBalanceLabel.setText("<html>$1 Bill: " + cash.get() + "<br/>$5 Bill: " + cash2.get() + "<br/> $10 Bill: " + cash3.get() +
+                    "<br/>$20 Bill: " + cash4.get() + "<br/>$50 Bill: " + cash5.get() + "<br/> $100 Bill: " + cash6.get() + "<br/>Total: " + cashtotal.get() +
                     "</html>");
         });
 
         //TODO: need method to switch GUI to SpecialVMMenu
-        exitButton.setBounds(550,80,190,35);
+        exitButton.setBounds(550, 80, 190, 35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
         //TODO: need method to show in system message the info of the 2 selected slots
-        slotInfoButton.setBounds(550,10,190,35);
+        slotInfoButton.setBounds(550, 10, 190, 35);
         slotInfoButton.setHorizontalAlignment(JButton.CENTER);
         slotInfoButton.setText("Slot Info");
         slotInfoButton.addActionListener(e -> System.exit(0));
 
         //TODO: need method to show in system message the instructions
-        instructionsButton.setBounds(550,45,190,35);
+        instructionsButton.setBounds(550, 45, 190, 35);
         instructionsButton.setHorizontalAlignment(JButton.CENTER);
         instructionsButton.setText("Instructions");
         instructionsButton.addActionListener(e -> System.exit(0));
 
         //TODO: need method that adds an item based on the 3 text fields
-        addItem.setBounds(75,190,225,30);
+        addItem.setBounds(75, 190, 225, 30);
         addItem.setText("Add Item");
         addItem.addActionListener(e -> slots.addItem(setName.getText()));
 
         //TODO: need method to mirror collecting cash(if cash is connected ignore this)
-        collectMoney.setBounds(92,295, 180, 50);
+        collectMoney.setBounds(92, 295, 180, 50);
         collectMoney.setText("Collect Money");
         collectMoney.addActionListener(e -> {
             cash.set(0);
@@ -238,38 +235,37 @@ public class SpecialMaintenance {
             cash4.set(0);
             cash5.set(0);
             cash6.set(0);
-            systemMessage.setText("You have collected $"+cashtotal.get());
+            systemMessage.setText("You have collected $" + cashtotal.get());
             cashtotal.set(0);
-            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
+            userBalanceLabel.setText("<html>$1 Bill: " + cash.get() + "<br/>$5 Bill: " + cash2.get() + "<br/> $10 Bill: " + cash3.get() +
+                    "<br/>$20 Bill: " + cash4.get() + "<br/>$50 Bill: " + cash5.get() + "<br/> $100 Bill: " + cash6.get() + "<br/>Total: " + cashtotal.get() +
                     "</html>");
         });
 
         //TODO: need method to print the summary in the notification with text wrapping
-        printSummary.setBounds(92, 355,180,50);
+        printSummary.setBounds(92, 355, 180, 50);
         printSummary.setText("Print Summary");
         printSummary.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"summary");//remember to add wrapping
+            JOptionPane.showMessageDialog(null, "summary");//remember to add wrapping
         });
 
 
-
         // Dropdows
-        denominations.setBounds(92,260,120,25);
+        denominations.setBounds(92, 260, 120, 25);
         denominations.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
             denominations.addItem(i);
         }
 
         //TODO: need method to show slot items here
-        slots.setBounds(25,25,150,40);
+        slots.setBounds(25, 25, 150, 40);
         slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (String i : new String[]{"Regular Slot 1", "Slot 2", "Slot 3"}) {
             slots.addItem(i);
         }
 
         //TODO: need method to show slot items here
-        slots2.setBounds(195,25,150,40);
+        slots2.setBounds(195, 25, 150, 40);
         slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         for (String i : new String[]{"Special Slot 1", "Slot 2", "Slot 3"}) {
             slots2.addItem(i);
@@ -329,8 +325,7 @@ public class SpecialMaintenance {
         });
 
 
-
-        setName.setBounds(112,25,150,40);
+        setName.setBounds(112, 25, 150, 40);
         setName.setText("Enter Product Name");
         setName.setHorizontalAlignment(JTextField.CENTER);
         setName.addFocusListener(new FocusListener() {
@@ -349,6 +344,7 @@ public class SpecialMaintenance {
             public void focusGained(FocusEvent e) {
                 setPrice.setText("");
             }
+
             public void focusLost(FocusEvent e) {
                 // nothing
             }
@@ -361,7 +357,7 @@ public class SpecialMaintenance {
             }
         });
 
-        setCalories.setBounds(75,130,225,30);
+        setCalories.setBounds(75, 130, 225, 30);
         setCalories.setText("Enter Product Calories");
         setCalories.setHorizontalAlignment(JTextField.CENTER);
         setCalories.addFocusListener(new FocusListener() {
@@ -379,9 +375,6 @@ public class SpecialMaintenance {
                         || ke.getKeyChar() == '\b');
             }
         });
-
-
-
 
 
         // Panels
@@ -418,7 +411,7 @@ public class SpecialMaintenance {
         newItemPanel.setBorder(borderLine);
 
         lowerPanel.setBackground(new Color(25, 25, 112, 250));
-        lowerPanel.setBounds(0,630,750,130);
+        lowerPanel.setBounds(0, 630, 750, 130);
         lowerPanel.setLayout(null);
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
@@ -428,7 +421,7 @@ public class SpecialMaintenance {
         lowerPanel.add(exitButton);
 
         rightPanel.setBackground(new Color(25, 25, 112, 123));
-        rightPanel.setBounds(375,150,375,480);
+        rightPanel.setBounds(375, 150, 375, 480);
         rightPanel.setLayout(null);
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
@@ -465,7 +458,7 @@ public class SpecialMaintenance {
         return frame;
     }
 
-    public JButton getExitButton(){
+    public JButton getExitButton() {
         return exitButton;
     }
 }
