@@ -4,14 +4,14 @@ import Model.VendingMachine;
 import View.RegularBuy;
 
 public class RegularBuyController {
-    private  RegularBuy regularBuy;
+    private RegularBuy regularBuyMenu;
 
-    public RegularBuyController(RegularBuy regularBuy, RegVMMenuController regVMMenuController, VendingMachine vendingMachine){
-        this.regularBuy = regularBuy;
+    public RegularBuyController(RegularBuy regularBuyMenu, RegVMMenuController regVMMenuController, VendingMachine vendingMachine){
+        this.regularBuyMenu = regularBuyMenu;
 
 
-        regularBuy.getExitButton().addActionListener(e -> {
-            regularBuy.getFrame().setVisible(false);
+        regularBuyMenu.getExitButton().addActionListener(e -> {
+            regularBuyMenu.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
         });
     }
