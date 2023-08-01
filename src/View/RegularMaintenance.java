@@ -430,4 +430,16 @@ public class RegularMaintenance {
     public JLabel getUserBalanceLabel(){return userBalanceLabel;}
 
     public JLabel getSystemMessage(){return  systemMessage;}
+
+    public JTextField getSetCalories(){return setCalories;}
+
+    public JTextField getSetName(){return setName;}
+
+    public JTextField getSetPrice(){return setPrice;}
+
+    public JTextField getChangePrice(){return changePrice;}
+
+    public JComboBox<Integer> getAddStock(){return addStock;}
+
+    public JComboBox<String> getSlots(){return slots;}
 }

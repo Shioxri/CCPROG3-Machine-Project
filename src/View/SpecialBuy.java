@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
@@ -174,6 +175,7 @@ public class SpecialBuy {
                         "<br/> Milk Type " + milkType.getSelectedItem() +
                         "<br/> Ice Type:" + iceType.getSelectedItem() +
                         " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
+
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -357,7 +359,51 @@ public class SpecialBuy {
 
     public JLabel getUserBalanceLabel(){return userBalanceLabel;}
 
+    public void setFirstFruitsDropDown(ArrayList<String> slotTypes) {
+        firstFruitsDropDown.setFocusable(false);
+        firstFruitsDropDown.addItem("Choose a fruit...");
+        for (String string : slotTypes) {
+            firstFruitsDropDown.addItem(string);
+        }
+    }
 
+    public void setSecondFruitsDropDown(ArrayList<String> slotTypes) {
+        secondFruitsDropDown.setFocusable(false);
+        secondFruitsDropDown.addItem("Choose a fruit...");
+        for (String string : slotTypes) {
+            secondFruitsDropDown.addItem(string);
+        }
+    }
 
+    public void setMilkDropDown(ArrayList<String> slotTypes) {
+        milkType.setFocusable(false);
+        milkType.addItem("Choose a type of milk...");
+        for (String string : slotTypes) {
+            milkType.addItem(string);
+        }
+    }
 
+    public void setWaterDropDown(ArrayList<String> slotTypes) {
+        waterType.setFocusable(false);
+        waterType.addItem("Choose a type of water...");
+        for (String string : slotTypes) {
+            waterType.addItem(string);
+        }
+    }
+
+    public void setIceDropDown(ArrayList<String> slotTypes) {
+        iceType.setFocusable(false);
+        iceType.addItem("Choose the type of ice to be used...");
+        for (String string : slotTypes) {
+            iceType.addItem(string);
+        }
+    }
+
+    public void setToppingsDropDown(ArrayList<String> slotTypes) {
+        toppingsType.setFocusable(false);
+        toppingsType.addItem("Choose a topping...");
+        for (String string : slotTypes) {
+            toppingsType.addItem(string);
+        }
+    }
 }
