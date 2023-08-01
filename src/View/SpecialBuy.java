@@ -26,6 +26,8 @@ public class SpecialBuy {
     JComboBox<String> firstFruitsDropDown;
     JComboBox<String> secondFruitsDropDown;
     JComboBox<Integer> denominations;
+    private int totalPrice;
+    private int totalCals;
 
     public void setCash(AtomicInteger cash) {
         this.cash.set(cash.get());
@@ -87,10 +89,6 @@ public class SpecialBuy {
         systemMessage.setVerticalAlignment(JLabel.CENTER);
         systemMessage.setBackground(new Color(0, 0, 0));
         systemMessage.setBorder(borderLinegrayl);
-        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
-                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
-                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 

@@ -60,7 +60,7 @@ public class RegularBuyController {
 
             }
             else {
-               regularBuyMenu.setTextAfterBuy(errorType);
+               regularBuyMenu.setTextForInvalid(errorType);
             }
         });
 

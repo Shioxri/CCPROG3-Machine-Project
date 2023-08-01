@@ -247,7 +247,7 @@ public class RegularBuy {
 
     public JButton getBuyButton() {return buyButton;}
 
-    public void setTextAfterBuy(int errorType)
+    public void setTextForInvalid(int errorType)
     {
         switch (errorType) {
             case 1 -> systemMessage.setText("Please select an item at the dropdown menu");
