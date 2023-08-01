@@ -15,6 +15,8 @@ import javax.swing.border.Border;
 // then press Enter. You can now see whitespace characters in your code.
 public class SpecialMaintenance {
     JFrame frame = new JFrame();
+    JLabel systemMessage = new JLabel();
+    JLabel userBalanceLabel = new JLabel();
     JButton buyButton = new JButton();
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
@@ -28,6 +30,15 @@ public class SpecialMaintenance {
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
     JButton slotInfoButton = new JButton();
+    JComboBox<String> slots = new JComboBox<>();
+    JComboBox<String> slots2 = new JComboBox<>();
+    JComboBox<Integer> addStock = new JComboBox<>();
+    JComboBox<Integer> addStock2 = new JComboBox<>();
+    JTextField changePrice = new JTextField();
+    JTextField changePrice2 = new JTextField();
+    JTextField setName = new JTextField();
+    JTextField setPrice = new JTextField();
+    JTextField setCalories = new JTextField();
 
     public SpecialMaintenance() {
 
@@ -37,8 +48,7 @@ public class SpecialMaintenance {
         // Declarations
 
         JLabel titleLabel = new JLabel();
-        JLabel systemMessage = new JLabel();
-        JLabel userBalanceLabel = new JLabel();
+
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel newItemPanel = new JPanel();
@@ -46,15 +56,7 @@ public class SpecialMaintenance {
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
         JComboBox<Integer> denominations = new JComboBox<>();
-        JComboBox<String> slots = new JComboBox<>();
-        JComboBox<String> slots2 = new JComboBox<>();
-        JComboBox<Integer> addStock = new JComboBox<>();
-        JComboBox<Integer> addStock2 = new JComboBox<>();
-        JTextField changePrice = new JTextField();
-        JTextField changePrice2 = new JTextField();
-        JTextField setName = new JTextField();
-        JTextField setPrice = new JTextField();
-        JTextField setCalories = new JTextField();
+
 
         //TODO: need method to connect this to amount of $1 in backend
         AtomicInteger cash = new AtomicInteger(1);
@@ -461,5 +463,82 @@ public class SpecialMaintenance {
     public JButton getExitButton() {
         return exitButton;
     }
+
+    public JButton getBuyButton() {
+        return buyButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getChangePriceButton() {
+        return changePriceButton;
+    }
+
+    public JButton getChangePriceButton2() {
+        return changePriceButton2;
+    }
+
+    public JButton getReStock() {
+        return reStock;
+    }
+
+    public JButton getReStock2() {
+        return reStock2;
+    }
+
+    public JButton getAddItem() {
+        return addItem;
+    }
+
+    public JButton getInstructionsButton() {
+        return instructionsButton;
+    }
+
+    public JButton getCollectMoney() {
+        return collectMoney;
+    }
+
+    public JButton getSlotInfoButton() {
+        return slotInfoButton;
+    }
+
+    public JButton getPrintSummary() {
+        return printSummary;
+    }
+
+    public JLabel getUserBalanceLabel() {
+        return userBalanceLabel;
+    }
+
+    public JLabel getSystemMessage() {
+        return systemMessage;
+    }
+
+    public JComboBox<String> getSlots(){return slots;}
+
+    public JComboBox<String> getSlots2(){return slots2;}
+
+    public JComboBox<Integer> getAddStock(){return addStock;}
+
+    public JComboBox<Integer> getAddStock2(){return addStock2;}
+    
+    public JTextField getChangePrice(){return changePrice;}
+
+    public JTextField getChangePrice2(){return changePrice2;}
+
+    public JTextField getSetName(){return setName;}
+
+    public JTextField getSetPrice(){return setPrice;}
+
+    public JTextField getSetCalories(){return setCalories;}
+
+
+
 }
 

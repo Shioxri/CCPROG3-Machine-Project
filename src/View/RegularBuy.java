@@ -78,7 +78,12 @@ public class RegularBuy {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
         instructionsLabel.setBounds(10, 200, 180, 400);
-        instructionsLabel.setText("Instructions: ");
+        instructionsLabel.setText("<html>Instructions: <br/><br/>" +
+                "1. Select an Item from the dropdown<br/>" +
+                "2. Add money to your balance using the dropdown and add button above<br/>" +
+                "3. You may press the cancel button if you have inserted too much<br/>" +
+                "4. Press the Buy button to buy your Item<br/>" +
+                "Note: You can continue to buy as long as there is a balance</html>");
         instructionsLabel.setBackground(Color.BLACK);
         instructionsLabel.setBorder(borderLine);
         instructionsLabel.setForeground(Color.WHITE);
@@ -127,16 +132,6 @@ public class RegularBuy {
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
 
-        // Buttons
-        //TODO: need method to minus the slot and change of the machine
-        buyButton.setBounds(75, 320, 195, 50);
-        buyButton.setText("Buy");
-        buyButton.setHorizontalAlignment(JButton.CENTER);
-
-
-        cancelButton.setBounds(275, 320, 195, 50);
-        cancelButton.setText("Cancel");
-        cancelButton.setHorizontalAlignment(JButton.CENTER);
 
 
         addButton.setBounds(140, 110, 50,25);
@@ -247,6 +242,7 @@ public class RegularBuy {
         return userBalanceLabel;
     }
 
+    public JButton getCancelButton(){return cancelButton;}
 
     public JButton getBuyButton() {return buyButton;}
 
