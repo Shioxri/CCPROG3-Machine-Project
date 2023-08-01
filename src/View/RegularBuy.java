@@ -11,17 +11,6 @@ import javax.swing.border.Border;
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularBuy {
     JFrame frame;
-    JButton Item1Button = new JButton();
-    JButton Item2Button = new JButton();
-    JButton Item3Button = new JButton();
-    JButton Item4Button = new JButton();
-    JButton Item5Button = new JButton();
-    JButton Item6Button = new JButton();
-    JButton Item7Button = new JButton();
-    JButton Item8Button = new JButton();
-    JButton Item9Button = new JButton();
-    JButton backButton = new JButton();
-    JButton nextButton = new JButton();
     JButton buyButton = new JButton();
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
@@ -156,25 +145,9 @@ public class RegularBuy {
 
 
         // Buttons
-
-        backButton.setBounds(125, 400, 100, 50);
-        backButton.setHorizontalAlignment(JButton.CENTER);
-        backButton.setText("<--");
-        backButton.addActionListener(e -> {
-            if(pageNumber.get()>1) {
-                pageNumber.set(RegularBuy.magicDecrement(pageCounter, pageNumber.get()));
-            }
-        });
-
-        nextButton.setBounds(325, 400, 100, 50);
-        nextButton.setHorizontalAlignment(JButton.CENTER);
-        nextButton.setText("-->");
-        nextButton.addActionListener(e -> pageNumber.set(RegularBuy.magicIncrement(pageCounter, pageNumber.get())));
-
         //TODO: need method to minus the slot and change of the machine
         buyButton.setBounds(10, 410, 80, 50);
         buyButton.setText("Buy");
-        backButton.setHorizontalAlignment(JButton.CENTER);
 
 
         cancelButton.setBounds(110, 410, 80, 50);
@@ -250,17 +223,6 @@ public class RegularBuy {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public static int magicIncrement(JLabel pageCounter, int pageNumber){
-        pageNumber++;
-        pageCounter.setText(String.valueOf(pageNumber));
-        return pageNumber;
-    }
-
-    public static int magicDecrement(JLabel pageCounter, int pageNumber){
-        pageNumber--;
-        pageCounter.setText(String.valueOf(pageNumber));
-        return pageNumber;
-    }
 
     public void updateBalanceText(int userBalance){
         this.getUserBalanceLabel().setText("$"+userBalance);
@@ -283,59 +245,6 @@ public class RegularBuy {
     public void setCashBalance(int cash)
     {
         this.cashBalance.set(cash);
-    }
-
-
-    public JButton getItem1Button() {
-        return Item1Button;
-    }
-
-    public JButton getItem2Button() {
-        return Item2Button;
-    }
-
-    public JButton getItem3Button() {
-        return Item3Button;
-    }
-
-    public JButton getItem4Button() {
-        return Item4Button;
-    }
-
-    public JButton getItem5Button() {
-        return Item5Button;
-    }
-
-    public JButton getItem6Button() {
-        return Item6Button;
-    }
-
-    public JButton getItem7Button() {
-        return Item7Button;
-    }
-
-    public JButton getItem8Button() {
-        return Item8Button;
-    }
-
-    public JButton getItem9Button() {
-        return Item9Button;
-    }
-
-    public JButton getBackButton() {
-        return backButton;
-    }
-
-    public JButton getNextButton() {
-        return nextButton;
-    }
-
-    public JButton getBuyButton() {
-        return buyButton;
-    }
-
-    public JButton getCancelButton() {
-        return cancelButton;
     }
 
     public JButton getAddButton() {
