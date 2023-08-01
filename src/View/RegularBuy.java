@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.sampled.*;
 import javax.swing.border.Border;
@@ -19,13 +20,16 @@ public class RegularBuy {
     JLabel userBalanceLabel;
     JComboBox<Integer> denominations;
     JLabel systemMessage;
+    JLabel infoLabel = new JLabel();
     JComboBox<String> regularItems;
-
 
 
     public RegularBuy(){
         init();
     }
+
+
+
     public void init() {
         // Declarations
         frame = new JFrame();
@@ -38,18 +42,11 @@ public class RegularBuy {
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
-        JLabel infoLabel = new JLabel();
+
 
         regularItems = new JComboBox<>();
         denominations = new JComboBox<>(new Integer[]{1, 5, 10, 20, 50, 100});
         denominations.setBounds(10,110,120,25);
-
-
-        //TODO: need method that limits page number
-        AtomicInteger pageNumber = new AtomicInteger();
-        //TODO: need method to reflect user balance
-
-
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
@@ -93,15 +90,11 @@ public class RegularBuy {
         systemMessage.setVerticalAlignment(JLabel.CENTER);
         systemMessage.setBackground(new Color(0,0,0));
         systemMessage.setBorder(borderLinegrayl);
-        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
-                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
-                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
         userBalanceLabel.setBounds(10,50,180,50);
-        userBalanceLabel.setText("$" + cashBalance);
+        userBalanceLabel.setText("Balance: Php " + cashBalance);
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -112,7 +105,6 @@ public class RegularBuy {
 
         //TODO: need method to display item information(may be seperated into variables to be easier like userBalance)
         infoLabel.setBounds(75,110,400,200);
-        infoLabel.setText("<html>Price: <br/>Calories: <br/> Stock: </html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -122,15 +114,8 @@ public class RegularBuy {
         infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 15));
 
         // Buttons
-
-
-        //TODO: need method to show infoLabel the information of this item when clicked(use the actionlistener)
         regularItems.setBounds(75, 75, 400, 30);
         regularItems.setFocusable(false);
-        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
-            regularItems.addItem(i);
-        }
-
 
 
         //TODO: need method to minus the slot and change of the machine
@@ -226,14 +211,26 @@ public class RegularBuy {
     }
 
     public void updateBalanceText(int userBalance){
-        this.getUserBalanceLabel().setText("$"+userBalance);
+        this.getUserBalanceLabel().setText("Balance: Php "+userBalance);
         this.cashBalance.set(userBalance);
-        systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+        systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
+    }
+
+    public void setRegularItems(ArrayList<String> slotTypes) {
+        regularItems.setFocusable(false);
+        regularItems.addItem("Choose an item...");
+        for (String string : slotTypes) {
+            regularItems.addItem(string);
+        }
     }
 
     public JComboBox<Integer> getDenominations() {
         return denominations;
     }
+
+    public JComboBox<String> getRegularItems(){return regularItems;}
+
+    public JLabel getInfoLabel(){return infoLabel;}
 
     public JFrame getFrame() {
         return frame;
@@ -255,6 +252,27 @@ public class RegularBuy {
     public JLabel getUserBalanceLabel() {
         return userBalanceLabel;
     }
+
+
+    public JButton getBuyButton() {return buyButton;}
+
+    public void setTextAfterBuy(int errorType)
+    {
+        switch(errorType)
+        {
+            case 1:systemMessage.setText("[Transaction Successful!]");
+                break;
+            case 3:systemMessage.setText("Chosen item is not available due to being out of stock.");
+                break;
+            case 4:systemMessage.setText("Chosen item is not available due to insufficient balance.");
+                break;
+            case 5:systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
+                break;
+            default:systemMessage.setText("Please select an item at the dropdown menu");
+                break;
+        }
+    }
+
 
 
 }

@@ -3,13 +3,20 @@ package Model;
 import java.util.Scanner;
 
 public class TransactionManager {
-    public boolean checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
+    public static final int VALID_TRANSACTION = 0;
+    public static final int INVALID_INTEGER_INPUT = 1;
+    public static final int INVALID_ITEM_CHOICE = 2;
+    public static final int OUT_OF_STOCK = 3;
+    public static final int INSUFFICIENT_BALANCE = 4;
+    public static final int INSUFFICIENT_CHANGE = 5;
+
+    public int checkInputValidity(VendingMachine vendingMachine, int itemChoice) {
         int itemPrice;
         int totalUserMoney;
 
         if (!isValidInteger(itemChoice)) {
             System.out.println("Invalid input. Please enter a valid integer.");
-            return false;
+            return INVALID_INTEGER_INPUT;
         }
 
         if (itemChoice > 0 && itemChoice <= vendingMachine.getSlotArrayList().size()) {
@@ -17,7 +24,7 @@ public class TransactionManager {
             Slot selectedSlot = vendingMachine.getSlotArrayList().get(itemChoice - 1);
             if (selectedSlot.getItemArrayList().isEmpty()) {
                 System.out.println("Chosen item is not available due to being out of stock.");
-                return false;
+                return OUT_OF_STOCK;
             }
 
             // Get the item price and user's total balance
@@ -27,7 +34,7 @@ public class TransactionManager {
             if (itemPrice > totalUserMoney) {
                 // If user's balance does not meet the item price requirements
                 System.out.println("Chosen item is not available due to insufficient balance.");
-                return false;
+                return INSUFFICIENT_BALANCE;
             }
 
             // Check if there's enough change in the machine
@@ -36,14 +43,14 @@ public class TransactionManager {
                 // Return user's money and clear user paid money
                 vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
                 vendingMachine.getMoneyManager().clearUserPaidMoney();
-                return false;
+                return INSUFFICIENT_CHANGE;
             }
 
             // If all conditions are met, return true for a valid transaction
-            return true;
+            return VALID_TRANSACTION;
         } else {
             System.out.println("Invalid input. Please try again.");
-            return false;
+            return INVALID_ITEM_CHOICE;
         }
     }
 
