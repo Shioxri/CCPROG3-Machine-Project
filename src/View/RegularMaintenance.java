@@ -64,9 +64,6 @@ public class RegularMaintenance {
 
 
 
-        String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
-        playBackgroundMusic(musicFilePath);
-
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("trueregvm.png");
@@ -399,22 +396,6 @@ public class RegularMaintenance {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void playBackgroundMusic(String musicFilePath) {
-        try {
-            File musicFile = new File(musicFilePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-            Clip clip = AudioSystem.getClip();
-            if (musicFile.exists()) {
-                clip.open(audioStream);
-                clip.loop(0); // Play the music on a loop
-                clip.start();
-            } else {
-                System.out.println("Music file not found: " + musicFilePath);
-            }
-        } catch (Exception e) {
-            System.out.println("Error while playing background music: " + e.getMessage());
-        }
-    }
 
     public JFrame getFrame() {
         return frame;

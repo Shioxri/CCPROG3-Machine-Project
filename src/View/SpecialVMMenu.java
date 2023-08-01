@@ -24,8 +24,6 @@ public class SpecialVMMenu {
         JPanel selectionPanel = new JPanel();
 
 
-        String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
-        playBackgroundMusic(musicFilePath);
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
@@ -102,23 +100,6 @@ public class SpecialVMMenu {
         frame.setContentPane(layeredPane);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void playBackgroundMusic(String musicFilePath) {
-        try {
-            File musicFile = new File(musicFilePath);
-            if (musicFile.exists()) {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.loop(Clip.LOOP_CONTINUOUSLY); // Play the music on a loop
-                clip.start();
-            } else {
-                System.out.println("Music file not found: " + musicFilePath);
-            }
-        } catch (Exception e) {
-            System.out.println("Error while playing background music: " + e.getMessage());
-        }
     }
 
     public JFrame getFrame() {

@@ -50,9 +50,6 @@ public class SpecialBuy {
         AtomicInteger pageNumber = new AtomicInteger(1);
 
 
-        String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
-        playBackgroundMusic(musicFilePath);
-
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
@@ -342,23 +339,6 @@ public class SpecialBuy {
         frame.setContentPane(layeredPane);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void playBackgroundMusic(String musicFilePath) {
-        try {
-            File musicFile = new File(musicFilePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-            Clip clip = AudioSystem.getClip();
-            if (musicFile.exists()) {
-                clip.open(audioStream);
-                clip.loop(0); // Play the music on a loop
-                clip.start();
-            } else {
-                System.out.println("Music file not found: " + musicFilePath);
-            }
-        } catch (Exception e) {
-            System.out.println("Error while playing background music: " + e.getMessage());
-        }
     }
 
     public static int magicAdd(JLabel userBalance, int cash, int addition){

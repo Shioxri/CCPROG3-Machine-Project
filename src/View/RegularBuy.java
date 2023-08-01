@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularBuy {
-    JFrame frame = new JFrame();
+    JFrame frame;
     JButton Item1Button = new JButton();
     JButton Item2Button = new JButton();
     JButton Item3Button = new JButton();
@@ -27,6 +27,9 @@ public class RegularBuy {
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
     AtomicInteger cashBalance = new AtomicInteger();
+    JLabel userBalanceLabel;
+    JComboBox<Integer> denominations;
+    JLabel systemMessage;
 
 
 
@@ -35,28 +38,26 @@ public class RegularBuy {
     }
     public void init() {
         // Declarations
-
+        frame = new JFrame();
         JLabel titleLabel = new JLabel();
         JLabel pageCounter = new JLabel();
-        JLabel systemMessage = new JLabel();
-        JLabel userBalanceLabel = new JLabel();
+        systemMessage = new JLabel();
+        userBalanceLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
 
-        JComboBox<Integer> denominations = new JComboBox<>();
+        denominations = new JComboBox<>(new Integer[]{1, 5, 10, 20, 50, 100});
+        denominations.setBounds(10,110,120,25);
+
 
         //TODO: need method that limits page number
         AtomicInteger pageNumber = new AtomicInteger();
         //TODO: need method to reflect user balance
 
 
-
-
-        String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
-        playBackgroundMusic(musicFilePath);
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
@@ -207,24 +208,16 @@ public class RegularBuy {
         //TODO: need method to connect this to userbalance or make "cash" automatically update the balance in the back end
         addButton.setBounds(140, 110, 50,25);
         addButton.setText("+");
-        addButton.setHorizontalAlignment(JButton.CENTER);
-            addButton.addActionListener(e -> {
-                cashBalance.set(magicAdd(userBalanceLabel, cashBalance.get(), (Integer) denominations.getSelectedItem()));
-                systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
-            });
+
 
 
         //TODO: need method to switch GUI to RegularVMMenu
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
-        exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
-        denominations.setBounds(10,110,120,25);
-        for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
-            denominations.addItem(i);
-        }
+
 
 
         // Panels
@@ -291,23 +284,6 @@ public class RegularBuy {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void playBackgroundMusic(String musicFilePath) {
-        try {
-            File musicFile = new File(musicFilePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-            Clip clip = AudioSystem.getClip();
-            if (musicFile.exists()) {
-                clip.open(audioStream);
-                clip.loop(0); // Play the music on a loop
-                clip.start();
-            } else {
-                System.out.println("Music file not found: " + musicFilePath);
-            }
-        } catch (Exception e) {
-            System.out.println("Error while playing background music: " + e.getMessage());
-        }
-    }
-
     public static int magicIncrement(JLabel pageCounter, int pageNumber){
         pageNumber++;
         pageCounter.setText(String.valueOf(pageNumber));
@@ -320,11 +296,14 @@ public class RegularBuy {
         return pageNumber;
     }
 
-    //TODO: either update the userbalance in the backend itself or make cash connected to userbalance
-    public static int magicAdd(JLabel userBalance, int cash, int addition){
-        cash += addition;
-        userBalance.setText("$"+cash);
-        return cash;
+    public void updateBalanceText(int userBalance){
+        this.getUserBalanceLabel().setText("$"+userBalance);
+        this.cashBalance.set(userBalance);
+        systemMessage.setText("You Have Added $" + denominations.getSelectedItem());
+    }
+
+    public JComboBox<Integer> getDenominations() {
+        return denominations;
     }
 
     public JFrame getFrame() {
@@ -396,4 +375,10 @@ public class RegularBuy {
     public JButton getAddButton() {
         return addButton;
     }
+
+    public JLabel getUserBalanceLabel() {
+        return userBalanceLabel;
+    }
+
+
 }
