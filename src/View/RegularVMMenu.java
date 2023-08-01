@@ -32,11 +32,10 @@ public class RegularVMMenu {
 
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("trueregvm.png");
         ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("cola.png");
+        ImageIcon cola = new ImageIcon("orange.png");
 
         // Components for Background
         JLabel backgroundLabel = new JLabel(sampleBG);
@@ -100,7 +99,6 @@ public class RegularVMMenu {
 
         // Frame
         frame.setTitle("Vending Machine");
-        frame.setIconImage(fruitIcon.getImage());
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setContentPane(layeredPane);

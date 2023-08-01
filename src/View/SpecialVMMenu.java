@@ -26,11 +26,10 @@ public class SpecialVMMenu {
 
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
         ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("cola.png");
+        ImageIcon cola = new ImageIcon("orangeJuice.png");
 
         // Components for Background
         JLabel backgroundLabel = new JLabel(sampleBG);
@@ -92,7 +91,6 @@ public class SpecialVMMenu {
 
         // Frame
         frame.setTitle("Vending Machine");
-        frame.setIconImage(fruitIcon.getImage());
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setContentPane(layeredPane);
