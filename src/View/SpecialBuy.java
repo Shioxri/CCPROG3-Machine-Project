@@ -117,11 +117,24 @@ public class SpecialBuy {
         orderLabel.setOpaque(true);
         orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 13));
 
+        infoLabel.setBounds(10, 405, 180, 200);
+        infoLabel.setText("<html>First Fruit: " +
+                "<br/> Second Fruit: " +
+                "<br/> Water Type: " +
+                "<br/> Milk Type " +
+                "<br/> Ice Type:" +
+                " <br/> Toppings: </html>");
+        infoLabel.setForeground(Color.WHITE);
+        infoLabel.setBackground(Color.BLACK);
+        infoLabel.setBorder(borderLinegrayl);
+        infoLabel.setOpaque(true);
+        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 12));
+
         // Buttons
 
         //TODO: need method that simulates buy(reduce change reduce stocks)
         buyButton.setToolTipText("Buy Item");
-        buyButton.setBounds(10, 410, 180, 50);
+        buyButton.setBounds(10, 610, 180, 50);
         buyButton.setText("Buy");
         buyButton.setHorizontalAlignment(JButton.CENTER);
 
@@ -233,6 +246,7 @@ public class SpecialBuy {
         rightPanel.setBorder(borderLine);
         rightPanel.add(userBalanceLabel);
         rightPanel.add(orderLabel);
+        rightPanel.add(infoLabel);
         rightPanel.add(buyButton);
         rightPanel.add(addButton);
         rightPanel.add(cancelButton);

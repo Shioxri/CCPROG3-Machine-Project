@@ -37,7 +37,7 @@ public class MainMenuGUI {
 
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("MainLogo.jpg");
+        ImageIcon titleIcon = new ImageIcon("logo.png");
         ImageIcon sampleIcon = new ImageIcon("pngtree-pixel-art-cherry-icon-design-vector-png-image_6122197.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
 
