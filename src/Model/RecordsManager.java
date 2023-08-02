@@ -89,9 +89,6 @@ public class RecordsManager {
     public String getSalesReport(VendingMachine vendingMachine) {
         StringBuilder reportBuilder = new StringBuilder();
 
-        HashMap<String, Integer> itemsQuantities = new HashMap<>();
-        HashMap<String, Integer> itemsPrices = new HashMap<>();
-
         for (Slot slot : vendingMachine.getSlotArrayList()) {
             String itemTypeKey = slot.getAssignedItemType();
 
