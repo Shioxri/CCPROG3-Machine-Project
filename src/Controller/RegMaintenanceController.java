@@ -28,11 +28,11 @@ public class RegMaintenanceController {
 
 
         regularMaintenance.getChangePriceButton().addActionListener(e ->{
-            //Item.setPrice(regularMaintenance.getChangePrice().getText())
+            //Item.setPrice(parse.Int(regularMaintenance.getChangePrice().getText()));
         });
 
         regularMaintenance.getCollectMoney().addActionListener(e ->{
-
+            //regularMaintenance.getSystemMessage().setText("You have collected Php <Total cash>);
         });
 
         regularMaintenance.getReStock().addActionListener(e ->{
