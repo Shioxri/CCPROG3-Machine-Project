@@ -54,13 +54,13 @@ public class RegularBuyController {
                 int change = vendingMachine.getUserBalance()-dispensedItem.getPrice();
                 vendingMachine.confirmTransaction(selectedItemIndex-1);
 
-
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
                 Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
                 regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>"+
                         "Dispensed "+dispensedItem.getType()+"<br/>"+
                         "Return Change: "+change+"</html>");
+
                 JOptionPane.showMessageDialog(null,
                         new JLabel("Successfully Bought "+dispensedItem.getType()+"!", JLabel.CENTER),"Successful Transaction"
                         , JOptionPane.PLAIN_MESSAGE);

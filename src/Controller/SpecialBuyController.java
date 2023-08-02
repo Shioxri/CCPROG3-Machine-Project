@@ -159,6 +159,7 @@ public class SpecialBuyController {
                     if ((firstFruitIndex != 0 || secondFruitIndex != 0) && (waterTypeIndex != 0 || milkTypeIndex != 0)) {
 
                         StringBuilder systemLabelMessage = new StringBuilder();
+                        systemLabelMessage.append("<html>List of out of stock items:<br/>");
 
                         if (firstFruitIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
@@ -167,7 +168,7 @@ public class SpecialBuyController {
                                 selectedFruits.add(firstFruit);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("First Fruit is out of stock or not available\n");
+                                systemLabelMessage.append("First Fruit is out of stock or not available<br/>");
                             }
                         }
 
@@ -178,7 +179,7 @@ public class SpecialBuyController {
                                 selectedFruits.add(secondFruit);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("Second Fruit is out of stock or not available\n");
+                                systemLabelMessage.append("Second Fruit is out of stock or not available<br/>");
                             }
                         }
 
@@ -189,7 +190,7 @@ public class SpecialBuyController {
                                 selectedLiquids.add(waterType);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("Water Type is out of stock or not available\n");
+                                systemLabelMessage.append("Water Type is out of stock or not available<br/>");
                             }
                         }
 
@@ -200,7 +201,7 @@ public class SpecialBuyController {
                                 selectedLiquids.add(milkType);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("Milk Type is out of stock or not available\n");
+                                systemLabelMessage.append("Milk Type is out of stock or not available<br/>");
                             }
                         }
 
@@ -210,7 +211,7 @@ public class SpecialBuyController {
                                 selectedItems.add(iceType);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("Ice Type is out of stock or not available\n");
+                                systemLabelMessage.append("Ice Type is out of stock or not available<br/>");
                             }
                         }
 
@@ -220,7 +221,7 @@ public class SpecialBuyController {
                                 selectedItems.add(toppingsType);
                             } else {
                                 isInvalidOrder = true;
-                                systemLabelMessage.append("Toppings Type is out of stock or not available\n");
+                                systemLabelMessage.append("Toppings Type is out of stock or not available<br/>");
                             }
                         }
 
