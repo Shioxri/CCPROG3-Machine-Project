@@ -86,6 +86,64 @@ public class RecordsManager {
         }
     }
 
+    public String getSalesReport(VendingMachine vendingMachine) {
+        StringBuilder reportBuilder = new StringBuilder();
+
+        HashMap<String, Integer> itemsQuantities = new HashMap<>();
+        HashMap<String, Integer> itemsPrices = new HashMap<>();
+
+        for (Slot slot : vendingMachine.getSlotArrayList()) {
+            String itemTypeKey = slot.getAssignedItemType();
+
+            if (itemsQuantities.containsKey(itemTypeKey)) {
+                int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
+                itemsPrices.put(itemTypeKey, itemPrice);
+            }
+        }
+
+        if (vendingMachine instanceof SpecialVendingMachine) {
+            for (Slot slot : vendingMachine.getSpecialSlots()) {
+                String itemTypeKey = slot.getAssignedItemType();
+
+                if (itemsQuantities.containsKey(itemTypeKey)) {
+                    int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
+                    itemsPrices.put(itemTypeKey, itemPrice);
+                }
+            }
+        }
+
+        if (itemsQuantities.isEmpty()) {
+            reportBuilder.append("No sales recorded.");
+        } else {
+            reportBuilder.append("Sales Report:\n");
+
+            int totalSalesAmount = 0;
+
+            for (String itemType : itemsQuantities.keySet()) {
+                int quantitySold = itemsQuantities.getOrDefault(itemType, 0);
+                int totalPrice = itemsPrices.getOrDefault(itemType, 0);
+                totalSalesAmount += totalPrice;
+
+                reportBuilder.append(itemType)
+                        .append(" - # of Items Sold: ")
+                        .append(quantitySold)
+                        .append(" - Sales: ₱")
+                        .append(totalPrice)
+                        .append("\n");
+            }
+
+            reportBuilder.append("Total Sales: ₱").append(totalSalesAmount);
+
+            if (vendingMachine.getAdminCollectedMoney() > 0) {
+                reportBuilder.append("\nTotal Collected Money: ₱").append(vendingMachine.getAdminCollectedMoney());
+            } else {
+                reportBuilder.append("\nAdmin has not claimed any money from the machine yet.");
+            }
+        }
+
+        return reportBuilder.toString();
+    }
+
     public ArrayList<Slot> getStartingInventory() {
         return startingInventory;
     }

@@ -177,10 +177,7 @@ public class RegularMaintenance {
 
         //TODO: need method to print the summary here and add text wrapping
         printSummary.setBounds(92, 355,180,50);
-        printSummary.setText("Print Summary");
-        printSummary.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"summary");//remember to add wrapping
-        });
+        printSummary.setText("Print Sales Summary");
 
 
 

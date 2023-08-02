@@ -34,10 +34,10 @@ public class RegMaintenanceController {
 
         regularMaintenance.getAddItem().addActionListener(e ->{
             String newType = regularMaintenance.getSetName().getText();
-            int newCals =Integer.parseInt( regularMaintenance.getSetCalories().getText());
             int newPrice =Integer.parseInt( regularMaintenance.getSetPrice().getText());
-            
-            Maintenance.stockNewItems(vendingMachine, newType, newPrice, newCals);
+            int newCals =Integer.parseInt( regularMaintenance.getSetCalories().getText());
+            updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
+
 
         });
 
@@ -97,10 +97,6 @@ public class RegMaintenanceController {
         });
 
 
-        regularMaintenance.getSlotInfoButton().addActionListener(e -> {
-            //String system info = regularMaintenance.getStocks().getSelectedItem;
-            // regularMaintenance.getSystemMessage.setText(system info);
-        });
 
         regularMaintenance.getPrintSummary().addActionListener(e ->{
 
@@ -117,6 +113,18 @@ public class RegMaintenanceController {
     {
         ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         Maintenance.restockItem(vendingMachine, selectedItemIndex-1, false);
+        ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+        Maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
+        Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
+        ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+    }
+
+
+    private void updateVMInventoryAndAddStock(VendingMachine vendingMachine, String newType, int newPrice, int newCals)
+    {
+        ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        Maintenance.stockNewItems(vendingMachine, newType, newPrice, newCals);
         ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
         Maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
         Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);

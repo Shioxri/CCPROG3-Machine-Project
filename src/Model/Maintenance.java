@@ -41,6 +41,10 @@ public class Maintenance {
     public static void generateSalesReport(VendingMachine vendingMachine) {
         vendingMachine.getRecorder().generateSalesReport(vendingMachine);
     }
+    
+    public static String getSalesReport(VendingMachine vendingMachine) {
+        return vendingMachine.getRecorder().getSalesReport(vendingMachine);
+    }
 
     public static void addAllToStartingInventory(VendingMachine vendingMachine, ArrayList<Slot> slotList) {
         vendingMachine.getRecorder().getStartingInventory().clear();
