@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.SpecialBuy;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -271,7 +272,9 @@ public class SpecialBuyController {
                             successMessage.append("Order Complete! Enjoy your customized fruit shake!<br/>");
                             successMessage.append("Change Returned: Php ").append(change).append("</html>");
 
-                            specialBuyMenu.getSystemMessage().setText(successMessage.toString());
+                            specialBuyMenu.getSystemMessage().setText("<html>Order Complete!<br/>Transaction Successful!<html>");
+
+                            JOptionPane.showMessageDialog(null, new JLabel(successMessage.toString()));
 
 
                             //for checking

@@ -15,6 +15,8 @@ public class SpecialMaintenance {
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
     JLabel machineBalanceLabel = new JLabel();
+    JLabel regularSlotLabel = new JLabel();
+    JLabel specialSlotLabel = new JLabel();
     JButton buyButton = new JButton();
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
@@ -111,6 +113,23 @@ public class SpecialMaintenance {
         machineBalanceLabel.setBackground(Color.black);
         machineBalanceLabel.setOpaque(true);
 
+        regularSlotLabel.setBounds(25,170,150, 60);
+        regularSlotLabel.setText("<html>Price: <br/>Stock: ");
+        regularSlotLabel.setHorizontalAlignment(JLabel.CENTER);
+        regularSlotLabel.setVerticalAlignment(JLabel.CENTER);
+        regularSlotLabel.setBackground(Color.BLACK);
+        regularSlotLabel.setForeground(Color.WHITE);
+        regularSlotLabel.setBorder(borderLine);
+        regularSlotLabel.setOpaque(true);
+
+        specialSlotLabel.setBounds(195,170,150, 60);
+        specialSlotLabel.setText("<html>Price: <br/>Stock: ");
+        specialSlotLabel.setHorizontalAlignment(JLabel.CENTER);
+        specialSlotLabel.setVerticalAlignment(JLabel.CENTER);
+        specialSlotLabel.setBackground(Color.BLACK);
+        specialSlotLabel.setForeground(Color.WHITE);
+        specialSlotLabel.setBorder(borderLine);
+        specialSlotLabel.setOpaque(true);
 
         // Buttons
         //TODO: need method to connect this tobackend where it changes price based on changePriceRegular text field
