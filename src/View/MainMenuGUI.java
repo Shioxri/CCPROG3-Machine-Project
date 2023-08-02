@@ -1,10 +1,8 @@
 package View;
 
-import Controller.MainMenuController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.File;
 import javax.sound.sampled.*;
 
@@ -38,7 +36,6 @@ public class MainMenuGUI {
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("logo.png");
-        ImageIcon sampleIcon = new ImageIcon("pngtree-pixel-art-cherry-icon-design-vector-png-image_6122197.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
 
         // Components for Background
@@ -51,14 +48,14 @@ public class MainMenuGUI {
         bgpanel.add(backgroundLabel);
 
         // Buttons
-        //TODO: need method to switch GUI to RegularVMMenu
+
         regularVMButton.setBounds(100, 75, 300, 50);
         regularVMButton.setHorizontalAlignment(JButton.CENTER);
         regularVMButton.setText("Create Regular Vending Machine");
         regularVMButton.setVisible(true);
 
 
-        //TODO: need method to switch GUI to SpecialVMMenu
+
         specialVMButton.setBounds(100, 175, 300, 50);
         specialVMButton.setHorizontalAlignment(JButton.CENTER);
         specialVMButton.setText("Create Special Vending Machine");

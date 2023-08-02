@@ -45,17 +45,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
         }
     }
 
-    /**
-     * Adds the admin money to the admin money list.
-     * @param denomination The denomination of the admin money.
-     * @param quantity     The quantity of the admin money.
-     */
-    public void addAdminMoney(int denomination, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            this.adminMoney.add(denomination);
-        }
-    }
-
 
     public int getTotalMoneyFromList(ArrayList<Integer> moneyList) {
         int totalMoney = 0;
@@ -117,19 +106,12 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
     }
 
     /**
-     * Clears the stored money list.
-     */
-    public void clearStoredMoney() {
-        tempMoneyFromUser.clear();
-    }
-
-    /**
      * Returns the change for a given amount.
      * @param amount The amount for which change needs to be returned.
      * @return True if there is enough change, false otherwise.
      */
     public boolean canReturnChange(int amount) {
-        ArrayList<Integer> change = new ArrayList<>();
+
         ArrayList<Integer> storedMoneyCopy = new ArrayList<>(storedMoney); // Create a copy to avoid modifying the original storedMoney
 
         storedMoneyCopy.sort(Collections.reverseOrder());
@@ -138,7 +120,6 @@ public class MoneyManager { // by money, it means denomination (e.g. 50 pesos fr
             int denomination = storedMoneyCopy.get(i);
 
             if (denomination <= amount) {
-                change.add(denomination);
                 amount -= denomination;
                 storedMoneyCopy.remove(i);
                 i--;

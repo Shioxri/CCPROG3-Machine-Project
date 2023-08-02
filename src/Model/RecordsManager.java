@@ -37,55 +37,6 @@ public class RecordsManager {
     }
 
 
-    public void generateSalesReport(VendingMachine vendingMachine) {
-        for (Slot slot : vendingMachine.getSlotArrayList()) {
-            String itemTypeKey = slot.getAssignedItemType();
-
-            if (itemsQuantities.containsKey(itemTypeKey)) {
-                int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
-                itemsPrices.put(itemTypeKey, itemPrice);
-            }
-        }
-
-        if(vendingMachine instanceof SpecialVendingMachine)
-        {
-            for (Slot slot : vendingMachine.getSpecialSlots()) {
-                String itemTypeKey = slot.getAssignedItemType();
-
-                if (itemsQuantities.containsKey(itemTypeKey)) {
-                    int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
-                    itemsPrices.put(itemTypeKey, itemPrice);
-                }
-            }
-        }
-
-        if (itemsQuantities.isEmpty()) {
-            System.out.println("No sales recorded.");
-        } else {
-            System.out.println("Sales Report:");
-
-            int totalSalesAmount = 0;
-
-            for (String itemType : itemsQuantities.keySet()) {
-                int quantitySold = itemsQuantities.getOrDefault(itemType, 0);
-                int totalPrice = itemsPrices.getOrDefault(itemType, 0);
-                totalSalesAmount += totalPrice;
-
-                System.out.println(itemType + " - # of Items Sold: " + quantitySold + " - Sales: ₱" + totalPrice);
-            }
-
-            System.out.println("Total Sales: ₱" + totalSalesAmount);
-            if(vendingMachine.getAdminCollectedMoney()>0)
-            {
-                System.out.println("Total Collected Money: ₱"+vendingMachine.getAdminCollectedMoney());
-            }
-            else
-            {
-                System.out.println("Admin has not claimed any money from the machine yet.");
-            }
-        }
-    }
-
     public String getSalesReport(VendingMachine vendingMachine) {
         StringBuilder reportBuilder = new StringBuilder();
 
@@ -172,7 +123,6 @@ public class RecordsManager {
 
             }
         }
-
         return reportBuilder.toString();
     }
 
@@ -186,21 +136,6 @@ public class RecordsManager {
 
     public ArrayList<Slot> getEndingInventory() {
         return endingInventory;
-    }
-
-    public HashMap<String, Integer> getPricesList() {
-        return itemsPrices;
-    }
-
-    public void clearItemsQuantities() {
-        itemsQuantities.clear();
-    }
-
-    public HashMap<String, Integer> getItemsQuantities() {
-        return itemsQuantities;
-    }
-    public void clearItemsPrices() {
-        itemsPrices.clear();
     }
 
     public ArrayList<Slot> getSpecialStartingInventory() {

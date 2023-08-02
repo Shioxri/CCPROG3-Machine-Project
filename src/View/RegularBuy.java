@@ -2,14 +2,12 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
+
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.sound.sampled.*;
+
 import javax.swing.border.Border;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class RegularBuy {
     private JFrame frame;
     private JButton buyButton = new JButton();
@@ -50,9 +48,7 @@ public class RegularBuy {
         // Images
         ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
         ImageIcon titleIcon = new ImageIcon("trueregvm.png");
-        ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
         ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("cola.png");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
@@ -144,7 +140,6 @@ public class RegularBuy {
         exitButton.setBounds(10,700,180,25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Go Back");
-        /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
 
 

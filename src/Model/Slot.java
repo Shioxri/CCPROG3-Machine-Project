@@ -12,11 +12,6 @@ public class Slot implements Cloneable {
     public int getAssignedItemCals() {
         return assignedItemCals;
     }
-
-    public void setAssignedItemCals(int assignedItemCals) {
-        this.assignedItemCals = assignedItemCals;
-    }
-
     private int assignedItemCals;
 
     public int getAssignedItemPrice() {

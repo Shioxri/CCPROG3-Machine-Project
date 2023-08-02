@@ -1,18 +1,11 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class VendingMachine {
 
     private ArrayList<Slot> slotArrayList;
-
-    public Initializer getInitializer() {
-        return initializer;
-    }
-
     private Initializer initializer;
-    private DisplayManager displayer;
     private MoneyManager moneyManager;
     private TransactionManager transactionManager;
     private StockManager stockManager;
@@ -23,7 +16,6 @@ public class VendingMachine {
         slotArrayList = new ArrayList<>();
         specialSlots = new ArrayList<>();
         initializer = new Initializer();
-        displayer = new DisplayManager();
         moneyManager = new MoneyManager();
         transactionManager = new TransactionManager();
         stockManager = new StockManager();
@@ -39,17 +31,6 @@ public class VendingMachine {
         this.initializer.initializeMoney(this);
     }
 
-    public void displayAllItems(ArrayList<Slot> slots) {
-        this.displayer.displayAllItems(slots);
-    }
-
-    public void displaySpecificItem(int index) {
-        this.displayer.displaySpecificItem(this, index);
-    }
-
-    public void displayAvailableItems(boolean isSpecialSlot) {
-        this.displayer.displayAvailableItems(this, isSpecialSlot);
-    }
 
     public int checkInputValidity(int indexChoice, boolean isSpecialSlot) { return this.transactionManager.checkInputValidity(this, indexChoice, isSpecialSlot);}
 
@@ -75,14 +56,6 @@ public class VendingMachine {
         this.moneyManager.addStoredMoney(denomination, quantity);
     }
 
-    /**
-     * Adds the admin money to the admin money list.
-     * @param denomination The denomination of the admin money.
-     * @param quantity     The quantity of the admin money.
-     */
-    public void addAdminMoney(int denomination, int quantity) {
-        this.moneyManager.addAdminMoney(denomination, quantity);
-    }
 
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
@@ -130,14 +103,6 @@ public class VendingMachine {
         return recorder;
     }
 
-    public TransactionManager getTransactionManager() {
-        return transactionManager;
-    }
-
-    public boolean insertMoney(Scanner scanner)
-    {
-        return this.getTransactionManager().insertMoneyProcess(scanner, this);
-    }
     public ArrayList<Slot> getPrevStartingInventory()
     {
         return this.getRecorder().getPrevStartingInventory();
@@ -153,16 +118,6 @@ public class VendingMachine {
         return this.getRecorder().getEndingInventory();
     }
 
-    public ArrayList<Slot> getSpecialPrevStartingInventory()
-    {
-        return this.getRecorder().getSpecialPrevStartingInventory();
-    }
-
-    public ArrayList<Slot> getSpecialStartingInventory()
-    {
-        return this.getRecorder().getStartingInventory();
-    }
-
     public ArrayList<Slot> getSpecialEndingInventory()
     {
         return this.getRecorder().getEndingInventory();
@@ -172,16 +127,6 @@ public class VendingMachine {
         return specialSlots;
     }
 
-    public Item getSpecialItemByItemType(String itemType) {
-        for (Slot slot : this.specialSlots) {
-            for (Item item : slot.getItemArrayList()) {
-                if (item.getType().equalsIgnoreCase(itemType)) {
-                    return item;
-                }
-            }
-        }
-        return null; // Return null if the item with the specified itemType is not found
-    }
 
     public void restoreOriginalContents(ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
         this.getStockManager().restoreOriginalSlotContents(this,originalSlots, originalSpecialSlots);

@@ -3,12 +3,9 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.border.Border;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class SpecialBuy {
     private JFrame frame = new JFrame();
     private JButton buyButton = new JButton();
@@ -81,7 +78,7 @@ public class SpecialBuy {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
 
-        //TODO: need method that prints error messages or normal notifications
+
         systemMessage.setBounds(10, 8, 530, 110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
@@ -104,7 +101,7 @@ public class SpecialBuy {
         userBalanceLabel.setBackground(Color.black);
         userBalanceLabel.setOpaque(true);
 
-        //TODO: need method to put the price and calories of the shake/item here
+
         orderLabel.setBounds(10, 150, 180, 200);
         orderLabel.setForeground(Color.WHITE);
         orderLabel.setBackground(Color.BLACK);
@@ -122,13 +119,12 @@ public class SpecialBuy {
         setDefaultLabels();
         // Buttons
 
-        //TODO: need method that simulates buy(reduce change reduce stocks)
         buyButton.setToolTipText("Buy Item");
         buyButton.setBounds(10, 560, 180, 50);
         buyButton.setText("Buy");
         buyButton.setHorizontalAlignment(JButton.CENTER);
 
-        //TODO: need method to connect this to userbalance in backend or make "cash" connected to the backend
+
         addButton.setBounds(140, 110, 50, 25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
@@ -140,11 +136,11 @@ public class SpecialBuy {
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 
 
-        //TODO: need method to switch GUI to SpecialVMMenu
+
         exitButton.setBounds(10, 700, 180, 25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Go Back");
-        /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
+
 
         // Dropdowns
         denominations.setFocusable(false);
@@ -157,8 +153,7 @@ public class SpecialBuy {
         firstFruitsDropDown.setBounds(25, 75, 240, 50);
 
 
-        //TODO: need method to add calories and price to the info when clicked(use action listener)
-        //TODO: need method/String[] to input items in the dropdown(for loop)
+
         secondFruitsDropDown.setFocusable(false);
         secondFruitsDropDown.setToolTipText("Second Fruit");
         secondFruitsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -166,9 +161,6 @@ public class SpecialBuy {
 
 
 
-
-        //TODO: need method to add calories and price to the info when clicked(use action listener)
-        //TODO: need method/String[] to input items in the dropdown(for loop)
         waterType.setFocusable(false);
         waterType.setToolTipText("Water type");
         waterType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -176,8 +168,6 @@ public class SpecialBuy {
 
 
 
-        //TODO: need method to add calories and price to the info when clicked(use action listener)
-        //TODO: need method/String[] to input items in the dropdown(for loop)
         milkType.setFocusable(false);
         milkType.setToolTipText("Milk type");
         milkType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -185,8 +175,7 @@ public class SpecialBuy {
 
 
 
-        //TODO: need method to add calories and price to the info when clicked(use action listener)
-        //TODO: need method/String[] to input items in the dropdown(for loop)
+
         iceType.setFocusable(false);
         iceType.setToolTipText("Ice type");
         iceType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -195,9 +184,6 @@ public class SpecialBuy {
 
 
 
-
-        //TODO: need method to add calories and price to the info when clicked(use action listener)
-        //TODO: need method/String[] to input items in the dropdown(for loop)
         toppingsType.setFocusable(false);
         toppingsType.setToolTipText("Toppings");
         toppingsType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
@@ -339,7 +325,6 @@ public class SpecialBuy {
 
     public JLabel getSystemMessage(){return systemMessage;}
 
-    public JLabel getUserBalanceLabel(){return userBalanceLabel;}
 
     public JLabel getOrderLabel(){return orderLabel;}
 

@@ -19,7 +19,6 @@ public class SpecMaintenanceController {
 
         specialMaintenance.getAddButton().addActionListener(e ->{
             int denomination = ((Integer) specialMaintenance.getDenominations().getSelectedItem());
-            System.out.println("Denomination: "+denomination);
             Maintenance.replenishMoney(vendingMachine, denomination, 1 );
             updateDenomLabel(vendingMachine);
         });
@@ -216,7 +215,6 @@ public class SpecMaintenanceController {
     public void updateRegularInfoLabel(int selectedItemIndex, SpecialVendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
             int chosenItem = selectedItemIndex-1;
-            System.out.println(chosenItem);
             Item selectedItem = vendingMachine.getSelectedItem(chosenItem, false);
             Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, false);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
@@ -244,7 +242,7 @@ public class SpecMaintenanceController {
     public void updateSpecialInfoLabel(int selectedItemIndex, SpecialVendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
             int chosenItem = selectedItemIndex-1;
-            System.out.println(chosenItem);
+
             Item selectedItem = vendingMachine.getSelectedItem(chosenItem, true);
             Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, true);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {

@@ -9,8 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.border.Border;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+
 public class RegularMaintenance {
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
@@ -90,7 +89,6 @@ public class RegularMaintenance {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-        //TODO: need method to show error messages or normal notifs
         systemMessage.setBounds(10,8,530,110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
@@ -100,7 +98,7 @@ public class RegularMaintenance {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
-        //balance is shown here
+        //Balance
         machineBalanceLabel.setBounds(92,50,180,200);
         machineBalanceLabel.setText("<html>$1 Bill: <br/>$5 Bill: <br/> $10 Bill: <br/>$20 Bill: <br/>$50 Bill: <br/> $100 Bill: <br/> Total:</html>");
         machineBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
@@ -135,54 +133,52 @@ public class RegularMaintenance {
         restockButton.setFont(new Font("Century Gothic", Font.BOLD, 14));
         restockButton.setHorizontalTextPosition(JButton.CENTER);
 
-        //TODO: need method to connect this to denominations amount in the backend
-        //if cash and the backend is connected ignore this
+
+
         addButton.setBounds(222, 260, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
 
 
-        //TODO: need method to switch GUI to RegularVMMenu
+
         exitButton.setBounds(550,80,190,35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Go Back");
-        /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
-        //TODO: need method to display to system message the information of the chosen stock
+
+
         quitButton.setBounds(550,10,190,35);
         quitButton.setHorizontalAlignment(JButton.CENTER);
         quitButton.setText("Exit");
         quitButton.addActionListener(e -> System.exit(0));
 
-        //TODO: need method to display in system message instructions to use the maintenance
+
         instructionsButton.setBounds(550,45,190,35);
         instructionsButton.setHorizontalAlignment(JButton.CENTER);
         instructionsButton.setText("Instructions");
         instructionsButton.addActionListener(e -> System.exit(0));
 
-        //TODO: need method to add new item based on the 3 text fields like name price and calories(use the action listener)
+
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
 
 
-        //TODO: need method that mirrors collecting money
-        // if cash is connected, ignore this
+
         collectMoney.setBounds(92,295, 180, 50);
         collectMoney.setText("Collect Money");
 
 
-        //TODO: need method to print the summary here and add text wrapping
         printSummary.setBounds(92, 355,180,50);
         printSummary.setText("Print Sales Summary");
 
 
 
-        // Dropdows
+        // Dropdowns
         denominations.setBounds(92,260,120,25);
         denominations.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
 
-        //TODO: need method to show the items here
+
         slotsDropdown.setBounds(35,25,150,40);
         slotsDropdown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
@@ -357,10 +353,6 @@ public class RegularMaintenance {
     public JButton getInstructionsButton(){return instructionsButton;}
 
     public JButton getPrintSummary(){return printSummary;}
-
-    public JButton getQuitButton(){return quitButton;}
-
-    public JLabel getMachineBalanceLabel(){ return machineBalanceLabel;}
 
     public JLabel getSystemMessage(){return  systemMessage;}
 

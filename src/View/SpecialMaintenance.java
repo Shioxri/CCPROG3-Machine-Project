@@ -92,7 +92,7 @@ public class SpecialMaintenance {
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 30));
 
-        //TODO: need method to print errors and notifications here
+
         systemMessage.setBounds(10, 8, 530, 110);
         systemMessage.setHorizontalAlignment(JLabel.CENTER);
         systemMessage.setVerticalAlignment(JLabel.CENTER);
@@ -102,7 +102,7 @@ public class SpecialMaintenance {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
-        //TODO: need method to show denominations here(ignore if cashes are connected)
+
         machineBalanceLabel.setBounds(92, 50, 180, 200);
         machineBalanceLabel.setText("<html>$1 Bill: <br/>$5 Bill: <br/> $10 Bill: <br/>$20 Bill: <br/>$50 Bill: <br/> $100 Bill: <br/> Total:</html>");
         machineBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
@@ -132,7 +132,7 @@ public class SpecialMaintenance {
         specialSlotLabel.setOpaque(true);
 
         // Buttons
-        //TODO: need method to connect this tobackend where it changes price based on changePriceRegular text field
+
         changeRegularPriceButton.setBounds(125, 90, 50, 30);
         changeRegularPriceButton.setHorizontalAlignment(JButton.CENTER);
         changeRegularPriceButton.setText("<html>Set<br/>Price</html>");
@@ -140,7 +140,7 @@ public class SpecialMaintenance {
         changeRegularPriceButton.setHorizontalTextPosition(JButton.CENTER);
 
 
-        //TODO: need method to connect this tobackend where it changes price based on changePriceSpecial text field
+
         changeSpecialPriceButton.setBounds(295, 90, 50, 30);
         changeSpecialPriceButton.setHorizontalAlignment(JButton.CENTER);
         changeSpecialPriceButton.setText("<html>Set<br/>Price</html>");
@@ -148,7 +148,7 @@ public class SpecialMaintenance {
         changeSpecialPriceButton.setHorizontalTextPosition(JButton.CENTER);
 
 
-        //TODO: need method to connect this to backend where it restocks the stock based on the addStock dropdown
+
         restockRegular.setBounds(25, 130, 150, 30);
         restockRegular.setHorizontalAlignment(JButton.CENTER);
         restockRegular.setText("<html>Restock</html>");
@@ -156,59 +156,58 @@ public class SpecialMaintenance {
         restockRegular.setHorizontalTextPosition(JButton.CENTER);
 
 
-        //TODO: need method to connect this to backend where it restocks the stock based on the addStock2 dropdown
+
         restockSpecial.setBounds(195, 130, 150, 30);
         restockSpecial.setHorizontalAlignment(JButton.CENTER);
         restockSpecial.setText("<html>Restock</html>");
         restockSpecial.setFont(new Font("Century Gothic", Font.BOLD, 13));
         restockSpecial.setHorizontalTextPosition(JButton.CENTER);
 
-        //TODO: need method to update denominations in the backend(if cash is connected ignore this)
         addButton.setBounds(222, 260, 50, 25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
 
-        //TODO: need method to switch GUI to SpecialVMMenu
+
         exitButton.setBounds(550, 80, 190, 35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
-        //TODO: need method to show in system message the info of the 2 selected sl0ts
+
         quitButton.setBounds(550, 10, 190, 35);
         quitButton.setHorizontalAlignment(JButton.CENTER);
         quitButton.setText("Exit");
 
-        //TODO: need method to show in system message the instructions
+
         instructionsButton.setBounds(550, 45, 190, 35);
         instructionsButton.setHorizontalAlignment(JButton.CENTER);
         instructionsButton.setText("Instructions");
 
-        //TODO: need method that adds an item based on the 3 text fields
+
         addItem.setBounds(75, 190, 225, 30);
         addItem.setText("Add Item");
 
-        //TODO: need method to mirror collecting cash(if cash is connected ignore this)
+
         collectMoney.setBounds(92, 295, 180, 50);
         collectMoney.setText("Collect Money");
 
 
-        //TODO: need method to print the summary in the notification with text wrapping
+
         printSummary.setBounds(92, 355, 180, 50);
         printSummary.setText("Print Sales Summary");
 
 
-        // Dropdows
+        // Dropdowns
         denominations.setBounds(92, 260, 120, 25);
         denominations.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
 
-        //TODO: need method to show slot items here
+
         regularSlotsDropDown.setBounds(25, 25, 150, 40);
         regularSlotsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
 
-        //TODO: need method to show slot items here
+
         specialSlotsDropDown.setBounds(195, 25, 150, 40);
         regularSlotsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
@@ -391,13 +390,7 @@ public class SpecialMaintenance {
         return exitButton;
     }
 
-    public JButton getBuyButton() {
-        return buyButton;
-    }
 
-    public JButton getCancelButton() {
-        return cancelButton;
-    }
 
     public JButton getAddButton() {
         return addButton;
@@ -431,16 +424,9 @@ public class SpecialMaintenance {
         return collectMoney;
     }
 
-    public JButton getQuitButton() {
-        return quitButton;
-    }
 
     public JButton getPrintSummary() {
         return printSummary;
-    }
-
-    public JLabel getMachineBalanceLabel() {
-        return machineBalanceLabel;
     }
 
     public JLabel getSystemMessage() {

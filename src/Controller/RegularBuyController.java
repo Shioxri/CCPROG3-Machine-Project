@@ -8,7 +8,6 @@ import View.RegularBuy;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class RegularBuyController {
     private RegularBuy regularBuyMenu;
@@ -24,9 +23,6 @@ public class RegularBuyController {
             vendingMachine.addTempPaidMoney((Integer) regularBuyMenu.getDenominations().getSelectedItem(), 1);
             regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
             regularBuyMenu.showAddedMoneyText();
-            System.out.println("Added: "+vendingMachine.getMoneyManager().getTempMoneyFromUser().
-                    get(vendingMachine.getMoneyManager().getTempMoneyFromUser().size()-1));
-            System.out.println("User Bal: "+vendingMachine.getUserBalance());
         });
 
         regularBuyMenu.getExitButton().addActionListener(e -> {
@@ -43,7 +39,7 @@ public class RegularBuyController {
         });
 
         regularBuyMenu.getBuyButton().addActionListener(e -> {
-            vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
+
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
             int errorType = vendingMachine.checkInputValidity(selectedItemIndex, false);
             if(errorType==0)
@@ -54,7 +50,6 @@ public class RegularBuyController {
                 vendingMachine.confirmTransaction(selectedItemIndex-1);
 
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
-                System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
                 Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
                 regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>"+
                         "Dispensed "+dispensedItem.getType()+"<br/>"+
@@ -111,6 +106,7 @@ public class RegularBuyController {
                 int price = vendingMachine.getSelectedSlot(chosenItem, false).getAssignedItemPrice();
                 String infoText = "<html>Price: " + price +
                         "<br/>Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!</html>";
+                regularBuyMenu.getInfoLabel().setText(infoText);
                 regularBuyMenu.getSystemMessage().setText("Selected: "+selectedSlot.getAssignedItemType());
             }
 
