@@ -4,6 +4,7 @@ import Model.*;
 import View.SpecialMaintenance;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class SpecMaintenanceController {
@@ -140,11 +141,13 @@ public class SpecMaintenanceController {
 
         specialMaintenance.getPrintSummary().addActionListener(e ->{
             String finalReport = Maintenance.getSalesReport(vendingMachine);
-            JOptionPane.showMessageDialog(
-                    null,
-                    finalReport,
-                    "Sales Report",
-                    JOptionPane.PLAIN_MESSAGE);
+            JTextArea textArea = new JTextArea(finalReport);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+            JOptionPane.showMessageDialog(null, scrollPane, "dialog test with textarea",
+                    JOptionPane.YES_NO_OPTION);
         });
 
     }
