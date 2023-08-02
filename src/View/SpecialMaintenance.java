@@ -207,14 +207,13 @@ public class SpecialMaintenance {
         exitButton.setBounds(550, 80, 190, 35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
-        exitButton.addActionListener(e -> System.exit(0));
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
-        //TODO: need method to show in system message the info of the 2 selected slots
-        slotInfoButton.setBounds(550, 10, 190, 35);
-        slotInfoButton.setHorizontalAlignment(JButton.CENTER);
-        slotInfoButton.setText("Slot Info");
-        slotInfoButton.addActionListener(e -> System.exit(0));
+        //TODO: need method to show in system message the info of the 2 selected sl0ts
+        switchButton.setBounds(550, 10, 190, 35);
+        switchButton.setHorizontalAlignment(JButton.CENTER);
+        switchButton.setText("Switch to Buy");
+        switchButton.addActionListener(e -> System.exit(0));
 
         //TODO: need method to show in system message the instructions
         instructionsButton.setBounds(550, 45, 190, 35);
@@ -418,7 +417,7 @@ public class SpecialMaintenance {
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
-        lowerPanel.add(slotInfoButton);
+        lowerPanel.add(switchButton);
         lowerPanel.add(instructionsButton);
         lowerPanel.add(exitButton);
 
@@ -504,8 +503,8 @@ public class SpecialMaintenance {
         return collectMoney;
     }
 
-    public JButton getSlotInfoButton() {
-        return slotInfoButton;
+    public JButton getswitchButton() {
+        return switchButton;
     }
 
     public JButton getPrintSummary() {

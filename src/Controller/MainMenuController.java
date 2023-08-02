@@ -27,7 +27,7 @@ public class MainMenuController implements ActionListener {
         mainMenuGUI.getRegularVMButton().addActionListener(e -> {
             mainMenuGUI.getFrame().setVisible(false);
             VendingMachine vendingMachine = new VendingMachine(); //instantiate from the vending machine class
-            vendingMachine.initializeInventory();
+            initializeVMInventory(vendingMachine);
             RegularVMMenu regularVMMenu = new RegularVMMenu();
             RegVMMenuController regVMMenuController =
                     new RegVMMenuController(regularVMMenu, this, vendingMachine);
@@ -37,7 +37,7 @@ public class MainMenuController implements ActionListener {
         mainMenuGUI.getSpecialVMButton().addActionListener(e -> {
             mainMenuGUI.getFrame().setVisible(false);
             SpecialVendingMachine vendingMachine = new SpecialVendingMachine(); //instantiate from the vending machine class
-            vendingMachine.initializeInventory();
+            initializeSVMInventory(vendingMachine);
             SpecialVMMenu specialVMMenu = new SpecialVMMenu();
             SpecVMMenuController specialVMMenuController =
                     new SpecVMMenuController(specialVMMenu, this, vendingMachine);
@@ -51,6 +51,33 @@ public class MainMenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    private void initializeVMInventory(VendingMachine vendingMachine)
+    {
+        ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> prevStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+
+        Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+        Maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
+
+    }
+    
+    private void initializeSVMInventory(SpecialVendingMachine vendingMachine)
+    {
+        ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+        ArrayList<Slot> prevStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
+
+        Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
+        Maintenance.addAllToPrevStartingInventory(vendingMachine, prevStartingInventoryCopy);
+
+            ArrayList<Slot> startingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList((vendingMachine).getSpecialSlots());
+            ArrayList<Slot> prevStartingSpecialInventoryCopy = Maintenance.deepCopySlotArrayList((vendingMachine).getSpecialSlots());
+
+            Maintenance.addAllToStartingSpecialInventory(vendingMachine, startingSpecialInventoryCopy);
+            Maintenance.addAllToPrevStartingSpecialInventory(vendingMachine, prevStartingSpecialInventoryCopy);
+
+    }
+
 
     public MainMenuGUI getMainMenuGUI(){
         return mainMenuGUI;

@@ -152,6 +152,8 @@ public class SpecialBuyController {
             ArrayList<Item> selectedItems = new ArrayList<>();
             ArrayList<Item> selectedFruits = new ArrayList<>();
             ArrayList<Item> selectedLiquids = new ArrayList<>();
+            Item iceType = null;
+            Item toppingsType = null;
             if(vendingMachine.getUserBalance()>=specialBuyMenu.getTotalPrice())
             {
                 if(vendingMachine.getMoneyManager().canReturnChange(specialBuyMenu.getTotalPrice())) {
@@ -207,7 +209,7 @@ public class SpecialBuyController {
 
                         if (iceTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(iceTypeIndex + 6, true).getItemArrayList().isEmpty()) {
-                                Item iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
+                                iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
                                 selectedItems.add(iceType);
                             } else {
                                 isInvalidOrder = true;
@@ -217,7 +219,7 @@ public class SpecialBuyController {
 
                         if (toppingsTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(toppingsTypeIndex + 8, true).getItemArrayList().isEmpty()) {
-                                Item toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
+                                toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
                                 selectedItems.add(toppingsType);
                             } else {
                                 isInvalidOrder = true;
@@ -237,6 +239,29 @@ public class SpecialBuyController {
                             specialBuyMenu.resetTotalPrice();
                             specialBuyMenu.resetTotalCals();
                             resetDropdowns();
+
+                            //TODO: ADJUST THIS
+                            StringBuilder successMessage = new StringBuilder("<html>Preparing your custom fruit shake...<br/>");
+                            successMessage.append("Blended Fruits: ");
+                            for (Item item : selectedFruits) {
+                                successMessage.append(item.getType()).append(" ");
+                            }
+                            successMessage.append("<br/>Poured Liquids: ");
+                            for (Item liquid : selectedLiquids) {
+                                successMessage.append(liquid.getType()).append(" ");
+                            }
+                            successMessage.append("<br/>");
+                            if (iceType != null) {
+                                successMessage.append("Used ice: ").append(iceType.getType()).append("<br/>");
+                            }
+                            if (toppingsType != null) {
+                                successMessage.append("Topped with: ").append(toppingsType.getType()).append("<br/>");
+                            }
+                            successMessage.append("[Transaction Complete]<br/>");
+                            successMessage.append("Order Complete! Enjoy your customized fruit shake!<br/>");
+                            successMessage.append("Change Returned: Php").append(change).append("</html>");
+
+                            specialBuyMenu.getSystemMessage().setText(successMessage.toString());
 
                             //for checking
                             vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());

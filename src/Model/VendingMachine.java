@@ -188,9 +188,5 @@ public class VendingMachine {
 
     }
 
-    public void initializeInventory()
-    {
-        this.getInitializer().initializeInventory(this);
-    }
 
 }

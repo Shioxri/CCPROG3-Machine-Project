@@ -12,6 +12,7 @@ public class SpecVMMenuController implements ActionListener {
 
 
 
+
     public SpecVMMenuController(SpecialVMMenu specialVMMenu, MainMenuController mainMenuController, SpecialVendingMachine vendingMachine){
         this.specialVMMenu = specialVMMenu;
 
@@ -22,6 +23,7 @@ public class SpecVMMenuController implements ActionListener {
                     new SpecialBuyController(specialBuyMenu, this, vendingMachine);
             specialBuyMenu.getFrame().setVisible(true);
         });
+
         specialVMMenu.getMaintenanceButton().addActionListener(e -> {
             specialVMMenu.getFrame().setVisible(false);
             SpecialMaintenance specialMaintenanceMenu = new SpecialMaintenance();

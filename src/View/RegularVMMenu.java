@@ -47,21 +47,20 @@ public class RegularVMMenu {
         bgpanel.add(backgroundLabel);
 
         // Buttons
-        //TODO: need method to switch GUI to RegularBuy
+
         UseVMButton.setBounds(100, 75, 300, 50);
         UseVMButton.setHorizontalAlignment(JButton.CENTER);
         UseVMButton.setIcon(cola);
         UseVMButton.setText("Use Vending Machine");
         UseVMButton.setHorizontalTextPosition(JButton.CENTER);
 
-        //TODO: need method to switch GUI to RegularMaintenance
+
         maintenanceButton.setBounds(100, 175, 300, 50);
         maintenanceButton.setHorizontalAlignment(JButton.CENTER);
         maintenanceButton.setText("Enter Maintenance Mode");
         maintenanceButton.setHorizontalTextPosition(JButton.CENTER);
         maintenanceButton.setIcon(sampleIcon);
 
-        //TODO: need method to switch GUI to MainMenuGUI
         backButton.setBounds(100, 275, 300, 50);
         backButton.setHorizontalAlignment(JButton.CENTER);
         backButton.setText("Back");

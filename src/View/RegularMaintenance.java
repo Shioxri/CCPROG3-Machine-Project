@@ -6,9 +6,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.sound.sampled.*;
+import java.util.ArrayList;
 import javax.swing.border.Border;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -16,22 +14,32 @@ import javax.swing.border.Border;
 public class RegularMaintenance {
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
-    JLabel userBalanceLabel = new JLabel();
+    JLabel machineBalanceLabel = new JLabel();
+    JLabel slotInfoLabel = new JLabel();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
     JButton changePriceButton = new JButton();
-    JButton reStock = new JButton();
+    JButton restockButton = new JButton();
     JButton addItem = new JButton();
     JButton collectMoney = new JButton();
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
     JButton slotInfoButton = new JButton();
-    JComboBox<String> slots = new JComboBox<>();
-    JComboBox<Integer> addStock = new JComboBox<>();
+    JComboBox<String> slotsDropdown;
     JTextField changePrice = new JTextField();
     JTextField setName = new JTextField();
     JTextField setPrice = new JTextField();
     JTextField setCalories = new JTextField();
+    JComboBox<Integer> denominations;
+
+    private int numDenom1=0;
+    private int numDenom5=0;
+    private int numDenom10=0;
+    private int numDenom20=0;
+    private int numDenom50=0;
+    private int numDenom100=0;
+
+    private int totalChange;
 
     public RegularMaintenance(){
         init();
@@ -40,31 +48,19 @@ public class RegularMaintenance {
     public void init() {
         // Declarations
         JLabel titleLabel = new JLabel();
-        
+        slotsDropdown = new JComboBox<>();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
         JPanel newItemPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JLabel infoLabel = new JLabel();
-        JComboBox<Integer> denominations = new JComboBox<>();
+
+        denominations = new JComboBox<>(new Integer[]{1, 5, 10, 20, 50, 100});
 
 
 
-        //TODO: need method to connect this to amount of $1 in backend
-        AtomicInteger cash = new AtomicInteger(1);
-        //TODO: need method to connect this to amount of $5 in backend
-        AtomicInteger cash2 = new AtomicInteger(1);
-        //TODO: need method to connect this to amount of $10 in backend
-        AtomicInteger cash3 = new AtomicInteger(1);
-        //TODO: need method to connect this to amount of $20 in backend
-        AtomicInteger cash4 = new AtomicInteger(1);
-        //TODO: need method to connect this to amount of $50 in backend
-        AtomicInteger cash5 = new AtomicInteger(1);
-        //TODO: need method to connect this to amount of $100 in backend
-        AtomicInteger cash6 = new AtomicInteger(1);
-        //TODO: need method to show the total amount of all these items
-        AtomicInteger cashtotal = new AtomicInteger(186);
+
 
 
 
@@ -109,17 +105,15 @@ public class RegularMaintenance {
         systemMessage.setOpaque(true);
 
         //balance is shown here
-        userBalanceLabel.setBounds(92,50,180,200);
-        userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
-                "</html>");
-        userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
-        userBalanceLabel.setForeground(Color.white);
-        userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
-        userBalanceLabel.setVerticalAlignment(JLabel.CENTER);
-        userBalanceLabel.setBorder(borderLine);
-        userBalanceLabel.setBackground(Color.black);
-        userBalanceLabel.setOpaque(true);
+        machineBalanceLabel.setBounds(92,50,180,200);
+        machineBalanceLabel.setText("<html>$1 Bill: <br/>$5 Bill: <br/> $10 Bill: <br/>$20 Bill: <br/>$50 Bill: <br/> $100 Bill: <br/> Total:</html>");
+        machineBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
+        machineBalanceLabel.setForeground(Color.white);
+        machineBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
+        machineBalanceLabel.setVerticalAlignment(JLabel.CENTER);
+        machineBalanceLabel.setBorder(borderLine);
+        machineBalanceLabel.setBackground(Color.black);
+        machineBalanceLabel.setOpaque(true);
 
 
 
@@ -130,61 +124,25 @@ public class RegularMaintenance {
         changePriceButton.setText("<html>Set<br/>Price</html>");
         changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
         changePriceButton.setHorizontalTextPosition(JButton.CENTER);
-        changePriceButton.addActionListener(e -> {
-            System.out.println("New Money: " + Integer.parseInt(changePrice.getText()));
-            changePrice.setText("");
-        });
 
-        //TODO: need method to restock the stock based on the chosen number in the dropdown "addStock"
-        reStock.setBounds(265, 130, 70, 30);
-        reStock.setHorizontalAlignment(JButton.CENTER);
-        reStock.setText("Restock");
-        reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        reStock.setHorizontalTextPosition(JButton.CENTER);
-        reStock.addActionListener(e -> System.out.println("New Stock: " + addStock.getSelectedItem()));
+
+        restockButton.setBounds(190, 25, 145, 40);
+        restockButton.setHorizontalAlignment(JButton.CENTER);
+        restockButton.setText("Restock");
+        restockButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        restockButton.setHorizontalTextPosition(JButton.CENTER);
 
         //TODO: need method to connect this to denominations amount in the backend
         //if cash and the backend is connected ignore this
         addButton.setBounds(222, 260, 50,25);
         addButton.setText("+");
         addButton.setHorizontalAlignment(JButton.CENTER);
-        addButton.addActionListener(e -> {
-            switch (denominations.getSelectedIndex()) {
-                case 0 -> {
-                    cash.set(cash.get() + 1);
-                    cashtotal.set(cashtotal.get() + 1);
-                }
-                case 1 -> {
-                    cash2.set(cash2.get() + 1);
-                    cashtotal.set(cashtotal.get() + 5);
-                }
-                case 2 -> {
-                    cash3.set(cash3.get() + 1);
-                    cashtotal.set(cashtotal.get() + 10);
-                }
-                case 3 -> {
-                    cash4.set(cash4.get() + 1);
-                    cashtotal.set(cashtotal.get() + 20);
-                }
-                case 4 -> {
-                    cash5.set(cash5.get() + 1);
-                    cashtotal.set(cashtotal.get() + 50);
-                }
-                case 5 -> {
-                    cash6.set(cash6.get() + 1);
-                    cashtotal.set(cashtotal.get() + 100);
-                }
-            }
-            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
-                    "</html>");
-        });
+
 
         //TODO: need method to switch GUI to RegularVMMenu
         exitButton.setBounds(550,80,190,35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
-        exitButton.setText("Menu");
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.setText("Go Back");
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
         //TODO: need method to display to system message the information of the chosen stock
@@ -202,25 +160,13 @@ public class RegularMaintenance {
         //TODO: need method to add new item based on the 3 text fields like name price and calories(use the action listener)
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
-        addItem.addActionListener(e -> slots.addItem(setName.getText()));
+        addItem.addActionListener(e -> slotsDropdown.addItem(setName.getText()));
 
         //TODO: need method that mirrors collecting money
         // if cash is connected, ignore this
         collectMoney.setBounds(92,295, 180, 50);
         collectMoney.setText("Collect Money");
-        collectMoney.addActionListener(e -> {
-            cash.set(0);
-            cash2.set(0);
-            cash3.set(0);
-            cash4.set(0);
-            cash5.set(0);
-            cash6.set(0);
-            systemMessage.setText("You have collected $"+cashtotal.get());
-            cashtotal.set(0);
-            userBalanceLabel.setText("<html>$1 Bill: "+cash.get()+"<br/>$5 Bill: "+cash2.get()+"<br/> $10 Bill: "+ cash3.get() +
-                    "<br/>$20 Bill: "+cash4.get()+"<br/>$50 Bill: "+cash5.get()+"<br/> $100 Bill: "+cash6.get()+"<br/>Total: "+cashtotal.get()+
-                    "</html>");
-        });
+
 
         //TODO: need method to print the summary here and add text wrapping
         printSummary.setBounds(92, 355,180,50);
@@ -234,22 +180,12 @@ public class RegularMaintenance {
         // Dropdows
         denominations.setBounds(92,260,120,25);
         denominations.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        for (int i : new int[]{1, 5, 10, 20, 50, 100}) {
-            denominations.addItem(i);
-        }
+
 
         //TODO: need method to show the items here
-        slots.setBounds(112,25,150,40);
-        slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        for (String i : new String[]{"Slot 1", "Slot 2", "Slot 3"}) {
-            slots.addItem(i);
-        }
+        slotsDropdown.setBounds(35,25,150,40);
+        slotsDropdown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
-        addStock.setBounds(35, 130, 225, 30);
-        addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-        for (int i : new int[]{1, 5, 10}) {
-            addStock.addItem(i);
-        }
 
 
         // Text Fields
@@ -341,10 +277,11 @@ public class RegularMaintenance {
         selectionPanel.setOpaque(true);
         selectionPanel.setBorder(borderLine);
         selectionPanel.add(changePriceButton);
-        selectionPanel.add(reStock);
-        selectionPanel.add(slots);
+        selectionPanel.add(restockButton);
+        selectionPanel.add(slotsDropdown);
         selectionPanel.add(changePrice);
-        selectionPanel.add(addStock);
+        selectionPanel.add(slotInfoLabel);
+
 
         newItemPanel.setBackground(new Color(25, 25, 112, 123));
         newItemPanel.setBounds(0, 390, 375, 240);
@@ -371,7 +308,7 @@ public class RegularMaintenance {
         rightPanel.setLayout(null);
         rightPanel.setOpaque(true);
         rightPanel.setBorder(borderLine);
-        rightPanel.add(userBalanceLabel);
+        rightPanel.add(machineBalanceLabel);
         rightPanel.add(infoLabel);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
@@ -411,7 +348,7 @@ public class RegularMaintenance {
 
     public JButton getChangePriceButton(){return changePriceButton;}
 
-    public JButton getReStock(){return reStock;}
+    public JButton getRestockButton(){return restockButton;}
 
     public JButton getAddItem(){return addItem;}
 
@@ -423,7 +360,7 @@ public class RegularMaintenance {
 
     public JButton getSlotInfoButton(){return slotInfoButton;}
 
-    public JLabel getUserBalanceLabel(){return userBalanceLabel;}
+    public JLabel getMachineBalanceLabel(){ return machineBalanceLabel;}
 
     public JLabel getSystemMessage(){return  systemMessage;}
 
@@ -435,7 +372,39 @@ public class RegularMaintenance {
 
     public JTextField getChangePrice(){return changePrice;}
 
-    public JComboBox<Integer> getAddStock(){return addStock;}
+    public JComboBox<String> getSlotsDropdown(){return slotsDropdown;}
 
-    public JComboBox<String> getSlots(){return slots;}
+
+    public void setSlotsDropdown(ArrayList<String> slotTypes) {
+        slotsDropdown.setFocusable(false);
+        slotsDropdown.addItem("Choose an item...");
+        for (String string : slotTypes) {
+            slotsDropdown.addItem(string);
+        }
+    }
+
+    public void setMachineBalanceLabel(ArrayList<Integer> machineStoredMoney, int totalMachineMoney)
+    {
+        for(int j : machineStoredMoney)
+        {
+            switch (j) {
+                case 1 -> numDenom1++;
+                case 5 -> numDenom5++;
+                case 10 -> numDenom10++;
+                case 20 -> numDenom20++;
+                case 50 -> numDenom50++;
+                case 100 -> numDenom100++;
+            }
+        }
+
+        machineBalanceLabel.setText("<html>" + "Add Machine Money <br/>"+
+                "<br/>Php 1 Coin: " + numDenom1 +
+                "<br/>Php 5 Coin: " + numDenom5 +
+                "<br/>Php 10 Coin: " + numDenom10 +
+                "<br/>Php 20 Bill: " + numDenom20 +
+                "<br/>Php 50 Bill: " + numDenom50 +
+                "<br/>Php 100 Bill: " + numDenom100 +
+                "<br/>Total: " + totalMachineMoney + "<html>");
+
+    }
 }
