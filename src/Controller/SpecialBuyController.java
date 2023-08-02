@@ -34,8 +34,7 @@ public class SpecialBuyController {
 
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(),0);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(),0);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
 
         });
 
@@ -44,8 +43,7 @@ public class SpecialBuyController {
             Item selectedItem = vendingMachine.getSelectedItem(secondFruitSelectedIndex-1, false);
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 1);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 1);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
         });
 
         specialBuyMenu.getWaterType().addActionListener(e ->{
@@ -53,8 +51,7 @@ public class SpecialBuyController {
             Item selectedItem = vendingMachine.getSelectedItem(waterTypeSelectedIndex-1, true);
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 2);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 2);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
         });
 
         specialBuyMenu.getMilkType().addActionListener(e ->{
@@ -62,8 +59,7 @@ public class SpecialBuyController {
             Item selectedItem = vendingMachine.getSelectedItem(milkTypeSelectedIndex-1, true);
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 3);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 3);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
         });
 
         specialBuyMenu.getIceType().addActionListener(e ->{
@@ -71,8 +67,7 @@ public class SpecialBuyController {
             Item selectedItem = vendingMachine.getSelectedItem(iceTypeSelectedIndex-1, true);
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 4);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 4);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
         });
 
         specialBuyMenu.getToppingsType().addActionListener(e ->{
@@ -80,8 +75,8 @@ public class SpecialBuyController {
             Item selectedItem = vendingMachine.getSelectedItem(toppingsSelectedIndex-1, true);
             specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 5);
             specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 5);
-            updateInfoLabel(specialBuyMenu, vendingMachine);
-            updateOrderLabel(specialBuyMenu);
+            updateSideLabels(specialBuyMenu, vendingMachine);
+
         });
 
         specialBuyMenu.getAddButton().addActionListener(e -> {
@@ -206,7 +201,7 @@ public class SpecialBuyController {
         return stringSlotTypes;
     }
 
-    public void updateInfoLabel(SpecialBuy specialBuyMenu, SpecialVendingMachine vendingMachine) {
+    public void updateSideLabels(SpecialBuy specialBuyMenu, SpecialVendingMachine vendingMachine) {
         int firstFruitIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
         int secondFruitIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
         int waterTypeIndex = specialBuyMenu.getWaterType().getSelectedIndex();
@@ -215,123 +210,87 @@ public class SpecialBuyController {
         int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
 
         StringBuilder infoText = new StringBuilder("<html>Item Details:<br/>Price | Calories | Stock<br/>");
-
-        if (firstFruitIndex != 0) {
-            String firstFruit = (String) specialBuyMenu.getFirstFruitsDropDown().getItemAt(firstFruitIndex);
-            int price = vendingMachine.getSelectedItem(firstFruitIndex-1, false).getPrice();
-            int calories = vendingMachine.getSelectedItem(firstFruitIndex-1, false).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(firstFruitIndex-1, false).getItemStock();
-
-            infoText.append("<br/>First Fruit: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-
-        } else {infoText.append("<br/> First Fruit: ");}
-
-        if (secondFruitIndex != 0) {
-            String secondFruit = (String) specialBuyMenu.getSecondFruitsDropDown().getItemAt(secondFruitIndex);
-            int price = vendingMachine.getSelectedItem(secondFruitIndex-1, false).getPrice();
-            int calories = vendingMachine.getSelectedItem(secondFruitIndex-1, false).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(secondFruitIndex-1, false).getItemStock();
-
-            infoText.append("<br/>Second Fruit: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-        } else {infoText.append("<br/> Second Fruit: ");}
-        if (waterTypeIndex != 0) {
-            String waterType = (String) specialBuyMenu.getWaterType().getItemAt(waterTypeIndex);
-            int price = vendingMachine.getSelectedItem(waterTypeIndex-1, true).getPrice();
-            int calories = vendingMachine.getSelectedItem(waterTypeIndex-1, true).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(waterTypeIndex-1, true).getItemStock();
-
-            infoText.append("<br/>Water Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-        } else {infoText.append("<br/> Water Type: ");}
-        if (milkTypeIndex != 0) {
-            String milkType = (String) specialBuyMenu.getMilkType().getItemAt(milkTypeIndex);
-            int price = vendingMachine.getSelectedItem(milkTypeIndex+1, true).getPrice();
-            int calories = vendingMachine.getSelectedItem(milkTypeIndex+1, true).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(milkTypeIndex+1, true).getItemStock();
-
-            infoText.append("<br/>Milk Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-        } else {infoText.append("<br/> Milk Type: ");}
-        if (iceTypeIndex != 0) {
-            String iceType = (String) specialBuyMenu.getIceType().getItemAt(iceTypeIndex);
-            int price = vendingMachine.getSelectedItem(iceTypeIndex+6, true).getPrice();
-            int calories = vendingMachine.getSelectedItem(iceTypeIndex+6, true).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(iceTypeIndex+6, true).getItemStock();
-
-            infoText.append("<br/>Ice Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-        } else {infoText.append("<br/> Ice Type: ");}
-        if (toppingsTypeIndex != 0) {
-            String toppingsType = (String) specialBuyMenu.getToppingsType().getItemAt(toppingsTypeIndex);
-            int price = vendingMachine.getSelectedItem(toppingsTypeIndex+8, true).getPrice();
-            int calories = vendingMachine.getSelectedItem(toppingsTypeIndex+8, true).getCalorie();
-            int stock = vendingMachine.getSelectedSlot(toppingsTypeIndex+8, true).getItemStock();
-
-            infoText.append("<br/>Toppings: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
-        } else {infoText.append("<br/> Toppings: ");}
-
-        infoText.append("</html>");
-        specialBuyMenu.getInfoLabel().setText(infoText.toString());
-    }
-
-    public void updateOrderLabel(SpecialBuy specialBuyMenu) {
-        int firstFruitIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
-        int secondFruitIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
-        int waterTypeIndex = specialBuyMenu.getWaterType().getSelectedIndex();
-        int milkTypeIndex = specialBuyMenu.getMilkType().getSelectedIndex();
-        int iceTypeIndex = specialBuyMenu.getIceType().getSelectedIndex();
-        int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
-
         StringBuilder orderText = new StringBuilder();
         orderText.append("<html>Order Details<br/>Price: Php ").append(specialBuyMenu.getTotalPrice());
         orderText.append("<br/>Calories: ").append(specialBuyMenu.getTotalCals()).append(" kCal");
         orderText.append("<br/>Selected Items:<br/>");
 
-        // First Fruit
         if (firstFruitIndex != 0) {
             String firstFruit = (String) specialBuyMenu.getFirstFruitsDropDown().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(firstFruitIndex-1, false).getPrice();
+            int calories = vendingMachine.getSelectedItem(firstFruitIndex-1, false).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(firstFruitIndex-1, false).getItemStock();
+
             orderText.append("<br/>First Fruit: ").append(firstFruit);
+            infoText.append("<br/>First Fruit: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/>First Fruit: ");
             orderText.append("<br/>First Fruit: ");
         }
 
-        // Second Fruit
         if (secondFruitIndex != 0) {
             String secondFruit = (String) specialBuyMenu.getSecondFruitsDropDown().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(secondFruitIndex-1, false).getPrice();
+            int calories = vendingMachine.getSelectedItem(secondFruitIndex-1, false).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(secondFruitIndex-1, false).getItemStock();
+
             orderText.append("<br/>Second Fruit: ").append(secondFruit);
+            infoText.append("<br/>Second Fruit: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/> Second Fruit: ");
             orderText.append("<br/>Second Fruit: ");
         }
-
-        // Water Type
         if (waterTypeIndex != 0) {
             String waterType = (String) specialBuyMenu.getWaterType().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(waterTypeIndex-1, true).getPrice();
+            int calories = vendingMachine.getSelectedItem(waterTypeIndex-1, true).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(waterTypeIndex-1, true).getItemStock();
+
             orderText.append("<br/>Water Type: ").append(waterType);
+            infoText.append("<br/>Water Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/> Water Type: ");
             orderText.append("<br/>Water Type: ");
         }
-
-        // Milk Type
         if (milkTypeIndex != 0) {
             String milkType = (String) specialBuyMenu.getMilkType().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(milkTypeIndex+1, true).getPrice();
+            int calories = vendingMachine.getSelectedItem(milkTypeIndex+1, true).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(milkTypeIndex+1, true).getItemStock();
+
             orderText.append("<br/>Milk Type: ").append(milkType);
+            infoText.append("<br/>Milk Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/> Milk Type: ");
             orderText.append("<br/>Milk Type: ");
         }
-
-        // Ice Type
         if (iceTypeIndex != 0) {
             String iceType = (String) specialBuyMenu.getIceType().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(iceTypeIndex+6, true).getPrice();
+            int calories = vendingMachine.getSelectedItem(iceTypeIndex+6, true).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(iceTypeIndex+6, true).getItemStock();
+
             orderText.append("<br/>Ice Type: ").append(iceType);
+            infoText.append("<br/>Ice Type: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/> Ice Type: ");
             orderText.append("<br/>Ice Type: ");
         }
-
-        // Toppings
         if (toppingsTypeIndex != 0) {
             String toppingsType = (String) specialBuyMenu.getToppingsType().getSelectedItem();
+            int price = vendingMachine.getSelectedItem(toppingsTypeIndex+8, true).getPrice();
+            int calories = vendingMachine.getSelectedItem(toppingsTypeIndex+8, true).getCalorie();
+            int stock = vendingMachine.getSelectedSlot(toppingsTypeIndex+8, true).getItemStock();
+
             orderText.append("<br/>Toppings: ").append(toppingsType);
+            infoText.append("<br/>Toppings: ").append(price).append(" | ").append(calories).append(" | ").append(stock);
         } else {
+            infoText.append("<br/> Toppings: ");
             orderText.append("<br/>Toppings: ");
         }
 
+        infoText.append("</html>");
+        specialBuyMenu.getInfoLabel().setText(infoText.toString());
         orderText.append("</html>");
         specialBuyMenu.getOrderLabel().setText(orderText.toString());
     }
