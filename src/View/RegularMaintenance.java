@@ -17,8 +17,6 @@ public class RegularMaintenance {
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
     JLabel userBalanceLabel = new JLabel();
-    JButton buyButton = new JButton();
-    JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
     JButton changePriceButton = new JButton();
@@ -371,8 +369,6 @@ public class RegularMaintenance {
         rightPanel.setBorder(borderLine);
         rightPanel.add(userBalanceLabel);
         rightPanel.add(infoLabel);
-        rightPanel.add(buyButton);
-        rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
         rightPanel.add(collectMoney);
@@ -406,10 +402,6 @@ public class RegularMaintenance {
     public JButton getExitButton(){
         return exitButton;
     }
-    
-    public JButton getBuyButton(){return buyButton;}
-
-    public JButton getCancelButton(){return cancelButton;}
 
     public JButton getAddButton(){return addButton;}
 

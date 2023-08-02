@@ -102,8 +102,8 @@ public class SpecialBuy {
         userBalanceLabel.setOpaque(true);
 
         //TODO: need method to put the price and calories of the shake/item here
-        orderLabel.setBounds(10, 200, 180, 200);
-        orderLabel.setText("<html>Price: " +
+        orderLabel.setBounds(10, 150, 180, 200);
+        orderLabel.setText("<html>Order Details<br/>Price: " +
                 "<br/>Calories: " +
                 "<br/>Selected Items:<br/>"+
                 "<br/>First Fruit: " +
@@ -116,7 +116,7 @@ public class SpecialBuy {
         orderLabel.setBackground(Color.BLACK);
         orderLabel.setBorder(borderLinegrayl);
         orderLabel.setOpaque(true);
-        orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 11));
 
         infoLabel.setBounds(10, 355, 180, 200);
         infoLabel.setText("<html>Item Details" +
@@ -131,13 +131,13 @@ public class SpecialBuy {
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
         infoLabel.setOpaque(true);
-        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 11));
 
         // Buttons
 
         //TODO: need method that simulates buy(reduce change reduce stocks)
         buyButton.setToolTipText("Buy Item");
-        buyButton.setBounds(10, 610, 180, 50);
+        buyButton.setBounds(10, 560, 180, 50);
         buyButton.setText("Buy");
         buyButton.setHorizontalAlignment(JButton.CENTER);
 
@@ -148,7 +148,7 @@ public class SpecialBuy {
 
 
         cancelButton.setToolTipText("Cancel Order");
-        cancelButton.setBounds(10, 670, 180, 50);
+        cancelButton.setBounds(10, 620, 180, 50);
         cancelButton.setText("Cancel Order");
         cancelButton.setHorizontalAlignment(JButton.CENTER);
 

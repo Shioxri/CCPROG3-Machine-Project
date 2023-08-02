@@ -13,5 +13,38 @@ public class RegMaintenanceController {
             regularMaintenance.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
         });
+
+        regularMaintenance.getInstructionsButton().addActionListener(e ->{
+            regularMaintenance.getSystemMessage().setText("<html>Instructions<br/>" +
+                    "Top Left - Edit Item Slot" +
+                    "<br/> Bottom Left - Add New Item(Note: make sure every text field is filled" +
+                    "<br/> Right - Edit Vending Machine</html>");
+        });
+
+
+        regularMaintenance.getAddItem().addActionListener(e ->{
+
+        });
+
+
+        regularMaintenance.getChangePriceButton().addActionListener(e ->{
+            //Item.setPrice(regularMaintenance.getChangePrice().getText())
+        });
+
+        regularMaintenance.getCollectMoney().addActionListener(e ->{
+
+        });
+
+        regularMaintenance.getReStock().addActionListener(e ->{
+
+        });
+
+        regularMaintenance.getSlotInfoButton().addActionListener(e -> {
+
+        });
+
+        regularMaintenance.getPrintSummary().addActionListener(e ->{
+
+        });
     }
 }
