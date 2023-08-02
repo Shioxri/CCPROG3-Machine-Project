@@ -6,47 +6,39 @@ import View.SpecialBuy;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The SpecialBuyController class handles the user interactions and logic for the SpecialBuy view.
+ */
 public class SpecialBuyController {
     private SpecialBuy specialBuyMenu;
 
-    SpecialBuyController(SpecialBuy specialBuyMenu, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine){
+    /**
+     * Constructor for the SpecialBuyController class.
+     *
+     * @param specialBuyMenu      The SpecialBuy view instance.
+     * @param specVMMenuController The SpecVMMenuController instance.
+     * @param vendingMachine      The SpecialVendingMachine model instance.
+     */
+    SpecialBuyController(SpecialBuy specialBuyMenu, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine) {
         this.specialBuyMenu = specialBuyMenu;
 
+        // Create copies of original slots and special slots to restore in case of cancellation
         ArrayList<Slot> originalSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         ArrayList<Slot> originalSpecialSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
 
-
+        // Set the dropdown contents based on the vending machine model
         setDropdownContents(vendingMachine);
 
-
-
-
-        specialBuyMenu.getFirstFruitsDropDown().addActionListener(e ->{
-            int firstFruitSelectedIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
-            if(firstFruitSelectedIndex==0)
-            {
-                updateSideLabels(specialBuyMenu, vendingMachine);
-                specialBuyMenu.addToTotalPrice(0,0);
-                specialBuyMenu.addToTotalCals(0,0);
-            }
-            else
-            {
-                Item selectedItem = vendingMachine.getSelectedItem(firstFruitSelectedIndex-1, false);
-
-
-                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(),0);
-                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(),0);
-                updateSideLabels(specialBuyMenu, vendingMachine);
-            }
-        });
-
+        // First fruits dropdown action listener
         specialBuyMenu.getFirstFruitsDropDown().addActionListener(e -> {
             int firstFruitSelectedIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
             if (firstFruitSelectedIndex == 0) {
+                // If no first fruit is selected, reset the side labels and update total price and calories
                 updateSideLabels(specialBuyMenu, vendingMachine);
                 specialBuyMenu.addToTotalPrice(0, 0);
                 specialBuyMenu.addToTotalCals(0, 0);
             } else {
+                // If a first fruit is selected, update the total price and calories and update the side labels
                 Item selectedItem = vendingMachine.getSelectedItem(firstFruitSelectedIndex - 1, false);
                 specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 0);
                 specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 0);
@@ -54,6 +46,7 @@ public class SpecialBuyController {
             }
         });
 
+        // Second fruits dropdown action listener
         specialBuyMenu.getSecondFruitsDropDown().addActionListener(e -> {
             int secondFruitSelectedIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
             if (secondFruitSelectedIndex == 0) {
@@ -68,6 +61,7 @@ public class SpecialBuyController {
             }
         });
 
+        // Water type dropdown action listener
         specialBuyMenu.getWaterType().addActionListener(e -> {
             int waterTypeSelectedIndex = specialBuyMenu.getWaterType().getSelectedIndex();
             if (waterTypeSelectedIndex == 0) {
@@ -82,6 +76,7 @@ public class SpecialBuyController {
             }
         });
 
+        // Milk type dropdown action listener
         specialBuyMenu.getMilkType().addActionListener(e -> {
             int milkTypeSelectedIndex = specialBuyMenu.getMilkType().getSelectedIndex() + 2;
             if (milkTypeSelectedIndex == 2) {
@@ -96,6 +91,7 @@ public class SpecialBuyController {
             }
         });
 
+        // Ice type dropdown action listener
         specialBuyMenu.getIceType().addActionListener(e -> {
             int iceTypeSelectedIndex = specialBuyMenu.getIceType().getSelectedIndex() + 7;
             if (iceTypeSelectedIndex == 7) {
@@ -110,6 +106,7 @@ public class SpecialBuyController {
             }
         });
 
+        // Toppings type dropdown action listener
         specialBuyMenu.getToppingsType().addActionListener(e -> {
             int toppingsSelectedIndex = specialBuyMenu.getToppingsType().getSelectedIndex() + 9;
             if (toppingsSelectedIndex == 9) {
@@ -124,17 +121,19 @@ public class SpecialBuyController {
             }
         });
 
-
-
+        // Add button action listener
         specialBuyMenu.getAddButton().addActionListener(e -> {
+            // Add the selected denomination to the temporary paid money
             vendingMachine.addTempPaidMoney((Integer) specialBuyMenu.getDenominations().getSelectedItem(), 1);
             specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
             specialBuyMenu.showAddedMoneyText();
-
         });
 
 
-        specialBuyMenu.getBuyButton().addActionListener(e ->{
+
+        // Buy button action listener
+        specialBuyMenu.getBuyButton().addActionListener(e -> {
+            // Get the selected indices for each dropdown
             int firstFruitIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
             int secondFruitIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
             int waterTypeIndex = specialBuyMenu.getWaterType().getSelectedIndex();
@@ -143,22 +142,27 @@ public class SpecialBuyController {
             int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
             boolean isInvalidOrder = false;
 
+            // Create lists to hold selected items
             ArrayList<Item> selectedItems = new ArrayList<>();
             ArrayList<Item> selectedFruits = new ArrayList<>();
             ArrayList<Item> selectedLiquids = new ArrayList<>();
             Item iceType = null;
             Item toppingsType = null;
-            if(vendingMachine.getUserBalance()>=specialBuyMenu.getTotalPrice())
-            {
-                if(vendingMachine.getMoneyManager().canReturnChange(specialBuyMenu.getTotalPrice())) {
 
+            // Check if the user's balance is sufficient to make the purchase
+            if (vendingMachine.getUserBalance() >= specialBuyMenu.getTotalPrice()) {
+                // Check if change can be returned
+                if (vendingMachine.getMoneyManager().canReturnChange(specialBuyMenu.getTotalPrice())) {
+
+                    // Check if both a first and second fruit are selected, and both a water type and milk type are selected
                     if ((firstFruitIndex != 0 || secondFruitIndex != 0) && (waterTypeIndex != 0 || milkTypeIndex != 0)) {
 
+                        // Create a StringBuilder to hold system label messages
                         StringBuilder systemLabelMessage = new StringBuilder();
                         systemLabelMessage.append("<html>List of out of stock items:<br/>");
 
-                        if(firstFruitIndex!=secondFruitIndex)
-                        {
+                        // Check if the first and second fruits are different and are available
+                        if (firstFruitIndex != secondFruitIndex) {
                             if (firstFruitIndex != 0) {
                                 if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
                                     Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
@@ -180,13 +184,12 @@ public class SpecialBuyController {
                                     systemLabelMessage.append("Second Fruit is out of stock or not available<br/>");
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             isInvalidOrder = true;
                             systemLabelMessage.append("Please select different fruits to combine!<br/>");
                         }
 
-
+                        // Check if the water type is available
                         if (waterTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(waterTypeIndex - 1, true).getItemArrayList().isEmpty()) {
                                 Item waterType = vendingMachine.dispenseSelectedItem(waterTypeIndex - 1, true);
@@ -198,6 +201,7 @@ public class SpecialBuyController {
                             }
                         }
 
+                        // Check if the milk type is available
                         if (milkTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(milkTypeIndex + 1, true).getItemArrayList().isEmpty()) {
                                 Item milkType = vendingMachine.dispenseSelectedItem(milkTypeIndex + 1, true);
@@ -209,6 +213,7 @@ public class SpecialBuyController {
                             }
                         }
 
+                        // Check if the ice type is available
                         if (iceTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(iceTypeIndex + 6, true).getItemArrayList().isEmpty()) {
                                 iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
@@ -219,6 +224,7 @@ public class SpecialBuyController {
                             }
                         }
 
+                        // Check if the toppings type is available
                         if (toppingsTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(toppingsTypeIndex + 8, true).getItemArrayList().isEmpty()) {
                                 toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
@@ -229,24 +235,27 @@ public class SpecialBuyController {
                             }
                         }
 
-                        if(!isInvalidOrder)
-                        {
+                        // Check if the order is valid and all items are available
+                        if (!isInvalidOrder) {
+                            // Update side labels
                             updateSideLabels(specialBuyMenu, vendingMachine);
 
+                            // Calculate change and deposit money
                             int totalUserMoney = vendingMachine.getUserBalance();
                             int change = totalUserMoney - specialBuyMenu.getTotalPrice();
-                            for(Item item : selectedItems)
-                            {
+                            for (Item item : selectedItems) {
                                 Maintenance.addSoldItems(vendingMachine, item.getType());
                             }
-
                             vendingMachine.getMoneyManager().depositMoney();
                             vendingMachine.getMoneyManager().returnChange(change);
+
+                            // Update user balance and reset UI elements
                             specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                             specialBuyMenu.resetTotalPrice();
                             specialBuyMenu.resetTotalCals();
                             resetDropdowns();
 
+                            // Create success message
                             StringBuilder successMessage = new StringBuilder("<html>Preparing your custom fruit shake...<br/>");
                             successMessage.append("Blended Fruits: ");
                             for (Item item : selectedFruits) {
@@ -269,17 +278,18 @@ public class SpecialBuyController {
 
                             specialBuyMenu.getSystemMessage().setText("<html>Order Complete!<br/>Transaction Successful!<html>");
 
+                            // Show the success message using a JOptionPane
                             JOptionPane.showMessageDialog(null, new JLabel(successMessage.toString()));
 
-                        }
-                        else
-                        {
+                        } else {
+                            // Show error message for an invalid order
                             specialBuyMenu.getSystemMessage().setText(systemLabelMessage.toString());
                         }
 
                     }
                     else
                     {
+                        //Error message if minimum items for an order isn't met
                         resetDropdowns();
                         specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!" +
                                 "<br/>Must have at least: 1 Fruit and 1 Liquid Type (Milk/Water)" +
@@ -289,6 +299,7 @@ public class SpecialBuyController {
                 }
                 else
                 {
+                    //Error message if machine doesn't have enough change
                     resetDropdowns();
                     specialBuyMenu.getSystemMessage().setText("<html>Machine does not have enough change<br/>" +
                             "Order cancelled and money returned<html>");
@@ -297,6 +308,7 @@ public class SpecialBuyController {
             }
             else
             {
+                //Error message if user balance is not enough for the order
                 resetDropdowns();
                 specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!<br/>" +
                         "Not enough balance inserted!<html>");
@@ -304,38 +316,49 @@ public class SpecialBuyController {
 
         });
 
+        // ActionListener for the Cancel button
         specialBuyMenu.getCancelButton().addActionListener(e -> {
+            // Clear the user's paid money and reset the UI
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.defaultBalanceText();
             vendingMachine.restoreOriginalContents(originalSlots, originalSpecialSlots);
             resetDropdowns();
 
-            specialBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>"+
-                    "Returned User Money<br/>"+
-                    "Cleared Order<br/>"+
-                    "Returned Selected Items<br/>"+
-                    "Successfully cancelled the transaction </html>");
+            // Display the cancellation message
+            specialBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>" +
+                    "Returned User Money<br/>" +
+                    "Cleared Order<br/>" +
+                    "Returned Selected Items<br/>" +
+                    "Successfully canceled the transaction </html>");
         });
 
+        // ActionListener for the Exit button
         specialBuyMenu.getExitButton().addActionListener(e -> {
-
+            // Clear the user's paid money, hide the Special Buy menu, and show the Special VM Menu
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);
         });
     }
-    private void setDropdownContents(SpecialVendingMachine vendingMachine)
-    {
+
+    /**
+     * Set the contents of the dropdown menus in the Special Buy UI based on the items available in the vending machine.
+     *
+     * @param vendingMachine The SpecialVendingMachine object representing the vending machine.
+     */
+    private void setDropdownContents(SpecialVendingMachine vendingMachine) {
         specialBuyMenu.setFirstFruitsDropDown(getSlotTypes(vendingMachine.getSlotArrayList()));
         specialBuyMenu.setSecondFruitsDropDown(getSlotTypes(vendingMachine.getSlotArrayList()));
-        specialBuyMenu.setWaterDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(),0,1));
-        specialBuyMenu.setMilkDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(),2,6));
-        specialBuyMenu.setIceDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(),7,8));
-        specialBuyMenu.setToppingsDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(),9,10));
+        specialBuyMenu.setWaterDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(), 0, 1));
+        specialBuyMenu.setMilkDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(), 2, 6));
+        specialBuyMenu.setIceDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(), 7, 8));
+        specialBuyMenu.setToppingsDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(), 9, 10));
     }
 
-    private void resetDropdowns()
-    {
+    /**
+     * Reset all dropdown menus in the Special Buy UI to their default values.
+     */
+    private void resetDropdowns() {
         specialBuyMenu.getFirstFruitsDropDown().setSelectedIndex(0);
         specialBuyMenu.getSecondFruitsDropDown().setSelectedIndex(0);
         specialBuyMenu.getWaterType().setSelectedIndex(0);
@@ -344,7 +367,12 @@ public class SpecialBuyController {
         specialBuyMenu.getToppingsType().setSelectedIndex(0);
     }
 
-
+    /**
+     * Get a list of assigned item types for regular slots in the vending machine.
+     *
+     * @param slotTypes ArrayList of Slot objects representing regular slots in the vending machine.
+     * @return ArrayList of strings containing the assigned item types for regular slots.
+     */
     private ArrayList<String> getSlotTypes(ArrayList<Slot> slotTypes) {
         ArrayList<String> stringSlotTypes = new ArrayList<>();
         for (Slot slot : slotTypes) {
@@ -353,15 +381,30 @@ public class SpecialBuyController {
         return stringSlotTypes;
     }
 
+    /**
+     * Get a list of assigned item types for special slots in the vending machine within the specified range.
+     *
+     * @param slotTypes   ArrayList of Slot objects representing special slots in the vending machine.
+     * @param lowerBound  The lower bound index of the range of special slots to consider.
+     * @param upperBound  The upper bound index of the range of special slots to consider.
+     * @return ArrayList of strings containing the assigned item types for special slots within the specified range.
+     */
     private ArrayList<String> getSpecialSlotTypes(ArrayList<Slot> slotTypes, int lowerBound, int upperBound) {
         ArrayList<String> stringSlotTypes = new ArrayList<>();
-        for (int i=lowerBound; i<upperBound+1;i++) {
+        for (int i = lowerBound; i < upperBound + 1; i++) {
             stringSlotTypes.add(slotTypes.get(i).getAssignedItemType());
         }
         return stringSlotTypes;
     }
 
+    /**
+     * Update the side labels in the Special Buy UI with details of the selected items.
+     *
+     * @param specialBuyMenu The SpecialBuy object representing the Special Buy UI.
+     * @param vendingMachine The SpecialVendingMachine object representing the vending machine.
+     */
     public void updateSideLabels(SpecialBuy specialBuyMenu, SpecialVendingMachine vendingMachine) {
+        // Get the selected indices from dropdowns
         int firstFruitIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
         int secondFruitIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
         int waterTypeIndex = specialBuyMenu.getWaterType().getSelectedIndex();
@@ -369,12 +412,14 @@ public class SpecialBuyController {
         int iceTypeIndex = specialBuyMenu.getIceType().getSelectedIndex();
         int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
 
+        // Initialize StringBuilder for item details and order details
         StringBuilder infoText = new StringBuilder("<html>Item Details:<br/>Price | Calories | Stock<br/>");
         StringBuilder orderText = new StringBuilder();
         orderText.append("<html>Order Details<br/>Price: Php ").append(specialBuyMenu.getTotalPrice());
         orderText.append("<br/>Calories: ").append(specialBuyMenu.getTotalCals()).append(" kCal");
         orderText.append("<br/>Selected Items:<br/>");
 
+        // Get and display details for each selected item
         if (firstFruitIndex != 0) {
             String firstFruit = (String) specialBuyMenu.getFirstFruitsDropDown().getSelectedItem();
             int price = vendingMachine.getSelectedItem(firstFruitIndex-1, false).getPrice();
@@ -449,6 +494,7 @@ public class SpecialBuyController {
             orderText.append("<br/>Toppings: ");
         }
 
+        // Append closing HTML tags and set the text for the side labels in the Special Buy UI
         infoText.append("</html>");
         specialBuyMenu.getInfoLabel().setText(infoText.toString());
         orderText.append("</html>");

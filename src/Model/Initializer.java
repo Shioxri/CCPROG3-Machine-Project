@@ -1,10 +1,17 @@
 package Model;
 
-
 import java.util.ArrayList;
 
+/**
+ * The Initializer class is responsible for initializing the vending machine with items and money.
+ */
 public class Initializer {
 
+    /**
+     * Initializes the vending machine with default items.
+     *
+     * @param vendingMachine The VendingMachine object to initialize.
+     */
     public void initializeItems(VendingMachine vendingMachine) {
         int numSlots = 8;
         int numItems = 10;
@@ -35,7 +42,7 @@ public class Initializer {
 
         // If the vending machine is a SpecialVendingMachine, add additional items for fruit shakes
         if (vendingMachine instanceof SpecialVendingMachine) {
-            int specialNumSlots=11;
+            int specialNumSlots = 11;
             ArrayList<Item> specialItemTypes = new ArrayList<>();
             specialItemTypes.add(new Item("Water", 5, 0));
             specialItemTypes.add(new Item("Sugar Water", 10, 100));
@@ -48,6 +55,7 @@ public class Initializer {
             specialItemTypes.add(new Item("Shaved Ice", 8, 0));
             specialItemTypes.add(new Item("Honey", 15, 60));
             specialItemTypes.add(new Item("Cream", 20, 80));
+
             for (int i = 0; i < specialNumSlots; i++) {
                 Slot specialSlot = new Slot(specialItemTypes.get(i).getType(), numItems, specialItemTypes.get(i).getPrice(), specialItemTypes.get(i).getCalorie());
                 ArrayList<Item> itemArrayList = specialSlot.getItemArrayList();
@@ -61,16 +69,18 @@ public class Initializer {
             }
         }
     }
-        public void initializeMoney(VendingMachine vendingMachine){
-            vendingMachine.addStoredMoney(100, 5);
-            vendingMachine.addStoredMoney(50, 10);
-            vendingMachine.addStoredMoney(20, 20);
-            vendingMachine.addStoredMoney(10, 50);
-            vendingMachine.addStoredMoney(5, 70);
-            vendingMachine.addStoredMoney(1, 100);
 
-        }
-
-
+    /**
+     * Initializes the vending machine with default money denominations.
+     *
+     * @param vendingMachine The VendingMachine object to initialize.
+     */
+    public void initializeMoney(VendingMachine vendingMachine) {
+        vendingMachine.addStoredMoney(100, 5);
+        vendingMachine.addStoredMoney(50, 10);
+        vendingMachine.addStoredMoney(20, 20);
+        vendingMachine.addStoredMoney(10, 50);
+        vendingMachine.addStoredMoney(5, 70);
+        vendingMachine.addStoredMoney(1, 100);
     }
-
+}

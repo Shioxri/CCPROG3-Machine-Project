@@ -12,6 +12,9 @@ public class VendingMachine {
     private RecordsManager recorder;
     private ArrayList<Slot> specialSlots;
 
+    /**
+     * Constructs a new VendingMachine object.
+     */
     public VendingMachine() {
         slotArrayList = new ArrayList<>();
         specialSlots = new ArrayList<>();
@@ -24,22 +27,54 @@ public class VendingMachine {
         this.initializeMoney();
     }
 
+    /**
+     * Initializes the slots and items in the vending machine.
+     */
     public void initializeSlotsAndItems() {
         this.initializer.initializeItems(this);
     }
+
+    /**
+     * Initializes the money in the vending machine.
+     */
     public void initializeMoney() {
         this.initializer.initializeMoney(this);
     }
 
-
-    public int checkInputValidity(int indexChoice, boolean isSpecialSlot) { return this.transactionManager.checkInputValidity(this, indexChoice, isSpecialSlot);}
-
-    public void confirmTransaction(int indexChoice) { this.transactionManager.confirmTransaction(this, indexChoice); }
-
-    public Item dispenseSelectedItem(int indexChoice, boolean isSpecialSlot) { return this.stockManager.dispenseSelectedItem(this,indexChoice, isSpecialSlot); }
+    /**
+     * Checks the validity of the user's input.
+     *
+     * @param indexChoice   The index of the selected item.
+     * @param isSpecialSlot A boolean indicating if the selected slot is a special slot.
+     * @return The validity status (0 for valid, 1 for insufficient balance, 2 for out of stock).
+     */
+    public int checkInputValidity(int indexChoice, boolean isSpecialSlot) {
+        return this.transactionManager.checkInputValidity(this, indexChoice, isSpecialSlot);
+    }
 
     /**
-     * Adds the paid money to the user paid money list.
+     * Confirms the user's transaction and updates the stock and balance accordingly.
+     *
+     * @param indexChoice The index of the selected item.
+     */
+    public void confirmTransaction(int indexChoice) {
+        this.transactionManager.confirmTransaction(this, indexChoice);
+    }
+
+    /**
+     * Dispenses the selected item and removes it from the slot.
+     *
+     * @param indexChoice   The index of the selected item.
+     * @param isSpecialSlot A boolean indicating if the selected slot is a special slot.
+     * @return The selected item.
+     */
+    public Item dispenseSelectedItem(int indexChoice, boolean isSpecialSlot) {
+        return this.stockManager.dispenseSelectedItem(this, indexChoice, isSpecialSlot);
+    }
+
+    /**
+     * Adds the paid money to the temporary paid money list.
+     *
      * @param denomination The denomination of the paid money.
      * @param quantity     The quantity of the paid money.
      */
@@ -49,6 +84,7 @@ public class VendingMachine {
 
     /**
      * Adds the stored money to the stored money list.
+     *
      * @param denomination The denomination of the stored money.
      * @param quantity     The quantity of the stored money.
      */
@@ -57,38 +93,73 @@ public class VendingMachine {
     }
 
 
+    /**
+     * Gets the list of regular slots in the vending machine.
+     *
+     * @return The list of regular slots.
+     */
     public ArrayList<Slot> getSlotArrayList() {
         return slotArrayList;
     }
 
+    /**
+     * Gets the stock manager of the vending machine.
+     *
+     * @return The stock manager.
+     */
     public StockManager getStockManager() {
         return stockManager;
     }
 
+    /**
+     * Gets the money manager of the vending machine.
+     *
+     * @return The money manager.
+     */
     public MoneyManager getMoneyManager() {
         return moneyManager;
     }
 
-    public int getUserBalance()
-    {
+    /**
+     * Gets the user's current balance.
+     *
+     * @return The user's balance.
+     */
+    public int getUserBalance() {
         return this.getMoneyManager().getTotalMoneyFromList(this.getMoneyManager().getTempMoneyFromUser());
     }
-    public int getAdminCollectedMoney()
-    {
+
+    /**
+     * Gets the total amount of money collected by the admin.
+     *
+     * @return The admin's collected money.
+     */
+    public int getAdminCollectedMoney() {
         return this.getMoneyManager().getTotalMoneyFromList(this.getMoneyManager().getAdminMoney());
     }
 
-    public Slot getSelectedSlot(int indexChoice, boolean isSpecialSlot)
-    {
-        if(!isSpecialSlot)
-        {
+    /**
+     * Gets the selected slot based on the index and slot type (regular or special).
+     *
+     * @param indexChoice   The index of the selected slot.
+     * @param isSpecialSlot A boolean indicating if the selected slot is a special slot.
+     * @return The selected slot.
+     */
+    public Slot getSelectedSlot(int indexChoice, boolean isSpecialSlot) {
+        if (!isSpecialSlot) {
             return this.getSlotArrayList().get(indexChoice);
-        }
-        else
+        } else {
             return this.getSpecialSlots().get(indexChoice);
+        }
     }
 
-
+    /**
+     * Gets the selected item based on the index and slot type (regular or special).
+     *
+     * @param indexChoice   The index of the selected item.
+     * @param isSpecialSlot A boolean indicating if the selected slot is a special slot.
+     * @return The selected item.
+     */
     public Item getSelectedItem(int indexChoice, boolean isSpecialSlot) {
         Slot selectedSlot = this.getSelectedSlot(indexChoice, isSpecialSlot);
         if (!selectedSlot.getItemArrayList().isEmpty()) {
@@ -99,38 +170,68 @@ public class VendingMachine {
         }
     }
 
+    /**
+     * Gets the records manager of the vending machine.
+     *
+     * @return The records manager.
+     */
     public RecordsManager getRecorder() {
         return recorder;
     }
 
-    public ArrayList<Slot> getPrevStartingInventory()
-    {
+    /**
+     * Gets the previous starting inventory recorded by the records manager.
+     *
+     * @return The previous starting inventory.
+     */
+    public ArrayList<Slot> getPrevStartingInventory() {
         return this.getRecorder().getPrevStartingInventory();
     }
 
-    public ArrayList<Slot> getStartingInventory()
-    {
+    /**
+     * Gets the current starting inventory recorded by the records manager.
+     *
+     * @return The current starting inventory.
+     */
+    public ArrayList<Slot> getStartingInventory() {
         return this.getRecorder().getStartingInventory();
     }
 
-    public ArrayList<Slot> getEndingInventory()
-    {
+    /**
+     * Gets the current ending inventory recorded by the records manager.
+     *
+     * @return The current ending inventory.
+     */
+    public ArrayList<Slot> getEndingInventory() {
         return this.getRecorder().getEndingInventory();
     }
 
-    public ArrayList<Slot> getSpecialEndingInventory()
-    {
+    /**
+     * Gets the special ending inventory recorded by the records manager.
+     *
+     * @return The special ending inventory.
+     */
+    public ArrayList<Slot> getSpecialEndingInventory() {
         return this.getRecorder().getEndingInventory();
     }
 
+    /**
+     * Gets the list of special slots in the vending machine.
+     *
+     * @return The list of special slots.
+     */
     public ArrayList<Slot> getSpecialSlots() {
         return specialSlots;
     }
 
-
+    /**
+     * Restores the original contents of the vending machine with the provided original slots and special slots.
+     *
+     * @param originalSlots        The original regular slots.
+     * @param originalSpecialSlots The original special slots.
+     */
     public void restoreOriginalContents(ArrayList<Slot> originalSlots, ArrayList<Slot> originalSpecialSlots) {
-        this.getStockManager().restoreOriginalSlotContents(this,originalSlots, originalSpecialSlots);
-
+        this.getStockManager().restoreOriginalSlotContents(this, originalSlots, originalSpecialSlots);
     }
 
 

@@ -7,24 +7,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The SpecMaintenanceController class handles the actions and logic for the special maintenance menu.
+ */
 public class SpecMaintenanceController {
     private SpecialMaintenance specialMaintenance;
 
-    SpecMaintenanceController(SpecialMaintenance specialMaintenance, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine){
+    /**
+     * Constructs the SpecMaintenanceController with the specified SpecialMaintenance menu, SpecVMMenuController, and SpecialVendingMachine.
+     *
+     * @param specialMaintenance   The SpecialMaintenance menu to associate with the controller.
+     * @param specVMMenuController The SpecVMMenuController for main menu navigation.
+     * @param vendingMachine      The SpecialVendingMachine representing the special vending machine.
+     */
+    SpecMaintenanceController(SpecialMaintenance specialMaintenance, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine) {
         this.specialMaintenance = specialMaintenance;
 
-
-        setRegularDropdownContents(vendingMachine);
-        setSpecialDropdownContents(vendingMachine);
-        updateDenomLabel(vendingMachine);
-
-        specialMaintenance.getAddButton().addActionListener(e ->{
+        // ActionListener for the "Add" button to replenish money
+        specialMaintenance.getAddButton().addActionListener(e -> {
             int denomination = ((Integer) specialMaintenance.getDenominations().getSelectedItem());
-            Maintenance.replenishMoney(vendingMachine, denomination, 1 );
+            Maintenance.replenishMoney(vendingMachine, denomination, 1);
             updateDenomLabel(vendingMachine);
         });
 
-
+        // ActionListener for the "Instructions" button
         specialMaintenance.getInstructionsButton().addActionListener(e -> {
             specialMaintenance.getSystemMessage().setText("<html>Instructions<br/>" +
                     "Top Left - Edit Item Slot" +
@@ -32,96 +38,79 @@ public class SpecMaintenanceController {
                     "<br/> Right - Edit Vending Machine</html>");
         });
 
-
-
+        // ActionListener for the dropdown selection of regular slots
         specialMaintenance.getRegularSlotsDropDown().addActionListener(e -> {
             int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
-            updateRegularInfoLabel(selectedItemIndex,vendingMachine);
+            updateRegularInfoLabel(selectedItemIndex, vendingMachine);
         });
 
+        // ActionListener for the dropdown selection of special slots
         specialMaintenance.getSpecialSlotsDropDown().addActionListener(e -> {
             int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
-            updateSpecialInfoLabel(selectedItemIndex,vendingMachine);
+            updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
         });
 
-
-        specialMaintenance.getChangeRegularPriceButton().addActionListener(e ->{
+        // ActionListener for the "Change Regular Price" button
+        specialMaintenance.getChangeRegularPriceButton().addActionListener(e -> {
             int newPrice = Integer.parseInt(specialMaintenance.getChangePriceRegular().getText());
             int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
-            if(selectedItemIndex!=0)
-            {
-                Maintenance.updateItemPrices(vendingMachine, false ,selectedItemIndex-1, newPrice);
+            if (selectedItemIndex != 0) {
+                Maintenance.updateItemPrices(vendingMachine, false, selectedItemIndex - 1, newPrice);
                 updateRegularInfoLabel(selectedItemIndex, vendingMachine);
-            }
-            else
-            {
-                specialMaintenance.getSystemMessage().setText("<html>Please select and item first!<html>");
+            } else {
+                specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
             }
         });
 
-        specialMaintenance.getChangeSpecialPriceButton().addActionListener(e ->{
+        // ActionListener for the "Change Special Price" button
+        specialMaintenance.getChangeSpecialPriceButton().addActionListener(e -> {
             int newPrice = Integer.parseInt(specialMaintenance.getChangePriceSpecial().getText());
             int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
-            if(selectedItemIndex!=0)
-            {
-                Maintenance.updateItemPrices(vendingMachine, true ,selectedItemIndex-1, newPrice);
+            if (selectedItemIndex != 0) {
+                Maintenance.updateItemPrices(vendingMachine, true, selectedItemIndex - 1, newPrice);
                 updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
-            }
-            else
-            {
-                specialMaintenance.getSystemMessage().setText("<html>Please select and item first!<html>");
+            } else {
+                specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
             }
         });
 
-
-        specialMaintenance.getRestockRegular().addActionListener(e ->{
+        // ActionListener for the "Restock Regular" button
+        specialMaintenance.getRestockRegular().addActionListener(e -> {
             int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
-            if(selectedItemIndex!=0)
-            {
-                if(vendingMachine.getSelectedSlot(selectedItemIndex-1, false).getItemStock() <= 5)
-                {
+            if (selectedItemIndex != 0) {
+                if (vendingMachine.getSelectedSlot(selectedItemIndex - 1, false).getItemStock() <= 5) {
                     updateVMInventoryAndRestock(vendingMachine, selectedItemIndex, false);
-                    updateRegularInfoLabel(selectedItemIndex,vendingMachine);
-                }
-                else
-                {
+                    updateRegularInfoLabel(selectedItemIndex, vendingMachine);
+                } else {
                     specialMaintenance.getRegularSlotsDropDown().setSelectedIndex(0);
                     JOptionPane.showMessageDialog(null,
-                            new JLabel("Item Stock is more than 5!", JLabel.CENTER),"StockLeft",
+                            new JLabel("Item Stock is more than 5!", JLabel.CENTER), "StockLeft",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
         });
 
-        specialMaintenance.getRestockSpecial().addActionListener(e ->{
+        // ActionListener for the "Restock Special" button
+        specialMaintenance.getRestockSpecial().addActionListener(e -> {
             int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
-            if(selectedItemIndex!=0)
-            {
-                if(vendingMachine.getSelectedSlot(selectedItemIndex-1, true).getItemStock() <= 5)
-                {
+            if (selectedItemIndex != 0) {
+                if (vendingMachine.getSelectedSlot(selectedItemIndex - 1, true).getItemStock() <= 5) {
                     updateVMInventoryAndRestock(vendingMachine, selectedItemIndex, true);
-                    updateSpecialInfoLabel(selectedItemIndex,vendingMachine);
-                }
-                else
-                {
+                    updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
+                } else {
                     specialMaintenance.getSpecialSlotsDropDown().setSelectedIndex(0);
                     JOptionPane.showMessageDialog(null,
-                            new JLabel("Item Stock is more than 5!", JLabel.CENTER),"StockLeft",
+                            new JLabel("Item Stock is more than 5!", JLabel.CENTER), "StockLeft",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
         });
 
-
-
-        specialMaintenance.getAddItem().addActionListener(e ->{
+        // ActionListener for the "Add Item" button
+        specialMaintenance.getAddItem().addActionListener(e -> {
             String newType = specialMaintenance.getSetName().getText();
-            int newPrice =Integer.parseInt( specialMaintenance.getSetPrice().getText());
-            int newCals =Integer.parseInt( specialMaintenance.getSetCalories().getText());
+            int newPrice = Integer.parseInt(specialMaintenance.getSetPrice().getText());
+            int newCals = Integer.parseInt(specialMaintenance.getSetCalories().getText());
             updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
             specialMaintenance.getRegularSlotsDropDown().addItem(newType);
             specialMaintenance.getSetName().setText("Enter Item Name");
@@ -129,41 +118,47 @@ public class SpecMaintenanceController {
             specialMaintenance.getSetCalories().setText("Enter Item Calories");
         });
 
-        specialMaintenance.getCollectMoney().addActionListener(e ->{
+        // ActionListener for the "Collect Money" button
+        specialMaintenance.getCollectMoney().addActionListener(e -> {
             Maintenance.collectMoney(vendingMachine);
             updateDenomLabel(vendingMachine);
         });
 
+        // ActionListener for the "Exit" button
         specialMaintenance.getExitButton().addActionListener(e -> {
             specialMaintenance.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);
         });
 
-        specialMaintenance.getPrintSummary().addActionListener(e ->{
+        // ActionListener for the "Print Summary" button
+        specialMaintenance.getPrintSummary().addActionListener(e -> {
             String finalReport = Maintenance.getSalesReport(vendingMachine);
             JTextArea textArea = new JTextArea(finalReport);
             JScrollPane scrollPane = new JScrollPane(textArea);
             textArea.setLineWrap(true);
             textArea.setWrapStyleWord(true);
-            scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+            scrollPane.setPreferredSize(new Dimension(500, 500));
             JOptionPane.showMessageDialog(null, scrollPane, "dialog test with textarea",
                     JOptionPane.YES_NO_OPTION);
         });
 
+        // Set the initial contents of dropdowns
+        setRegularDropdownContents(vendingMachine);
+        setSpecialDropdownContents(vendingMachine);
+        updateDenomLabel(vendingMachine);
     }
 
-    private void updateDenomLabel(VendingMachine vendingMachine)
-    {
+    // Private helper method to update the denomination label with the current machine balance
+    private void updateDenomLabel(VendingMachine vendingMachine) {
         int totalMachineMoney = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getStoredMoney());
         specialMaintenance.setMachineBalanceLabel(vendingMachine.getMoneyManager().getStoredMoney(), totalMachineMoney);
     }
 
-
-    private void updateVMInventoryAndRestock(VendingMachine vendingMachine, int selectedItemIndex, boolean isSpecialSlot)
-    {
+    // Private helper method to restock items and update the inventory
+    private void updateVMInventoryAndRestock(VendingMachine vendingMachine, int selectedItemIndex, boolean isSpecialSlot) {
         ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-        ArrayList<Slot>  specialEndingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
-        Maintenance.restockItem(vendingMachine, selectedItemIndex-1, isSpecialSlot);
+        ArrayList<Slot> specialEndingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+        Maintenance.restockItem(vendingMachine, selectedItemIndex - 1, isSpecialSlot);
         ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
         Maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
         Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
@@ -171,40 +166,41 @@ public class SpecMaintenanceController {
         Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
 
         ArrayList<Slot> specialPrevStartingInventory = Maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
-        Maintenance.addAllToPrevStartingSpecialInventory (vendingMachine, specialPrevStartingInventory);
-        Maintenance.addAllToEndingSpecialInventory (vendingMachine, specialEndingInventoryCopy);
+        Maintenance.addAllToPrevStartingSpecialInventory(vendingMachine, specialPrevStartingInventory);
+        Maintenance.addAllToEndingSpecialInventory(vendingMachine, specialEndingInventoryCopy);
         ArrayList<Slot> specialStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
         Maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
     }
 
-
-    private void updateVMInventoryAndAddStock(VendingMachine vendingMachine, String newType, int newPrice, int newCals)
-    {
+    // Private helper method to add new items to the inventory and update dropdown contents
+    private void updateVMInventoryAndAddStock(VendingMachine vendingMachine, String newType, int newPrice, int newCals) {
         ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
-        ArrayList<Slot>  specialEndingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
+        ArrayList<Slot> specialEndingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
         Maintenance.stockNewItems(vendingMachine, newType, newPrice, newCals);
         ArrayList<Slot> startingPrevInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
         Maintenance.addAllToPrevStartingInventory(vendingMachine, startingPrevInventoryCopy);
         Maintenance.addAllToEndingInventory(vendingMachine, endingInventoryCopy);
         ArrayList<Slot> startingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         Maintenance.addAllToStartingInventory(vendingMachine, startingInventoryCopy);
-            ArrayList<Slot> specialPrevStartingInventory = Maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
-            Maintenance.addAllToPrevStartingSpecialInventory (vendingMachine, specialPrevStartingInventory);
-            Maintenance.addAllToEndingSpecialInventory (vendingMachine, specialEndingInventoryCopy);
-            ArrayList<Slot> specialStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
-            Maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
+
+        ArrayList<Slot> specialPrevStartingInventory = Maintenance.deepCopySlotArrayList(vendingMachine.getPrevStartingInventory());
+        Maintenance.addAllToPrevStartingSpecialInventory(vendingMachine, specialPrevStartingInventory);
+        Maintenance.addAllToEndingSpecialInventory(vendingMachine, specialEndingInventoryCopy);
+        ArrayList<Slot> specialStartingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getStartingInventory());
+        Maintenance.addAllToStartingSpecialInventory(vendingMachine, specialStartingInventoryCopy);
     }
 
-    private void setRegularDropdownContents(VendingMachine vendingMachine)
-    {
+    // Private helper method to set the dropdown contents for regular slots
+    private void setRegularDropdownContents(VendingMachine vendingMachine) {
         specialMaintenance.setRegularSlotsDropDown(getSlotTypes(vendingMachine.getSlotArrayList()));
     }
 
-    private void setSpecialDropdownContents(VendingMachine vendingMachine)
-    {
+    // Private helper method to set the dropdown contents for special slots
+    private void setSpecialDropdownContents(VendingMachine vendingMachine) {
         specialMaintenance.setSpecialSlotsDropDown(getSlotTypes(vendingMachine.getSpecialSlots()));
     }
 
+    // Private helper method to extract the slot types as a list of strings
     private ArrayList<String> getSlotTypes(ArrayList<Slot> slotTypes) {
         ArrayList<String> stringSlotTypes = new ArrayList<>();
         for (Slot slot : slotTypes) {
@@ -213,60 +209,63 @@ public class SpecMaintenanceController {
         return stringSlotTypes;
     }
 
-
-
+    /**
+     * Updates the information label for the selected regular item slot.
+     *
+     * @param selectedItemIndex The index of the selected item in the dropdown.
+     * @param vendingMachine    The SpecialVendingMachine containing the items and slots.
+     */
     public void updateRegularInfoLabel(int selectedItemIndex, SpecialVendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
-            int chosenItem = selectedItemIndex-1;
+            int chosenItem = selectedItemIndex - 1;
             Item selectedItem = vendingMachine.getSelectedItem(chosenItem, false);
             Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, false);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
-                String infoText = "<html>Price: " +  selectedItem.getPrice() +
+                String infoText = "<html>Price: " + selectedItem.getPrice() +
                         "<br/> Stock: " + selectedSlot.getItemStock() +
                         "</html>";
                 specialMaintenance.getRegularSlotLabel().setText(infoText);
-                specialMaintenance.getSystemMessage().setText("Selected: "+selectedItem.getType());
-            }
-            else
-            {
+                specialMaintenance.getSystemMessage().setText("Selected: " + selectedItem.getType());
+            } else {
                 int price = vendingMachine.getSelectedSlot(chosenItem, false).getAssignedItemPrice();
                 String infoText = "<html>Price: " + price +
-                        "<br/>Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!</html>";
+                        "<br/>Item: [" + selectedSlot.getAssignedItemType() + "] IS OUT OF STOCK!</html>";
                 specialMaintenance.getRegularSlotLabel().setText(infoText);
-                specialMaintenance.getSystemMessage().setText("Selected: "+selectedSlot.getAssignedItemType());
+                specialMaintenance.getSystemMessage().setText("Selected: " + selectedSlot.getAssignedItemType());
             }
-
         } else {
             specialMaintenance.getRegularSlotLabel().setText("");
             specialMaintenance.getSystemMessage().setText("");
         }
     }
 
+    /**
+     * Updates the information label for the selected special item slot.
+     *
+     * @param selectedItemIndex The index of the selected item in the dropdown.
+     * @param vendingMachine    The SpecialVendingMachine containing the items and slots.
+     */
     public void updateSpecialInfoLabel(int selectedItemIndex, SpecialVendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
-            int chosenItem = selectedItemIndex-1;
-
+            int chosenItem = selectedItemIndex - 1;
             Item selectedItem = vendingMachine.getSelectedItem(chosenItem, true);
             Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, true);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
-                String infoText = "<html>Price: " +  selectedItem.getPrice() +
+                String infoText = "<html>Price: " + selectedItem.getPrice() +
                         "<br/> Stock: " + selectedSlot.getItemStock() +
                         "</html>";
                 specialMaintenance.getSpecialSlotLabel().setText(infoText);
-                specialMaintenance.getSystemMessage().setText("Selected: "+selectedItem.getType());
-            }
-            else
-            {
+                specialMaintenance.getSystemMessage().setText("Selected: " + selectedItem.getType());
+            } else {
                 int price = vendingMachine.getSelectedSlot(chosenItem, true).getAssignedItemPrice();
                 String infoText = "<html>Price: " + price +
-                        "<br/>Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!</html>";
+                        "<br/>Item: [" + selectedSlot.getAssignedItemType() + "] IS OUT OF STOCK!</html>";
                 specialMaintenance.getSpecialSlotLabel().setText(infoText);
-                specialMaintenance.getSystemMessage().setText("Selected: "+selectedSlot.getAssignedItemType());
+                specialMaintenance.getSystemMessage().setText("Selected: " + selectedSlot.getAssignedItemType());
             }
         } else {
             specialMaintenance.getSpecialSlotLabel().setText("");
             specialMaintenance.getSystemMessage().setText("");
         }
     }
-
 }
