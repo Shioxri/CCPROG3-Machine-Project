@@ -115,11 +115,18 @@ public class RegularMaintenance {
         machineBalanceLabel.setBackground(Color.black);
         machineBalanceLabel.setOpaque(true);
 
-
+        slotInfoLabel.setBounds(35, 70, 300, 110);
+        slotInfoLabel.setBackground(Color.BLACK);
+        slotInfoLabel.setText("<html>Restocking and Repricing<br/><br/>Price: <br/> Stock: </html>");
+        slotInfoLabel.setHorizontalAlignment(0);
+        slotInfoLabel.setVerticalAlignment(0);
+        slotInfoLabel.setBorder(borderLine);
+        slotInfoLabel.setForeground(Color.white);
+        slotInfoLabel.setOpaque(true);
 
         // Buttons
         //TODO: need method to connect this button to change price using the text given in changePrice text field
-        changePriceButton.setBounds(265, 90, 70, 30);
+        changePriceButton.setBounds(265, 185, 70, 30);
         changePriceButton.setHorizontalAlignment(JButton.CENTER);
         changePriceButton.setText("<html>Set<br/>Price</html>");
         changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
@@ -148,7 +155,7 @@ public class RegularMaintenance {
         //TODO: need method to display to system message the information of the chosen stock
         slotInfoButton.setBounds(550,10,190,35);
         slotInfoButton.setHorizontalAlignment(JButton.CENTER);
-        slotInfoButton.setText("Slot Info");
+        slotInfoButton.setText("Exit");
         slotInfoButton.addActionListener(e -> System.exit(0));
 
         //TODO: need method to display in system message instructions to use the maintenance
@@ -189,7 +196,7 @@ public class RegularMaintenance {
 
 
         // Text Fields
-        changePrice.setBounds(35, 90, 225, 30);
+        changePrice.setBounds(35, 185, 225, 30);
         changePrice.setText("Enter New Price");
         changePrice.setHorizontalAlignment(JTextField.CENTER);
         changePrice.addFocusListener(new FocusListener() {
@@ -363,6 +370,8 @@ public class RegularMaintenance {
     public JLabel getMachineBalanceLabel(){ return machineBalanceLabel;}
 
     public JLabel getSystemMessage(){return  systemMessage;}
+
+    public JLabel getSlotInfoLabel(){return slotInfoLabel;}
 
     public JTextField getSetCalories(){return setCalories;}
 

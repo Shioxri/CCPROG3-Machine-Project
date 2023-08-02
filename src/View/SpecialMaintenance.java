@@ -29,7 +29,7 @@ public class SpecialMaintenance {
     JButton collectMoney = new JButton();
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
-    JButton slotInfoButton = new JButton();
+    JButton switchButton = new JButton();
     JComboBox<String> slots = new JComboBox<>();
     JComboBox<String> slots2 = new JComboBox<>();
     JComboBox<Integer> addStock = new JComboBox<>();
