@@ -7,8 +7,12 @@ import java.util.ArrayList;
 
 import javax.swing.border.Border;
 
-
+/**
+ * This class represents the graphical user interface (GUI) for a regular vending machine purchase.
+ * It allows the user to select items, add money to their balance, and make purchases.
+ */
 public class RegularBuy {
+    // Declare the GUI components
     private JFrame frame;
     private JButton buyButton = new JButton();
 
@@ -21,12 +25,20 @@ public class RegularBuy {
     private JLabel infoLabel = new JLabel();
     private JComboBox<String> regularItems;
 
+    /**
+     * Constructor for the RegularBuy class.
+     * Initializes the GUI by calling the init() method.
+     */
     public RegularBuy(){
         init();
     }
 
 
-
+    /**
+     * Initializes the graphical user interface (GUI) components and sets up the regular vending machine purchase view.
+     * Creates various panels and adds components to them, sets their properties, and arranges them using layout managers.
+     * The GUI is composed of background images, labels, buttons, and dropdowns.
+     */
     public void init() {
         // Declarations
         frame = new JFrame();
@@ -198,20 +210,35 @@ public class RegularBuy {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Updates the balance label with the current user balance.
+     *
+     * @param userBalance The current user balance to be displayed.
+     */
     public void updateBalanceText(int userBalance){
         userBalanceLabel.setText("Balance: Php "+userBalance);
     }
 
+    /**
+     * Sets the default balance text when there is no balance yet.
+     */
     public void defaultBalanceText()
     {
         userBalanceLabel.setText("No Balance Yet");
     }
 
-
+    /**
+     * Updates the system message with the amount of money added by the user.
+     */
     public void showAddedMoneyText()
     {
         systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
     }
+    /**
+     * Populates the regularItems dropdown with available slot types.
+     *
+     * @param slotTypes An ArrayList containing the available slot types to be displayed in the dropdown.
+     */
     public void setRegularItems(ArrayList<String> slotTypes) {
         regularItems.setFocusable(false);
         regularItems.addItem("Choose an item...");
@@ -220,7 +247,15 @@ public class RegularBuy {
         }
     }
 
-
+    /**
+     * Updates the system message and displays a pop-up message for specific error types.
+     *
+     * @param errorType An integer representing the type of error encountered.
+     *                  1: No item selected from the dropdown.
+     *                  2: Chosen item is out of stock.
+     *                  3: Chosen item has insufficient balance.
+     *                  4: Insufficient change in the machine, transaction canceled.
+     */
     public void setTextForInvalid(int errorType)
     {
         switch (errorType) {
@@ -248,6 +283,7 @@ public class RegularBuy {
         }
     }
 
+    //getter methods to access the GUI Components
     public JComboBox<Integer> getDenominations() {
         return denominations;
     }

@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import javax.swing.border.Border;
 
 
+/**
+ * This class represents the graphical user interface (GUI) for regular maintenance of the vending machine.
+ * It allows the admin to restock items, change prices, add new items, collect money, and print sales summary.
+ */
 public class RegularMaintenance {
+    // Declare the GUI components
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
     JLabel machineBalanceLabel = new JLabel();
@@ -38,13 +43,20 @@ public class RegularMaintenance {
     private int numDenom50=0;
     private int numDenom100=0;
 
-
+    /**
+     * Constructor for the RegularMaintenance class.
+     * Initializes the GUI by calling the init() method.
+     */
     public RegularMaintenance(){
         init();
     }
 
+    /**
+     * Initializes the graphical user interface (GUI) components and sets up the regular maintenance view.
+     * Creates various panels and adds components to them, sets their properties, and arranges them using layout managers.
+     * The GUI is composed of background images, labels, buttons, and dropdowns.
+     */
     public void init() {
-        // Declarations
         JLabel titleLabel = new JLabel();
         slotsDropdown = new JComboBox<>();
         JPanel titlePanel = new JPanel();
@@ -331,44 +343,112 @@ public class RegularMaintenance {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
+    /**
+     * Getter method to access the JFrame from other classes.
+     *
+     * @return The JFrame instance.
+     */
     public JFrame getFrame() {
         return frame;
     }
-
+    /**
+     * Getter method to access the "Go Back" button from other classes.
+     *
+     * @return The "Go Back" button.
+     */
     public JButton getExitButton(){
         return exitButton;
     }
-
+    /**
+     * Getter method to access the "Add" button from other classes.
+     *
+     * @return The "Add" button.
+     */
     public JButton getAddButton(){return addButton;}
-
+    /**
+     * Getter method to access the "Set Price" button from other classes.
+     *
+     * @return The "Set Price" button.
+     */
     public JButton getChangePriceButton(){return changePriceButton;}
-
+    /**
+     * Getter method to access the "Restock" button from other classes.
+     *
+     * @return The "Restock" button.
+     */
     public JButton getRestockButton(){return restockButton;}
-
+    /**
+     * Getter method to access the "Add Item" button from other classes.
+     *
+     * @return The "Add Item" button.
+     */
     public JButton getAddItem(){return addItem;}
-
+    /**
+     * Getter method to access the "Collect Money" button from other classes.
+     *
+     * @return The "Collect Money" button.
+     */
     public JButton getCollectMoney(){return collectMoney;}
-
+    /**
+     * Getter method to access the "Instructions" button from other classes.
+     *
+     * @return The "Instructions" button.
+     */
     public JButton getInstructionsButton(){return instructionsButton;}
-
+    /**
+     * Getter method to access the "Print Sales Summary" button from other classes.
+     *
+     * @return The "Print Sales Summary" button.
+     */
     public JButton getPrintSummary(){return printSummary;}
-
+    /**
+     * Getter method to access the system message label from other classes.
+     *
+     * @return The system message label.
+     */
     public JLabel getSystemMessage(){return  systemMessage;}
-
+    /**
+     * Getter method to access the slot information label from other classes.
+     *
+     * @return The slot information label.
+     */
     public JLabel getSlotInfoLabel(){return slotInfoLabel;}
-
+    /**
+     * Getter method to access the text field for setting product calories from other classes.
+     *
+     * @return The text field for setting product calories.
+     */
     public JTextField getSetCalories(){return setCalories;}
-
+    /**
+     * Getter method to access the text field for setting product name from other classes.
+     *
+     * @return The text field for setting product name.
+     */
     public JTextField getSetName(){return setName;}
-
+    /**
+     * Getter method to access the text field for setting product price from other classes.
+     *
+     * @return The text field for setting product price.
+     */
     public JTextField getSetPrice(){return setPrice;}
-
+    /**
+     * Getter method to access the text field for changing the product price from other classes.
+     *
+     * @return The text field for changing the product price.
+     */
     public JTextField getChangePrice(){return changePrice;}
-
+    /**
+     * Getter method to access the slots dropdown (combobox) from other classes.
+     *
+     * @return The slots dropdown (combobox).
+     */
     public JComboBox<String> getSlotsDropdown(){return slotsDropdown;}
 
-
+    /**
+     * Populates the slots dropdown with slot types.
+     *
+     * @param slotTypes An ArrayList containing the available slot types to be displayed in the dropdown.
+     */
     public void setSlotsDropdown(ArrayList<String> slotTypes) {
         slotsDropdown.setFocusable(false);
         slotsDropdown.addItem("Choose an item...");
@@ -377,6 +457,12 @@ public class RegularMaintenance {
         }
     }
 
+    /**
+     * Sets and displays the machine's stored money and total balance.
+     *
+     * @param machineStoredMoney An ArrayList containing the count of each denomination of money stored in the machine.
+     * @param totalMachineMoney The total balance in the machine.
+     */
     public void setMachineBalanceLabel(ArrayList<Integer> machineStoredMoney, int totalMachineMoney)
     {
 
@@ -404,6 +490,10 @@ public class RegularMaintenance {
                 "<br/>Total: " + totalMachineMoney + "<html>");
 
     }
+    /**
+     * method that resets denominations to zero
+     *
+     */
     public void resetDenominations() {
         numDenom1 = 0;
         numDenom5 = 0;
@@ -412,7 +502,7 @@ public class RegularMaintenance {
         numDenom50 = 0;
         numDenom100 = 0;
     }
-
+    // Getter method to access the denominations dropdown (combobox) from other classes.
     public JComboBox<Integer> getDenominations() {
         return denominations;
     }

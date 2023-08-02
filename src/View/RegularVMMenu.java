@@ -5,15 +5,30 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents the graphical user interface (GUI) for the regular vending machine menu.
+ * It provides options for the user to either use the vending machine or enter maintenance mode.
+ */
 public class RegularVMMenu {
+    // Declare the GUI components
     private JFrame frame;
     private JButton UseVMButton;
     private JButton maintenanceButton;
     private JButton backButton;
 
+    /**
+     * Constructor for the RegularVMMenu class.
+     * Initializes the GUI by calling the init() method.
+     */
     public RegularVMMenu() {
         init();
     }
+
+    /**
+     * Initializes the graphical user interface (GUI) components and sets up the regular vending machine menu view.
+     * Creates various panels and adds components to them, sets their properties, and arranges them using layout managers.
+     * The GUI is composed of background images, labels, and buttons.
+     */
     private void init()
     {
         UseVMButton = new JButton();
@@ -100,19 +115,35 @@ public class RegularVMMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
+    /**
+     * Getter method to access the JFrame from other classes.
+     *
+     * @return The JFrame instance.
+     */
     public JFrame getFrame() {
         return frame;
     }
-
+    /**
+     * Getter method to access the "Use Vending Machine" button from other classes.
+     *
+     * @return The "Use Vending Machine" button.
+     */
     public JButton getUseVMButton() {
         return UseVMButton;
     }
-
+    /**
+     * Getter method to access the "Enter Maintenance Mode" button from other classes.
+     *
+     * @return The "Enter Maintenance Mode" button.
+     */
     public JButton getMaintenanceButton() {
         return maintenanceButton;
     }
-
+    /**
+     * Getter method to access the "Back" button from other classes.
+     *
+     * @return The "Back" button.
+     */
     public JButton getBackButton() {
         return backButton;
     }

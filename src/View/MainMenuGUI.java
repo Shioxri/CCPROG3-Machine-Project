@@ -8,6 +8,9 @@ import javax.sound.sampled.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+/**
+ * This class represents the graphical user interface (GUI) for the main menu of the vending machine.
+ */
 public class MainMenuGUI {
 
     private JButton regularVMButton;
@@ -15,9 +18,17 @@ public class MainMenuGUI {
     private JButton exitButton;
     private JFrame frame;
 
+    /**
+     * Constructor for the MainMenuGUI class.
+     * Initializes the GUI by calling the init() method.
+     */
     public MainMenuGUI() {
         init();
     }
+
+    /**
+     * Initializes the graphical user interface (GUI) components and sets up the main menu.
+     */
     private void init()
     {
         regularVMButton = new JButton();
@@ -127,6 +138,12 @@ public class MainMenuGUI {
 
 
 
+    /**
+     * Plays background music for the main menu.
+     * The music should be a WAV file and located in the same directory as the source file.
+     *
+     * @param musicFilePath The file path of the background music (WAV format).
+     */
     public void playBackgroundMusic(String musicFilePath) {
         try {
             File musicFile = new File(musicFilePath);

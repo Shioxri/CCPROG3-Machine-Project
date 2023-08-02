@@ -5,8 +5,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.border.Border;
 
-
+/**
+ * This class represents the graphical user interface (GUI) for the special vending machine buy menu.
+ * It provides options for the user to select various fruits, water, milk, ice, and toppings to create a fruit shake.
+ * The user can add money, make a purchase, and cancel the order.
+ */
 public class SpecialBuy {
+    // Declare and initialize the GUI components
+    // JFrame and various buttons, dropdowns, and labels
+    // Also, arrays to store total price and total calories for each selected item.
+    // These will be used to calculate the overall total price and total calories.
     private JFrame frame = new JFrame();
     private JButton buyButton = new JButton();
     private JButton addButton = new JButton();
@@ -27,15 +35,26 @@ public class SpecialBuy {
     private int[] totalPrice = {0,0,0,0,0,0};
     private int[] totalCals = {0,0,0,0,0,0};
 
-
+    /**
+     * Constructor for the SpecialBuy class.
+     * Initializes the GUI by calling the init() method.
+     */
     public SpecialBuy() {
         init();
     }
 
 
 
+    /**
+     * Initializes the graphical user interface (GUI) components and sets up the special vending machine buy menu view.
+     * Creates various panels and adds components to them, sets their properties, and arranges them using layout managers.
+     * The GUI is composed of background images, labels, dropdowns, buttons, and panels.
+     */
     private void init() {
-        // Declarations
+        // This method sets up the graphical user interface (GUI) components.
+        // It creates various panels and adds components to them, sets their properties,
+        // and arranges them using layout managers.
+        // The GUI is composed of background images, labels, dropdowns, buttons, and panels.
         JLabel titleLabel = new JLabel();
         JPanel titlePanel = new JPanel();
         JPanel selectionPanel = new JPanel();
@@ -248,26 +267,27 @@ public class SpecialBuy {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JComboBox<Integer> getDenominations() {
-        return denominations;
-    }
 
+
+    // Updates the user balance label with the given value.
     public void updateBalanceText(int userBalance){
         userBalanceLabel.setText("Balance: Php "+userBalance);
     }
 
+    // Resets the user balance label to its default text.
     public void defaultBalanceText()
     {
         userBalanceLabel.setText("No Balance Yet");
     }
 
-
+    // Displays a system message indicating the amount of money added.
     public void showAddedMoneyText()
     {
         systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
     }
 
-
+    // Sets the default text for the infoLabel and orderLabel components.
+    // These labels provide information about the selected items and the order details.
     public void setDefaultLabels() {
         String defaultInfoText = "<html>Item Details" +
                 "<br/>Price | Calories | Stock<br/>" +
@@ -291,10 +311,19 @@ public class SpecialBuy {
         orderLabel.setText(defaultOrderText);
     }
 
+    /**
+     * Getter method to access the JFrame from other classes.
+     *
+     * @return The JFrame instance.
+     */
     public JFrame getFrame() {
         return frame;
     }
-
+    /**
+     * Getter method to access the "Exit" button from other classes.
+     *
+     * @return The "Exit" button.
+     */
     public JButton getExitButton() {
         return exitButton;
     }
@@ -324,8 +353,19 @@ public class SpecialBuy {
     public JComboBox<String> getToppingsType(){return toppingsType;}
 
     public JLabel getSystemMessage(){return systemMessage;}
-
-
+    /**
+     * Getter method to access the denominations dropdown from other classes.
+     *
+     * @return The denominations dropdown.
+     */
+    public JComboBox<Integer> getDenominations() {
+        return denominations;
+    }
+    /**
+     * Getter method to access the orderLabel which displays order details.
+     *
+     * @return The orderLabel.
+     */
     public JLabel getOrderLabel(){return orderLabel;}
 
     public void setFirstFruitsDropDown(ArrayList<String> slotTypes) {
@@ -379,9 +419,19 @@ public class SpecialBuy {
     public JButton getCancelButton() {
         return cancelButton;
     }
-
+    /**
+     * Getter method to access the infoLabel which displays item details.
+     *
+     * @return The infoLabel.
+     */
     public JLabel getInfoLabel(){return infoLabel;}
 
+    // Calculates the total price by summing up the prices of individual items.
+    /**
+     * Calculates the total price by summing up the prices of individual items.
+     *
+     * @return The total price.
+     */
     public int getTotalPrice() {
         int sum=0;
         for (int j : totalPrice) {
@@ -389,7 +439,12 @@ public class SpecialBuy {
         }
         return sum;
     }
-
+    // Calculates the total calories by summing up the calories of individual items.
+    /**
+     * Calculates the total calories by summing up the calories of individual items.
+     *
+     * @return The total calories.
+     */
     public int getTotalCals() {
         int sum=0;
         for (int j : totalCals) {
@@ -398,16 +453,17 @@ public class SpecialBuy {
         return sum;
     }
 
+    // Adds the given value to the total price array at the specified index.
     public void addToTotalPrice(int value, int index)
     {
         totalPrice[index] = value;
     }
-
+    // Adds the given value to the total calories array at the specified index.
     public void addToTotalCals(int value, int index)
     {
         totalCals[index] = value;
     }
-
+    // Resets the total price array to all zeros.
     public void resetTotalPrice()
     {
         for(int i = 0; i<6; i++)
@@ -415,6 +471,7 @@ public class SpecialBuy {
             totalPrice[i]=0;
         }
     }
+    // Resets the total calories array to all zeros.
     public void resetTotalCals()
     {
         for(int i = 0; i<6; i++)

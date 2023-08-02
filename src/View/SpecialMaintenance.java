@@ -11,6 +11,9 @@ import javax.swing.border.Border;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+/**
+ * SpecialMaintenance class represents a special maintenance menu for the vending machine GUI.
+ */
 public class SpecialMaintenance {
     JFrame frame = new JFrame();
     JLabel systemMessage = new JLabel();
@@ -47,10 +50,18 @@ public class SpecialMaintenance {
     private int numDenom50=0;
     private int numDenom100=0;
 
+    // This class represents a special maintenance menu for the vending machine GUI.
     public SpecialMaintenance() {
         init();
     }
+    // GUI components declarations
 
+    /**
+     * Initializes the graphical user interface (GUI) components for the Special Maintenance menu.
+     * This method sets up various panels and adds components to them, sets their properties,
+     * and arranges them using layout managers. The GUI is composed of background images, labels,
+     * dropdowns, buttons, and panels.
+     */
     public void init() {
         // Declarations
 
@@ -171,8 +182,6 @@ public class SpecialMaintenance {
         exitButton.setBounds(550, 80, 190, 35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
         exitButton.setText("Menu");
-        /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
-
 
         quitButton.setBounds(550, 10, 190, 35);
         quitButton.setHorizontalAlignment(JButton.CENTER);
@@ -382,15 +391,20 @@ public class SpecialMaintenance {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Getter method to access the main JFrame of the Special Maintenance menu.
+     * @return The main JFrame object representing the Special Maintenance menu.
+     */
     public JFrame getFrame() {
         return frame;
     }
-
+    /**
+     * Getter method to access the "Exit" button of the Special Maintenance menu.
+     * @return The "Exit" button object.
+     */
     public JButton getExitButton() {
         return exitButton;
     }
-
-
 
     public JButton getAddButton() {
         return addButton;
@@ -453,7 +467,14 @@ public class SpecialMaintenance {
 
     public JTextField getSetCalories(){return setCalories;}
 
-
+    // Method to update and display the machine's balance label.
+    /**
+     * Method to update and display the machine's balance label.
+     * It calculates the counts of different denominations in the machineStoredMoney list
+     * and displays the total machine balance on the machineBalanceLabel.
+     * @param machineStoredMoney An ArrayList of integers representing the stored denominations in the machine.
+     * @param totalMachineMoney The total sum of money stored in the machine.
+     */
     public void setMachineBalanceLabel(ArrayList<Integer> machineStoredMoney, int totalMachineMoney)
     {
 
@@ -481,6 +502,10 @@ public class SpecialMaintenance {
                 "<br/>Total: " + totalMachineMoney + "<html>");
 
     }
+    /**
+     * Method to reset the denomination counts for displaying the machine balance.
+     * This method should be called before calling setMachineBalanceLabel() to ensure correct counts.
+     */
     public void resetDenominations() {
         numDenom1 = 0;
         numDenom5 = 0;
@@ -489,11 +514,19 @@ public class SpecialMaintenance {
         numDenom50 = 0;
         numDenom100 = 0;
     }
-
+    /**
+     * Getter method to access the denominations dropdown from other classes.
+     * @return The denominations JComboBox object.
+     */
     public JComboBox<Integer> getDenominations() {
         return denominations;
     }
 
+    /**
+     * Setter method for the regularSlotsDropDown JComboBox.
+     * Populates the regularSlotsDropDown with the provided slotTypes.
+     * @param slotTypes An ArrayList of strings representing the available slot types for regular slots.
+     */
     public void setRegularSlotsDropDown(ArrayList<String> slotTypes) {
         regularSlotsDropDown.setFocusable(false);
         regularSlotsDropDown.addItem("Choose an item...");
@@ -501,7 +534,11 @@ public class SpecialMaintenance {
             regularSlotsDropDown.addItem(string);
         }
     }
-
+    /**
+     * Setter method for the specialSlotsDropDown JComboBox.
+     * Populates the specialSlotsDropDown with the provided slotTypes.
+     * @param slotTypes An ArrayList of strings representing the available slot types for special slots.
+     */
     public void setSpecialSlotsDropDown(ArrayList<String> slotTypes) {
         specialSlotsDropDown.setFocusable(false);
         specialSlotsDropDown.addItem("Choose an item...");
