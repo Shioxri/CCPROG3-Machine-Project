@@ -29,13 +29,17 @@ public class RegularBuyController {
         });
 
         regularBuyMenu.getExitButton().addActionListener(e -> {
+            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+            vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
+
         });
 
         regularBuyMenu.getRegularItems().addActionListener(e ->{
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
             updateInfoLabel(selectedItemIndex, vendingMachine);
+
         });
 
         regularBuyMenu.getBuyButton().addActionListener(e -> {
@@ -44,16 +48,15 @@ public class RegularBuyController {
             int errorType = vendingMachine.checkInputValidity(selectedItemIndex, false);
             if(errorType==0)
             {
-
-                updateInfoLabel(selectedItemIndex, vendingMachine);
                 Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex-1, false);
+                updateInfoLabel(selectedItemIndex-1, vendingMachine);
                 int change = vendingMachine.getUserBalance()-dispensedItem.getPrice();
                 vendingMachine.confirmTransaction(selectedItemIndex-1);
 
 
                 regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
                 System.out.println(dispensedItem.getType() + " <- Dispensed (1) Item");
-
+                Maintenance.addSoldItems(vendingMachine, dispensedItem.getType());
                 regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>"+
                         "Dispensed "+dispensedItem.getType()+"<br/>"+
                         "Return Change: "+change+"</html>");
@@ -68,8 +71,10 @@ public class RegularBuyController {
             vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.defaultBalanceText();
+            regularBuyMenu.getRegularItems().setSelectedIndex(0);
             regularBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>"+
                     "Returned User Money<br/>"+
+                    "Cleared item selection<br/>"+
                     "Successfully cancelled the transaction </html>");
         });
     }
@@ -88,23 +93,25 @@ public class RegularBuyController {
 
     public void updateInfoLabel(int selectedItemIndex, VendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
-            int chosenItemIndex = selectedItemIndex - 1;
-            Item selectedItem = vendingMachine.getSelectedItem(chosenItemIndex, false);
-            Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItemIndex, false);
+            Item selectedItem = vendingMachine.getSelectedItem(selectedItemIndex, false);
+            Slot selectedSlot = vendingMachine.getSelectedSlot(selectedItemIndex, false);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
                 String infoText = "<html>Price: " +  selectedItem.getPrice() +
                         "<br/>Calories: " +  selectedItem.getCalorie() +
                         " kCal<br/> Stock: " + selectedSlot.getItemStock() +
                         "</html>";
                 regularBuyMenu.getInfoLabel().setText(infoText);
+                regularBuyMenu.getSystemMessage().setText("Selected: "+selectedItem.getType());
             }
             else
             {
                 regularBuyMenu.getInfoLabel().setText("Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!");
+                regularBuyMenu.getSystemMessage().setText("Selected: "+selectedSlot.getAssignedItemType());
             }
 
         } else {
             regularBuyMenu.getInfoLabel().setText("");
+            regularBuyMenu.getSystemMessage().setText("");
         }
     }
 

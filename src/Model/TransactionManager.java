@@ -136,4 +136,41 @@ public class TransactionManager {
                 return 0;
         }
     }
+
+
+    public void confirmSpecialTransaction(ArrayList<Item> selectedItems, double totalPrice, int totalCals,
+                                          double totalUserMoney, double change,
+                                          ArrayList<Item> selectedFruits, ArrayList<Item> selectedLiquids,
+                                          Item selectedIce, Item selectedAddOns) {
+        System.out.println("[Transaction Successful]");
+        System.out.println("\n*** Receipt ***");
+        for (Item selectedItem : selectedItems) {
+            System.out.println(selectedItem.getType() + " - ₱" + selectedItem.getPrice());
+        }
+        System.out.println("Total Price: ₱" + totalPrice);
+        System.out.println("Total Calories: " + totalCals + " cals");
+        System.out.println();
+        System.out.println("Inserted Money: ₱" + totalUserMoney);
+        System.out.println("CHANGE: ₱" + change);
+
+        System.out.println("\nPreparing your custom fruit shake...");
+        System.out.print("Blending Fruits: ");
+        for (Item item : selectedFruits) {
+            System.out.print(item.getType() + " ");
+        }
+        System.out.println();
+        System.out.print("Pouring Liquids: ");
+        for (Item liquid : selectedLiquids) {
+            System.out.print(liquid.getType() + " ");
+        }
+        System.out.println();
+        if (selectedIce != null) {
+            System.out.println("Putting " + selectedIce.getType());
+        }
+        if (selectedAddOns != null) {
+            System.out.println("Topping with " + selectedAddOns.getType());
+        }
+        System.out.println("Order Complete! Enjoy your customized fruit shake!");
+        System.out.println("\nPress [0] to go back");
+    }
 }

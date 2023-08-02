@@ -96,6 +96,8 @@ public class RegularBuy {
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
+        systemMessage.setText("<html>Welcome to our [Regular] Vending Machine!<br/>" +
+                "Feel free to select your desired fruit from our selection<html>!");
 
 
         defaultBalanceText();

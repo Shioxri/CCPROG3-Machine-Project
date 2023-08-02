@@ -89,6 +89,9 @@ public class SpecialBuy {
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
+        systemMessage.setText("<html>Welcome to our [Special] Vending Machine!<br/>" +
+                "Select your favorite fruits to create a delicious fruit shake!");
+
 
 
         defaultBalanceText();
@@ -103,15 +106,6 @@ public class SpecialBuy {
 
         //TODO: need method to put the price and calories of the shake/item here
         orderLabel.setBounds(10, 150, 180, 200);
-        orderLabel.setText("<html>Order Details<br/>Price: " +
-                "<br/>Calories: " +
-                "<br/>Selected Items:<br/>"+
-                "<br/>First Fruit: " +
-                "<br/>Second Fruit: " +
-                "<br/>Water Type: " +
-                "<br/>Milk Type " +
-                "<br/>Ice Type:" +
-                "<br/>Toppings: </html>");
         orderLabel.setForeground(Color.WHITE);
         orderLabel.setBackground(Color.BLACK);
         orderLabel.setBorder(borderLinegrayl);
@@ -119,20 +113,13 @@ public class SpecialBuy {
         orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 11));
 
         infoLabel.setBounds(10, 355, 180, 200);
-        infoLabel.setText("<html>Item Details" +
-                "<br/>Price | Calories | Stock<br/>"+
-                "<br/>First Fruit: " +
-                "<br/>Second Fruit: " +
-                "<br/>Water Type: " +
-                "<br/>Milk Type " +
-                "<br/>Ice Type:" +
-                "<br/>Toppings: </html>");
+
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
         infoLabel.setOpaque(true);
         infoLabel.setFont(new Font("Century Gothic", Font.BOLD, 11));
-
+        setDefaultLabels();
         // Buttons
 
         //TODO: need method that simulates buy(reduce change reduce stocks)
@@ -295,7 +282,28 @@ public class SpecialBuy {
     }
 
 
+    public void setDefaultLabels() {
+        String defaultInfoText = "<html>Item Details" +
+                "<br/>Price | Calories | Stock<br/>" +
+                "<br/>First Fruit: " +
+                "<br/>Second Fruit: " +
+                "<br/>Water Type: " +
+                "<br/>Milk Type " +
+                "<br/>Ice Type:" +
+                "<br/>Toppings: </html>";
+        infoLabel.setText(defaultInfoText);
 
+        String defaultOrderText = "<html>Order Details<br/>Price: " +
+                "<br/>Calories: " +
+                "<br/>Selected Items:<br/>" +
+                "<br/>First Fruit: " +
+                "<br/>Second Fruit: " +
+                "<br/>Water Type: " +
+                "<br/>Milk Type " +
+                "<br/>Ice Type:" +
+                "<br/>Toppings: </html>";
+        orderLabel.setText(defaultOrderText);
+    }
 
     public JFrame getFrame() {
         return frame;
@@ -417,11 +425,17 @@ public class SpecialBuy {
 
     public void resetTotalPrice()
     {
-        Arrays.fill(totalPrice, 0);
+        for(int i = 0; i<6; i++)
+        {
+            totalPrice[i]=0;
+        }
     }
     public void resetTotalCals()
     {
-        Arrays.fill(totalCals, 0);
+        for(int i = 0; i<6; i++)
+        {
+            totalCals[i]=0;
+        }
     }
 
 }

@@ -19,65 +19,116 @@ public class SpecialBuyController {
 
         ArrayList<Slot> originalSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         ArrayList<Slot> originalSpecialSlots = Maintenance.deepCopySlotArrayList(vendingMachine.getSpecialSlots());
-        ArrayList<Item> selectedItems = new ArrayList<>();
-        ArrayList<Item> selectedFruits = new ArrayList<>();
-        ArrayList<Item> selectedLiquids = new ArrayList<>();
+
 
         setDropdownContents(vendingMachine);
 
 
         specialBuyMenu.getFirstFruitsDropDown().addActionListener(e ->{
             int firstFruitSelectedIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
-            Item selectedItem = vendingMachine.getSelectedItem(firstFruitSelectedIndex-1, false);
-            System.out.println("Price: "+selectedItem.getPrice());
-            System.out.println("Cals: "+selectedItem.getCalorie());
+            if(firstFruitSelectedIndex==0)
+            {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0,0);
+                specialBuyMenu.addToTotalCals(0,0);
+            }
+            else
+            {
+                Item selectedItem = vendingMachine.getSelectedItem(firstFruitSelectedIndex-1, false);
+                System.out.println("Price: "+selectedItem.getPrice());
+                System.out.println("Cals: "+selectedItem.getCalorie());
 
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(),0);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(),0);
-            updateSideLabels(specialBuyMenu, vendingMachine);
-
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(),0);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(),0);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
 
-        specialBuyMenu.getSecondFruitsDropDown().addActionListener(e ->{
+        specialBuyMenu.getFirstFruitsDropDown().addActionListener(e -> {
+            int firstFruitSelectedIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
+            if (firstFruitSelectedIndex == 0) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 0);
+                specialBuyMenu.addToTotalCals(0, 0);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(firstFruitSelectedIndex - 1, false);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 0);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 0);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
+        });
+
+        specialBuyMenu.getSecondFruitsDropDown().addActionListener(e -> {
             int secondFruitSelectedIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
-            Item selectedItem = vendingMachine.getSelectedItem(secondFruitSelectedIndex-1, false);
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 1);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 1);
-            updateSideLabels(specialBuyMenu, vendingMachine);
+            if (secondFruitSelectedIndex == 0) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 1);
+                specialBuyMenu.addToTotalCals(0, 1);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(secondFruitSelectedIndex - 1, false);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 1);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 1);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
 
-        specialBuyMenu.getWaterType().addActionListener(e ->{
+        specialBuyMenu.getWaterType().addActionListener(e -> {
             int waterTypeSelectedIndex = specialBuyMenu.getWaterType().getSelectedIndex();
-            Item selectedItem = vendingMachine.getSelectedItem(waterTypeSelectedIndex-1, true);
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 2);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 2);
-            updateSideLabels(specialBuyMenu, vendingMachine);
+            if (waterTypeSelectedIndex == 0) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 2);
+                specialBuyMenu.addToTotalCals(0, 2);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(waterTypeSelectedIndex - 1, true);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 2);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 2);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
 
-        specialBuyMenu.getMilkType().addActionListener(e ->{
+        specialBuyMenu.getMilkType().addActionListener(e -> {
             int milkTypeSelectedIndex = specialBuyMenu.getMilkType().getSelectedIndex() + 2;
-            Item selectedItem = vendingMachine.getSelectedItem(milkTypeSelectedIndex-1, true);
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 3);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 3);
-            updateSideLabels(specialBuyMenu, vendingMachine);
+            if (milkTypeSelectedIndex == 2) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 3);
+                specialBuyMenu.addToTotalCals(0, 3);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(milkTypeSelectedIndex - 1, true);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 3);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 3);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
 
-        specialBuyMenu.getIceType().addActionListener(e ->{
+        specialBuyMenu.getIceType().addActionListener(e -> {
             int iceTypeSelectedIndex = specialBuyMenu.getIceType().getSelectedIndex() + 7;
-            Item selectedItem = vendingMachine.getSelectedItem(iceTypeSelectedIndex-1, true);
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 4);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 4);
-            updateSideLabels(specialBuyMenu, vendingMachine);
+            if (iceTypeSelectedIndex == 7) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 4);
+                specialBuyMenu.addToTotalCals(0, 4);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(iceTypeSelectedIndex - 1, true);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 4);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 4);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
 
-        specialBuyMenu.getToppingsType().addActionListener(e ->{
+        specialBuyMenu.getToppingsType().addActionListener(e -> {
             int toppingsSelectedIndex = specialBuyMenu.getToppingsType().getSelectedIndex() + 9;
-            Item selectedItem = vendingMachine.getSelectedItem(toppingsSelectedIndex-1, true);
-            specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 5);
-            specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 5);
-            updateSideLabels(specialBuyMenu, vendingMachine);
-
+            if (toppingsSelectedIndex == 9) {
+                updateSideLabels(specialBuyMenu, vendingMachine);
+                specialBuyMenu.addToTotalPrice(0, 5);
+                specialBuyMenu.addToTotalCals(0, 5);
+            } else {
+                Item selectedItem = vendingMachine.getSelectedItem(toppingsSelectedIndex - 1, true);
+                specialBuyMenu.addToTotalPrice(selectedItem.getPrice(), 5);
+                specialBuyMenu.addToTotalCals(selectedItem.getCalorie(), 5);
+                updateSideLabels(specialBuyMenu, vendingMachine);
+            }
         });
+
+
 
         specialBuyMenu.getAddButton().addActionListener(e -> {
             vendingMachine.addTempPaidMoney((Integer) specialBuyMenu.getDenominations().getSelectedItem(), 1);
@@ -88,16 +139,137 @@ public class SpecialBuyController {
             System.out.println("User Bal: "+vendingMachine.getUserBalance());
         });
 
+
+        specialBuyMenu.getBuyButton().addActionListener(e ->{
+            int firstFruitIndex = specialBuyMenu.getFirstFruitsDropDown().getSelectedIndex();
+            int secondFruitIndex = specialBuyMenu.getSecondFruitsDropDown().getSelectedIndex();
+            int waterTypeIndex = specialBuyMenu.getWaterType().getSelectedIndex();
+            int milkTypeIndex = specialBuyMenu.getMilkType().getSelectedIndex();
+            int iceTypeIndex = specialBuyMenu.getIceType().getSelectedIndex();
+            int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
+
+            ArrayList<Item> selectedItems = new ArrayList<>();
+            ArrayList<Item> selectedFruits = new ArrayList<>();
+            ArrayList<Item> selectedLiquids = new ArrayList<>();
+            if(vendingMachine.getUserBalance()>=specialBuyMenu.getTotalPrice())
+            {
+                if ((firstFruitIndex != 0 || secondFruitIndex !=0) &&
+                        (waterTypeIndex != 0 || milkTypeIndex != 0)) {
+
+
+
+                    int firstFruitChecker = vendingMachine.checkInputValidity(firstFruitIndex, false);
+                    int secondFruitChecker = vendingMachine.checkInputValidity(secondFruitIndex, false);
+                    int waterTypeChecker = vendingMachine.checkInputValidity(waterTypeIndex, true);
+                    int milkTypeChecker = vendingMachine.checkInputValidity(milkTypeIndex+2, true);
+                    int iceTypeChecker = vendingMachine.checkInputValidity(iceTypeIndex+7, true);
+                    int toppingsTypeChecker = vendingMachine.checkInputValidity(toppingsTypeIndex+9, true);
+
+                    if(firstFruitIndex!=0) {
+                        if (firstFruitChecker == 0) {
+                            Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
+                            selectedItems.add(firstFruit);
+                            selectedFruits.add(firstFruit);
+                        }
+                    }
+              
+                    if(secondFruitIndex!=0)
+                    {
+                        if(secondFruitChecker==0)
+                        {
+                            Item secondFruit = vendingMachine.dispenseSelectedItem(secondFruitIndex-1, false);
+                            selectedItems.add(secondFruit);
+                            selectedFruits.add(secondFruit);
+                        }
+               
+                    }
+                    if (waterTypeIndex != 0) {
+                        if(waterTypeChecker==0)
+                        {
+                            Item waterType = vendingMachine.dispenseSelectedItem(waterTypeIndex - 1, true);
+                            selectedItems.add(waterType);
+                            selectedLiquids.add(waterType);
+                        }
+
+                    }
+                    if (milkTypeIndex != 0) {
+                        if(milkTypeChecker==0)
+                        {
+                            Item milkType = vendingMachine.dispenseSelectedItem(milkTypeIndex + 1, true);
+                            selectedItems.add(milkType);
+                            selectedLiquids.add(milkType);
+                        }
+
+                    }
+                    if (iceTypeIndex != 0) {
+                        if(iceTypeChecker==0)
+                        {
+                            Item iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
+                            selectedItems.add(iceType);
+                        }
+
+                    }
+                    if (toppingsTypeIndex != 0) {
+                        if(toppingsTypeChecker==0)
+                        {
+                            Item toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
+                            selectedItems.add(toppingsType);
+                        }
+
+                    }
+                    int i =0;
+                    for(Item item : selectedItems)
+                    {
+                        i++;
+                        Maintenance.addSoldItems(vendingMachine, item.getType());
+                        System.out.println("Dispensed #"+i+" : "+item.getType()); // for checking
+                    }
+
+                    updateSideLabels(specialBuyMenu, vendingMachine);
+
+                    int totalUserMoney = vendingMachine.getUserBalance();
+                    int change = totalUserMoney - specialBuyMenu.getTotalPrice();
+                    vendingMachine.getMoneyManager().depositMoney();
+                    vendingMachine.getMoneyManager().returnChange(change);
+                    specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
+                    specialBuyMenu.resetTotalPrice();
+                    specialBuyMenu.resetTotalCals();
+                    resetDropdowns();
+
+                    //for checking
+                    vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
+                    vendingMachine.displayAllItems(vendingMachine.getSpecialSlots());
+                    System.out.println("User Balance: "+ vendingMachine.getUserBalance());
+
+                }
+                else
+                {
+                    specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!" +
+                            "<br/>Must have at least: 1 Fruit and 1 Liquid Type (Milk/Water)" +
+                            "<br/>too complete an order, please try again!<html>");
+                }
+            }
+
+        });
+
         specialBuyMenu.getCancelButton().addActionListener(e -> {
             vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.defaultBalanceText();
+            vendingMachine.restoreOriginalContents(originalSlots, originalSpecialSlots);
+            resetDropdowns();
+            //specialBuyMenu.setDefaultLabels();
+
             specialBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>"+
                     "Returned User Money<br/>"+
+                    "Cleared Order<br/>"+
+                    "Returned Selected Items<br/>"+
                     "Successfully cancelled the transaction </html>");
         });
 
         specialBuyMenu.getExitButton().addActionListener(e -> {
+            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+            vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);
         });
@@ -112,6 +284,15 @@ public class SpecialBuyController {
         specialBuyMenu.setToppingsDropDown(getSpecialSlotTypes(vendingMachine.getSpecialSlots(),9,10));
     }
 
+    private void resetDropdowns()
+    {
+        specialBuyMenu.getFirstFruitsDropDown().setSelectedIndex(0);
+        specialBuyMenu.getSecondFruitsDropDown().setSelectedIndex(0);
+        specialBuyMenu.getWaterType().setSelectedIndex(0);
+        specialBuyMenu.getMilkType().setSelectedIndex(0);
+        specialBuyMenu.getIceType().setSelectedIndex(0);
+        specialBuyMenu.getToppingsType().setSelectedIndex(0);
+    }
     public ArrayList<Slot> getOriginalSlots() {
         return originalSlots;
     }
@@ -293,6 +474,7 @@ public class SpecialBuyController {
         specialBuyMenu.getInfoLabel().setText(infoText.toString());
         orderText.append("</html>");
         specialBuyMenu.getOrderLabel().setText(orderText.toString());
+        specialBuyMenu.getSystemMessage().setText("");
     }
 
 
