@@ -147,107 +147,129 @@ public class SpecialBuyController {
             int milkTypeIndex = specialBuyMenu.getMilkType().getSelectedIndex();
             int iceTypeIndex = specialBuyMenu.getIceType().getSelectedIndex();
             int toppingsTypeIndex = specialBuyMenu.getToppingsType().getSelectedIndex();
+            boolean isInvalidOrder = false;
 
             ArrayList<Item> selectedItems = new ArrayList<>();
             ArrayList<Item> selectedFruits = new ArrayList<>();
             ArrayList<Item> selectedLiquids = new ArrayList<>();
             if(vendingMachine.getUserBalance()>=specialBuyMenu.getTotalPrice())
             {
-                if ((firstFruitIndex != 0 || secondFruitIndex !=0) &&
-                        (waterTypeIndex != 0 || milkTypeIndex != 0)) {
+                if(vendingMachine.getMoneyManager().canReturnChange(specialBuyMenu.getTotalPrice())) {
 
+                    if ((firstFruitIndex != 0 || secondFruitIndex != 0) && (waterTypeIndex != 0 || milkTypeIndex != 0)) {
 
+                        StringBuilder systemLabelMessage = new StringBuilder();
 
-                    int firstFruitChecker = vendingMachine.checkInputValidity(firstFruitIndex, false);
-                    int secondFruitChecker = vendingMachine.checkInputValidity(secondFruitIndex, false);
-                    int waterTypeChecker = vendingMachine.checkInputValidity(waterTypeIndex, true);
-                    int milkTypeChecker = vendingMachine.checkInputValidity(milkTypeIndex+2, true);
-                    int iceTypeChecker = vendingMachine.checkInputValidity(iceTypeIndex+7, true);
-                    int toppingsTypeChecker = vendingMachine.checkInputValidity(toppingsTypeIndex+9, true);
-
-                    if(firstFruitIndex!=0) {
-                        if (firstFruitChecker == 0) {
-                            Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
-                            selectedItems.add(firstFruit);
-                            selectedFruits.add(firstFruit);
+                        if (firstFruitIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
+                                Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
+                                selectedItems.add(firstFruit);
+                                selectedFruits.add(firstFruit);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("First Fruit is out of stock or not available\n");
+                            }
                         }
+
+                        if (secondFruitIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(secondFruitIndex - 1, false).getItemArrayList().isEmpty()) {
+                                Item secondFruit = vendingMachine.dispenseSelectedItem(secondFruitIndex - 1, false);
+                                selectedItems.add(secondFruit);
+                                selectedFruits.add(secondFruit);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("Second Fruit is out of stock or not available\n");
+                            }
+                        }
+
+                        if (waterTypeIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(waterTypeIndex - 1, true).getItemArrayList().isEmpty()) {
+                                Item waterType = vendingMachine.dispenseSelectedItem(waterTypeIndex - 1, true);
+                                selectedItems.add(waterType);
+                                selectedLiquids.add(waterType);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("Water Type is out of stock or not available\n");
+                            }
+                        }
+
+                        if (milkTypeIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(milkTypeIndex + 1, true).getItemArrayList().isEmpty()) {
+                                Item milkType = vendingMachine.dispenseSelectedItem(milkTypeIndex + 1, true);
+                                selectedItems.add(milkType);
+                                selectedLiquids.add(milkType);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("Milk Type is out of stock or not available\n");
+                            }
+                        }
+
+                        if (iceTypeIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(iceTypeIndex + 6, true).getItemArrayList().isEmpty()) {
+                                Item iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
+                                selectedItems.add(iceType);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("Ice Type is out of stock or not available\n");
+                            }
+                        }
+
+                        if (toppingsTypeIndex != 0) {
+                            if (!vendingMachine.getSelectedSlot(toppingsTypeIndex + 8, true).getItemArrayList().isEmpty()) {
+                                Item toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
+                                selectedItems.add(toppingsType);
+                            } else {
+                                isInvalidOrder = true;
+                                systemLabelMessage.append("Toppings Type is out of stock or not available\n");
+                            }
+                        }
+
+                        if(!isInvalidOrder)
+                        {
+                            updateSideLabels(specialBuyMenu, vendingMachine);
+
+                            int totalUserMoney = vendingMachine.getUserBalance();
+                            int change = totalUserMoney - specialBuyMenu.getTotalPrice();
+                            vendingMachine.getMoneyManager().depositMoney();
+                            vendingMachine.getMoneyManager().returnChange(change);
+                            specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
+                            specialBuyMenu.resetTotalPrice();
+                            specialBuyMenu.resetTotalCals();
+                            resetDropdowns();
+
+                            //for checking
+                            vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
+                            vendingMachine.displayAllItems(vendingMachine.getSpecialSlots());
+                            System.out.println("User Balance: " + vendingMachine.getUserBalance());
+                        }
+                        else
+                        {
+                            specialBuyMenu.getSystemMessage().setText(systemLabelMessage.toString());
+                        }
+
                     }
-              
-                    if(secondFruitIndex!=0)
+                    else
                     {
-                        if(secondFruitChecker==0)
-                        {
-                            Item secondFruit = vendingMachine.dispenseSelectedItem(secondFruitIndex-1, false);
-                            selectedItems.add(secondFruit);
-                            selectedFruits.add(secondFruit);
-                        }
-               
-                    }
-                    if (waterTypeIndex != 0) {
-                        if(waterTypeChecker==0)
-                        {
-                            Item waterType = vendingMachine.dispenseSelectedItem(waterTypeIndex - 1, true);
-                            selectedItems.add(waterType);
-                            selectedLiquids.add(waterType);
-                        }
+                        resetDropdowns();
+                        specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!" +
+                                "<br/>Must have at least: 1 Fruit and 1 Liquid Type (Milk/Water)" +
+                                "<br/>too complete an order, please try again!<html>");
 
                     }
-                    if (milkTypeIndex != 0) {
-                        if(milkTypeChecker==0)
-                        {
-                            Item milkType = vendingMachine.dispenseSelectedItem(milkTypeIndex + 1, true);
-                            selectedItems.add(milkType);
-                            selectedLiquids.add(milkType);
-                        }
-
-                    }
-                    if (iceTypeIndex != 0) {
-                        if(iceTypeChecker==0)
-                        {
-                            Item iceType = vendingMachine.dispenseSelectedItem(iceTypeIndex + 6, true);
-                            selectedItems.add(iceType);
-                        }
-
-                    }
-                    if (toppingsTypeIndex != 0) {
-                        if(toppingsTypeChecker==0)
-                        {
-                            Item toppingsType = vendingMachine.dispenseSelectedItem(toppingsTypeIndex + 8, true);
-                            selectedItems.add(toppingsType);
-                        }
-
-                    }
-                    int i =0;
-                    for(Item item : selectedItems)
-                    {
-                        i++;
-                        Maintenance.addSoldItems(vendingMachine, item.getType());
-                        System.out.println("Dispensed #"+i+" : "+item.getType()); // for checking
-                    }
-
-                    updateSideLabels(specialBuyMenu, vendingMachine);
-
-                    int totalUserMoney = vendingMachine.getUserBalance();
-                    int change = totalUserMoney - specialBuyMenu.getTotalPrice();
-                    vendingMachine.getMoneyManager().depositMoney();
-                    vendingMachine.getMoneyManager().returnChange(change);
-                    specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
-                    specialBuyMenu.resetTotalPrice();
-                    specialBuyMenu.resetTotalCals();
-                    resetDropdowns();
-
-                    //for checking
-                    vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());
-                    vendingMachine.displayAllItems(vendingMachine.getSpecialSlots());
-                    System.out.println("User Balance: "+ vendingMachine.getUserBalance());
-
                 }
                 else
                 {
-                    specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!" +
-                            "<br/>Must have at least: 1 Fruit and 1 Liquid Type (Milk/Water)" +
-                            "<br/>too complete an order, please try again!<html>");
+                    resetDropdowns();
+                    specialBuyMenu.getSystemMessage().setText("<html>Machine does not have enough change<br/>" +
+                            "Order cancelled and money returned<html>");
+
                 }
+            }
+            else
+            {
+                resetDropdowns();
+                specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!<br/>" +
+                        "Not enough balance inserted!<html>");
             }
 
         });
