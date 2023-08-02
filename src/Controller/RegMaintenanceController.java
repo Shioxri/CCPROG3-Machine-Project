@@ -99,7 +99,12 @@ public class RegMaintenanceController {
 
 
         regularMaintenance.getPrintSummary().addActionListener(e ->{
-
+            String finalReport = Maintenance.getSalesReport(vendingMachine);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "<html><body><p style='width: 200px;'>"+finalReport+"</p></body></html>",
+                    "Sales Report",
+                    JOptionPane.PLAIN_MESSAGE);
         });
     }
 

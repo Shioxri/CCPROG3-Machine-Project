@@ -15,9 +15,9 @@ public class SpecialBuy {
     private JButton addButton = new JButton();
     private JButton exitButton = new JButton();
     private JComboBox<String> waterType = new JComboBox<>();
-    JComboBox<String> milkType = new JComboBox<>();
-    JComboBox<String> iceType = new JComboBox<>();
-    JComboBox<String> toppingsType = new JComboBox<>();
+    private JComboBox<String> milkType = new JComboBox<>();
+    private JComboBox<String> iceType = new JComboBox<>();
+    private JComboBox<String> toppingsType = new JComboBox<>();
     JLabel systemMessage = new JLabel();
     JLabel userBalanceLabel = new JLabel();
     JLabel orderLabel = new JLabel();
