@@ -11,17 +11,17 @@ import javax.swing.border.Border;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularBuy {
-    JFrame frame;
-    JButton buyButton = new JButton();
+    private JFrame frame;
+    private JButton buyButton = new JButton();
 
-    JButton cancelButton = new JButton();
-    JButton addButton = new JButton();
-    JButton exitButton = new JButton();
-    JLabel userBalanceLabel;
-    JComboBox<Integer> denominations;
-    JLabel systemMessage;
-    JLabel infoLabel = new JLabel();
-    JComboBox<String> regularItems;
+    private JButton cancelButton = new JButton();
+    private JButton addButton = new JButton();
+    private JButton exitButton = new JButton();
+    private JLabel userBalanceLabel;
+    private JComboBox<Integer> denominations;
+    private JLabel systemMessage;
+    private JLabel infoLabel = new JLabel();
+    private JComboBox<String> regularItems;
 
     public RegularBuy(){
         init();

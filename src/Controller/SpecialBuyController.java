@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.SpecialBuy;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class SpecialBuyController {
@@ -266,6 +267,7 @@ public class SpecialBuyController {
                             successMessage.append("Change Returned: Php").append(change).append("</html>");
 
                             specialBuyMenu.getSystemMessage().setText(successMessage.toString());
+
 
                             //for checking
                             vendingMachine.displayAllItems(vendingMachine.getSlotArrayList());

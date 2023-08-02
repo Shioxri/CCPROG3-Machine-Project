@@ -11,10 +11,10 @@ import javax.sound.sampled.*;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class RegularVMMenu {
-    JFrame frame;
-    JButton UseVMButton;
-    JButton maintenanceButton;
-    JButton backButton;
+    private JFrame frame;
+    private JButton UseVMButton;
+    private JButton maintenanceButton;
+    private JButton backButton;
 
     public RegularVMMenu() {
         init();

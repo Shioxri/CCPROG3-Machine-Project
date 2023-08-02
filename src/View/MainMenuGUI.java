@@ -12,10 +12,10 @@ import javax.sound.sampled.*;
 // then press Enter. You can now see whitespace characters in your code.
 public class MainMenuGUI {
 
-    JButton regularVMButton;
-    JButton specialVMButton;
-    JButton exitButton;
-    JFrame frame;
+    private JButton regularVMButton;
+    private JButton specialVMButton;
+    private JButton exitButton;
+    private JFrame frame;
 
     public MainMenuGUI() {
         init();

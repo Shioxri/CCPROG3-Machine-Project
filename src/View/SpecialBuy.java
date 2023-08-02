@@ -10,11 +10,11 @@ import javax.swing.border.Border;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class SpecialBuy {
-    JFrame frame = new JFrame();
-    JButton buyButton = new JButton();
-    JButton addButton = new JButton();
-    JButton exitButton = new JButton();
-    JComboBox<String> waterType = new JComboBox<>();
+    private JFrame frame = new JFrame();
+    private JButton buyButton = new JButton();
+    private JButton addButton = new JButton();
+    private JButton exitButton = new JButton();
+    private JComboBox<String> waterType = new JComboBox<>();
     JComboBox<String> milkType = new JComboBox<>();
     JComboBox<String> iceType = new JComboBox<>();
     JComboBox<String> toppingsType = new JComboBox<>();
