@@ -24,7 +24,7 @@ public class RegularMaintenance {
     JButton collectMoney = new JButton();
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
-    JButton slotInfoButton = new JButton();
+    JButton quitButton = new JButton();
     JComboBox<String> slotsDropdown;
     JTextField changePrice = new JTextField();
     JTextField setName = new JTextField();
@@ -125,18 +125,18 @@ public class RegularMaintenance {
         slotInfoLabel.setOpaque(true);
 
         // Buttons
-        //TODO: need method to connect this button to change price using the text given in changePrice text field
+
         changePriceButton.setBounds(265, 185, 70, 30);
         changePriceButton.setHorizontalAlignment(JButton.CENTER);
-        changePriceButton.setText("<html>Set<br/>Price</html>");
-        changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        changePriceButton.setText("<html>Set Price</html>");
+        changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 10));
         changePriceButton.setHorizontalTextPosition(JButton.CENTER);
 
 
         restockButton.setBounds(190, 25, 145, 40);
         restockButton.setHorizontalAlignment(JButton.CENTER);
         restockButton.setText("Restock");
-        restockButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        restockButton.setFont(new Font("Century Gothic", Font.BOLD, 14));
         restockButton.setHorizontalTextPosition(JButton.CENTER);
 
         //TODO: need method to connect this to denominations amount in the backend
@@ -153,10 +153,10 @@ public class RegularMaintenance {
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
         //TODO: need method to display to system message the information of the chosen stock
-        slotInfoButton.setBounds(550,10,190,35);
-        slotInfoButton.setHorizontalAlignment(JButton.CENTER);
-        slotInfoButton.setText("Exit");
-        slotInfoButton.addActionListener(e -> System.exit(0));
+        quitButton.setBounds(550,10,190,35);
+        quitButton.setHorizontalAlignment(JButton.CENTER);
+        quitButton.setText("Exit");
+        quitButton.addActionListener(e -> System.exit(0));
 
         //TODO: need method to display in system message instructions to use the maintenance
         instructionsButton.setBounds(550,45,190,35);
@@ -167,7 +167,7 @@ public class RegularMaintenance {
         //TODO: need method to add new item based on the 3 text fields like name price and calories(use the action listener)
         addItem.setBounds(75,190,225,30);
         addItem.setText("Add Item");
-        addItem.addActionListener(e -> slotsDropdown.addItem(setName.getText()));
+
 
         //TODO: need method that mirrors collecting money
         // if cash is connected, ignore this
@@ -303,7 +303,7 @@ public class RegularMaintenance {
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
-        lowerPanel.add(slotInfoButton);
+        lowerPanel.add(quitButton);
         lowerPanel.add(instructionsButton);
         lowerPanel.add(exitButton);
 
@@ -362,7 +362,7 @@ public class RegularMaintenance {
 
     public JButton getPrintSummary(){return printSummary;}
 
-    public JButton getSlotInfoButton(){return slotInfoButton;}
+    public JButton getQuitButton(){return quitButton;}
 
     public JLabel getMachineBalanceLabel(){ return machineBalanceLabel;}
 

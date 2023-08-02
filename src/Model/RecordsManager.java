@@ -93,7 +93,7 @@ public class RecordsManager {
             String itemTypeKey = slot.getAssignedItemType();
 
             if (itemsQuantities.containsKey(itemTypeKey)) {
-                int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
+                int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getAssignedItemPrice();
                 itemsPrices.put(itemTypeKey, itemPrice);
             }
         }
@@ -103,7 +103,7 @@ public class RecordsManager {
                 String itemTypeKey = slot.getAssignedItemType();
 
                 if (itemsQuantities.containsKey(itemTypeKey)) {
-                    int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getItemArrayList().get(0).getPrice();
+                    int itemPrice = itemsQuantities.get(itemTypeKey) * slot.getAssignedItemPrice();
                     itemsPrices.put(itemTypeKey, itemPrice);
                 }
             }
@@ -121,12 +121,10 @@ public class RecordsManager {
                 int totalPrice = itemsPrices.getOrDefault(itemType, 0);
                 totalSalesAmount += totalPrice;
 
-                reportBuilder.append(itemType)
-                        .append(" - # of Items Sold: ")
-                        .append(quantitySold)
-                        .append(" - Sales: ₱")
+                reportBuilder.append(itemType+":\n"+quantitySold+" Item/s Sold\n")
+                        .append("Sales: ₱")
                         .append(totalPrice)
-                        .append("\n");
+                        .append("\n\n");
             }
 
             reportBuilder.append("Total Sales: ₱").append(totalSalesAmount);
@@ -135,6 +133,43 @@ public class RecordsManager {
                 reportBuilder.append("\nTotal Collected Money: ₱").append(vendingMachine.getAdminCollectedMoney());
             } else {
                 reportBuilder.append("\nAdmin has not claimed any money from the machine yet.");
+            }
+            reportBuilder.append("\n\nStarting Inventory since previous restocking: ");
+
+            for(Slot slot : prevStartingInventory)
+            {
+                reportBuilder.append("\n");
+                reportBuilder.append(slot.getAssignedItemType()+": [Stock: "+slot.getItemStock()+"]");
+            }
+            if(vendingMachine instanceof SpecialVendingMachine)
+            {
+                for(Slot slot : specialPrevStartingInventory)
+                {
+                    reportBuilder.append("\n");
+                    reportBuilder.append(slot.getAssignedItemType()+": [Stock: "+slot.getItemStock()+"]");
+                }
+            }
+
+            if (vendingMachine.getEndingInventory().isEmpty() &&
+                    (vendingMachine instanceof SpecialVendingMachine && vendingMachine.getSpecialEndingInventory().isEmpty()))  {
+                reportBuilder.append("\n\nEnding Inventory is not available. No previous restocking recorded.");
+            } else {
+                reportBuilder.append("\n\nEnding Inventory since previous restocking: ");
+
+                for(Slot slot : endingInventory)
+                {
+                    reportBuilder.append("\n");
+                    reportBuilder.append(slot.getAssignedItemType()+": [Stock: "+slot.getItemStock()+"]");
+                }
+                if(vendingMachine instanceof SpecialVendingMachine)
+                {
+                    for(Slot slot : specialEndingInventory)
+                    {
+                        reportBuilder.append("\n");
+                        reportBuilder.append(slot.getAssignedItemType()+": [Stock: "+slot.getItemStock()+"]");
+                    }
+                }
+
             }
         }
 

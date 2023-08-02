@@ -307,7 +307,6 @@ public class SpecialBuyController {
         });
 
         specialBuyMenu.getCancelButton().addActionListener(e -> {
-            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.defaultBalanceText();
             vendingMachine.restoreOriginalContents(originalSlots, originalSpecialSlots);
@@ -322,7 +321,7 @@ public class SpecialBuyController {
         });
 
         specialBuyMenu.getExitButton().addActionListener(e -> {
-            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);

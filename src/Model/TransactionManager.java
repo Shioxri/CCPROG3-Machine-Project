@@ -61,7 +61,7 @@ public class TransactionManager {
     public void confirmTransaction(VendingMachine vendingMachine, int itemChoice)
     {
         int totalUserMoney = vendingMachine.getUserBalance();
-        int change = totalUserMoney - vendingMachine.getSelectedItem(itemChoice, false).getPrice();
+        int change = totalUserMoney - vendingMachine.getSelectedSlot(itemChoice, false).getAssignedItemPrice();
 
         System.out.println("[Transaction Successful]");
         System.out.println("SELECTED ITEM: " + vendingMachine.getSelectedSlot(itemChoice, false).getAssignedItemType());

@@ -22,7 +22,7 @@ public class Initializer {
 
         // Create slots and add items
         for (int i = 0; i < numSlots; i++) {
-            Slot slot = new Slot(itemTypes.get(i).getType(), numItems);
+            Slot slot = new Slot(itemTypes.get(i).getType(), numItems, itemTypes.get(i).getPrice(), itemTypes.get(i).getCalorie());
             ArrayList<Item> itemArrayList = slot.getItemArrayList();
 
             for (int j = 0; j < numItems; j++) {
@@ -49,7 +49,7 @@ public class Initializer {
             specialItemTypes.add(new Item("Honey", 15, 60));
             specialItemTypes.add(new Item("Cream", 20, 80));
             for (int i = 0; i < specialNumSlots; i++) {
-                Slot specialSlot = new Slot(specialItemTypes.get(i).getType(), numItems);
+                Slot specialSlot = new Slot(specialItemTypes.get(i).getType(), numItems, specialItemTypes.get(i).getPrice(), specialItemTypes.get(i).getCalorie());
                 ArrayList<Item> itemArrayList = specialSlot.getItemArrayList();
 
                 for (int j = 0; j < numItems; j++) {

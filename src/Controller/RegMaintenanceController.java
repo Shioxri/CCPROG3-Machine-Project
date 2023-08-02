@@ -38,7 +38,11 @@ public class RegMaintenanceController {
             int newCals =Integer.parseInt( regularMaintenance.getSetCalories().getText());
             updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
 
+            regularMaintenance.getSlotsDropdown().addItem(newType);
 
+            regularMaintenance.getSetName().setText("Enter Item Name");
+            regularMaintenance.getSetPrice().setText("Enter Item Price");
+            regularMaintenance.getSetCalories().setText("Enter Item Calories");
         });
 
 
@@ -152,6 +156,7 @@ public class RegMaintenanceController {
     public void updateInfoLabel(int selectedItemIndex, VendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
             int chosenItem = selectedItemIndex-1;
+            System.out.println(chosenItem);
             Item selectedItem = vendingMachine.getSelectedItem(chosenItem, false);
             Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, false);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {

@@ -31,9 +31,9 @@ public class StockManager {
 
         if (numFreeSlotSpaces > 0) { // if there are still empty spaces available in the slot
             //get the attributes of the item
-            String itemType = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getType();
-            int price = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getPrice();
-            int calories = vendingMachine.getSelectedItem(indexChoice, isSpecialSlot).getCalorie();
+            String itemType = vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).getAssignedItemType();
+            int price = vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).getAssignedItemPrice();
+            int calories = vendingMachine.getSelectedSlot(indexChoice, isSpecialSlot).getAssignedItemCals();
 
             if (numFreeSlotSpaces <= 5) { // There must be at most 5 items in the slot to be able to refill, else, it still doesn't need restocking
                 System.out.println("There are already enough items in this slot. Must be 5 or less to refill");
@@ -64,7 +64,7 @@ public class StockManager {
 
 
     public void stockNewItems(VendingMachine vendingMachine, String newItem, int newPrice, int newCals) {
-        vendingMachine.getSlotArrayList().add(new Slot(newItem, 10));
+        vendingMachine.getSlotArrayList().add(new Slot(newItem, 10, newPrice, newCals));
         int lastIndex = vendingMachine.getSlotArrayList().size() - 1;
         for (int i = 0; i < 10; i++) {
             vendingMachine.getSelectedSlot(lastIndex, false).getItemArrayList().add(new Item(newItem, newPrice, newCals));
@@ -77,6 +77,7 @@ public class StockManager {
         for (Item item : itemArrayList) {
             item.setPrice(newPrice);
         }
+        vendingMachine.getSelectedSlot(slotIndex, isSpecialSlot).setAssignedItemPrice(newPrice);
         System.out.println("Successfully updated the price of all items in slot " + (slotIndex + 1) + " to " + newPrice);
     }
 

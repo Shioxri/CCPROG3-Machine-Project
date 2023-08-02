@@ -7,15 +7,36 @@ public class Slot implements Cloneable {
     private ArrayList<Item> itemArrayList;
     private String assignedItemType;
     private int itemStock; // The itemStock or quantity of items in the slot
+    private int assignedItemPrice;
+
+    public int getAssignedItemCals() {
+        return assignedItemCals;
+    }
+
+    public void setAssignedItemCals(int assignedItemCals) {
+        this.assignedItemCals = assignedItemCals;
+    }
+
+    private int assignedItemCals;
+
+    public int getAssignedItemPrice() {
+        return assignedItemPrice;
+    }
+
+    public void setAssignedItemPrice(int assignedItemPrice) {
+        this.assignedItemPrice = assignedItemPrice;
+    }
 
     public void setItemArrayList(ArrayList<Item> itemArrayList) {
         this.itemArrayList = itemArrayList;
     }
 
-    public Slot(String itemType, int itemStock) {
+    public Slot(String itemType, int itemStock, int itemPrice, int itemCals) {
         this.assignedItemType = itemType;
         this.itemArrayList = new ArrayList<>();
         this.itemStock = itemStock;
+        this.assignedItemPrice = itemPrice;
+        this.assignedItemCals = itemCals;
     }
 
     @Override
@@ -32,6 +53,8 @@ public class Slot implements Cloneable {
         this.assignedItemType = "NULL";
         this.itemArrayList = new ArrayList<>();
         this.itemStock = 0;
+        this.assignedItemCals = 0;
+        this.assignedItemPrice = 0;
     }
 
     public ArrayList<Item> getItemArrayList() {

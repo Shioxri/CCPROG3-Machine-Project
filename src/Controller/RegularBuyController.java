@@ -30,7 +30,6 @@ public class RegularBuyController {
         });
 
         regularBuyMenu.getExitButton().addActionListener(e -> {
-            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
@@ -71,7 +70,6 @@ public class RegularBuyController {
         });
 
         regularBuyMenu.getCancelButton().addActionListener(e -> {
-            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.defaultBalanceText();
             regularBuyMenu.getRegularItems().setSelectedIndex(0);
