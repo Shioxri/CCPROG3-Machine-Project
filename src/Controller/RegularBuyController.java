@@ -50,7 +50,7 @@ public class RegularBuyController {
             if(errorType==0)
             {
                 Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex-1, false);
-                updateInfoLabel(selectedItemIndex-1, vendingMachine);
+                updateInfoLabel(selectedItemIndex, vendingMachine);
                 int change = vendingMachine.getUserBalance()-dispensedItem.getPrice();
                 vendingMachine.confirmTransaction(selectedItemIndex-1);
 
@@ -97,8 +97,9 @@ public class RegularBuyController {
 
     public void updateInfoLabel(int selectedItemIndex, VendingMachine vendingMachine) {
         if (selectedItemIndex != 0) {
-            Item selectedItem = vendingMachine.getSelectedItem(selectedItemIndex, false);
-            Slot selectedSlot = vendingMachine.getSelectedSlot(selectedItemIndex, false);
+            int chosenItem = selectedItemIndex-1;
+            Item selectedItem = vendingMachine.getSelectedItem(chosenItem, false);
+            Slot selectedSlot = vendingMachine.getSelectedSlot(chosenItem, false);
             if (selectedItem != null && !selectedSlot.getItemArrayList().isEmpty()) {
                 String infoText = "<html>Price: " +  selectedItem.getPrice() +
                         "<br/>Calories: " +  selectedItem.getCalorie() +
