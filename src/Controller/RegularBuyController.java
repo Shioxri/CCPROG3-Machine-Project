@@ -25,6 +25,7 @@ public class RegularBuyController {
     public RegularBuyController(RegularBuy regularBuyMenu, RegVMMenuController regVMMenuController, VendingMachine vendingMachine) {
         this.regularBuyMenu = regularBuyMenu;
 
+        setDropdownContents(vendingMachine);
         // ActionListener for the "Add" button
         regularBuyMenu.getAddButton().addActionListener(e -> {
             vendingMachine.addTempPaidMoney((Integer) regularBuyMenu.getDenominations().getSelectedItem(), 1);

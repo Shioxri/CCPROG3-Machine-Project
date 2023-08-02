@@ -159,10 +159,10 @@ public class SpecialBuyController {
 
                         // Create a StringBuilder to hold system label messages
                         StringBuilder systemLabelMessage = new StringBuilder();
-                        systemLabelMessage.append("<html>List of out of stock items:<br/>");
 
                         // Check if the first and second fruits are different and are available
                         if (firstFruitIndex != secondFruitIndex) {
+                            systemLabelMessage.append("<html>List of out of stock items:<br/>");
                             if (firstFruitIndex != 0) {
                                 if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
                                     Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
@@ -186,7 +186,7 @@ public class SpecialBuyController {
                             }
                         } else {
                             isInvalidOrder = true;
-                            systemLabelMessage.append("Please select different fruits to combine!<br/>");
+                            systemLabelMessage.append("Please select different fruits to combine!");
                         }
 
                         // Check if the water type is available

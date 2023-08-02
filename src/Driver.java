@@ -1,4 +1,9 @@
+/*
+    By: Gerard Vito J. Belardo - 12205982
+        Karl Andrei L. Ordinario - 12209732
+        S18A | Aug. 3, 2023
 
+ */
 import Controller.MainMenuController;
 import View.MainMenuGUI;
 

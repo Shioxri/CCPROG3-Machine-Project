@@ -1,7 +1,19 @@
 package Model;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a generic vending machine that allows users to purchase items by inserting money and making selections.
+ * It manages the inventory of items, handles purchase transactions, and returns change to the user.
+ *
+ * This class provides basic vending machine functionality and can be extended for specialized vending machines.
+ *
+ * Usage:
+ * 1. Create an instance of the VendingMachine class.
+ * 2. Set up the inventory by adding slots with items.
+ * 3. Users insert money using the insertMoney() method and make selections with the makeSelection() method.
+ * 4. The class handles transactions, updates the inventory, and returns change to the user.
+ * 5. The vending machine can be restocked with new items using the restockItems() method.
+ */
 public class VendingMachine {
 
     private ArrayList<Slot> slotArrayList;

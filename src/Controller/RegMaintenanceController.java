@@ -9,6 +9,9 @@ import View.RegularMaintenance;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The RegVMMenuController class handles the actions and navigation for the regular vending machine menu.
+ */
 public class RegMaintenanceController {
     private RegularMaintenance regularMaintenance;
 
