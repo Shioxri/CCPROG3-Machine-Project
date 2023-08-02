@@ -20,7 +20,8 @@ public class SpecialBuy {
     JLabel systemMessage = new JLabel();
     JLabel userBalanceLabel = new JLabel();
     JLabel orderLabel = new JLabel();
-    AtomicInteger cash = new AtomicInteger();
+    JLabel infoLabel = new JLabel();
+    JButton cancelButton = new JButton();
 
     JComboBox<String> firstFruitsDropDown;
     JComboBox<String> secondFruitsDropDown;
@@ -28,13 +29,12 @@ public class SpecialBuy {
     private int totalPrice=0;
     private int totalCals=0;
 
-    public void setCash(AtomicInteger cash) {
-        this.cash.set(cash.get());
-    }
 
     public SpecialBuy() {
         init();
     }
+
+
 
     private void init() {
         // Declarations
@@ -90,8 +90,9 @@ public class SpecialBuy {
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
+
+        defaultBalanceText();
         userBalanceLabel.setBounds(10, 50, 180, 50);
-        userBalanceLabel.setText("$" + cash);
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -102,14 +103,14 @@ public class SpecialBuy {
 
         //TODO: need method to put the price and calories of the shake/item here
         orderLabel.setBounds(10, 200, 180, 200);
-        orderLabel.setText("<html>Price: $999 " +
-                "<br/>Calories: 999 kCal" +
-                "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                "<br/> Water Type: " + waterType.getSelectedItem() +
-                "<br/> Milk Type " + milkType.getSelectedItem() +
-                "<br/> Ice Type:" + iceType.getSelectedItem() +
-                " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>");
+        orderLabel.setText("<html>Price: " +
+                "<br/>Calories: " +
+                "<br/>First Fruit: " +
+                "<br/> Second Fruit: " +
+                "<br/> Water Type: " +
+                "<br/> Milk Type " +
+                "<br/> Ice Type:" +
+                " <br/> Toppings: </html>");
         orderLabel.setForeground(Color.WHITE);
         orderLabel.setBackground(Color.BLACK);
         orderLabel.setBorder(borderLinegrayl);
@@ -130,6 +131,12 @@ public class SpecialBuy {
         addButton.setHorizontalAlignment(JButton.CENTER);
 
 
+        cancelButton.setToolTipText("Cancel Order");
+        cancelButton.setBounds(10, 670, 180, 50);
+        cancelButton.setText("Cancel Order");
+        cancelButton.setHorizontalAlignment(JButton.CENTER);
+
+
         //TODO: need method to switch GUI to SpecialVMMenu
         exitButton.setBounds(10, 700, 180, 25);
         exitButton.setHorizontalAlignment(JButton.CENTER);
@@ -145,15 +152,6 @@ public class SpecialBuy {
         firstFruitsDropDown.setToolTipText("First Fruit");
         firstFruitsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         firstFruitsDropDown.setBounds(25, 75, 240, 50);
-        firstFruitsDropDown.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -162,15 +160,7 @@ public class SpecialBuy {
         secondFruitsDropDown.setToolTipText("Second Fruit");
         secondFruitsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         secondFruitsDropDown.setBounds(285, 75, 240, 50);
-        secondFruitsDropDown.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
+
 
 
 
@@ -180,15 +170,7 @@ public class SpecialBuy {
         waterType.setToolTipText("Water type");
         waterType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         waterType.setBounds(25, 140, 500, 50);
-        waterType.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
+
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -197,15 +179,7 @@ public class SpecialBuy {
         milkType.setToolTipText("Milk type");
         milkType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         milkType.setBounds(25, 205, 500, 50);
-        milkType.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
+
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -215,15 +189,8 @@ public class SpecialBuy {
         iceType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         iceType.setBounds(25, 270, 500, 50);
 
-        iceType.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
+
+
 
 
         //TODO: need method to add calories and price to the info when clicked(use action listener)
@@ -232,24 +199,6 @@ public class SpecialBuy {
         toppingsType.setToolTipText("Toppings");
         toppingsType.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
         toppingsType.setBounds(25, 335, 500, 50);
-        toppingsType.addActionListener(e ->
-                orderLabel.setText("<html>Price: $999 " +
-                        "<br/>Calories: 999 kCal" +
-                        "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                        "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                        "<br/> Water Type: " + waterType.getSelectedItem() +
-                        "<br/> Milk Type " + milkType.getSelectedItem() +
-                        "<br/> Ice Type:" + iceType.getSelectedItem() +
-                        " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>"));
-
-        orderLabel.setText("<html>Price: $999 " +
-                "<br/>Calories: 999 kCal" +
-                "<br/>First Fruit: " + firstFruitsDropDown.getSelectedItem() +
-                "<br/> Second Fruit: " + secondFruitsDropDown.getSelectedItem() +
-                "<br/> Water Type: " + waterType.getSelectedItem() +
-                "<br/> Milk Type " + milkType.getSelectedItem() +
-                "<br/> Ice Type:" + iceType.getSelectedItem() +
-                " <br/> Toppings: " + toppingsType.getSelectedItem() + "</html>");
 
         // Panels
         titlePanel.setBackground(new Color(25, 25, 112, 123));
@@ -286,6 +235,7 @@ public class SpecialBuy {
         rightPanel.add(orderLabel);
         rightPanel.add(buyButton);
         rightPanel.add(addButton);
+        rightPanel.add(cancelButton);
         rightPanel.add(denominations);
         rightPanel.add(exitButton);
 
@@ -326,6 +276,9 @@ public class SpecialBuy {
     {
         systemMessage.setText("You Have Added: Php " + denominations.getSelectedItem());
     }
+
+
+
 
     public JFrame getFrame() {
         return frame;
@@ -412,6 +365,12 @@ public class SpecialBuy {
             toppingsType.addItem(string);
         }
     }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JLabel getInfoLabel(){return infoLabel;}
 
     public int getTotalPrice() {
         return totalPrice;

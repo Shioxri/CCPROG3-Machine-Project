@@ -96,9 +96,10 @@ public class RegularBuy {
         systemMessage.setBorder(borderLinegrayl);
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
+
+
         defaultBalanceText();
         userBalanceLabel.setBounds(10,50,180,50);
-
         userBalanceLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
         userBalanceLabel.setForeground(Color.white);
         userBalanceLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -222,6 +223,19 @@ public class RegularBuy {
         }
     }
 
+
+    public void setTextForInvalid(int errorType)
+    {
+        switch (errorType) {
+            case 1 -> systemMessage.setText("Please select an item at the dropdown menu");
+            case 2 -> systemMessage.setText("Chosen item is not available due to being out of stock.");
+            case 3 -> systemMessage.setText("Chosen item is not available due to insufficient balance.");
+            case 4 -> systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
+            default -> systemMessage.setText("Unknown Error");
+
+        }
+    }
+
     public JComboBox<Integer> getDenominations() {
         return denominations;
     }
@@ -246,18 +260,6 @@ public class RegularBuy {
     public JButton getCancelButton(){return cancelButton;}
 
     public JButton getBuyButton() {return buyButton;}
-
-    public void setTextForInvalid(int errorType)
-    {
-        switch (errorType) {
-            case 1 -> systemMessage.setText("Please select an item at the dropdown menu");
-            case 2 -> systemMessage.setText("Chosen item is not available due to being out of stock.");
-            case 3 -> systemMessage.setText("Chosen item is not available due to insufficient balance.");
-            case 4 -> systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
-            default -> systemMessage.setText("Unknown Error");
-
-        }
-    }
 
     public JLabel getSystemMessage() {
         return systemMessage;

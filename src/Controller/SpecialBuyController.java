@@ -39,22 +39,22 @@ public class SpecialBuyController {
 
         specialBuyMenu.getWaterType().addActionListener(e ->{
             int waterTypeSelectedIndex = specialBuyMenu.getWaterType().getSelectedIndex();
-            updateInfoLabel(waterTypeSelectedIndex, vendingMachine, false);
+            updateInfoLabel(waterTypeSelectedIndex, vendingMachine, true);
         });
 
         specialBuyMenu.getMilkType().addActionListener(e ->{
             int milkTypeSelectedIndex = specialBuyMenu.getMilkType().getSelectedIndex() + 2;
-            updateInfoLabel(milkTypeSelectedIndex, vendingMachine, false);
+            updateInfoLabel(milkTypeSelectedIndex, vendingMachine, true);
         });
 
         specialBuyMenu.getIceType().addActionListener(e ->{
             int iceTypeSelectedIndex = specialBuyMenu.getIceType().getSelectedIndex() + 7;
-            updateInfoLabel(iceTypeSelectedIndex, vendingMachine, false);
+            updateInfoLabel(iceTypeSelectedIndex, vendingMachine, true);
         });
 
         specialBuyMenu.getToppingsType().addActionListener(e ->{
             int toppingsSelectedIndex = specialBuyMenu.getToppingsType().getSelectedIndex() + 9;
-            updateInfoLabel(toppingsSelectedIndex, vendingMachine, false);
+            updateInfoLabel(toppingsSelectedIndex, vendingMachine, true);
         });
 
 
@@ -68,6 +68,15 @@ public class SpecialBuyController {
             System.out.println("Added: "+vendingMachine.getMoneyManager().getTempMoneyFromUser().
                     get(vendingMachine.getMoneyManager().getTempMoneyFromUser().size()-1));
             System.out.println("User Bal: "+vendingMachine.getUserBalance());
+        });
+
+        specialBuyMenu.getCancelButton().addActionListener(e -> {
+            vendingMachine.getMoneyManager().returnMoney(vendingMachine.getMoneyManager().getTempMoneyFromUser());
+            vendingMachine.getMoneyManager().clearUserPaidMoney();
+            specialBuyMenu.defaultBalanceText();
+            specialBuyMenu.getSystemMessage().setText("<html>Cleared user balance<br/>"+
+                    "Returned User Money<br/>"+
+                    "Successfully cancelled the transaction </html>");
         });
 
         specialBuyMenu.getExitButton().addActionListener(e -> {
@@ -184,11 +193,11 @@ public class SpecialBuyController {
                         "<br/>Calories: " +  selectedItem.getCalorie() +
                         " kCal<br/> Stock: " + selectedSlot.getItemStock() +
                         "</html>";
-                specialBuyMenu.getInfoLabel().setText(infoText);
+                //specialBuyMenu.getInfoLabel().setText(infoText);
             }
             else
             {
-                specialBuyMenu.getInfoLabel().setText("Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!");
+                //specialBuyMenu.getInfoLabel().setText("Item: ["+selectedSlot.getAssignedItemType()+"] IS OUT OF STOCK!");
             }
 
         } else {
