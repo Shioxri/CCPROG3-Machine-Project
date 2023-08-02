@@ -58,7 +58,6 @@ public class RegMaintenanceController {
             {
                 regularMaintenance.getSystemMessage().setText("<html>Please select and item first!<html>");
             }
-
         });
 
         regularMaintenance.getCollectMoney().addActionListener(e ->{

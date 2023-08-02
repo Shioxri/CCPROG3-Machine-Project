@@ -39,7 +39,6 @@ public class RegularMaintenance {
     private int numDenom50=0;
     private int numDenom100=0;
 
-    private int totalChange;
 
     public RegularMaintenance(){
         init();
@@ -97,10 +96,7 @@ public class RegularMaintenance {
         systemMessage.setVerticalAlignment(JLabel.CENTER);
         systemMessage.setBackground(new Color(0,0,0));
         systemMessage.setBorder(borderLinegrayl);
-        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
-                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
-                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
+        systemMessage.setText("<html><p align=\"center\">Hello Admin, welcome to the [Regular] Maintenance Menu! </p></html>");
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 

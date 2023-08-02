@@ -238,6 +238,11 @@ public class SpecialBuyController {
 
                             int totalUserMoney = vendingMachine.getUserBalance();
                             int change = totalUserMoney - specialBuyMenu.getTotalPrice();
+                            for(Item item : selectedItems)
+                            {
+                                Maintenance.addSoldItems(vendingMachine, item.getType());
+                            }
+
                             vendingMachine.getMoneyManager().depositMoney();
                             vendingMachine.getMoneyManager().returnChange(change);
                             specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
@@ -264,7 +269,7 @@ public class SpecialBuyController {
                             }
                             successMessage.append("[Transaction Complete]<br/>");
                             successMessage.append("Order Complete! Enjoy your customized fruit shake!<br/>");
-                            successMessage.append("Change Returned: Php").append(change).append("</html>");
+                            successMessage.append("Change Returned: Php ").append(change).append("</html>");
 
                             specialBuyMenu.getSystemMessage().setText(successMessage.toString());
 

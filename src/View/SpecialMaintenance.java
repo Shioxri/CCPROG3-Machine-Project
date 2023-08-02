@@ -19,21 +19,19 @@ public class SpecialMaintenance {
     JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
-    JButton changePriceButton = new JButton();
-    JButton changePriceButton2 = new JButton();
-    JButton reStock = new JButton();
-    JButton reStock2 = new JButton();
+    JButton changeRegularPriceButton = new JButton();
+    JButton changeSpecialPriceButton = new JButton();
+    JButton restockRegular = new JButton();
+    JButton restockSpecial = new JButton();
     JButton addItem = new JButton();
     JButton collectMoney = new JButton();
     JButton printSummary = new JButton();
     JButton instructionsButton = new JButton();
-    JButton switchButton = new JButton();
-    JComboBox<String> slots = new JComboBox<>();
-    JComboBox<String> slots2 = new JComboBox<>();
-    JComboBox<Integer> addStock = new JComboBox<>();
-    JComboBox<Integer> addStock2 = new JComboBox<>();
-    JTextField changePrice = new JTextField();
-    JTextField changePrice2 = new JTextField();
+    JButton quitButton = new JButton();
+    JComboBox<String> regularSlotsDropDown = new JComboBox<>();
+    JComboBox<String> specialSlotsDropDown = new JComboBox<>();
+    JTextField changePriceRegular = new JTextField();
+    JTextField changePriceSpecial = new JTextField();
     JTextField setName = new JTextField();
     JTextField setPrice = new JTextField();
     JTextField setCalories = new JTextField();
@@ -98,10 +96,7 @@ public class SpecialMaintenance {
         systemMessage.setVerticalAlignment(JLabel.CENTER);
         systemMessage.setBackground(new Color(0, 0, 0));
         systemMessage.setBorder(borderLinegrayl);
-        systemMessage.setText("<html><p align=\"center\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Nullam ullamcorper ullamcorper risus eget elementum. Morbi ac quam in ante viverra placerat. Cras non justo purus. " +
-                "In eleifend nibh lectus, a elementum purus gravida id. Praesent quis porta arcu. Integer finibus nisi id eros iaculis gravida. Cras tempor orci sit amet pharetra feugiat. " +
-                "Sed at sollicitudin nisl.</p></html>"); // 368 characters max
+        systemMessage.setText("<html><p align=\"center\">Hello Admin, welcome to the [Special] Maintenance Menu! </p></html>");
         systemMessage.setForeground(Color.WHITE);
         systemMessage.setOpaque(true);
 
@@ -118,36 +113,36 @@ public class SpecialMaintenance {
 
 
         // Buttons
-        //TODO: need method to connect this tobackend where it changes price based on changePrice text field
-        changePriceButton.setBounds(125, 90, 50, 30);
-        changePriceButton.setHorizontalAlignment(JButton.CENTER);
-        changePriceButton.setText("<html>Set<br/>Price</html>");
-        changePriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        changePriceButton.setHorizontalTextPosition(JButton.CENTER);
+        //TODO: need method to connect this tobackend where it changes price based on changePriceRegular text field
+        changeRegularPriceButton.setBounds(125, 90, 50, 30);
+        changeRegularPriceButton.setHorizontalAlignment(JButton.CENTER);
+        changeRegularPriceButton.setText("<html>Set<br/>Price</html>");
+        changeRegularPriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        changeRegularPriceButton.setHorizontalTextPosition(JButton.CENTER);
 
 
-        //TODO: need method to connect this tobackend where it changes price based on changePrice2 text field
-        changePriceButton2.setBounds(295, 90, 50, 30);
-        changePriceButton2.setHorizontalAlignment(JButton.CENTER);
-        changePriceButton2.setText("<html>Set<br/>Price</html>");
-        changePriceButton2.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        changePriceButton2.setHorizontalTextPosition(JButton.CENTER);
+        //TODO: need method to connect this tobackend where it changes price based on changePriceSpecial text field
+        changeSpecialPriceButton.setBounds(295, 90, 50, 30);
+        changeSpecialPriceButton.setHorizontalAlignment(JButton.CENTER);
+        changeSpecialPriceButton.setText("<html>Set<br/>Price</html>");
+        changeSpecialPriceButton.setFont(new Font("Century Gothic", Font.BOLD, 9));
+        changeSpecialPriceButton.setHorizontalTextPosition(JButton.CENTER);
 
 
         //TODO: need method to connect this to backend where it restocks the stock based on the addStock dropdown
-        reStock.setBounds(125, 130, 50, 30);
-        reStock.setHorizontalAlignment(JButton.CENTER);
-        reStock.setText("<html>Add<br/>Stock</html>");
-        reStock.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        reStock.setHorizontalTextPosition(JButton.CENTER);
+        restockRegular.setBounds(25, 130, 150, 30);
+        restockRegular.setHorizontalAlignment(JButton.CENTER);
+        restockRegular.setText("<html>Restock</html>");
+        restockRegular.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        restockRegular.setHorizontalTextPosition(JButton.CENTER);
 
 
         //TODO: need method to connect this to backend where it restocks the stock based on the addStock2 dropdown
-        reStock2.setBounds(295, 130, 50, 30);
-        reStock2.setHorizontalAlignment(JButton.CENTER);
-        reStock2.setText("<html>Add<br/>Stock</html>");
-        reStock2.setFont(new Font("Century Gothic", Font.BOLD, 9));
-        reStock2.setHorizontalTextPosition(JButton.CENTER);
+        restockSpecial.setBounds(195, 130, 150, 30);
+        restockSpecial.setHorizontalAlignment(JButton.CENTER);
+        restockSpecial.setText("<html>Restock</html>");
+        restockSpecial.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        restockSpecial.setHorizontalTextPosition(JButton.CENTER);
 
         //TODO: need method to update denominations in the backend(if cash is connected ignore this)
         addButton.setBounds(222, 260, 50, 25);
@@ -161,10 +156,9 @@ public class SpecialMaintenance {
         /* How to remove action listener: exitButton.removeActionListener(exitButton.getActionListeners()[0]); */
 
         //TODO: need method to show in system message the info of the 2 selected sl0ts
-        switchButton.setBounds(550, 10, 190, 35);
-        switchButton.setHorizontalAlignment(JButton.CENTER);
-        switchButton.setText("Exit");
-        switchButton.addActionListener(e -> System.exit(0));
+        quitButton.setBounds(550, 10, 190, 35);
+        quitButton.setHorizontalAlignment(JButton.CENTER);
+        quitButton.setText("Exit");
 
         //TODO: need method to show in system message the instructions
         instructionsButton.setBounds(550, 45, 190, 35);
@@ -182,10 +176,7 @@ public class SpecialMaintenance {
 
         //TODO: need method to print the summary in the notification with text wrapping
         printSummary.setBounds(92, 355, 180, 50);
-        printSummary.setText("Print Summary");
-        printSummary.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "summary");//remember to add wrapping
-        });
+        printSummary.setText("Print Sales Summary");
 
 
         // Dropdows
@@ -194,60 +185,51 @@ public class SpecialMaintenance {
 
 
         //TODO: need method to show slot items here
-        slots.setBounds(25, 25, 150, 40);
-        slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
+        regularSlotsDropDown.setBounds(25, 25, 150, 40);
+        regularSlotsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
 
         //TODO: need method to show slot items here
-        slots2.setBounds(195, 25, 150, 40);
-        slots.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-
-
-
-        addStock.setBounds(25, 130, 100, 30);
-        addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
-
-
-        addStock2.setBounds(195, 130, 100, 30);
-        addStock.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
+        specialSlotsDropDown.setBounds(195, 25, 150, 40);
+        regularSlotsDropDown.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 
 
 
         // Text Fields
-        changePrice.setBounds(25, 90, 100, 30);
-        changePrice.setText("Enter New Price");
-        changePrice.setHorizontalAlignment(JTextField.CENTER);
-        changePrice.addFocusListener(new FocusListener() {
+        changePriceRegular.setBounds(25, 90, 100, 30);
+        changePriceRegular.setText("Enter New Price");
+        changePriceRegular.setHorizontalAlignment(JTextField.CENTER);
+        changePriceRegular.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-                changePrice.setText("");
+                changePriceRegular.setText("");
             }
 
             public void focusLost(FocusEvent e) {
                 // nothing
             }
         });
-        changePrice.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
+        changePriceRegular.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                changePrice.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
+                changePriceRegular.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
         });
 
-        changePrice2.setBounds(195, 90, 100, 30);
-        changePrice2.setText("Enter New Price");
-        changePrice2.setHorizontalAlignment(JTextField.CENTER);
-        changePrice2.addFocusListener(new FocusListener() {
+        changePriceSpecial.setBounds(195, 90, 100, 30);
+        changePriceSpecial.setText("Enter New Price");
+        changePriceSpecial.setHorizontalAlignment(JTextField.CENTER);
+        changePriceSpecial.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-                changePrice2.setText("");
+                changePriceSpecial.setText("");
             }
 
             public void focusLost(FocusEvent e) {
                 // nothing
             }
         });
-        changePrice2.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
+        changePriceSpecial.addKeyListener(new KeyAdapter() { // allows only backspace and numbers
             public void keyPressed(KeyEvent ke) {
-                changePrice2.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
+                changePriceSpecial.setEditable(ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9'
                         || ke.getKeyChar() == '\b');
             }
         });
@@ -317,16 +299,16 @@ public class SpecialMaintenance {
         selectionPanel.setLayout(null);
         selectionPanel.setOpaque(true);
         selectionPanel.setBorder(borderLine);
-        selectionPanel.add(changePriceButton);
-        selectionPanel.add(changePriceButton2);
-        selectionPanel.add(reStock);
-        selectionPanel.add(reStock2);
-        selectionPanel.add(slots);
-        selectionPanel.add(slots2);
-        selectionPanel.add(changePrice);
-        selectionPanel.add(changePrice2);
-        selectionPanel.add(addStock);
-        selectionPanel.add(addStock2);
+        selectionPanel.add(changeRegularPriceButton);
+        selectionPanel.add(changeSpecialPriceButton);
+        selectionPanel.add(restockRegular);
+        selectionPanel.add(restockSpecial);
+        selectionPanel.add(regularSlotsDropDown);
+        selectionPanel.add(specialSlotsDropDown);
+        selectionPanel.add(changePriceRegular);
+        selectionPanel.add(changePriceSpecial);
+        selectionPanel.add(regularSlotLabel);
+        selectionPanel.add(specialSlotLabel);
 
         newItemPanel.setBackground(new Color(25, 25, 112, 123));
         newItemPanel.setBounds(0, 390, 375, 240);
@@ -344,7 +326,7 @@ public class SpecialMaintenance {
         lowerPanel.setOpaque(true);
         lowerPanel.setBorder(borderLine);
         lowerPanel.add(systemMessage);
-        lowerPanel.add(switchButton);
+        lowerPanel.add(quitButton);
         lowerPanel.add(instructionsButton);
         lowerPanel.add(exitButton);
 
@@ -402,20 +384,20 @@ public class SpecialMaintenance {
         return addButton;
     }
 
-    public JButton getChangePriceButton() {
-        return changePriceButton;
+    public JButton getChangeRegularPriceButton() {
+        return changeRegularPriceButton;
     }
 
-    public JButton getChangePriceButton2() {
-        return changePriceButton2;
+    public JButton getChangeSpecialPriceButton() {
+        return changeSpecialPriceButton;
     }
 
-    public JButton getReStock() {
-        return reStock;
+    public JButton getRestockRegular() {
+        return restockRegular;
     }
 
-    public JButton getReStock2() {
-        return reStock2;
+    public JButton getRestockSpecial() {
+        return restockSpecial;
     }
 
     public JButton getAddItem() {
@@ -430,8 +412,8 @@ public class SpecialMaintenance {
         return collectMoney;
     }
 
-    public JButton getswitchButton() {
-        return switchButton;
+    public JButton getQuitButton() {
+        return quitButton;
     }
 
     public JButton getPrintSummary() {
@@ -446,17 +428,19 @@ public class SpecialMaintenance {
         return systemMessage;
     }
 
-    public JComboBox<String> getSlots(){return slots;}
+    public JLabel getRegularSlotLabel(){return regularSlotLabel;}
 
-    public JComboBox<String> getSlots2(){return slots2;}
+    public JLabel getSpecialSlotLabel() {
+        return specialSlotLabel;
+    }
 
-    public JComboBox<Integer> getAddStock(){return addStock;}
+    public JComboBox<String> getRegularSlotsDropDown(){return regularSlotsDropDown;}
 
-    public JComboBox<Integer> getAddStock2(){return addStock2;}
-    
-    public JTextField getChangePrice(){return changePrice;}
+    public JComboBox<String> getSpecialSlotsDropDown(){return specialSlotsDropDown;}
 
-    public JTextField getChangePrice2(){return changePrice2;}
+    public JTextField getChangePriceRegular(){return changePriceRegular;}
+
+    public JTextField getChangePriceSpecial(){return changePriceSpecial;}
 
     public JTextField getSetName(){return setName;}
 
@@ -505,6 +489,21 @@ public class SpecialMaintenance {
         return denominations;
     }
 
+    public void setRegularSlotsDropDown(ArrayList<String> slotTypes) {
+        regularSlotsDropDown.setFocusable(false);
+        regularSlotsDropDown.addItem("Choose an item...");
+        for (String string : slotTypes) {
+            regularSlotsDropDown.addItem(string);
+        }
+    }
+
+    public void setSpecialSlotsDropDown(ArrayList<String> slotTypes) {
+        specialSlotsDropDown.setFocusable(false);
+        specialSlotsDropDown.addItem("Choose an item...");
+        for (String string : slotTypes) {
+            specialSlotsDropDown.addItem(string);
+        }
+    }
 
 
 }
