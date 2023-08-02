@@ -106,7 +106,7 @@ public class RegMaintenanceController {
             String finalReport = Maintenance.getSalesReport(vendingMachine);
             JOptionPane.showMessageDialog(
                     null,
-                    "<html><body><p style='width: 200px;'>"+finalReport+"</p></body></html>",
+                    finalReport,
                     "Sales Report",
                     JOptionPane.PLAIN_MESSAGE);
         });
