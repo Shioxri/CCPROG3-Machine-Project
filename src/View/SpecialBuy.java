@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.border.Border;
 
@@ -26,8 +27,8 @@ public class SpecialBuy {
     JComboBox<String> firstFruitsDropDown;
     JComboBox<String> secondFruitsDropDown;
     JComboBox<Integer> denominations;
-    private int totalPrice=0;
-    private int totalCals=0;
+    private int[] totalPrice = {0,0,0,0,0,0};
+    private int[] totalCals = {0,0,0,0,0,0};
 
 
     public SpecialBuy() {
@@ -104,25 +105,28 @@ public class SpecialBuy {
         orderLabel.setBounds(10, 200, 180, 200);
         orderLabel.setText("<html>Price: " +
                 "<br/>Calories: " +
+                "<br/>Selected Items:<br/>"+
                 "<br/>First Fruit: " +
-                "<br/> Second Fruit: " +
-                "<br/> Water Type: " +
-                "<br/> Milk Type " +
-                "<br/> Ice Type:" +
-                " <br/> Toppings: </html>");
+                "<br/>Second Fruit: " +
+                "<br/>Water Type: " +
+                "<br/>Milk Type " +
+                "<br/>Ice Type:" +
+                "<br/>Toppings: </html>");
         orderLabel.setForeground(Color.WHITE);
         orderLabel.setBackground(Color.BLACK);
         orderLabel.setBorder(borderLinegrayl);
         orderLabel.setOpaque(true);
         orderLabel.setFont(new Font("Century Gothic", Font.BOLD, 13));
 
-        infoLabel.setBounds(10, 405, 180, 200);
-        infoLabel.setText("<html>First Fruit: " +
-                "<br/> Second Fruit: " +
-                "<br/> Water Type: " +
-                "<br/> Milk Type " +
-                "<br/> Ice Type:" +
-                " <br/> Toppings: </html>");
+        infoLabel.setBounds(10, 355, 180, 200);
+        infoLabel.setText("<html>Item Details" +
+                "<br/>Price | Calories | Stock<br/>"+
+                "<br/>First Fruit: " +
+                "<br/>Second Fruit: " +
+                "<br/>Water Type: " +
+                "<br/>Milk Type " +
+                "<br/>Ice Type:" +
+                "<br/>Toppings: </html>");
         infoLabel.setForeground(Color.WHITE);
         infoLabel.setBackground(Color.BLACK);
         infoLabel.setBorder(borderLinegrayl);
@@ -386,28 +390,38 @@ public class SpecialBuy {
     public JLabel getInfoLabel(){return infoLabel;}
 
     public int getTotalPrice() {
-        return totalPrice;
+        int sum=0;
+        for (int j : totalPrice) {
+            sum += j;
+        }
+        return sum;
     }
 
-    public void addToTotalPrice(int value)
-    {
-        totalPrice += value;
+    public int getTotalCals() {
+        int sum=0;
+        for (int j : totalCals) {
+            sum += j;
+        }
+        return sum;
     }
 
-    public void addToTotalCals(int value)
+    public void addToTotalPrice(int value, int index)
     {
-        totalCals += value;
+        totalPrice[index] = value;
+    }
+
+    public void addToTotalCals(int value, int index)
+    {
+        totalCals[index] = value;
     }
 
     public void resetTotalPrice()
     {
-        totalPrice = 0;
+        Arrays.fill(totalPrice, 0);
     }
     public void resetTotalCals()
     {
-        totalCals = 0;
+        Arrays.fill(totalCals, 0);
     }
-    public int getTotalCals() {
-        return totalCals;
-    }
+
 }
