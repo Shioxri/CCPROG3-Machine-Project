@@ -9,10 +9,6 @@ public class SpecialBuyController {
     private SpecialBuy specialBuyMenu;
     ArrayList<Slot> originalSlots;
     ArrayList<Slot> originalSpecialSlots;
-    Item[] selectedItems;
-    ArrayList<Item> selectedFruits;
-    ArrayList<Item> selectedLiquids;
-
 
     SpecialBuyController(SpecialBuy specialBuyMenu, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine){
         this.specialBuyMenu = specialBuyMenu;
@@ -163,27 +159,35 @@ public class SpecialBuyController {
                         StringBuilder systemLabelMessage = new StringBuilder();
                         systemLabelMessage.append("<html>List of out of stock items:<br/>");
 
-                        if (firstFruitIndex != 0) {
-                            if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
-                                Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
-                                selectedItems.add(firstFruit);
-                                selectedFruits.add(firstFruit);
-                            } else {
-                                isInvalidOrder = true;
-                                systemLabelMessage.append("First Fruit is out of stock or not available<br/>");
+                        if(firstFruitIndex!=secondFruitIndex)
+                        {
+                            if (firstFruitIndex != 0) {
+                                if (!vendingMachine.getSelectedSlot(firstFruitIndex - 1, false).getItemArrayList().isEmpty()) {
+                                    Item firstFruit = vendingMachine.dispenseSelectedItem(firstFruitIndex - 1, false);
+                                    selectedItems.add(firstFruit);
+                                    selectedFruits.add(firstFruit);
+                                } else {
+                                    isInvalidOrder = true;
+                                    systemLabelMessage.append("First Fruit is out of stock or not available<br/>");
+                                }
                             }
+
+                            if (secondFruitIndex != 0) {
+                                if (!vendingMachine.getSelectedSlot(secondFruitIndex - 1, false).getItemArrayList().isEmpty()) {
+                                    Item secondFruit = vendingMachine.dispenseSelectedItem(secondFruitIndex - 1, false);
+                                    selectedItems.add(secondFruit);
+                                    selectedFruits.add(secondFruit);
+                                } else {
+                                    isInvalidOrder = true;
+                                    systemLabelMessage.append("Second Fruit is out of stock or not available<br/>");
+                                }
+                            }
+                        }
+                        else {
+                            isInvalidOrder = true;
+                            systemLabelMessage.append("Please select different fruits to combine!<br/>");
                         }
 
-                        if (secondFruitIndex != 0) {
-                            if (!vendingMachine.getSelectedSlot(secondFruitIndex - 1, false).getItemArrayList().isEmpty()) {
-                                Item secondFruit = vendingMachine.dispenseSelectedItem(secondFruitIndex - 1, false);
-                                selectedItems.add(secondFruit);
-                                selectedFruits.add(secondFruit);
-                            } else {
-                                isInvalidOrder = true;
-                                systemLabelMessage.append("Second Fruit is out of stock or not available<br/>");
-                            }
-                        }
 
                         if (waterTypeIndex != 0) {
                             if (!vendingMachine.getSelectedSlot(waterTypeIndex - 1, true).getItemArrayList().isEmpty()) {

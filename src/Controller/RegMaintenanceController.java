@@ -17,8 +17,7 @@ public class RegMaintenanceController {
 
 
         setDropdownContents(vendingMachine);
-        int totalMachineMoney = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getStoredMoney());
-        regularMaintenance.setMachineBalanceLabel(vendingMachine.getMoneyManager().getStoredMoney(), totalMachineMoney);
+        updateDenomLabel(vendingMachine);
 
         regularMaintenance.getExitButton().addActionListener(e -> {
             regularMaintenance.getFrame().setVisible(false);
@@ -34,37 +33,55 @@ public class RegMaintenanceController {
 
 
         regularMaintenance.getAddItem().addActionListener(e ->{
+            String newType = regularMaintenance.getSetName().getText();
+            int newCals =Integer.parseInt( regularMaintenance.getSetCalories().getText());
+            int newPrice =Integer.parseInt( regularMaintenance.getSetPrice().getText());
+            
+            Maintenance.stockNewItems(vendingMachine, newType, newPrice, newCals);
 
         });
 
-        regularMaintenance.getChangePrice().addActionListener(e ->{
-
-
-        });
 
         regularMaintenance.getChangePriceButton().addActionListener(e ->{
             int newPrice = Integer.parseInt(regularMaintenance.getChangePrice().getText());
             int selectedItemIndex = regularMaintenance.getSlotsDropdown().getSelectedIndex();
-            Maintenance.updateItemPrices(vendingMachine, false ,selectedItemIndex-1, newPrice);
-            updateInfoLabel(selectedItemIndex, vendingMachine);
+            if(selectedItemIndex!=0)
+            {
+                Maintenance.updateItemPrices(vendingMachine, false ,selectedItemIndex-1, newPrice);
+                updateInfoLabel(selectedItemIndex, vendingMachine);
+            }
+            else
+            {
+                regularMaintenance.getSystemMessage().setText("<html>Please select and item first!<html>");
+            }
+
         });
 
         regularMaintenance.getCollectMoney().addActionListener(e ->{
-            //regularMaintenance.getSystemMessage().setText("You have collected Php <Total cash>);
-            // AllDenominationsVM.set(0) or AllDenominationsVM = 0;
+            Maintenance.collectMoney(vendingMachine);
+            updateDenomLabel(vendingMachine);
+        });
+
+        regularMaintenance.getAddButton().addActionListener(e ->{
+            int denomination = ((Integer) regularMaintenance.getDenominations().getSelectedItem());
+            System.out.println("Denomination: "+denomination);
+            Maintenance.replenishMoney(vendingMachine, denomination, 1 );
+            updateDenomLabel(vendingMachine);
         });
 
         regularMaintenance.getSlotsDropdown().addActionListener(e -> {
             int selectedItemIndex = regularMaintenance.getSlotsDropdown().getSelectedIndex();
             updateInfoLabel(selectedItemIndex,vendingMachine);
         });
+
+
         regularMaintenance.getRestockButton().addActionListener(e ->{
             int selectedItemIndex = regularMaintenance.getSlotsDropdown().getSelectedIndex();
             if(selectedItemIndex!=0)
             {
                 if(vendingMachine.getSelectedSlot(selectedItemIndex-1, false).getItemStock() <= 5)
                 {
-                    updateVMInventory(vendingMachine, selectedItemIndex);
+                    updateVMInventoryAndRestock(vendingMachine, selectedItemIndex);
                     updateInfoLabel(selectedItemIndex,vendingMachine);
                 }
                 else
@@ -90,8 +107,13 @@ public class RegMaintenanceController {
         });
     }
 
+    private void updateDenomLabel(VendingMachine vendingMachine)
+    {
+        int totalMachineMoney = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getStoredMoney());
+        regularMaintenance.setMachineBalanceLabel(vendingMachine.getMoneyManager().getStoredMoney(), totalMachineMoney);
+    }
 
-    private void updateVMInventory(VendingMachine vendingMachine, int selectedItemIndex)
+    private void updateVMInventoryAndRestock(VendingMachine vendingMachine, int selectedItemIndex)
     {
         ArrayList<Slot> endingInventoryCopy = Maintenance.deepCopySlotArrayList(vendingMachine.getSlotArrayList());
         Maintenance.restockItem(vendingMachine, selectedItemIndex-1, false);

@@ -394,6 +394,9 @@ public class RegularMaintenance {
 
     public void setMachineBalanceLabel(ArrayList<Integer> machineStoredMoney, int totalMachineMoney)
     {
+
+        resetDenominations();
+
         for(int j : machineStoredMoney)
         {
             switch (j) {
@@ -415,5 +418,17 @@ public class RegularMaintenance {
                 "<br/>Php 100 Bill: " + numDenom100 +
                 "<br/>Total: " + totalMachineMoney + "<html>");
 
+    }
+    public void resetDenominations() {
+        numDenom1 = 0;
+        numDenom5 = 0;
+        numDenom10 = 0;
+        numDenom20 = 0;
+        numDenom50 = 0;
+        numDenom100 = 0;
+    }
+
+    public JComboBox<Integer> getDenominations() {
+        return denominations;
     }
 }
