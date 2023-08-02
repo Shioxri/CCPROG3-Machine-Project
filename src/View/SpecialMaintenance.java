@@ -41,7 +41,7 @@ public class SpecialMaintenance {
     JTextField setCalories = new JTextField();
 
     public SpecialMaintenance() {
-
+        init();
     }
 
     public void init() {

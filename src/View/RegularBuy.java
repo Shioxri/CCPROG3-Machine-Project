@@ -229,11 +229,26 @@ public class RegularBuy {
     public void setTextForInvalid(int errorType)
     {
         switch (errorType) {
-            case 1 -> systemMessage.setText("Please select an item at the dropdown menu");
-            case 2 -> systemMessage.setText("Chosen item is not available due to being out of stock.");
-            case 3 -> systemMessage.setText("Chosen item is not available due to insufficient balance.");
-            case 4 -> systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
-            default -> systemMessage.setText("Unknown Error");
+            case 1 -> {
+                systemMessage.setText("Please select an item at the dropdown menu");
+                JOptionPane.showMessageDialog(null,new JLabel("No Item Selected!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            case 2 -> {
+                systemMessage.setText("Chosen item is not available due to being out of stock.");
+                JOptionPane.showMessageDialog(null,"Item out of stock!","Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            case 3 -> {
+                systemMessage.setText("Chosen item is not available due to insufficient balance.");
+                JOptionPane.showMessageDialog(null,new JLabel("Insufficient Balance!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            case 4 -> {
+                systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
+                JOptionPane.showMessageDialog(null,new JLabel("No Change!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            default -> {
+                systemMessage.setText("Unknown Error");
+                JOptionPane.showMessageDialog(null,new JLabel("Unknown Error!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
+            }
 
         }
     }

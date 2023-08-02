@@ -33,6 +33,10 @@ public class RegularMaintenance {
     JTextField setPrice = new JTextField();
     JTextField setCalories = new JTextField();
 
+    public RegularMaintenance(){
+        init();
+    }
+
     public void init() {
         // Declarations
         JLabel titleLabel = new JLabel();

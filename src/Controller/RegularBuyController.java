@@ -6,6 +6,7 @@ import Model.Slot;
 import Model.VendingMachine;
 import View.RegularBuy;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -60,7 +61,9 @@ public class RegularBuyController {
                 regularBuyMenu.getSystemMessage().setText("<html>[Transaction Successful!]<br/>"+
                         "Dispensed "+dispensedItem.getType()+"<br/>"+
                         "Return Change: "+change+"</html>");
-
+                JOptionPane.showMessageDialog(null,
+                        new JLabel("Successfully Bought "+dispensedItem.getType()+"!", JLabel.CENTER),"Successful Transaction"
+                        , JOptionPane.PLAIN_MESSAGE);
             }
             else {
                regularBuyMenu.setTextForInvalid(errorType);
@@ -76,6 +79,7 @@ public class RegularBuyController {
                     "Returned User Money<br/>"+
                     "Cleared item selection<br/>"+
                     "Successfully cancelled the transaction </html>");
+            JOptionPane.showMessageDialog(null,new JLabel("Transaction Canceled!", JLabel.CENTER),"Canceled Transaction", JOptionPane.PLAIN_MESSAGE);
         });
     }
     private void setDropdownContents(VendingMachine vendingMachine)

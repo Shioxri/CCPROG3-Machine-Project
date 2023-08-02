@@ -33,14 +33,16 @@ public class RegMaintenanceController {
 
         regularMaintenance.getCollectMoney().addActionListener(e ->{
             //regularMaintenance.getSystemMessage().setText("You have collected Php <Total cash>);
+            // AllDenominationsVM.set(0) or AllDenominationsVM = 0;
         });
 
         regularMaintenance.getReStock().addActionListener(e ->{
-
+            //ItemStock += regularMaintenance.getAddStock().getSelectedItem();
         });
 
         regularMaintenance.getSlotInfoButton().addActionListener(e -> {
-
+            //String system info = regularMaintenance.getStocks().getSelectedItem;
+            // regularMaintenance.getSystemMessage.setText(system info);
         });
 
         regularMaintenance.getPrintSummary().addActionListener(e ->{
