@@ -43,7 +43,6 @@ public class SpecialBuy {
         JPanel selectionPanel = new JPanel();
         JPanel lowerPanel = new JPanel();
         JPanel rightPanel = new JPanel();
-        JComboBox<Integer> denominations = new JComboBox<>();
 
         firstFruitsDropDown = new JComboBox<>();
         secondFruitsDropDown = new JComboBox<>();
