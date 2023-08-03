@@ -88,7 +88,7 @@ public class RegularBuy {
         instructionsLabel.setText("<html>Instructions: <br/><br/><br/>" +
                 "1. Select an Item from the dropdown<br/><br/>" +
                 "2. Add money to your balance using the dropdown and add button above<br/><br/>" +
-                "3. You may press the cancel button if you have inserted too much</br>& want to clear your balance<br/><br/>" +
+                "3. You may press the cancel button if you have inserted<br/> the wrong amount of money & want to clear your balance<br/><br/>" +
                 "4. Press the Buy button to buy your Item<br/><br/>" +
                 "Note: You can continue to buy as long as there is balance left</html>");
         instructionsLabel.setBackground(Color.BLACK);

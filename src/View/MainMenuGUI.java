@@ -158,10 +158,10 @@ public class MainMenuGUI {
                 clip.start();
 
             } else {
-                System.out.println("Music file not found: " + musicFilePath);
+                JOptionPane.showMessageDialog(null, "Music file not found: " + musicFilePath, "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            System.out.println("Error while playing background music: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error while playing background music: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

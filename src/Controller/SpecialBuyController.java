@@ -259,8 +259,6 @@ public class SpecialBuyController {
 
                             // Update user balance and reset UI elements
                             specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
-                            specialBuyMenu.resetTotalPrice();
-                            specialBuyMenu.resetTotalCals();
                             resetDropdowns();
 
                             // Create success message
@@ -384,6 +382,8 @@ public class SpecialBuyController {
         specialBuyMenu.getMilkType().setSelectedIndex(0);
         specialBuyMenu.getIceType().setSelectedIndex(0);
         specialBuyMenu.getToppingsType().setSelectedIndex(0);
+        specialBuyMenu.resetTotalPrice();
+        specialBuyMenu.resetTotalCals();
     }
 
     /**

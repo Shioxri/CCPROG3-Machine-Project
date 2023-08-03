@@ -44,9 +44,9 @@ public class SpecMaintenanceController {
         specialMaintenance.getInstructionsButton().addActionListener(e -> {
             playButtonClickSound();
             specialMaintenance.getSystemMessage().setText("<html>Instructions<br/>" +
-                    "Top Left - Edit Item Slot" +
-                    "<br/> Bottom Left - Add New Item(Note: make sure every text field is filled" +
-                    "<br/> Right - Edit Vending Machine</html>");
+                    "<br/> Top Left - Item Restock and Price Change ( Note: Can only restock items with below 5 stock )" +
+                    "<br/> Bottom Left - Stock up on new Item type ( Note: Make sure every text field is filled )" +
+                    "<br/> Right - Add and collect money from vending machine & print machine summary</html>");
         });
 
         // ActionListener for the dropdown selection of regular slots
