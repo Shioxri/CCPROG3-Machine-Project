@@ -125,7 +125,6 @@ public class RegularBuyController {
                 regularBuyMenu.getSystemMessage().setText("Selected: " + selectedItem.getType());
             } else {
                 int price = vendingMachine.getSelectedSlot(chosenItem, false).getAssignedItemPrice();
-                System.out.println(price);
                 String infoText = "<html>Price: " + price + "<br/>Item: [" + selectedSlot.getAssignedItemType() + "] IS OUT OF STOCK!</html>";
                 regularBuyMenu.getInfoLabel().setText(infoText);
                 regularBuyMenu.getSystemMessage().setText("Selected: " + selectedSlot.getAssignedItemType());

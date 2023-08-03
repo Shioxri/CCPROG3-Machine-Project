@@ -62,31 +62,35 @@ public class RegMaintenanceController {
         // Add item button action listener
         regularMaintenance.getAddItem().addActionListener(e -> {
             playButtonClickSound();
-            if (regularMaintenance.getSetName().getText().isEmpty() ||
-                    regularMaintenance.getSetPrice().getText().isEmpty() ||
-                    regularMaintenance.getSetCalories().getText().isEmpty())
-            {
-                regularMaintenance.getSystemMessage().setText("Please correctly input all the necessary details for an item!");
-            }
-            else
-            {
-                String newType = regularMaintenance.getSetName().getText();
-                int newPrice = Integer.parseInt(regularMaintenance.getSetPrice().getText());
-                int newCals = Integer.parseInt(regularMaintenance.getSetCalories().getText());
-                updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
-                regularMaintenance.getSlotsDropdown().addItem(newType);
+            String name = regularMaintenance.getSetName().getText().trim();
+            String priceText = regularMaintenance.getSetPrice().getText().trim();
+            String caloriesText = regularMaintenance.getSetCalories().getText().trim();
 
-                regularMaintenance.getSetName().setText("Enter Item Name");
-                regularMaintenance.getSetPrice().setText("Enter Item Price");
-                regularMaintenance.getSetCalories().setText("Enter Item Calories");
+            if (name.isEmpty() || priceText.isEmpty() || caloriesText.isEmpty()) {
+                regularMaintenance.getSystemMessage().setText("Please correctly input all the necessary details for an item!");
+            } else {
+                try {
+                    int price = Integer.parseInt(priceText);
+                    int calories = Integer.parseInt(caloriesText);
+                    updateVMInventoryAndAddStock(vendingMachine, name, price, calories);
+                    regularMaintenance.getSlotsDropdown().addItem(name);
+                    regularMaintenance.getSystemMessage().setText("Successfully added "+name+"!");
+                    regularMaintenance.getSetName().setText("Enter Item Name");
+                    regularMaintenance.getSetPrice().setText("Enter Item Price");
+                    regularMaintenance.getSetCalories().setText("Enter Item Calories");
+                } catch (NumberFormatException n) {
+                    regularMaintenance.getSystemMessage().setText("Please enter valid integers for the price and calories!");
+                }
             }
+
 
         });
 
         // Change price button action listener
         regularMaintenance.getChangePriceButton().addActionListener(e -> {
             playButtonClickSound();
-            if(!regularMaintenance.getChangePrice().getText().isBlank())
+            if(!regularMaintenance.getChangePrice().getText().isBlank() &&
+                    !regularMaintenance.getChangePrice().getText().equals("Enter New Price"))
             {
                 int newPrice = Integer.parseInt(regularMaintenance.getChangePrice().getText());
                 int selectedItemIndex = regularMaintenance.getSlotsDropdown().getSelectedIndex();

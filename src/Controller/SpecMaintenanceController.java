@@ -66,7 +66,8 @@ public class SpecMaintenanceController {
         // ActionListener for the "Change Regular Price" button
         specialMaintenance.getChangeRegularPriceButton().addActionListener(e -> {
             playButtonClickSound();
-            if(!specialMaintenance.getChangePriceRegular().getText().isBlank())
+            if(!specialMaintenance.getChangePriceRegular().getText().isBlank() &&
+                    !specialMaintenance.getChangePriceRegular().getText().equals("Enter New Price"))
             {
                 int newPrice = Integer.parseInt(specialMaintenance.getChangePriceRegular().getText());
                 int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
@@ -87,7 +88,8 @@ public class SpecMaintenanceController {
         // ActionListener for the "Change Special Price" button
         specialMaintenance.getChangeSpecialPriceButton().addActionListener(e -> {
             playButtonClickSound();
-            if(!specialMaintenance.getChangePriceSpecial().getText().isBlank())
+            if(!specialMaintenance.getChangePriceSpecial().getText().isBlank() &&
+                    !specialMaintenance.getChangePriceSpecial().getText().equals("Enter New Price"))
             {
                 int newPrice = Integer.parseInt(specialMaintenance.getChangePriceSpecial().getText());
                 int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
@@ -142,23 +144,27 @@ public class SpecMaintenanceController {
         // ActionListener for the "Add Item" button
         specialMaintenance.getAddItem().addActionListener(e -> {
             playButtonClickSound();
-            if (specialMaintenance.getSetName().getText().isEmpty() ||
-                    specialMaintenance.getSetPrice().getText().isEmpty() ||
-                    specialMaintenance.getSetCalories().getText().isEmpty())
-            {
+            String name = specialMaintenance.getSetName().getText().trim();
+            String priceText = specialMaintenance.getSetPrice().getText().trim();
+            String caloriesText = specialMaintenance.getSetCalories().getText().trim();
+
+            if (name.isEmpty() || priceText.isEmpty() || caloriesText.isEmpty()) {
                 specialMaintenance.getSystemMessage().setText("Please correctly input all the necessary details for an item!");
+            } else {
+                try {
+                    int price = Integer.parseInt(priceText);
+                    int calories = Integer.parseInt(caloriesText);
+                    updateVMInventoryAndAddStock(vendingMachine, name, price, calories);
+                    specialMaintenance.getRegularSlotsDropDown().addItem(name);
+                    specialMaintenance.getSystemMessage().setText("Successfully added "+name+"!");
+                    specialMaintenance.getSetName().setText("Enter Item Name");
+                    specialMaintenance.getSetPrice().setText("Enter Item Price");
+                    specialMaintenance.getSetCalories().setText("Enter Item Calories");
+                } catch (NumberFormatException n) {
+                    specialMaintenance.getSystemMessage().setText("Please enter valid integers for the price and calories!");
+                }
             }
-            else
-            {
-                String newType = specialMaintenance.getSetName().getText();
-                int newPrice = Integer.parseInt(specialMaintenance.getSetPrice().getText());
-                int newCals = Integer.parseInt(specialMaintenance.getSetCalories().getText());
-                updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
-                specialMaintenance.getRegularSlotsDropDown().addItem(newType);
-                specialMaintenance.getSetName().setText("Enter Item Name");
-                specialMaintenance.getSetPrice().setText("Enter Item Price");
-                specialMaintenance.getSetCalories().setText("Enter Item Calories");
-            }
+
 
         });
 
