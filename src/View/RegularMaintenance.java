@@ -75,9 +75,9 @@ public class RegularMaintenance {
 
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("trueregvm.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
+        ImageIcon fruitIcon = new ImageIcon("assets/pixelatedfruit.png");
+        ImageIcon titleIcon = new ImageIcon("assets/trueregvm.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
@@ -161,14 +161,12 @@ public class RegularMaintenance {
 
         quitButton.setBounds(550,10,190,35);
         quitButton.setHorizontalAlignment(JButton.CENTER);
-        quitButton.setText("Exit");
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.setText("Exit Program");
 
 
         instructionsButton.setBounds(550,45,190,35);
         instructionsButton.setHorizontalAlignment(JButton.CENTER);
         instructionsButton.setText("Instructions");
-        instructionsButton.addActionListener(e -> System.exit(0));
 
 
         addItem.setBounds(75,190,225,30);
@@ -443,6 +441,10 @@ public class RegularMaintenance {
      * @return The slots dropdown (combobox).
      */
     public JComboBox<String> getSlotsDropdown(){return slotsDropdown;}
+
+    public JButton getQuitButton() {
+        return quitButton;
+    }
 
     /**
      * Populates the slots dropdown with slot types.

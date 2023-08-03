@@ -58,9 +58,9 @@ public class RegularBuy {
         denominations.setBounds(10,110,120,25);
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("trueregvm.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
+        ImageIcon fruitIcon = new ImageIcon("assets/pixelatedfruit.png");
+        ImageIcon titleIcon = new ImageIcon("assets/trueregvm.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 

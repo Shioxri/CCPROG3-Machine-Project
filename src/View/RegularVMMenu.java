@@ -42,10 +42,10 @@ public class RegularVMMenu {
 
 
         // Images
-        ImageIcon titleIcon = new ImageIcon("trueregvm.png");
-        ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("orange.png");
+        ImageIcon titleIcon = new ImageIcon("assets/trueregvm.png");
+        ImageIcon sampleIcon = new ImageIcon("assets/Maintenance.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
+        ImageIcon cola = new ImageIcon("assets/orange.png");
 
         // Components for Background
         JLabel backgroundLabel = new JLabel(sampleBG);

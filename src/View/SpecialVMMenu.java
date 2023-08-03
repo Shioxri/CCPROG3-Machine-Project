@@ -32,10 +32,10 @@ public class SpecialVMMenu {
         JPanel selectionPanel = new JPanel();
 
         // Images used in the GUI.
-        ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
-        ImageIcon sampleIcon = new ImageIcon("Maintenance.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
-        ImageIcon cola = new ImageIcon("orangeJuice.png");
+        ImageIcon titleIcon = new ImageIcon("assets/SPECIALVM1.png");
+        ImageIcon sampleIcon = new ImageIcon("assets/Maintenance.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
+        ImageIcon cola = new ImageIcon("assets/orangeJuice.png");
 
         // Components for Background
         JLabel backgroundLabel = new JLabel(sampleBG);

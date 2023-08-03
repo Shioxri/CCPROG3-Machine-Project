@@ -41,13 +41,13 @@ public class MainMenuGUI {
         JPanel selectionPanel = new JPanel();
 
 
-        String musicFilePath = "music.wav"; // Make sure the music.wav file is in the same directory as the source file
+        String musicFilePath = "assets/music.wav"; // Make sure the music.wav file is in the same directory as the source file
         playBackgroundMusic(musicFilePath);
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("logo.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
+        ImageIcon fruitIcon = new ImageIcon("assets/pixelatedfruit.png");
+        ImageIcon titleIcon = new ImageIcon("assets/logo.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
 
         // Components for Background
         JLabel backgroundLabel = new JLabel(sampleBG);

@@ -20,8 +20,6 @@ public class SpecialMaintenance {
     JLabel machineBalanceLabel = new JLabel();
     JLabel regularSlotLabel = new JLabel();
     JLabel specialSlotLabel = new JLabel();
-    JButton buyButton = new JButton();
-    JButton cancelButton = new JButton();
     JButton addButton = new JButton();
     JButton exitButton = new JButton();
     JButton changeRegularPriceButton = new JButton();
@@ -77,9 +75,9 @@ public class SpecialMaintenance {
 
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
+        ImageIcon fruitIcon = new ImageIcon("assets/pixelatedfruit.png");
+        ImageIcon titleIcon = new ImageIcon("assets/SPECIALVM1.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 
@@ -181,11 +179,11 @@ public class SpecialMaintenance {
 
         exitButton.setBounds(550, 80, 190, 35);
         exitButton.setHorizontalAlignment(JButton.CENTER);
-        exitButton.setText("Menu");
+        exitButton.setText("Go Back");
 
         quitButton.setBounds(550, 10, 190, 35);
         quitButton.setHorizontalAlignment(JButton.CENTER);
-        quitButton.setText("Exit");
+        quitButton.setText("Exit Program");
 
 
         instructionsButton.setBounds(550, 45, 190, 35);
@@ -364,8 +362,6 @@ public class SpecialMaintenance {
         rightPanel.setBorder(borderLine);
         rightPanel.add(machineBalanceLabel);
         rightPanel.add(infoLabel);
-        rightPanel.add(buyButton);
-        rightPanel.add(cancelButton);
         rightPanel.add(addButton);
         rightPanel.add(denominations);
         rightPanel.add(collectMoney);
@@ -466,6 +462,10 @@ public class SpecialMaintenance {
     public JTextField getSetPrice(){return setPrice;}
 
     public JTextField getSetCalories(){return setCalories;}
+
+    public JButton getQuitButton() {
+        return quitButton;
+    }
 
     // Method to update and display the machine's balance label.
     /**

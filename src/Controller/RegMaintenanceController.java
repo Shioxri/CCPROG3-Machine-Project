@@ -7,6 +7,7 @@ import Model.VendingMachine;
 import View.RegularMaintenance;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -29,11 +30,14 @@ public class RegMaintenanceController {
         setDropdownContents(vendingMachine);
         updateDenomLabel(vendingMachine);
 
-        // Exit button action listener
+        // Exit button action listener (Go back prev menu)
         regularMaintenance.getExitButton().addActionListener(e -> {
             regularMaintenance.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
         });
+
+        //Quit button action listener (Exit program)
+        regularMaintenance.getQuitButton().addActionListener(e -> System.exit(0));
 
         // Instructions button action listener
         regularMaintenance.getInstructionsButton().addActionListener(e -> {
@@ -107,11 +111,13 @@ public class RegMaintenanceController {
         // Print summary button action listener
         regularMaintenance.getPrintSummary().addActionListener(e -> {
             String finalReport = Maintenance.getSalesReport(vendingMachine);
-            JOptionPane.showMessageDialog(
-                    null,
-                    finalReport,
-                    "Sales Report",
-                    JOptionPane.PLAIN_MESSAGE);
+            JTextArea textArea = new JTextArea(finalReport);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension(500, 500));
+            JOptionPane.showMessageDialog(null, scrollPane, "Print Sales Summary",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
     }
 

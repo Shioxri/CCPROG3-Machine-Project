@@ -70,9 +70,9 @@ public class SpecialBuy {
 
 
         // Images
-        ImageIcon fruitIcon = new ImageIcon("pixelatedfruit.png");
-        ImageIcon titleIcon = new ImageIcon("SPECIALVM1.png");
-        ImageIcon sampleBG = new ImageIcon("VM.gif");
+        ImageIcon fruitIcon = new ImageIcon("assets/pixelatedfruit.png");
+        ImageIcon titleIcon = new ImageIcon("assets/SPECIALVM1.png");
+        ImageIcon sampleBG = new ImageIcon("assets/VM.gif");
         Border borderLine = BorderFactory.createLineBorder(Color.white, 2);
         Border borderLinegrayl = BorderFactory.createLineBorder(Color.lightGray, 2);
 

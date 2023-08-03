@@ -124,11 +124,14 @@ public class SpecMaintenanceController {
             updateDenomLabel(vendingMachine);
         });
 
-        // ActionListener for the "Exit" button
+        // ActionListener for the "Exit" button (Go back prev menu)
         specialMaintenance.getExitButton().addActionListener(e -> {
             specialMaintenance.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);
         });
+
+        //ActionListener for the "Quit" button (Exit program)
+        specialMaintenance.getQuitButton().addActionListener(e -> System.exit(0));
 
         // ActionListener for the "Print Summary" button
         specialMaintenance.getPrintSummary().addActionListener(e -> {
@@ -138,8 +141,8 @@ public class SpecMaintenanceController {
             textArea.setLineWrap(true);
             textArea.setWrapStyleWord(true);
             scrollPane.setPreferredSize(new Dimension(500, 500));
-            JOptionPane.showMessageDialog(null, scrollPane, "dialog test with textarea",
-                    JOptionPane.YES_NO_OPTION);
+            JOptionPane.showMessageDialog(null, scrollPane, "Print Sales Summary",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
         // Set the initial contents of dropdowns
