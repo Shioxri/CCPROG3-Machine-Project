@@ -93,14 +93,14 @@ public class RecordsManager {
 
                 reportBuilder.append(itemType).append(":\n")
                         .append(quantitySold).append(" Item/s Sold\n")
-                        .append("Sales: ₱").append(totalPrice).append("\n\n");
+                        .append("Sales: Php ").append(totalPrice).append("\n\n");
             }
 
-            reportBuilder.append("Total Sales: ₱").append(totalSalesAmount);
+            reportBuilder.append("Total Sales: Php ").append(totalSalesAmount);
 
             // Add admin collected money information to the report
             if (vendingMachine.getAdminCollectedMoney() > 0) {
-                reportBuilder.append("\nTotal Collected Money: ₱").append(vendingMachine.getAdminCollectedMoney());
+                reportBuilder.append("\nTotal Collected Money: Php ").append(vendingMachine.getAdminCollectedMoney());
             } else {
                 reportBuilder.append("\nAdmin has not claimed any money from the machine yet.");
             }
@@ -119,22 +119,35 @@ public class RecordsManager {
             }
 
             // Add ending inventory information to the report if available
-            if (vendingMachine.getEndingInventory().isEmpty() &&
-                    (vendingMachine instanceof SpecialVendingMachine && vendingMachine.getSpecialEndingInventory().isEmpty())) {
-                reportBuilder.append("\n\nEnding Inventory is not available. No previous restocking recorded.");
-            } else {
-                reportBuilder.append("\n\nEnding Inventory since previous restocking: ");
-                for (Slot slot : endingInventory) {
-                    reportBuilder.append("\n")
-                            .append(slot.getAssignedItemType()).append(": [Stock: ").append(slot.getItemStock()).append("]");
+            if(vendingMachine instanceof SpecialVendingMachine)
+            {
+                if (vendingMachine.getEndingInventory().isEmpty() && vendingMachine.getSpecialEndingInventory().isEmpty()) {
+                    reportBuilder.append("\n\nEnding Inventory is not available. No previous restocking recorded.");
+                } else {
+                        reportBuilder.append("\n\nEnding Inventory since previous restocking: ");
+                        for (Slot slot : endingInventory) {
+                            reportBuilder.append("\n")
+                                    .append(slot.getAssignedItemType()).append(": [Stock: ").append(slot.getItemStock()).append("]");
+                        }
+                        for (Slot slot : specialEndingInventory) {
+                            reportBuilder.append("\n")
+                                    .append(slot.getAssignedItemType()).append(": [Stock: ").append(slot.getItemStock()).append("]");
+                        }
                 }
-                if (vendingMachine instanceof SpecialVendingMachine) {
-                    for (Slot slot : specialEndingInventory) {
+            }
+            else
+            {
+                if (vendingMachine.getEndingInventory().isEmpty()) {
+                    reportBuilder.append("\n\nEnding Inventory is not available. No previous restocking recorded.");
+                } else {
+                    reportBuilder.append("\n\nEnding Inventory since previous restocking: ");
+                    for (Slot slot : endingInventory) {
                         reportBuilder.append("\n")
                                 .append(slot.getAssignedItemType()).append(": [Stock: ").append(slot.getItemStock()).append("]");
                     }
                 }
             }
+
         }
         return reportBuilder.toString();
     }

@@ -3,7 +3,11 @@ package Controller;
 import Model.*;
 import View.SpecialBuy;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -123,12 +127,15 @@ public class SpecialBuyController {
 
         // Add button action listener
         specialBuyMenu.getAddButton().addActionListener(e -> {
+            playButtonClickSound();
             // Add the selected denomination to the temporary paid money
             vendingMachine.addTempPaidMoney((Integer) specialBuyMenu.getDenominations().getSelectedItem(), 1);
             specialBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
             specialBuyMenu.showAddedMoneyText();
         });
 
+        //ActionListener for the denominations dropdown
+        specialBuyMenu.getDenominations().addActionListener(e -> playButtonClickSound());
 
 
         // Buy button action listener
@@ -237,6 +244,7 @@ public class SpecialBuyController {
 
                         // Check if the order is valid and all items are available
                         if (!isInvalidOrder) {
+                            playButtonBuySound();
                             // Update side labels
                             updateSideLabels(specialBuyMenu, vendingMachine);
 
@@ -282,25 +290,32 @@ public class SpecialBuyController {
                             JOptionPane.showMessageDialog(null, new JLabel(successMessage.toString()));
 
                         } else {
+                            playButtonClickSound();
                             // Show error message for an invalid order
+                            JOptionPane.showMessageDialog(null,new JLabel("A selected item is out of stock!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
                             specialBuyMenu.getSystemMessage().setText(systemLabelMessage.toString());
                         }
 
                     }
                     else
                     {
+                        playButtonClickSound();
                         //Error message if minimum items for an order isn't met
                         resetDropdowns();
+                        JOptionPane.showMessageDialog(null,new JLabel("Order requirements not met!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
                         specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!" +
                                 "<br/>Must have at least: 1 Fruit and 1 Liquid Type (Milk/Water)" +
-                                "<br/>too complete an order, please try again!<html>");
+                                "<br/>If buying 2 fruits, they must be unique from each other"+
+                                "<br/>to complete an order, please try again!<html>");
 
                     }
                 }
                 else
                 {
+                    playButtonClickSound();
                     //Error message if machine doesn't have enough change
                     resetDropdowns();
+                    JOptionPane.showMessageDialog(null,new JLabel("Insufficient change available.", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
                     specialBuyMenu.getSystemMessage().setText("<html>Machine does not have enough change<br/>" +
                             "Order cancelled and money returned<html>");
 
@@ -308,8 +323,10 @@ public class SpecialBuyController {
             }
             else
             {
+                playButtonClickSound();
                 //Error message if user balance is not enough for the order
                 resetDropdowns();
+                JOptionPane.showMessageDialog(null,new JLabel("Insufficient Balance!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
                 specialBuyMenu.getSystemMessage().setText("<html>Invalid Order!<br/>" +
                         "Not enough balance inserted!<html>");
             }
@@ -318,6 +335,7 @@ public class SpecialBuyController {
 
         // ActionListener for the Cancel button
         specialBuyMenu.getCancelButton().addActionListener(e -> {
+            playButtonClickSound();
             // Clear the user's paid money and reset the UI
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.defaultBalanceText();
@@ -334,6 +352,7 @@ public class SpecialBuyController {
 
         // ActionListener for the Exit button
         specialBuyMenu.getExitButton().addActionListener(e -> {
+            playButtonClickSound();
             // Clear the user's paid money, hide the Special Buy menu, and show the Special VM Menu
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             specialBuyMenu.getFrame().setVisible(false);
@@ -502,5 +521,36 @@ public class SpecialBuyController {
         specialBuyMenu.getSystemMessage().setText("");
     }
 
+
+    /**
+
+     Plays a button click sound when the button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     */
+    private void playButtonClickSound() {
+        try {
+            File soundFile = new File("assets/sfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Plays a sound when the buy button is clicked during a purchase action.
+     */
+    private void playButtonBuySound() {
+        try {
+            File soundFile = new File("assets/buysfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

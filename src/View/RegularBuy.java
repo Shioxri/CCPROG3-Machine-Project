@@ -273,7 +273,7 @@ public class RegularBuy {
             }
             case 4 -> {
                 systemMessage.setText("Insufficient change in the machine. Transaction canceled.");
-                JOptionPane.showMessageDialog(null,new JLabel("No Change!", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,new JLabel("Insufficient change available.", JLabel.CENTER),"Error!", JOptionPane.ERROR_MESSAGE);
             }
             default -> {
                 systemMessage.setText("Unknown Error");

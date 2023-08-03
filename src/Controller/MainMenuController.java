@@ -8,8 +8,12 @@ import View.MainMenuGUI;
 import View.RegularVMMenu;
 import View.SpecialVMMenu;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +33,7 @@ public class MainMenuController implements ActionListener {
 
         // ActionListener for the "Regular Vending Machine" button
         mainMenuGUI.getRegularVMButton().addActionListener(e -> {
+            playButtonClickSound();
             mainMenuGUI.getFrame().setVisible(false);
 
             // Instantiate a new VendingMachine and initialize its inventory
@@ -44,6 +49,7 @@ public class MainMenuController implements ActionListener {
 
         // ActionListener for the "Special Vending Machine" button
         mainMenuGUI.getSpecialVMButton().addActionListener(e -> {
+            playButtonClickSound();
             mainMenuGUI.getFrame().setVisible(false);
 
             // Instantiate a new SpecialVendingMachine and initialize its inventory
@@ -58,7 +64,10 @@ public class MainMenuController implements ActionListener {
         });
 
         // ActionListener for the "Exit" button
-        mainMenuGUI.getExitButton().addActionListener(e -> System.exit(0));
+        mainMenuGUI.getExitButton().addActionListener(e -> {
+            playButtonClickSound();
+            System.exit(0);
+        });
     }
 
     @Override
@@ -108,5 +117,24 @@ public class MainMenuController implements ActionListener {
      */
     public MainMenuGUI getMainMenuGUI() {
         return mainMenuGUI;
+    }
+
+    /**
+
+     Plays a button click sound when the button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     If an error occurs while playing the sound, the exception is printed to the standard error stream.
+
+     */
+    private void playButtonClickSound() {
+        try {
+            File soundFile = new File("assets/sfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

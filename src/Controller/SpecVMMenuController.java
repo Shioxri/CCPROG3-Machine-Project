@@ -3,8 +3,12 @@ package Controller;
 import Model.SpecialVendingMachine;
 import View.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * The SpecVMMenuController class handles the actions and navigation for the special vending machine menu.
@@ -24,6 +28,7 @@ public class SpecVMMenuController implements ActionListener {
 
         // ActionListener for the "Use Vending Machine" button
         specialVMMenu.getUseVMButton().addActionListener(e -> {
+            playButtonClickSound();
             specialVMMenu.getFrame().setVisible(false);
             SpecialBuy specialBuyMenu = new SpecialBuy();
             SpecialBuyController specialBuyController =
@@ -33,6 +38,7 @@ public class SpecVMMenuController implements ActionListener {
 
         // ActionListener for the "Maintenance" button
         specialVMMenu.getMaintenanceButton().addActionListener(e -> {
+            playButtonClickSound();
             specialVMMenu.getFrame().setVisible(false);
             SpecialMaintenance specialMaintenanceMenu = new SpecialMaintenance();
             SpecMaintenanceController specMaintenanceController =
@@ -42,6 +48,7 @@ public class SpecVMMenuController implements ActionListener {
 
         // ActionListener for the "Back" button
         specialVMMenu.getBackButton().addActionListener(e -> {
+            playButtonClickSound();
             specialVMMenu.getFrame().setVisible(false);
             mainMenuController.getMainMenuGUI().getFrame().setVisible(true);
         });
@@ -59,5 +66,24 @@ public class SpecVMMenuController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // No action required for the special vending machine menu
+    }
+
+    /**
+
+     Plays a button click sound when the button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     If an error occurs while playing the sound, the exception is printed to the standard error stream.
+
+     */
+    private void playButtonClickSound() {
+        try {
+            File soundFile = new File("assets/sfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

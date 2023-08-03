@@ -6,7 +6,11 @@ import Model.Slot;
 import Model.VendingMachine;
 import View.RegularBuy;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +32,7 @@ public class RegularBuyController {
         setDropdownContents(vendingMachine);
         // ActionListener for the "Add" button
         regularBuyMenu.getAddButton().addActionListener(e -> {
+            playButtonClickSound();
             vendingMachine.addTempPaidMoney((Integer) regularBuyMenu.getDenominations().getSelectedItem(), 1);
             regularBuyMenu.updateBalanceText(vendingMachine.getUserBalance());
             regularBuyMenu.showAddedMoneyText();
@@ -35,6 +40,7 @@ public class RegularBuyController {
 
         // ActionListener for the "Exit" button
         regularBuyMenu.getExitButton().addActionListener(e -> {
+            playButtonClickSound();
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.getFrame().setVisible(false);
             regVMMenuController.getRegularVMMenu().getFrame().setVisible(true);
@@ -42,15 +48,20 @@ public class RegularBuyController {
 
         // ActionListener for the item selection dropdown
         regularBuyMenu.getRegularItems().addActionListener(e -> {
+            playButtonClickSound();
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
             updateInfoLabel(selectedItemIndex, vendingMachine);
         });
+
+        //ActionListener for the denominations dropdown
+        regularBuyMenu.getDenominations().addActionListener(e -> playButtonClickSound());
 
         // ActionListener for the "Buy" button
         regularBuyMenu.getBuyButton().addActionListener(e -> {
             int selectedItemIndex = regularBuyMenu.getRegularItems().getSelectedIndex();
             int errorType = vendingMachine.checkInputValidity(selectedItemIndex, false);
             if (errorType == 0) {
+                playButtonBuySound();
                 Item dispensedItem = vendingMachine.dispenseSelectedItem(selectedItemIndex - 1, false);
                 updateInfoLabel(selectedItemIndex, vendingMachine);
                 int change = vendingMachine.getUserBalance() - dispensedItem.getPrice();
@@ -66,12 +77,14 @@ public class RegularBuyController {
                         new JLabel("Successfully Bought " + dispensedItem.getType() + "!", JLabel.CENTER), "Successful Transaction"
                         , JOptionPane.PLAIN_MESSAGE);
             } else {
+                playButtonClickSound();
                 regularBuyMenu.setTextForInvalid(errorType);
             }
         });
 
         // ActionListener for the "Cancel" button
         regularBuyMenu.getCancelButton().addActionListener(e -> {
+            playButtonClickSound();
             vendingMachine.getMoneyManager().clearUserPaidMoney();
             regularBuyMenu.defaultBalanceText();
             regularBuyMenu.getRegularItems().setSelectedIndex(0);
@@ -112,8 +125,8 @@ public class RegularBuyController {
                 regularBuyMenu.getSystemMessage().setText("Selected: " + selectedItem.getType());
             } else {
                 int price = vendingMachine.getSelectedSlot(chosenItem, false).getAssignedItemPrice();
-                String infoText = "<html>Price: " + price +
-                        "<br/>Item: [" + selectedSlot.getAssignedItemType() + "] IS OUT OF STOCK!</html>";
+                System.out.println(price);
+                String infoText = "<html>Price: " + price + "<br/>Item: [" + selectedSlot.getAssignedItemType() + "] IS OUT OF STOCK!</html>";
                 regularBuyMenu.getInfoLabel().setText(infoText);
                 regularBuyMenu.getSystemMessage().setText("Selected: " + selectedSlot.getAssignedItemType());
             }
@@ -121,6 +134,40 @@ public class RegularBuyController {
         } else {
             regularBuyMenu.getInfoLabel().setText("");
             regularBuyMenu.getSystemMessage().setText("");
+        }
+    }
+
+    /**
+
+     Plays a button click sound when the button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     If an error occurs while playing the sound, the exception is printed to the standard error stream.
+
+     */
+    private void playButtonClickSound() {
+        try {
+            File soundFile = new File("assets/sfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Plays a sound when the buy button is clicked during a purchase action.
+     */
+    private void playButtonBuySound() {
+        try {
+            File soundFile = new File("assets/buysfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -3,8 +3,12 @@ package Controller;
 import Model.*;
 import View.SpecialMaintenance;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -23,8 +27,14 @@ public class SpecMaintenanceController {
     SpecMaintenanceController(SpecialMaintenance specialMaintenance, SpecVMMenuController specVMMenuController, SpecialVendingMachine vendingMachine) {
         this.specialMaintenance = specialMaintenance;
 
+        // Set the initial contents of dropdowns
+        setRegularDropdownContents(vendingMachine);
+        setSpecialDropdownContents(vendingMachine);
+        updateDenomLabel(vendingMachine);
+
         // ActionListener for the "Add" button to replenish money
         specialMaintenance.getAddButton().addActionListener(e -> {
+            playButtonClickSound();
             int denomination = ((Integer) specialMaintenance.getDenominations().getSelectedItem());
             Maintenance.replenishMoney(vendingMachine, denomination, 1);
             updateDenomLabel(vendingMachine);
@@ -32,6 +42,7 @@ public class SpecMaintenanceController {
 
         // ActionListener for the "Instructions" button
         specialMaintenance.getInstructionsButton().addActionListener(e -> {
+            playButtonClickSound();
             specialMaintenance.getSystemMessage().setText("<html>Instructions<br/>" +
                     "Top Left - Edit Item Slot" +
                     "<br/> Bottom Left - Add New Item(Note: make sure every text field is filled" +
@@ -40,42 +51,63 @@ public class SpecMaintenanceController {
 
         // ActionListener for the dropdown selection of regular slots
         specialMaintenance.getRegularSlotsDropDown().addActionListener(e -> {
+            playButtonClickSound();
             int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
             updateRegularInfoLabel(selectedItemIndex, vendingMachine);
         });
 
         // ActionListener for the dropdown selection of special slots
         specialMaintenance.getSpecialSlotsDropDown().addActionListener(e -> {
+            playButtonClickSound();
             int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
             updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
         });
 
         // ActionListener for the "Change Regular Price" button
         specialMaintenance.getChangeRegularPriceButton().addActionListener(e -> {
-            int newPrice = Integer.parseInt(specialMaintenance.getChangePriceRegular().getText());
-            int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
-            if (selectedItemIndex != 0) {
-                Maintenance.updateItemPrices(vendingMachine, false, selectedItemIndex - 1, newPrice);
-                updateRegularInfoLabel(selectedItemIndex, vendingMachine);
-            } else {
-                specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
+            playButtonClickSound();
+            if(!specialMaintenance.getChangePriceRegular().getText().isBlank())
+            {
+                int newPrice = Integer.parseInt(specialMaintenance.getChangePriceRegular().getText());
+                int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
+                if (selectedItemIndex != 0) {
+                    Maintenance.updateItemPrices(vendingMachine, false, selectedItemIndex - 1, newPrice);
+                    updateRegularInfoLabel(selectedItemIndex, vendingMachine);
+                } else {
+                    specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
+                }
             }
+            else
+            {
+                specialMaintenance.getSystemMessage().setText("<html>Please enter a value!</html>");
+            }
+
         });
 
         // ActionListener for the "Change Special Price" button
         specialMaintenance.getChangeSpecialPriceButton().addActionListener(e -> {
-            int newPrice = Integer.parseInt(specialMaintenance.getChangePriceSpecial().getText());
-            int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
-            if (selectedItemIndex != 0) {
-                Maintenance.updateItemPrices(vendingMachine, true, selectedItemIndex - 1, newPrice);
-                updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
-            } else {
-                specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
+            playButtonClickSound();
+            if(!specialMaintenance.getChangePriceSpecial().getText().isBlank())
+            {
+                int newPrice = Integer.parseInt(specialMaintenance.getChangePriceSpecial().getText());
+                int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
+                if (selectedItemIndex != 0) {
+                    Maintenance.updateItemPrices(vendingMachine, true, selectedItemIndex - 1, newPrice);
+                    updateSpecialInfoLabel(selectedItemIndex, vendingMachine);
+                } else {
+                    specialMaintenance.getSystemMessage().setText("<html>Please select an item first!</html>");
+                }
             }
+            else
+            {
+                specialMaintenance.getSystemMessage().setText("<html>Please enter a value!</html>");
+            }
+
         });
 
         // ActionListener for the "Restock Regular" button
         specialMaintenance.getRestockRegular().addActionListener(e -> {
+            playButtonClickSound();
             int selectedItemIndex = specialMaintenance.getRegularSlotsDropDown().getSelectedIndex();
             if (selectedItemIndex != 0) {
                 if (vendingMachine.getSelectedSlot(selectedItemIndex - 1, false).getItemStock() <= 5) {
@@ -92,6 +124,7 @@ public class SpecMaintenanceController {
 
         // ActionListener for the "Restock Special" button
         specialMaintenance.getRestockSpecial().addActionListener(e -> {
+            playButtonClickSound();
             int selectedItemIndex = specialMaintenance.getSpecialSlotsDropDown().getSelectedIndex();
             if (selectedItemIndex != 0) {
                 if (vendingMachine.getSelectedSlot(selectedItemIndex - 1, true).getItemStock() <= 5) {
@@ -108,47 +141,78 @@ public class SpecMaintenanceController {
 
         // ActionListener for the "Add Item" button
         specialMaintenance.getAddItem().addActionListener(e -> {
-            String newType = specialMaintenance.getSetName().getText();
-            int newPrice = Integer.parseInt(specialMaintenance.getSetPrice().getText());
-            int newCals = Integer.parseInt(specialMaintenance.getSetCalories().getText());
-            updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
-            specialMaintenance.getRegularSlotsDropDown().addItem(newType);
-            specialMaintenance.getSetName().setText("Enter Item Name");
-            specialMaintenance.getSetPrice().setText("Enter Item Price");
-            specialMaintenance.getSetCalories().setText("Enter Item Calories");
+            playButtonClickSound();
+            if (specialMaintenance.getSetName().getText().isEmpty() ||
+                    specialMaintenance.getSetPrice().getText().isEmpty() ||
+                    specialMaintenance.getSetCalories().getText().isEmpty())
+            {
+                specialMaintenance.getSystemMessage().setText("Please correctly input all the necessary details for an item!");
+            }
+            else
+            {
+                String newType = specialMaintenance.getSetName().getText();
+                int newPrice = Integer.parseInt(specialMaintenance.getSetPrice().getText());
+                int newCals = Integer.parseInt(specialMaintenance.getSetCalories().getText());
+                updateVMInventoryAndAddStock(vendingMachine, newType, newPrice, newCals);
+                specialMaintenance.getRegularSlotsDropDown().addItem(newType);
+                specialMaintenance.getSetName().setText("Enter Item Name");
+                specialMaintenance.getSetPrice().setText("Enter Item Price");
+                specialMaintenance.getSetCalories().setText("Enter Item Calories");
+            }
+
         });
+
+        //ActionListener for the denominations dropdown
+        specialMaintenance.getDenominations().addActionListener(e -> playButtonClickSound());
 
         // ActionListener for the "Collect Money" button
         specialMaintenance.getCollectMoney().addActionListener(e -> {
-            Maintenance.collectMoney(vendingMachine);
-            updateDenomLabel(vendingMachine);
+
+            int total = vendingMachine.getMoneyManager().getTotalMoneyFromList(vendingMachine.getMoneyManager().getStoredMoney());
+            if(total>0)
+            {
+                playButtonCollectSound();
+                Maintenance.collectMoney(vendingMachine);
+                JOptionPane.showMessageDialog(null, "Collected: Php [ "+total+" ] !", "Collect Money",
+                        JOptionPane.INFORMATION_MESSAGE);
+                updateDenomLabel(vendingMachine);
+            }
+            else
+            {
+                playButtonClickSound();
+                JOptionPane.showMessageDialog(null, "No money to be collected!", "Collect Money",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         });
 
         // ActionListener for the "Exit" button (Go back prev menu)
         specialMaintenance.getExitButton().addActionListener(e -> {
+            playButtonClickSound();
             specialMaintenance.getFrame().setVisible(false);
             specVMMenuController.getSpecialVMMenu().getFrame().setVisible(true);
         });
 
         //ActionListener for the "Quit" button (Exit program)
-        specialMaintenance.getQuitButton().addActionListener(e -> System.exit(0));
+        specialMaintenance.getQuitButton().addActionListener(e -> {
+            playButtonClickSound();
+            System.exit(0);
+        });
 
         // ActionListener for the "Print Summary" button
         specialMaintenance.getPrintSummary().addActionListener(e -> {
+            playButtonClickSound();
             String finalReport = Maintenance.getSalesReport(vendingMachine);
             JTextArea textArea = new JTextArea(finalReport);
             JScrollPane scrollPane = new JScrollPane(textArea);
             textArea.setLineWrap(true);
+            textArea.setFont(new Font("Century Gothic", Font.BOLD, 15));
             textArea.setWrapStyleWord(true);
             scrollPane.setPreferredSize(new Dimension(500, 500));
             JOptionPane.showMessageDialog(null, scrollPane, "Print Sales Summary",
                     JOptionPane.INFORMATION_MESSAGE);
         });
 
-        // Set the initial contents of dropdowns
-        setRegularDropdownContents(vendingMachine);
-        setSpecialDropdownContents(vendingMachine);
-        updateDenomLabel(vendingMachine);
+
     }
 
     // Private helper method to update the denomination label with the current machine balance
@@ -269,6 +333,44 @@ public class SpecMaintenanceController {
         } else {
             specialMaintenance.getSpecialSlotLabel().setText("");
             specialMaintenance.getSystemMessage().setText("");
+        }
+    }
+
+    /**
+
+     Plays a button click sound when the button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     If an error occurs while playing the sound, the exception is printed to the standard error stream.
+
+     */
+    private void playButtonClickSound() {
+        try {
+            File soundFile = new File("assets/sfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+
+     Plays a "ka-ching!" sound when the collect money button is clicked.
+     The sound is played from the "assets/sfx.wav" file.
+     If an error occurs while playing the sound, the exception is printed to the standard error stream.
+
+     */
+    private void playButtonCollectSound() {
+        try {
+            File soundFile = new File("assets/moneysfx.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
