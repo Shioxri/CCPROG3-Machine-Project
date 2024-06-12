@@ -4,6 +4,7 @@ package Driver;/*
         S18A | Aug. 3, 2023
 
         To run and compile:
+        cd src
         javac Model\Initializer.java View\MainMenuGUI.java Controller\MainMenuController.java Driver\Driver.java
         java Driver\Driver.java
 
